@@ -1,0 +1,16 @@
+.title__download {
+    font-size: 3em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.title__download small {
+    display: block;
+    font-weight: normal;
+    font-size: .5em;
+    text-transform: initial;
+}
+
+.title__download span {
+    color: var(--primary);
+}

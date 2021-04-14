@@ -1,0 +1,33 @@
+.card {
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    border: none;
+}
+
+.card.card-a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform .2s ease-out;
+}
+
+.card.card-a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
+}
+
+.card.card-a:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card.card-a> :not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.card.card-a .card__title {
+    font-size: 1.17em;
+    margin: 0;
+}
