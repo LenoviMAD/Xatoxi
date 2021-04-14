@@ -44,6 +44,7 @@ export default function init() {
 
                 const dataIsParty = await fetch("ajax.php", { method: 'POST', body: formDataIsParty });
                 const resIsParty = await dataIsParty.json();
+
                 console.log(resIsParty);
 
                 if (resIsParty.code === "0000") {
@@ -106,6 +107,7 @@ export default function init() {
 
             profileForm.addEventListener('submit', async e => {
                 e.preventDefault()
+
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
@@ -122,7 +124,7 @@ export default function init() {
 
                 // Quitando spinner
                 modal.closeModal('loader')
-
+                
                 if (res.code === "0000") {
                     modal.openModal('modalSuccess', 'Perfil', res.message)
                 } else if (res.code === "5000") {

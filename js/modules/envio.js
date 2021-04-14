@@ -94,6 +94,7 @@ export default function init() {
 
             btnSubmitBilletera.addEventListener('click', async e => {
                 e.preventDefault()
+
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
@@ -262,15 +263,15 @@ export default function init() {
         }
 
         if (encomiendaForm) {
-            const fileInputCommend = document.getElementById('fileInputCommend')
-            const docsCommend = document.getElementById('docsCommend')
-            const file = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="file"]`)
-            const btnAddCommend = document.getElementById('btnAddCommend')
+            const file = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="file1"]`)
             const beneficiarioCommend = document.getElementById('beneficiarioCommend')
             const btnSubmitCommend = document.querySelector('[data-targetping="encomienda"]')
             const usersCommend = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="usersCommend"]`)
             const amountCommend = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="amountCommend"]`)
             const countryCommend = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="countryCommend"]`)
+            const currencyCommend = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="currencyCommend"]`)
+            const sendFormCommend = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="sendFormCommend"]`)
+
             const paidFormCommend = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="paidFormCommend"]`)
             const providerCommend = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="providerCommend"]`)
             const amountBsCommend = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="amountBsCommend"]`)
@@ -279,20 +280,40 @@ export default function init() {
 
             amountCommend.addEventListener('blur', () => {
                 step1Encomienda()
+                step0()
             })
             countryCommend.addEventListener('change', () => {
                 step1Encomienda()
+                step0()
             })
+
             providerCommend.addEventListener('change', () => {
+                step1Encomienda()
+                step0()
+            })
+
+            sendFormCommend.addEventListener('change', () => {
+                step1Encomienda()
+                step0()
+            })
+            currencyCommend.addEventListener('change', () => {
+                step1Encomienda()
+            })
+            paidFormCommend.addEventListener('change', () => {
                 step1Encomienda()
             })
 
-            // -tasa de cambio y monto se llenan cuando (proveedor, pais, monto) sean completados
-            async function step1Encomienda() {
-                if (amountCommend.value && (countryCommend.options[countryCommend.selectedIndex].value !== "Seleccione") && (providerCommend.options[providerCommend.selectedIndex].value !== "Seleccione")) {
+            async function step0() {
+                if (
+                    amountCommend.value &&
+                    (countryCommend.options[countryCommend.selectedIndex].value !== "Seleccione") &&
+                    (providerCommend.options[providerCommend.selectedIndex].value !== "Seleccione") &&
+                    (sendFormCommend.options[sendFormCommend.selectedIndex].value !== "Seleccione")
+                ) {
                     // Todo: validar campos
                     let formData = new FormData()
                     formData.append("cond", "calcsendenvio");
+
                     formData.append("amountCommend", amountCommend.value);
                     formData.append("countryCommend", countryCommend.options[countryCommend.selectedIndex].value);
                     formData.append("providerCommend", providerCommend.options[providerCommend.selectedIndex].value);
@@ -302,7 +323,6 @@ export default function init() {
 
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
-                    console.log(res);
 
                     // Quitando spinner
                     modal.closeModal('loader')
@@ -314,32 +334,45 @@ export default function init() {
 
                         // Creando elementos para mostrar
                         let html = `
-                            <p>
-                                Monto Divisa a Enviar: <span> ${numberFormater(amountCommend.value)}</span>
-                            </p>
-                            <p>
-                                ${res.txtusdcommission}: <span> ${numberFormater(res.usdcommission)}</span>
-                            </p>
-                            <p>
-                                Tasa de Cambio: <span> ${numberFormater(res.usdrate)}</span>
-                            </p>
-                            <p>
-                                ${res.txtvescommission}: <span> ${numberFormater(res.vescommission)}</span>
-                            </p>
-                            <p>
-                                Total Enviar Bs. : <span> ${numberFormater(res.totalves)}</span>
-                            </p>
-                        `
+                             <p>
+                                 Monto Divisa a Enviar: <span> ${numberFormater(amountCommend.value)}</span>
+                             </p>
+                             <p>
+                                 ${res.txtusdcommission}: <span> ${numberFormater(res.usdcommission)}</span>
+                             </p>
+                             <p>
+                                 Tasa de Cambio: <span> ${numberFormater(res.usdrate)}</span>
+                             </p>
+                             <p>
+                                 ${res.txtvescommission}: <span> ${numberFormater(res.vescommission)}</span>
+                             </p>
+                             <p>
+                                 Total Enviar Bs. : <span> ${numberFormater(res.totalves)}</span>
+                             </p>
+                         `
                         const inner = document.querySelector('#modalEncomienda .modal-body')
                         inner.innerHTML = html
-
-                        // Abriendo modal con datos
-                        modal.openModal('modalEncomienda')
                     } else if (res.code === "5000") {
                         modal.openModal('modalDanger', 'Datos incompletos', res.message)
                     } else {
                         modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                     }
+                }
+            }
+
+            // -tasa de cambio y monto se llenan cuando (proveedor, pais, monto) sean completados
+            async function step1Encomienda() {
+                if (
+                    amountCommend.value &&
+                    (countryCommend.options[countryCommend.selectedIndex].value !== "Seleccione") &&
+                    (providerCommend.options[providerCommend.selectedIndex].value !== "Seleccione") &&
+                    (sendFormCommend.options[sendFormCommend.selectedIndex].value !== "Seleccione") &&
+                    (paidFormCommend.options[paidFormCommend.selectedIndex].value !== "Seleccione") &&
+                    (currencyCommend.options[currencyCommend.selectedIndex].value !== "Seleccione")
+                ) {
+
+                    // Abriendo modal con datos
+                    modal.openModal('modalEncomienda')
                 }
             }
 
@@ -485,7 +518,9 @@ export default function init() {
                 }
             })
 
-            btnSubmitCommend.addEventListener('click', async () => {
+            btnSubmitCommend.addEventListener('click', async (e) => {
+                e.preventDefault()
+
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
@@ -585,7 +620,7 @@ export default function init() {
                     formData.append("currencyTransfer", currencyTransfer.options[currencyTransfer.selectedIndex].value);
 
                     // Cargando spinner
-                    modal.openModal('loader')
+                    modal.openModal('loader', undefined, undefined, false)
 
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
@@ -618,7 +653,7 @@ export default function init() {
                         inner.innerHTML = html
                     } else {
                         // Mostramos alerta de errore
-                        modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                        console.log('problems');
                     }
                     modal.closeModal('loader')
                 }
@@ -715,7 +750,6 @@ export default function init() {
                 modal.openModal('modalTransferencia')
             })
 
-
             // Agregar usuario estatico al select y ocultando los campos nuevamente
             addContactTransfer.addEventListener('click', e => {
                 e.preventDefault()
@@ -745,9 +779,10 @@ export default function init() {
             btnSubmitTransfer.addEventListener('click', async e => {
                 e.preventDefault()
 
-                // GEN OTP FETCH
                 // Cargando spinner
-                modal.openModal('loader')
+                modal.openModal('loader', undefined, undefined, false)
+
+                // GEN OTP FETCH
                 let formData = new FormData()
                 formData.append("cond", "genotp");
                 let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
@@ -766,18 +801,19 @@ export default function init() {
                         modal.closeModal('otpVerification')
 
                         // Cargando spinner
-                        modal.openModal('loader')
+                        modal.openModal('loader', undefined, undefined, false)
                         let formData = new FormData(transferenciaForm)
 
                         formData.append("cond", "saveTransfer");
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
-                        let res = await data.json();
+                        let res = await data.text();
+                        console.log(res);
 
                         // Quitando spinner
                         modal.closeModal('loader')
 
                         if (res.code === "0000") {
-                            modal.openModal('modalSuccess') 
+                            modal.openModal('modalSuccess')
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', 'Datos incompletos', res.message)
                         } else {
@@ -785,7 +821,7 @@ export default function init() {
                         }
                     })
                 } else {
-                    modal.openModal('modalDanger', 'Datos incompletos', resOtp.message)
+                    modal.openModal('modalDanger')
                 }
             })
         }

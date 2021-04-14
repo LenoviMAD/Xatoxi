@@ -11,7 +11,9 @@ export default function init() {
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
-            inputTag.value = "miatagbuenisimo13"
+            inputPin.value = "9883"
+            inputTag.value = "miatagbuenisimo20"
+
             btnPin.addEventListener('click', async e => {
                 e.preventDefault()
 

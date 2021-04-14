@@ -1,5 +1,5 @@
 import Modal from './Modal.js';
-import { numberFormater } from '../helpers.js';
+import { closeEverythingExceptThese, closeEverything } from '../helpers.js';
 
 // Venta
 export default function init() {
@@ -12,11 +12,37 @@ export default function init() {
         if (recepcionForm) {
             const ping = document.querySelector(`#${recepcionForm.getAttribute('id')} .ping`)
             const formRecepcion = document.getElementById('formRecepcion')
-            const despositAccount = document.getElementById('despositAccount')
-            const cash = document.getElementById('cash')
-            const MovilPay = document.getElementById('MovilPay')
-            const SectionPrepaid = document.getElementById('SectionPrepaid')
-            const SectionDebitCardNumber = document.getElementById('SectionDebitCardNumber')
+            const bancoPagoMovil = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="bancoPagoMovil"]`)
+            const codeArea = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="codeArea"]`)
+            const countrycode = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="countrycode"]`)
+            const phone = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="phone"]`)
+            const bankAccount = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="bankAccount"]`)
+            
+            const init = async () => {
+                // Fetch session currectly
+                const formData = new FormData();
+                formData.append("cond", "session");
+                const data = await fetch("ajax.php", { method: 'POST', body: formData });
+                const res = await data.json();
+
+                bancoPagoMovil.childNodes.forEach(element => {
+                    if (element.value === res.mpbankcode) {
+                        element.setAttribute("selected", true)
+                    }
+                });
+
+                countrycode.value = res.countrycode
+                phone.value = res.mpbankaccount
+                
+                codeArea.childNodes.forEach(element => {
+                    if (element.value === res.areacode.trim()) {
+                        element.setAttribute("selected", true)
+                    }
+                });
+                bankAccount.value = res.bacc
+            }
+
+            init()
 
             // Toggle para mostrar modal (mas info)
             formRecepcion.addEventListener('change', async() => {
@@ -27,10 +53,13 @@ export default function init() {
             })
 
             // fetch final de venta
-            ping.addEventListener('click', async() => {
-                // GEN OTP FETCH
+            recepcionForm.addEventListener('submit', async (e) => {
+                e.preventDefault()
+                
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
+                
+                // GEN OTP FETCH
                 let formData = new FormData()
                 formData.append("cond", "genotp");
                 let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
@@ -42,6 +71,7 @@ export default function init() {
                 if (resOtp.code == "0000") {
                     // abrir modal para ultimo fetch 
                     modal.openModal('otpVerification')
+
                     document.getElementById('otpCode').value = resOtp.otp
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
@@ -50,18 +80,20 @@ export default function init() {
 
                         // Cargando spinner
                         modal.openModal('loader', undefined, undefined, false)
-                        let formData = new FormData(recepcionForm)
 
+                        let formData = new FormData(recepcionForm)
+                    
                         formData.append("cond", "reception");
                         formData.append("otp", resOtp.otp);
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
                         let res = await data.json();
+                        console.log(res);
 
                         // Quitando spinner
                         modal.closeModal('loader')
 
                         if (res.code === "0000") {
-                            modal.openModal('modalSuccess')
+                            modal.openModal('modalSuccess', 'Transaccion satisfactoria', res.message, undefined)
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', 'Datos incompletos', res.message)
                         } else {
@@ -74,8 +106,6 @@ export default function init() {
                     modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                 }
             })
-
-
 
             formRecepcion.addEventListener('change', async() => {
                 // Mostramos boton de enviar
@@ -91,69 +121,18 @@ export default function init() {
                 8 = Tarjeta de Debito en Divisa 
                 */
 
-                if (valueSelected === "1") {
-                    cash.classList.remove('hidden')
-
-                    // Poner hidden los demas
-                    despositAccount.classList.add('hidden')
-                    MovilPay.add('hidden')
-                    SectionPrepaid.add('hidden')
-                    SectionDebitCardNumber.add('hidden')
-                } else if (valueSelected === "2") {
-                    // Poner hidden los demas
-                    despositAccount.classList.add('hidden')
-                    cash.classList.add('hidden')
-                    MovilPay.add('hidden')
-                    SectionPrepaid.add('hidden')
-                    SectionDebitCardNumber.add('hidden')
-                } else if (valueSelected === "3") {
-                    despositAccount.classList.remove('hidden')
-
-                    // Poner hidden los demas
-                    cash.classList.add('hidden')
-                    MovilPay.add('hidden')
-                    SectionPrepaid.add('hidden')
-                    SectionDebitCardNumber.add('hidden')
+                if (valueSelected === "3") {
+                    closeEverythingExceptThese('recepcionForm', ['banckAccountSection'])
+                } else if (valueSelected === "1") {
+                    closeEverythingExceptThese('recepcionForm', ['branckOfficesSection'])
                 } else if (valueSelected === "4") {
-                    despositAccount.classList.remove('hidden')
-
-                    // Poner hidden los demas
-                    cash.classList.add('hidden')
-                    MovilPay.add('hidden')
-                    SectionPrepaid.add('hidden')
-                    SectionDebitCardNumber.add('hidden')
-                } else if (valueSelected === "5") {
-                    SectionPrepaid.remove('hidden')
-                    
-                    // Poner hidden los demas
-                    cash.classList.add('hidden')
-                    MovilPay.add('hidden')
-                    despositAccount.classList.add('hidden')
-                    SectionDebitCardNumber.add('hidden')
-                } else if (valueSelected === "6") {
-                    
-                    // Poner hidden los demas
-                    despositAccount.classList.add('hidden')
-                    cash.classList.add('hidden')
-                    MovilPay.add('hidden')
-                    SectionPrepaid.add('hidden')
-                    SectionDebitCardNumber.add('hidden')
+                    closeEverythingExceptThese('recepcionForm', ['bancoPagoMovilSection', 'codeAreaSection', 'phoneSection'])
                 } else if (valueSelected === "7") {
-                    SectionPrepaid.remove('hidden')
-
-                    // Poner hidden los demas
-                    cash.classList.add('hidden')
-                    MovilPay.add('hidden')
-                    SectionPrepaid.add('hidden')
-                    SectionDebitCardNumber.add('hidden')
+                    closeEverythingExceptThese('recepcionForm', ['prepaidCardSection'])
                 } else if (valueSelected === "8") {
-                    despositAccount.classList.remove('hidden')
-
-                    // Poner hidden los demas
-                    cash.classList.add('hidden')
-                    MovilPay.add('hidden')
-                    SectionPrepaid.add('hidden')
-                    SectionDebitCardNumber.add('hidden')
+                    closeEverythingExceptThese('recepcionForm', ['debitcardNumberSection'])
+                } else {
+                    closeEverything('recepcionForm')
                 }
             })
         }

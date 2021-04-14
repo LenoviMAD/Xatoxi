@@ -386,7 +386,7 @@ class xclient
 		return ($result);
 	} // msendemail
 
-	private function bleadtoparty($wsuser, $wspwd, $idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount)
+	private function bleadtoparty($wsuser, $wspwd, $idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber)
 	{
 		$this->updateField($leadtoparty, "wsuser", "WSITALCAMBIO");
 		$this->updateField($leadtoparty, "wspwd", "1cc61eb7ae2187eb91f97d1ae5300919");
@@ -409,13 +409,15 @@ class xclient
 		$this->updateField($leadtoparty, "idlocation", $idlocation);
 		$this->updateField($leadtoparty, "mpbankcode", $mpbankcode);
 		$this->updateField($leadtoparty, "mpbankaccount", $mpbankaccount);
+		$this->updateField($leadtoparty, "prepaidcardnumber", $prepaidcardnumber);
+		$this->updateField($leadtoparty, "debitcardnumber", $debitcardnumber);
 		return $leadtoparty;
 	} // bleadtoparty
 
-	function mleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	function mleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
 	{
 		$this->init($url);
-		$leadtoparty =  $this->bleadtoparty("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount);
+		$leadtoparty =  $this->bleadtoparty("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber);
 		$data["leadtoparty"] = $leadtoparty;
 		$data_string = json_encode($data);
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -465,26 +467,41 @@ class xclient
 		return ($result);
 	} // mgetparty
 
-	private function brecv($wsuser, $wspwd, $idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $otp, $idclearencetype)
+	private function brecv($wsuser, $wspwd, $idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $otp, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount)
 	{
 		$this->updateField($recv, "wsuser", "WSITALCAMBIO");
 		$this->updateField($recv, "wspwd", "1cc61eb7ae2187eb91f97d1ae5300919");
+		$this->updateField($recv, "idclearencetype", $idclearencetype);
+
 		$this->updateField($recv, "idparty", $idparty);
+		$this->updateField($recv, "idlocation", $idlocation);
+		$this->updateField($recv, "idlead", $idlead);
 		$this->updateField($recv, "acc", $acc);
 		$this->updateField($recv, "key", $key);
 		$this->updateField($recv, "addr", $addr);
 		$this->updateField($recv, "bdate", $bdate);
-		$this->updateField($recv, "idlocation", $idlocation);
-		$this->updateField($recv, "idlead", $idlead);
 		$this->updateField($recv, "otp", $otp);
-		$this->updateField($recv, "idclearencetype", $idclearencetype);
+
+		$this->updateField($recv, "prepaidcardnumber", $prepaidcard);
+		$this->updateField($recv, "debitcardnumber", $debitcard);
+
+		$this->updateField($recv, "mpbankcode", $mpbankcode);
+		$this->updateField($recv, "mpbankaccount", "01022222222222222222");
+
+		// $this->updateField($recv, "prepaidcardnumber", $countrycode);
+		// $this->updateField($recv, "debitcardnumber", $codeArea);
+		// $this->updateField($recv, "debitcardnumber", $phone);
+
+		// $this->updateField($addlead, "countrycode", "58");
+		// $this->updateField($addlead, "areacode", "0212");
+
 		return $recv;
 	} // brecv
 
-	function mrecv($idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $otp, $idclearencetype, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	function mrecv($idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $otp, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
 	{
 		$this->init($url);
-		$recv =  $this->brecv("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $otp, $idclearencetype);
+		$recv =  $this->brecv("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $otp, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount);
 		$data["recv"] = $recv;
 		$data_string = json_encode($data);
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -500,7 +517,7 @@ class xclient
 		return $getclearencetypel;
 	} // bgetclearencetypel
 
-	function mgetclearencetypel($arrayExcluyente = array(6,2,3,1,5), $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	function mgetclearencetypel($arrayExcluyente = array(6, 2, 3, 1, 5), $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
 	{
 		$this->init($url);
 		$getclearencetypel =  $this->bgetclearencetypel("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919");
@@ -511,8 +528,8 @@ class xclient
 		$result = json_decode($response);
 
 		//  Devolviendo solo algunos metodos de pago TEMPORALMENTE
+		// Retorna siempre que el número entero sea impar
 		$filterMethods = array_filter($result->list, function ($var) use ($arrayExcluyente) {
-			// Retorna siempre que el número entero sea impar
 			if (in_array($var->id, $arrayExcluyente)) {
 				return $var;
 			}
@@ -1102,7 +1119,7 @@ class xclient
 		return ($result);
 	} // mexecsendw
 
-	private function bexecsendtr($wsuser, $wspwd, $idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing,$reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban)
+	private function bexecsendtr($wsuser, $wspwd, $idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban)
 	{
 		$this->updateField($execsendtr, "wsuser", "WSITALCAMBIO");
 		$this->updateField($execsendtr, "wspwd", "1cc61eb7ae2187eb91f97d1ae5300919");
@@ -1113,7 +1130,7 @@ class xclient
 		$this->updateField($execsendtr, "idclearencetype", $idclearencetype);
 		$this->updateField($execsendtr, "acc", $acc);
 		$this->updateField($execsendtr, "bank", $bank);
-		$this->updateField($execsendtr, "routing", $routing);		 
+		$this->updateField($execsendtr, "routing", $routing);
 		$this->updateField($execsendtr, "reference", $reference);
 		$this->updateField($execsendtr, "bfirstname", $bfirstname);
 		$this->updateField($execsendtr, "bmiddlename", $bmiddlename);
@@ -1136,10 +1153,10 @@ class xclient
 		return $execsendtr;
 	} // bexecsendtr
 
-	function mexecsendtr($idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing,$reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	function mexecsendtr($idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
 	{
 		$this->init($url);
-		$execsendtr =  $this->bexecsendtr("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing,$reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban);
+		$execsendtr =  $this->bexecsendtr("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban);
 		$data["execsendtr"] = $execsendtr;
 		$data_string = json_encode($data);
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);

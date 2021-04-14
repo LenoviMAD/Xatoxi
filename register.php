@@ -16,7 +16,7 @@ xpresentationLayer::startAsideOneColumn();
 xpresentationLayer::buildInputTextGrid("Email", "email", "email", "Ejemplo@gmail.com");
 
 $data_jsonAreaPhone = $serviceCall->mgetallcountrydetaill();
-xpresentationLayer::buildSelectJson("Pais", "country", "country", $data_jsonAreaPhone, "", "");
+xpresentationLayer::buildSelectJson("Pais", "", "", $data_jsonAreaPhone, "", "");
 
 // $data_jsonAreaPhone = $serviceCall->mgetlocationl();
 // xpresentationLayer::buildSelectJson("Sucursal", "idlocation", "idlocation", $data_jsonAreaPhone, "", "");

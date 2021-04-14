@@ -249,26 +249,34 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/18 14:00
     ===================================================================== */
-	static function buildInputNumberGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $onblur = "", $class = "", $maxlength = 20, $idContainer = "")
+	static function buildInputNumberGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $onblur = "", $class = "", $maxlength = 20, $idContainer = "", $required = false, $value="")
 	{
-		if ($onblur != "")
+		if ($onblur != "") {
 			$onblur = ' onBlur="' . $onblur . '" ';
-		if ($idInput != "")
+		}
+		if ($value != "") {
+			$value = ' value="' . $value . '" ';
+		}
+		if ($required != "") {
+			$required = ' required';
+		}
+		if ($idInput != "") {
 			$idInput = ' id="' . $idInput . '" ';
-		if ($idContainer != "")
-			$idContainer = ' id="' . $idContainer . '" ';
-
-		$maxlength = ' maxlength="' . $maxlength . '" ';
-
+		}
+		if ($idContainer != "") {
+			$idContainer = 'id="' . $idContainer . '"';
+		}
 		if ($class != "") {
 			$class = ' class="input-field1 ' . $class . '" ';
 		} else {
 			$class = ' class="input-field1" ';
 		}
 
+		$maxlength = ' maxlength="' . $maxlength . '" ';
+
 		echo '<DIV ' . $class . $idContainer . '>';
 		echo '    <LABEL class="font-Bold">' . $titleLabel . '</LABEL>';
-		echo '    <INPUT type="number" ' . $maxlength . ' name="' . $nameInput . '" ' . $idInput . ' pattern="[0-9]+([\.,][0-9]+)?" step=".01" placeholder="' . $placeholder . '" ' . $onblur . '>';
+		echo '    <INPUT type="number" ' . $maxlength . ' name="' . $nameInput . '" ' .$value. $idInput . $required . ' pattern="[0-9]+([\.,][0-9]+)?" step=".01" placeholder="' . $placeholder . '" ' . $onblur . '>';
 		echo '</DIV>';
 	} //buildInputNumberGrid
 
@@ -283,14 +291,24 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-	static function buildInputTextGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = "", $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $idContainer = "")
+	static function buildInputTextGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = "", $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $idContainer = "", $required = false, $value = "")
 	{
 		if ($disabled != "") {
 			$disabled = 'disabled="' . $disabled . '"';
 		}
+		if ($nameInput != "") {
+			$nameInput = 'name="' . $nameInput . '"';
+		}
 
 		if ($idInput != "") {
 			$idInput = 'id="' . $idInput . '"';
+		}
+		if ($required) {
+			$required = 'required';
+		}
+
+		if ($value != "") {
+			$value = 'value="' . $value . '"';
 		}
 
 		if ($idContainer != "") {
@@ -298,14 +316,12 @@ class xpresentationLayer
 		}
 
 		if ($classInput != "") {
-			$classInput = 'class="' . $classInput . ' input-radius"';
-		} else {
-			$classInput = 'class="input-radius"';
+			$classInput = 'class="' . $classInput . '"';
 		}
 
 		echo '<DIV class="input-field1 ' . $customClass . ' " ' . $idContainer . '>';
 		echo '       <LABEL class="font-Bold ' . $classLabel . '">' . $titleLabel . '</LABEL>';
-		echo '       <INPUT ' . $disabled . ' type="text" name="' . $nameInput . '" ' . $idInput . ' placeholder="' . $placeholder . '" maxlength="' . $maxLength . '" ' . $classInput . '>';
+		echo '       <INPUT  type="text" ' .$value . $disabled . $nameInput . $idInput . $required . ' placeholder="' . $placeholder . '" maxlength="' . $maxLength . '" ' . $classInput . '>';
 		echo '</DIV>';
 	} //buildInputTextGrid
 
@@ -327,9 +343,9 @@ class xpresentationLayer
 		}
 
 		if ($classInput != "") {
-			$classInput = 'class="' . $classInput . ' input-radius"';
+			$classInput = 'class="' . $classInput . '"';
 		} else {
-			$classInput = 'class="grid-item-no-border input-radius"';
+			$classInput = 'class="grid-item-no-border"';
 		}
 
 		echo '<DIV class="' . $customClass . ' ">';
@@ -360,9 +376,9 @@ class xpresentationLayer
 		}
 
 		if ($classInput != "") {
-			$classInput = 'class="' . $classInput . ' input-radius"';
+			$classInput = 'class="' . $classInput . '"';
 		} else {
-			$classInput = 'class="grid-item-no-border input-radius"';
+			$classInput = 'class="grid-item-no-border"';
 		}
 
 		echo '<DIV class="' . $customClass . ' ">';
@@ -389,7 +405,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/18 14:00
     ===================================================================== */
-	static function buildSelectJson($title, $name, $id, $json, $showCol = "", $event = "", $classContainer = "")
+	static function buildSelectJson($title, $name, $id, $json, $showCol = "", $event = "", $classContainer = "", $required = false, $idContainer = "")
 	{
 		$data = $json->list;
 
@@ -399,11 +415,17 @@ class xpresentationLayer
 		if ($id != "") {
 			$id = 'id="' . $id . '"';
 		}
+		if ($idContainer != "") {
+			$idContainer = 'id="' . $idContainer . '"';
+		}
+		if ($required) {
+			$required  = 'required';
+		}
 
-		echo '<DIV class="input-field1 ' . $classContainer . '">';
+		echo '<DIV class="input-field1 ' . $classContainer . '" ' . $idContainer . '>';
 		echo '    <LABEL class="font-Bold">' . $title . '</LABEL>';
 
-		echo '<SELECT name="' . $name . '" ' . $id . ' ' . $event . '>';
+		echo '<SELECT name="' . $name . '" ' . $id . $event . $required . '>';
 		echo '<OPTION disabled selected>Seleccione</OPTION>';
 		foreach ($data as $value) {
 			if ($value->code && $value->name) {
@@ -435,9 +457,11 @@ class xpresentationLayer
 		if ($data != "")
 			$data = ' data-targetping="' . $data . '" ';
 
-		echo '<SECTION class="grid-section" >';
-		echo '<FIGURE class="figure-img ping hidden" ' . $data . '><IMG src="img/LOCK.png" alt="boton ping" class="img-pin"></FIGURE>';
-		echo '</SECTION>';
+		echo '<DIV class="text-center" >';
+		echo '<BUTTON type="submit" class="figure-img ping hidden" ' . $data . '>';
+		echo '<IMG src="img/LOCK.png" alt="boton ping" class="img-pin">';
+		echo '</BUTTON>';
+		echo '</DIV>';
 	} //buildSectionPin
 
 	/*=======================================================================
@@ -464,9 +488,9 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-	static function buildTitleBar($title, $class = "")
+	static function buildTitleBar($title, $class="")
 	{
-		echo '<DIV class="section-Titles '.$class.'">';
+		echo '<DIV class="section-Titles '. $class .'">';
 		echo '    <H2 class="titles">' . $title . '</H2>';
 		echo '</DIV>';
 	} //buildTitleBar
@@ -513,14 +537,13 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-	static function buildSearchUsersCommend($name, $id, $idButtom, $json, $event = "", $eventAddContact = "")
+	static function buildSearchUsersCommend($name, $id, $idButtom, $json, $event = "", $eventAddContact = "", $class="")
 	{
 		if ($eventAddContact != "") {
 			$eventAddContact = 'onclick="' . $eventAddContact . '"';
 		}
-
 		$data = $json->list;
-		echo '<DIV class="aside">';
+		echo '<DIV class="aside '.$class.'">';
 		echo '       <SELECT name="' . $name . '" id="' . $id . '" ' . $event . ' class="select-width-user select-appearance-user">';
 		echo '       <OPTION disabled selected>Seleccione</OPTION>';
 		foreach ($data as $value) {
@@ -790,8 +813,8 @@ class xpresentationLayer
 		}
 
 		echo '<H1 class="divpin mt0">' . $title . '</H1>';
-		echo '<INPUT type="password" name="pin" id="inputPin" pattern=".{' . $minLength . ',}" maxlength="' . $limitPass . '" class ="passInput" value"">';
-		echo '<DIV class="full-center"><LABEL class="label-pin" >TAG</LABEL><INPUT type="password" name="tag" id="inputTag"  pattern=".{24,}" maxlength="24" class="passInput" value="miatagbuenisimo13"></DIV>';
+		echo '<INPUT type="password" name="pin" id="inputPin" pattern=".{' . $minLength . ',}" maxlength="' . $limitPass . '" class ="passInput">';
+		echo '<DIV class="full-center"><LABEL class="label-pin" >TAG</LABEL><INPUT type="password" name="tag" id="inputTag"  pattern=".{24,}" maxlength="24" class="passInput"></DIV>';
 		echo '<TABLE class="centrarObjets">';
 		echo '    <TBODY>';
 		echo '        <TR></TR>';
@@ -1031,7 +1054,7 @@ class xpresentationLayer
 		echo '<DIV class="grid-3 ' . $customClass . '">';
 		echo '    <DIV class="input-field1">';
 		echo '        <LABEL  class="font-Bold margin-label">' . $labelSelect . '</LABEL>';
-		echo '<SELECT name="' . $nameSelect . '" id="' . $idSelect . '">';
+		echo '<SELECT name="' . $nameSelect . '" id="' . $idSelect . '" required>';
 		echo '<OPTION disabled selected>Seleccione</OPTION>';
 		foreach ($data as $value) {
 			echo '<OPTION value="' . $value->id . '" >' . $value->name . ' </OPTION>';
@@ -1040,11 +1063,11 @@ class xpresentationLayer
 		echo '    </DIV>';
 		echo '    <DIV class="input-field1">';
 		echo '        <LABEL class="font-Bold margin-label">' . $labelInputText . '</LABEL>';
-		echo '        <INPUT type="text" name="' . $nameInputText . '" id="' . $idInputText . '" class="input-radius ">';
+		echo '        <INPUT type="text" name="' . $nameInputText . '" id="' . $idInputText . '" required>';
 		echo '    </DIV>';
 		echo '    <DIV class="input-field1">';
 		echo '        <LABEL class="font-Bold margin-label">' . $labelInputDate . '</LABEL>';
-		echo '        <INPUT type="date" name="' . $nameInputDate . '" id="' . $idInputDate . '" class="input-radius ">';
+		echo '        <INPUT type="date" name="' . $nameInputDate . '" id="' . $idInputDate . '" required>';
 		echo '    </DIV>';
 		echo '</DIV>';
 	} //buildSectionDocument
@@ -1057,11 +1080,18 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/27 12:00
     ===================================================================== */
-	static function buildTextArea($titleLabel, $nameInput, $idInput, $placeholder = "", $minLength = "0", $customClass = "")
+	static function buildTextArea($titleLabel, $nameInput, $idInput, $placeholder = "", $minLength = "0", $customClass = "", $required = false)
 	{
+		if ($required) {
+			$required = 'required="' . $required . '"';
+		}
+		if ($idInput) {
+			$idInput = 'id="' . $idInput . '"';
+		}
+
 		echo '<DIV class="input-field1 ' . $customClass . '">';
 		echo '    <LABEL class="font-Bold">' . $titleLabel . '</LABEL>';
-		echo '    <TEXTAREA type="text" name="' . $nameInput . '" id="' . $idInput . '" placeholder="' . $placeholder . '" minlength="' . $minLength . '" class="input-text-large input-radius" cols="40" rows="3"  style="resize: none;"></TEXTAREA>';
+		echo '    <TEXTAREA type="text" name="' . $nameInput . '" ' . $idInput . $required . ' placeholder="' . $placeholder . '" minlength="' . $minLength . '" class="input-text-large" cols="40" rows="3"  style="resize: none;"></TEXTAREA>';
 		echo '</DIV>';
 	} //buildTextArea
 
@@ -1100,9 +1130,8 @@ class xpresentationLayer
     ===================================================================== */
 	static function startDivHidden($id, $customClass = "")
 	{
-		echo '<DIV id =' . $id . ' class="hidden ' . $customClass . '">';
+		echo '<DIV id =' . $id . ' class="' . $customClass . '">';
 	} //startDivHidden
-
 	/*=======================================================================
 	Function: buildInputFileDoc
 	Description: Build Input number with decimals (2 Columns)
@@ -1133,36 +1162,4 @@ class xpresentationLayer
 		echo '<input type="file" ' . $name . ' >';
 		echo '</div>';
 	} //buildInputFileGird
-
-	/*=======================================================================
-	Function: buildInputsDate
-	Description: Build Inputs date, month, years
-	Parameters: $titleLabel <-- Name label
-				$idInput <-- Id Input
-				$nameInput <-- Name Input
-				$placeholder <-- Message Field
-	Algorithm:
-	Remarks:
-	Standarized: 2021/01/18 14:00
-	===================================================================== */
-	static function buildInputsDate($nameMonth, $idMonth, $nameYear, $idYear)
-	{
-		echo '<DIV class="input-field1">';
-    	echo '	<LABEL class="font-Bold ">Fecha Venc.</LABEL>';
-    	echo '	<DIV class="container-input">';
-    	echo '	    <DIV class="col-md-6">';
-    	echo '	        <DIV class="input-container">';
-    	echo '	            <INPUT class="input" type="text" name="'.$nameMonth.'" id="'.$idMonth.'" placeholder=" " />';
-    	echo '	            <LABEL class="placeholder">Mes</LABEL>';
-    	echo '	        </DIV>';
-    	echo '	    </DIV>';
-    	echo '	    <DIV class="col-md-6">';
-    	echo '	        <DIV class="input-container">';
-    	echo '	            <INPUT class="input" type="text" name="'.$nameYear.'" id="'.$idYear.'" placeholder=" " />';
-    	echo '	            <LABEL class="placeholder">Año</LABEL>';
-    	echo '	        </DIV>';
-    	echo '	    </DIV>';
-    	echo '	</DIV>';
-		echo '</DIV>';
-	} //buildInputsDate
 } // xpresentationLayer

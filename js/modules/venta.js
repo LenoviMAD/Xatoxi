@@ -14,6 +14,7 @@ export default function init() {
             const currency = document.querySelector(`#${ventaForm.getAttribute('id')} [name="currency"]`)
             const payForm = document.querySelector(`#${ventaForm.getAttribute('id')} [name="payForm"]`)
             const payIn = document.querySelector(`#${ventaForm.getAttribute('id')} [name="payIn"]`)
+            const TITLE_SECTION = "VENTA"
 
             const amountRecieve = document.querySelector(`#${ventaForm.getAttribute('id')} [name="amountRecieve"]`)
             const amountChange = document.querySelector(`#${ventaForm.getAttribute('id')} [name="amountChange"]`)
@@ -22,13 +23,33 @@ export default function init() {
 
             const ping = document.querySelector(`#${ventaForm.getAttribute('id')} .ping`)
 
-
             amount.addEventListener('blur', () => {
+                togglePing()
+                step2()
                 calComisionVenta()
             })
             currency.addEventListener('change', () => {
+                togglePing()
+                step2()
                 calComisionVenta()
             })
+            currency.addEventListener('change', () => {
+                togglePing()
+                step2()
+            })
+            currency.addEventListener('change', () => {
+                togglePing()
+                step2()
+            })
+            function step2() {
+                if (amount.value &&
+                    (currency.options[currency.selectedIndex].value !== "Seleccione") &&
+                    (payIn.options[payIn.selectedIndex].value !== "Seleccione") &&
+                    (payForm.options[payForm.selectedIndex].value !== "Seleccione")
+                ) {
+                    modal.openModal('operationSummary')
+                }
+            }
 
             // mostrar modal cuando se modifique monto o divisa, teniendo seleccionado una forma de abono
             async function calComisionVenta() {
@@ -54,55 +75,51 @@ export default function init() {
                         // Creando elementos para mostrar
                         let html = `
                             <p>
-                                Monto Divisa a Cobrar: ${numberFormater(res.exchangeamount)}
+                                Monto Divisa a Cobrar<span> ${numberFormater(res.exchangeamount)}</span>
                             </p>
                             <p>
-                                ${res.txtcurrcommission}: ${numberFormater(res.currcommission)}
+                                ${res.txtcurrcommission}<span> ${numberFormater(res.currcommission)}</span>
                             </p>
                             <p>
-                                Tasa de Cambio:  ${numberFormater(res.currrate)}
+                                Tasa de Cambio<span>  ${numberFormater(res.currrate)}</span>
                             </p>
                             <p>
-                                ${res.txtvescommission}: ${numberFormater(res.vescommission)}
+                                ${res.txtvescommission}<span> ${numberFormater(res.vescommission)}</span>
                             </p>
                             <p>
-                                Total Recibir Bs. : ${numberFormater(res.totalves)}
+                                Total Recibir Bs. <span> ${numberFormater(res.totalves)}</span>
                             </p>
                             `
-
                         const inner = document.querySelector('#operationSummary .modal-body')
                         inner.innerHTML = html
-
-                        // Entonces abreme el modal
-                        if (payForm.options[payForm.selectedIndex].value !== "Seleccione") {
-                            modal.openModal('operationSummary')
-                        }
                     } else if (res.code === "5000") {
                         modal.openModal('modalDanger', 'Datos incompletos', res.message)
                     } else {
                         modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                     }
-
                     modal.closeModal('loader')
                 }
             }
 
-            // Toggle para mostrar modal (mas info)
-            payForm.addEventListener('change', async() => {
-                // Mostramos boton de enviar
-                if (ping.classList.contains('hidden')) {
+            // activamos el ping cuando todos los inputs esten full
+            function togglePing() {
+                if (amount.value &&
+                    (currency.options[currency.selectedIndex].value !== "Seleccione") &&
+                    (payIn.options[payIn.selectedIndex].value !== "Seleccione") &&
+                    (payForm.options[payForm.selectedIndex].value !== "Seleccione")
+                ) {
                     ping.classList.remove('hidden')
+                } else {
+                    ping.classList.add('hidden')
                 }
-
-                // Abrir modal con datos
-                modal.openModal('operationSummary')
-            })
+            }
 
             // fetch final de venta
-            ping.addEventListener('click', async() => {
-                // GEN OTP FETCH
+            ping.addEventListener('click', async () => {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
+                
+                // GEN OTP FETCH
                 let formData = new FormData()
                 formData.append("cond", "genotp");
                 let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
@@ -114,20 +131,23 @@ export default function init() {
                 if (resOtp.code == "0000") {
                     // abrir modal para ultimo fetch 
                     modal.openModal('otpVerification')
+                    
                     document.getElementById('otpCode').value = resOtp.otp
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
                         e.preventDefault()
+
                         modal.closeModal('otpVerification')
 
                         // Cargando spinner
                         modal.openModal('loader', undefined, undefined, false)
+                        
                         let formData = new FormData(ventaForm)
-
                         formData.append("cond", "execsell");
                         formData.append("otp", resOtp.otp);
                         formData.append("payIn", payIn.options[payIn.selectedIndex].value);
                         formData.append("payForm", payForm.options[payForm.selectedIndex].value);
+
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
                         let res = await data.json();
 
@@ -135,7 +155,7 @@ export default function init() {
                         modal.closeModal('loader')
 
                         if (res.code === "0000") {
-                            modal.openModal('modalSuccess')
+                            modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, false)
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', 'Datos incompletos', res.message)
                         } else {

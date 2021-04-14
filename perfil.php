@@ -27,9 +27,9 @@ xpresentationLayer::startSectionTwoColumns();
 $data_json = $serviceCall->mgetiddocumenttypel();
 xpresentationLayer::buildSectionDocument("T. Doc.", "Documento", "Fec. Nacimiento", "typeDocument", "document", "birthdate", "typeDocument", "document", "birthdate", $data_json, "grid-item-2");
 
-xpresentationLayer::buildInputTextGrid("P. Nombre", "firstName", "firstName", "");
+xpresentationLayer::buildInputTextGrid("P. Nombre", "firstName", "firstName", "", "", "", "", "", "", "", true);
 xpresentationLayer::buildInputTextGrid("S. Nombre", "secondName", "secondName", "", "", "");
-xpresentationLayer::buildInputTextGrid("P. Apellido", "firstSurname", "firstSurname", "", "", "");
+xpresentationLayer::buildInputTextGrid("P. Apellido", "firstSurname", "firstSurname", "", "", "","", "","", "", true);
 xpresentationLayer::buildInputTextGrid("S. Apellido", "secondSurname", "secondSurname", "", "", "");
 
 $data_json = $serviceCall->mgetallcountrydetaill();
@@ -37,19 +37,21 @@ xpresentationLayer::buildSelectJson("Pais", "country", "country", $data_json, ""
 xpresentationLayer::buildSelectJson("Estado", "state", "state", "", "", "selectValorforId('state/city', 'ajax.php?cond=getstatecityl')",  "", "");
 xpresentationLayer::buildSelectJson("Ciudad", "city", "city", "", "", "",  "", "");
 
-xpresentationLayer::buildTextArea("Direccion", "direction", "direction", "", "20", "grid-item-2");
+xpresentationLayer::buildTextArea("Direccion", "direction", "direction", "", "30", "grid-item-2", true);
 
 $data_json = $serviceCall->mgetlocationvenl();
-xpresentationLayer::buildSelectJson("Agencia de preferencia", "preferenceAgency", "preferenceAgency", $data_json, "", "", "grid-item-2");
+xpresentationLayer::buildSelectJson("Agencia de preferencia", "preferenceAgency", "preferenceAgency", $data_json, "", "", "grid-item-2", true);
 
-xpresentationLayer::buildInputTextGrid("Cuenta bancaria", "bankAccount", "bankAccount", "", 20, "grid-item-2", "", "", "");
+xpresentationLayer::buildInputTextGrid("Cuenta bancaria", "bankAccount", "bankAccount", "", 20, "grid-item-2", "", "", "", "", true);
 
 $data_json = $serviceCall->mgetbankl("238");
-xpresentationLayer::buildSelectJson("Banco pago móvil", "bancoPagoMovil", "bancoPagoMovil", $data_json, "", "",  "grid-item-2", "");
+xpresentationLayer::buildSelectJson("Banco pago móvil", "bancoPagoMovil", "bancoPagoMovil", $data_json, "", "",  "", "");
 
-xpresentationLayer::startSectionTwoColumns("grid-item-2 grid-3");
-xpresentationLayer::buildInputTextGrid("Número del móvil", "telMovil", "telMovil", "", 20, "grid-colum-start-2", "", "", "");
-xpresentationLayer::endSection();
+xpresentationLayer::buildInputTextGrid("Número del móvil", "telMovil", "telMovil", "", 20, "", "", "", "");
+
+xpresentationLayer::buildInputNumberGrid("Tarjeta de crédito Prepagada", "", "prepaidcardnumber", "");
+xpresentationLayer::buildInputNumberGrid("Tarjeta de débito Prepagada", "", "debitcardnumber", "");
+
 ?>
 <p class="grid-item-2 text-center mb0 mt0"><b>Alias:</b> <?php echo $_SESSION['alias']; ?></p>
 <p class="grid-item-2 text-center mb0 mt0"><b>Movil:</b> <?php echo '+' . $_SESSION['countrycode'] . ' ' . $_SESSION['areacode'] . ' ' . $_SESSION['phonenumber']; ?></p>

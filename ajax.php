@@ -66,12 +66,12 @@ if (isset($_POST["cond"])) {
     }
 
     if ($_POST["cond"] == "genotp") {
-        $data_json = $client->mgenotp(21);
+        $data_json = $client->mgenotp($_SESSION['idlead']);
         print_r(json_encode($data_json));
     }
 
     if ($_POST["cond"] == "calcsendenvio") {
-        $data_json = $client->mcalcsend(21, $_POST["providerCommend"], $_POST["countryCommend"], $_POST["amountCommend"]);
+        $data_json = $client->mcalcsend($_SESSION['idlead'], $_POST["providerCommend"], $_POST["countryCommend"], $_POST["amountCommend"]);
         print_r(json_encode($data_json));
     }
 
@@ -199,28 +199,33 @@ if (isset($_POST["cond"])) {
         $ibbankaddress = $util->testInput($_POST['bankAddressTransferIntermediary']);
         $ibbankabaswiftiban = $util->testInput($_POST['abaSwiftIbanIntermediary']);
 
-        $data_json = $client->mexecsendtr(21, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bankACH, $routingACH, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban);
+        $data_json = $client->mexecsendtr(39, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bankACH, $routingACH, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban);
         echo json_encode($data_json);
     }
 
     // Recepcion
     if ($_POST["cond"] == "reception") {
+        $idclearencetype = $util->testInput($_POST['formRecepcion']);
+        // $acc = $_POST['bankAccount'] != "" ? $util->testInput($_POST['bankAccount']) : $_SESSION['bacc'];
         $acc = $util->testInput($_POST['bankAccount']);
         $key = $util->testInput($_POST['remittances']);
         $addr = $util->testInput($_POST['branchOffices']);
-        $idcuotprrency = $util->testInput($_POST['otp']);
-        $idclearencetype = $util->testInput($_POST['formRecepcion']);
+        $otp = $_POST['otp'];
 
-        if ($idclearencetype == 4) {
-            $mpbankcode = $util->testInput($_POST['mpbankcode']); //cuatro digitos del banco
-            $mpbankaccount = $util->testInput($_POST['mpbankaccount']); //celular 58XXXNNNNNNN
-        } else if ($idclearencetype == 7) {
-            $prepaidcardnumber = $util->testInput($_POST['prepaidcardnumber']); //prepaidcard
-        } else if ($idclearencetype == 8) {
-            $debitcardnumber = $util->testInput($_POST['debitcardnumber']); //debitcardnumber
-        }
+        $prepaidcard = $util->testInput($_POST['prepaidcard']);
+        $debitcard = $util->testInput($_POST['debitcardnumber']);
 
-        $data_json = $client->mrecv($_SESSION['idparty'], $acc, $key, $addr, $bdate, $idlocation, $_SESSION['idlead'], $otp, $idclearencetype);
+        // Pago movil
+        $mpbankcode = $util->testInput($_POST['bancoPagoMovil']);
+        $mpbankaccount = $util->testInput($_POST['countrycode'])."".$util->testInput($_POST['phone']);
+        
+        $idlocation = $util->testInput($_POST['branchOffices']) || $_SESSION['idlocation'];
+
+        $addr = "asdsad sajd lksajd jsakdjasl djsajdksaldls djsajdklsadjaskld";
+        $bdate = $_SESSION['bdate'];
+
+        
+        $data_json = $client->mrecv($_SESSION['idparty'], $acc, $key, $addr, $bdate, $idlocation, $_SESSION['idlead'], $otp, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode,$mpbankaccount);
         print_r(json_encode($data_json));
     }
 
@@ -234,7 +239,7 @@ if (isset($_POST["cond"])) {
     }
 
     if ($_POST["cond"] == "calcsendtr") {
-        $data_json = $client->mcalcsendtr(21, $_POST["countryTransfer"], $_POST["currencyTransfer"], $_POST["amountTransfer"]);
+        $data_json = $client->mcalcsendtr($_SESSION['idlead'], $_POST["countryTransfer"], $_POST["currencyTransfer"], $_POST["amountTransfer"]);
         print_r(json_encode($data_json));
     }
 
@@ -308,20 +313,6 @@ if (isset($_POST["cond"])) {
         $data_json = $client->mexecexchange($_SESSION['idlead'], $idinstrumentsrc, $idinstrumentdst, $idcurrencysrc, $idcurrencydst, $amount, $bank, $numref, $routing, $otp);
         print_r(json_encode($data_json));
     }
-    if ($_POST["cond"] == "execexchange") {
-        $idinstrumentsrc = $_POST["paidMethod"];
-        $idinstrumentdst = $_POST["recieveMethod"];
-        $idcurrencysrc = $_POST["sendCurrency"];
-        $idcurrencydst = $_POST["recieveCurrency"];
-        $otp = $_POST["otp"];
-        $amount = $_POST["amount"];
-        $bank = $_POST['bank'];
-        $numref = $_POST['reference'];
-        $routing = $_POST['routing'];
-
-        $data_json = $client->mexecexchange($_SESSION['idlead'], $idinstrumentsrc, $idinstrumentdst, $idcurrencysrc, $idcurrencydst, $amount, $bank, $numref, $routing, $otp);
-        print_r(json_encode($data_json));
-    }
 
     if ($_POST["cond"] == "sendEmailPin") {
         $email = $_POST["email"];
@@ -361,8 +352,8 @@ if (isset($_POST["cond"])) {
         $code = "";
         $idparty = "";
         $email = $_POST["email"];
-        $deviceid = "21moises21";
-        $deviceidalt = "21moises21";
+        $deviceid = "20moises20";
+        $deviceidalt = "20moises20";
         $phoneNumber = $_POST["phone"];
         $observation = "";
         $pin = "";
@@ -370,7 +361,7 @@ if (isset($_POST["cond"])) {
         $pinfirsttime = "";
         $countrycode = $_POST["country"];
         $areacode = $_POST["codeArea"];
-        $tag = "miatagbuenisimo21";
+        $tag = "miatagbuenisimo20";
         $otp = "";
         $active = "";
         $deleted = "";
@@ -418,6 +409,12 @@ if (isset($_POST["cond"])) {
 
     if ($_POST["cond"] == "getparty") {
         $data_json = $client->mgetparty($_SESSION['idlead'], $_SESSION['idparty']);
+
+        // Guardar variables de sesion primera parte
+        if ($data_json->code === "0000") {
+            $_SESSION['idlocation'] = $data_json->idlocation;
+        }
+
         print_r(json_encode($data_json));
     }
 
@@ -448,7 +445,7 @@ if (isset($_POST["cond"])) {
         $prepaidcardnumber = $_POST["prepaidcardnumber"];
         $debitcardnumber = $_POST["debitcardnumber"];
 
-        $data_json = $client->mleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount);
+        $data_json = $client->mleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber);
 
         if ($data_json->code === "0000") {
             $_SESSION['idparty'] = $data_json->idparty;
@@ -467,4 +464,7 @@ if (isset($_POST["cond"])) {
         print_r(json_encode($data_json));
     }
 
+    if ($_POST["cond"] == "session") {
+        print_r(json_encode($_SESSION));
+    }
 }

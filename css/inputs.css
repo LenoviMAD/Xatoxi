@@ -138,11 +138,26 @@
         width: 100%;
         border: 1px solid #333;
         padding: 10px;
+        height: 40px;
+    }
+    
+    .input-field1 textarea {
+        height: auto;
     }
     
     .helper-text {
         color: #696868;
         font-size: .8em;
+    }
+
+    .valDanger.input-field1 select,
+    .valDanger.input-field1 input,
+    .valDanger.input-field1 textarea {
+        border: 2px solid red;
+    }
+
+    .valDanger.helper-text {
+        color: red;
     }
     /* input mes y a;o envio transferencia */
     

@@ -26,7 +26,7 @@ xpresentationLayer::buildSelectJson("Recibe", "recieveMethod", "recieveMethod", 
 xpresentationLayer::buildSelectJson("Recibe Divisa", "recieveCurrency", "recieveCurrency", "");
 
 // Campos ocultos
-xpresentationLayer::buildInputTextGrid("Banco / Proveedor", "", "bank", "", 20, "hidden", "", "", "", "bankProviderInput");
+xpresentationLayer::buildInputTextGrid("Banco / Proveedor", "", "bank", "", 20, "hidden", "", "", "", "bankProviderInput", "", "Italbank");
 xpresentationLayer::buildInputNumberGrid("Numero / Referencia", "", "reference", "", 15, "hidden", "20", "numRefInput");
 xpresentationLayer::buildInputNumberGrid("Routing", "", "routing", "", 20, "hidden grid-item-2", "20", "routingInput");
 

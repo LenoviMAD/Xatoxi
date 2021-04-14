@@ -26,17 +26,15 @@ export default function init() {
             const sendCurrency = document.querySelector(`#${cambioForm.getAttribute('id')} [name="sendCurrency"]`)
             const recieveMethod = document.querySelector(`#${cambioForm.getAttribute('id')} [name="recieveMethod"]`)
             const ping = document.querySelector(`#${cambioForm.getAttribute('id')} .ping`)
+            const TITLE_SECTION = "Cambio"
 
             // Toggle para calcComission
             amount.addEventListener('blur', () => {
                 calComisionCompra()
                 togglePing()
             })
+
             paidMethod.addEventListener('change', () => {
-                calComisionCompra()
-                togglePing()
-            })
-            recieveMethod.addEventListener('change', () => {
                 calComisionCompra()
                 togglePing()
             })
@@ -44,17 +42,24 @@ export default function init() {
                 calComisionCompra()
                 togglePing()
             })
+            recieveMethod.addEventListener('change', () => {
+                calComisionCompra()
+                togglePing()
+            })
 
             // Toggle para mostrar modal (mas info)
-            recieveCurrency.addEventListener('change', async() => {
+            recieveCurrency.addEventListener('change', async () => {
+                togglePing()
                 calComisionCompra()
             })
 
             // fetch final de venta
-            ping.addEventListener('click', async() => {
+            cambioForm.addEventListener('submit', async e => {
+                e.preventDefault()
+
                 // Cargando loader
                 modal.openModal('loader', undefined, undefined, false)
-                
+
                 // GEN OTP FETCH
                 let formData = new FormData()
                 formData.append("cond", "genotp");
@@ -71,6 +76,7 @@ export default function init() {
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
                         e.preventDefault()
+
                         modal.closeModal('otpVerification')
 
                         // Cargando loader
@@ -86,11 +92,12 @@ export default function init() {
 
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
                         let res = await data.json();
+                        console.log(res);
 
                         // Quitando loader
                         modal.closeModal('loader')
                         if (res.code === "0000") {
-                            modal.openModal('modalSuccess')
+                            modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, false)
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', 'Datos incompletos', res.message)
                         } else {
@@ -127,7 +134,7 @@ export default function init() {
                         // Creando elementos para mostrar
                         let html = `
                             <p>
-                                Monto <span> ${numberFormater(res.exchangeamount)} </span>
+                                Monto <span> ${numberFormater(amount.value)} </span>
                             </p>
                             <p>
                                 ${res.txtcommission} <span> ${numberFormater(res.commission)} </span>
@@ -151,7 +158,7 @@ export default function init() {
                     modal.openModal('operationSummary')
                 }
             }
-            
+
             // Toggle para mas inputs del formulario de billetera
             paidMethod.addEventListener('change', () => {
                 let valueSelected = paidMethod.options[paidMethod.selectedIndex].value;
@@ -163,7 +170,7 @@ export default function init() {
                 21 = TARJETA DE DEBITO 
                 4 = Transferencia  
                 */
-    
+
                 if (valueSelected === "5") {
                     closeEverythingExceptThese('cambioForm', ['bankProviderInput', 'numRefInput', 'routingInput'])
                 } else if (valueSelected === "2" || valueSelected === "20" || valueSelected === "21" || valueSelected === "4") {

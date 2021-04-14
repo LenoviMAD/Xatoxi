@@ -13,7 +13,7 @@ export default function init() {
 				e.preventDefault();
 
 				// Cargando loader
-				modal.openModal("loader");
+				modal.openModal('loader', undefined, undefined, false)
 
 				// Generar pin
 				let formData = new FormData();
@@ -23,7 +23,6 @@ export default function init() {
 					body: formData,
 				});
 				let resPin = await dataPin.json();
-				console.log(resPin);
 
 				if (resPin.code === "0000") {
 					// Guardar pin en una variable de sesion para sus porterior validacion
@@ -35,6 +34,7 @@ export default function init() {
 						body: formData1,
 					});
 					await dataSavePin.text();
+					console.log(resPin.pin);
 
 					// Enviar pin al correo
 					let formData = new FormData(registerForm)
@@ -62,7 +62,7 @@ export default function init() {
 						messageModal.innerHTML = `
 						Te hemos enviado el código al email <br><b>${document.getElementById('email').value}</b>
 						`
-						// agregando al modal 
+						// agregando al modal
 						document.querySelector('#pinVerification footer').prepend(messageModal)
 
 						const btnPin = document.querySelector(
@@ -72,7 +72,7 @@ export default function init() {
 
 						btnPin.addEventListener("click", async () => {
 							// Cargando loader
-							modal.openModal("loader");
+							modal.openModal('loader', undefined, undefined, false)
 
 							// Verificar pin
 							let formData = new FormData();
@@ -92,7 +92,7 @@ export default function init() {
 								// Quitando loader
 								modal.closeModal("pinVerification");
 								// Cargando loader
-								modal.openModal("loader");
+								modal.openModal('loader', undefined, undefined, false)
 
 								// Enviamos info para primer paso de registro
 								let formData = new FormData(registerForm);
@@ -100,6 +100,7 @@ export default function init() {
 									'#registerForm [name="codeArea"]'
 								);
 								formData.append("cond", "addlead");
+								formData.append("country", "58");
 								formData.append(
 									"codeArea",
 									codeArea.options[codeArea.selectedIndex].textContent
@@ -112,10 +113,9 @@ export default function init() {
 
 								// Quitando loader
 								modal.closeModal("loader");
-								console.log(resSignup);
 
 								if (resSignup.code === "0000") {
-									modal.openModal("modalSuccess", 'Registrado', `${resSignup.message} ${resSignup.pin}`);
+									modal.openModal("modalSuccess", 'Registrado', `${resSignup.message} Hemos enviado su clave al correo`);
 								} else if (resSignup.code === "5000") {
 									modal.openModal(
 										"modalDanger",

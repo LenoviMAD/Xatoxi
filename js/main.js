@@ -196,7 +196,6 @@ if (true) {
     //Acciones tras cargar la página
     mostrarEnPantalla = document.getElementById("inputPin");
     if (mostrarEnPantalla) {
-        mostrarEnPantalla.value = 0000
 
         //Variable para ir guardando el valor del caracter
         x = "0";

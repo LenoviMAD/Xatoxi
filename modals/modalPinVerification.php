@@ -11,7 +11,7 @@ include_once("../xpresentationlayer.php");
                 <p class="modal__text">Este código expirará en: <span id="contador" class="font-green">00:114</span></p>
             </header>
             <aside class="modal-body text-center">
-                <input type="text" class="input-pin" name="pinCode" maxlength="4" id="pinCode" class="input-pin">
+                <input type="password" class="input-pin" name="pinCode" maxlength="4" id="pinCode" class="input-pin">
             </aside>
             <footer class="modal-footer">
             

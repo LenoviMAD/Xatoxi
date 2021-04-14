@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Fetch session currectly
             const body = new FormData();
             body.append("cond", "resetpin");
-            body.append("tag", "miatagbuenisimo13");
+            // body.append("tag", "");
 
             const data = await fetch("ajax.php", { method: 'POST', body });
             const res = await data.json();
