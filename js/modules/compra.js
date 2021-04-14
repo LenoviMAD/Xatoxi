@@ -16,6 +16,9 @@ export default function init() {
             const payIn = document.querySelector(`#${compraForm.getAttribute('id')} [name="payIn"]`)
             const accountBanks = document.querySelector(`#${compraForm.getAttribute('id')} [name="accountBanks"]`)
             const ping = document.querySelector(`#${compraForm.getAttribute('id')} .ping`)
+            const sectionPrepaid = document.getElementById(`sectionPrepaid`)
+            const sectionCommend = document.getElementById(`sectionCommend`)
+            const sectionCard = document.getElementById(`sectionCard`)
 
             amount.addEventListener('blur', () => {
                 calComisionCompra()
@@ -79,7 +82,35 @@ export default function init() {
             }
 
             // Toggle para mostrar modal (mas info)
+            payIn.addEventListener('change', async() => {
+                //<option value="19">ENCOMIENDA(.) </option>
+                //<option value="20">TARJETA DE CREDITO </option>
+                //<option value="21">TARJETA DE DEBITO </option>
+                let valueSelected = payIn.options[payIn.selectedIndex].value;
+
+                if (valueSelected === "19") {
+                    sectionCard.classList.add('hidden')
+                } else if (valueSelected === "20") {
+                    sectionCard.classList.remove('hidden')
+                } else if (valueSelected === "21") {
+                    sectionCard.classList.remove('hidden')
+                }
+
+            })
+
+            // Toggle para mostrar modal (mas info)
             payForm.addEventListener('change', async() => {
+                //<option value="3">Depósito en Cuenta </option>
+                //<option value="5">Tarjeta de Credito </option>
+                let valueSelected = payForm.options[payForm.selectedIndex].value;
+
+                if (valueSelected === "3") {
+                    sectionPrepaid.classList.add('hidden')
+                    sectionCommend.classList.remove('hidden')
+                } else if (valueSelected === "5") {
+                    sectionPrepaid.classList.remove('hidden')
+                    sectionCommend.classList.add('hidden')
+                }
                 // Mostramos boton de enviar
                 if (ping.classList.contains('hidden')) {
                     ping.classList.remove('hidden')
@@ -87,7 +118,9 @@ export default function init() {
 
                 // Abrir modal con datos
                 modal.openModal('operationSummary')
+
             })
+
 
             // fetch final de venta
             ping.addEventListener('click', async() => {
