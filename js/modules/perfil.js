@@ -101,6 +101,9 @@ export default function init() {
                     });
 
                     telMovil.value = res.mpbankaccount
+
+                    prepaidcardnumber.value = res.prepaidcardnumber
+                    debitcardnumber.value = res.debitcardnumber
                 }
             }
             getParty()
@@ -115,8 +118,6 @@ export default function init() {
                 let doc = typeDocument.options[typeDocument.selectedIndex].textContent.trim() + "" + documentC.value.trim()
 
                 formData.append("cond", "leadToParty");
-                formData.append("prepaidcardnumber", "prepaidcardnumber");
-                formData.append("debitcardnumber", "debitcardnumber");
                 formData.append("documentid", doc);
 
                 const data = await fetch("ajax.php", { method: 'POST', body: formData });

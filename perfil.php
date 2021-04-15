@@ -3,7 +3,7 @@ error_reporting(0);
 session_start();
 include_once("utilities.php");
 
-// //utilities::trueUser();
+utilities::trueUser();
 
 include_once("xpresentationlayer.php");
 include_once("xclient.php");

@@ -2,7 +2,7 @@
 error_reporting(0);
 session_start();
 include_once("utilities.php");
-//utilities::trueUser();
+utilities::trueUser();
 
 include_once("xpresentationlayer.php");
 include_once("xclient.php");
@@ -30,10 +30,11 @@ xpresentationLayer::buildInputTextGrid("Banco / Proveedor", "", "bank", "", 20, 
 xpresentationLayer::buildInputNumberGrid("Numero / Referencia", "", "reference", "", 15, "hidden", "20", "numRefInput");
 xpresentationLayer::buildInputNumberGrid("Routing", "", "routing", "", 20, "hidden grid-item-2", "20", "routingInput");
 
-xpresentationLayer::buildSectionPin();
+xpresentationLayer::buildSectionPin("","grid-item-2", true);
 xpresentationLayer::endMain();
 
 xpresentationLayer::buildFooterXatoxi();
+
 xpresentationLayer::endForm();
 
 xpresentationLayer::endSection();

@@ -49,6 +49,8 @@ const toBase64 = file => new Promise((resolve, reject) => {
     reader.onerror = error => reject(error);
 });
 
+const URI = location.origin + "/xatoxi/"
+
 export async function servicioFirma(payload = {}) {
     // UPLOAD DOCUMENT 
     let formData = new FormData()
@@ -119,5 +121,6 @@ export async function closeEverything(padre) {
 }
 
 export {
+    URI,
     toBase64
 }

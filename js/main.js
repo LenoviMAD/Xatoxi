@@ -85,55 +85,127 @@ if (item3) {
     })
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+function closeEverythingExceptThese(padre, losqueno) {
+    const container = document.getElementById(padre)
+
+    // Colocamos 
+    container.childNodes.forEach(value => {
+        if (value.nodeName !== "#text") {
+            if (value.getAttribute('id')) {
+                if (!value.classList.contains('hidden')) {
+                    value.classList.add('hidden')
+                }
+            }
+        }
+    })
+
+    // Quitar clase hidden a "losqueno"
+    losqueno.forEach(value => {
+        let hijo = document.getElementById(value)
+
+        if (hijo.classList.contains('hidden')) {
+            hijo.classList.remove('hidden')
+        }
+    })
+    
+}
+
+document.addEventListener('DOMContentLoaded', async function () {
     const container = document.querySelector("#item-container");
     const wrapperButtons = document.querySelector("#wrapperButtons");
     const wrapperSections = document.querySelector("#wrapperSections")
     const wrapper = document.getElementById("wrapper")
 
+
     if (container) {
-        // recorriendo header targets
-        for (const iterator of container.children) {
-            iterator.addEventListener('click', async () => {
 
-                // Agregamos las animaciones a la botonera 1
-                container.classList.add('animate')
-                container.classList.add('animate__fadeOut')
-                setTimeout(() => { container.classList.add('hidden') }, 1000);
+        // Fetch session currectly
+        const formData = new FormData();
+        formData.append("cond", "session");
+        const data = await fetch("ajax.php", { method: 'POST', body: formData });
+        const resUserSession = await data.json();
+        console.log(resUserSession);
 
-                // Agregando clases al segundo wrapper
-                wrapper.classList.remove('hidden')
-                wrapper.classList.add('overlap-a')
-                wrapper.classList.add('animate')
-                wrapper.classList.add('animate__fadeIn')
+        // SETEAMOS LOS DATOS SI VIENEN DE CAMBIO
+        if (resUserSession.refToChange) {
+            // Agregamos las animaciones a la botonera 1
+            container.classList.add('animate')
+            container.classList.add('animate__fadeOut')
+            setTimeout(() => { container.classList.add('hidden') }, 1000);
 
-                // QUITAMOS EL PADDING DEL WRAPPER
-                document.querySelector('.wrapper').classList.add('p0')
+            // Agregando clases al segundo wrapper
+            wrapper.classList.remove('hidden')
+            wrapper.classList.add('overlap-a')
+            wrapper.classList.add('animate')
+            wrapper.classList.add('animate__fadeIn')
 
-                for (const other of wrapperSections.children) {
-                    if (other.dataset.id === iterator.dataset.id) {
-                        actives(iterator)
-                        other.classList.remove('hidden')
-                    } else {
-                        other.classList.add('hidden')
-                    }
-                }
-            })
-        }
+            // QUITAMOS EL PADDING DEL WRAPPER
+            document.querySelector('.wrapper').classList.add('p0')
 
-        for (const iterator of wrapperButtons.children) {
-            iterator.addEventListener('click', async () => {
+            const iterator = document.querySelector(`button[data-id="${resUserSession.refToChange}"]`)
+            const iterator2 = document.querySelector(`div[data-id="${resUserSession.refToChange}"]`)
+
+            console.log(`[data-id="${resUserSession.refToChange}"]`);
+            
+            // Ponemos activo a uno y desactivamos los demas
+            for (const other of wrapperButtons.children) {
                 // recorriendo opciones targets
-                for (const other of wrapperSections.children) {
-                    if (other.dataset.id === iterator.dataset.id) {
-                        actives(iterator)
-                        other.classList.remove('hidden')
-                    } else {
-                        other.classList.add('hidden')
+                if (iterator.dataset.id === other.dataset.id) {
+                    actives(iterator)
+                } 
+            }
+            
+            // Abrimos la seccion correspondiente
+            for (const other of wrapperSections.children) {
+                // recorriendo opciones targets
+                if (iterator2.dataset.id === other.dataset.id) {
+                    iterator2.classList.remove('hidden')
+                } 
+            }
+        }else {
+            // recorriendo header targets
+            for (const iterator of container.children) {
+                iterator.addEventListener('click', async () => {
+                    // Agregamos las animaciones a la botonera 1
+                    container.classList.add('animate')
+                    container.classList.add('animate__fadeOut')
+                    setTimeout(() => { container.classList.add('hidden') }, 1000);
+    
+                    // Agregando clases al segundo wrapper
+                    wrapper.classList.remove('hidden')
+                    wrapper.classList.add('overlap-a')
+                    wrapper.classList.add('animate')
+                    wrapper.classList.add('animate__fadeIn')
+    
+                    // QUITAMOS EL PADDING DEL WRAPPER
+                    document.querySelector('.wrapper').classList.add('p0')
+    
+                    for (const other of wrapperSections.children) {
+                        if (other.dataset.id === iterator.dataset.id) {
+                            actives(iterator)
+                            other.classList.remove('hidden')
+                        } else {
+                            other.classList.add('hidden')
+                        }
                     }
-                }
-            })
+                })
+            }
+    
+            for (const iterator of wrapperButtons.children) {
+                iterator.addEventListener('click', async () => {
+                    // recorriendo opciones targets
+                    for (const other of wrapperSections.children) {
+                        if (other.dataset.id === iterator.dataset.id) {
+                            actives(iterator)
+                            other.classList.remove('hidden')
+                        } else {
+                            other.classList.add('hidden')
+                        }
+                    }
+                })
+            }
         }
+
 
         // comparacion con los botones para quitar activos y dejar solo uno
         function actives(iterator) {
@@ -189,7 +261,6 @@ async function selectValorforId(srcdst, url) {
 
 }
 
-var URLactual = window.location;
 if (true) {
     // JavaScript Document
 
@@ -287,35 +358,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 })
-
-async function dataPin() {
-    const dataPin = document.getElementById("pin");
-    const dataTag = document.getElementById("tag");
-    let url
-    mainMenu.childNodes.forEach(value => {
-        if (value.nodeName == "ARTICLE") {
-            if (value.classList.contains("activeClass")) {
-                url = value.dataset.url
-            }
-        }
-    })
-
-    // //Ajax 
-    // const formData = new FormData();
-    // formData.append("cond", "AuthPin");
-    // formData.append("pin", dataPin.value);
-    // formData.append("tag", dataTag.value);
-    // const data = await fetch("ajax.php", { method: 'POST', body: formData });
-    // const rest = await data.text();
-    // console.log(rest);
-
-    // //FALTA LA LOGICA DE AUTENTICAR EL PIN
-    // rest.code;
-    // //Fin ajax
-
-    location.href = `http://localhost/xatoxiWeb/${url}`
-
-}
 
 //Esta funcion se encarga de obtener los valores a enviar a los servicios y devolver el ouput del servicio
 //Tiene la particularidad de que la variable srcdst tendra tanto el/los valore(s) a enviar y el/los destinos

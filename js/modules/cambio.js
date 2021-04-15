@@ -1,5 +1,5 @@
 import Modal from './Modal.js';
-import { numberFormater, closeEverythingExceptThese, closeEverything } from '../helpers.js';
+import { numberFormater, closeEverythingExceptThese, closeEverything, URI } from '../helpers.js';
 
 // Cambio
 export default function init() {
@@ -26,6 +26,7 @@ export default function init() {
             const sendCurrency = document.querySelector(`#${cambioForm.getAttribute('id')} [name="sendCurrency"]`)
             const recieveMethod = document.querySelector(`#${cambioForm.getAttribute('id')} [name="recieveMethod"]`)
             const ping = document.querySelector(`#${cambioForm.getAttribute('id')} .ping`)
+            const btnRedirect = document.querySelector(`#${cambioForm.getAttribute('id')} .btn-redirect`)
             const TITLE_SECTION = "Cambio"
 
             // Toggle para calcComission
@@ -92,10 +93,10 @@ export default function init() {
 
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
                         let res = await data.json();
-                        console.log(res);
 
                         // Quitando loader
                         modal.closeModal('loader')
+
                         if (res.code === "0000") {
                             modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, false)
                         } else if (res.code === "5000") {
@@ -145,6 +146,19 @@ export default function init() {
                         `
                         const inner = document.querySelector('#operationSummary .modal-body')
                         inner.innerHTML = html
+
+                        // Modificar el boton para que redireccione correctamente
+                        // 2 enco
+                        // 4 trans
+
+                        if ((recieveMethod.options[recieveMethod.selectedIndex].value !== "2")) {   
+                            btnRedirect.setAttribute("href", URI+ "envio.php")
+                        }
+                        
+                        if ((recieveMethod.options[recieveMethod.selectedIndex].value !== "4")) {
+                            btnRedirect.setAttribute("href", URI+ "envio.php")
+                        }
+
                     } else if (res.code === "5000") {
                         modal.openModal('modalDanger', 'Datos incompletos', res.message)
                     } else {
@@ -180,12 +194,26 @@ export default function init() {
                 }
             })
 
-            // activamos el ping cuando todos los inputs esten full
+            // activamos el ping o el boton de redireccion cuando todos los inputs esten full
             function togglePing() {
-                if (amount.value && (paidMethod.options[paidMethod.selectedIndex].value !== "Seleccione") && (recieveMethod.options[recieveMethod.selectedIndex].value !== "Seleccione") && (recieveCurrency.options[recieveCurrency.selectedIndex].value !== "Seleccione") && (sendCurrency.options[sendCurrency.selectedIndex].value !== "Seleccione")) {
-                    // Mostramos boton de enviar
-                    ping.classList.remove('hidden')
+                if (amount.value &&
+                    (paidMethod.options[paidMethod.selectedIndex].value !== "Seleccione") &&
+                    (recieveMethod.options[recieveMethod.selectedIndex].value !== "Seleccione") &&
+                    (recieveCurrency.options[recieveCurrency.selectedIndex].value !== "Seleccione") &&
+                    (sendCurrency.options[sendCurrency.selectedIndex].value !== "Seleccione")) {
+
+                    // Validamos si es EFECTIVO, ENCOMIENDA || TRANSFERENCIA
+                    if ((paidMethod.options[paidMethod.selectedIndex].value === "1")) {
+                        // Mostramos boton de enviar y ocultamos el otro
+                        btnRedirect.classList.remove('hidden')
+                        ping.classList.add('hidden')
+                    } else {
+                        // Mostramos boton de enviar y ocultamos el otro
+                        ping.classList.remove('hidden')
+                        btnRedirect.classList.add('hidden')
+                    }
                 } else {
+                    btnRedirect.classList.add('hidden')
                     ping.classList.add('hidden')
                 }
             }

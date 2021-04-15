@@ -452,15 +452,20 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 10:12
     ===================================================================== */
-	static function buildSectionPin($data = "")
+	static function buildSectionPin($data = "", $class="", $otherButton = false)
 	{
 		if ($data != "")
 			$data = ' data-targetping="' . $data . '" ';
 
-		echo '<DIV class="text-center" >';
+		echo '<DIV class="text-center '.$class.'" >';
 		echo '<BUTTON type="submit" class="figure-img ping hidden" ' . $data . '>';
 		echo '<IMG src="img/LOCK.png" alt="boton ping" class="img-pin">';
 		echo '</BUTTON>';
+		if ($otherButton) {
+			echo '<A href="#" class="hidden btn btn-primary btn-redirect">';
+			echo 'Continuar';
+			echo '</A>';
+		}
 		echo '</DIV>';
 	} //buildSectionPin
 
@@ -1130,7 +1135,7 @@ class xpresentationLayer
     ===================================================================== */
 	static function startDivHidden($id, $customClass = "")
 	{
-		echo '<DIV id =' . $id . ' class=" hidden ' . $customClass . '">';
+		echo '<DIV id =' . $id . ' class="hidden ' . $customClass . '">';
 	} //startDivHidden
 	/*=======================================================================
 	Function: buildInputFileDoc

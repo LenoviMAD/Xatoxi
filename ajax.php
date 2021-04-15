@@ -117,16 +117,21 @@ if (isset($_POST["cond"])) {
         $reference = isset($_POST['referenceCommendCuenta']) ? $util->testInput($_POST['referenceCommendCuenta']) : "";
 
         // validar cuando sea deposito
-        if ($idclearencetype == "3") {
-            $acc = $_POST['receiveAccount'];
-        } else if ($idclearencetype == "6") {
-            // validar cuando sea ach
-            $acc = $_POST['accACHCommend'];
-        } else if ($idclearencetype == "1") {
-            // validar cuando sea ach
-            $reference = $_POST['referenceCommend'];
+        if ($_SESSION['paidMethodToChange']) {
+            $idclearencetype = $_SESSION['paidMethodToChange'];
+            $amount = $_SESSION['amountToChange'];
         } else {
-            $acc = '';
+            if ($idclearencetype == "3") {
+                $acc = $_POST['receiveAccount'];
+            } else if ($idclearencetype == "6") {
+                // validar cuando sea ach
+                $acc = $_POST['accACHCommend'];
+            } else if ($idclearencetype == "1") {
+                // validar cuando sea ach
+                $reference = $_POST['referenceCommend'];
+            } else {
+                $acc = '';
+            }
         }
 
         $bank = isset($_POST['bankAccountACHCommend']) ? $util->testInput($_POST['bankAccountACHCommend']) : "";
@@ -149,6 +154,14 @@ if (isset($_POST["cond"])) {
         $cctype = isset($_POST['typeCardCommend']) ? $util->testInput($_POST['typeCardCommend']) : "";
 
         $data_json = $client->mexecsend($_SESSION['idlead'], $idcountry, $idprovider, $amount, $idremitancetype, $idcurrency, $idclearencetype, $acc, $reference, $bdocumentid, $bfirstname, $bmiddlename, $blastname, $bsecondlastaname, $bbank, $bacc, $bank, $routing, $ccexpyear, $ccnumber, $ccexpmonth, $cccvc, $cctype);
+
+        // Si el fetch es exitoso borramos las variables de session correspondientes
+        if ($data_json->code === "0000") {
+            unset($_SESSION['amountToChange']);
+            unset($_SESSION['refToChange']);
+            unset($_SESSION['paidMethodToChange']);
+        }
+
         print_r(json_encode($data_json));
     }
 
@@ -161,21 +174,29 @@ if (isset($_POST["cond"])) {
         $reference = "";
         $bankACH = "";
         $routingACH = "";
-        if ($idclearencetype === 1) {
-            $reference = $util->testInput($_POST['referenceTransferCash']);
-        } else if ($idclearencetype === 3) {
-            $reference = $util->testInput($_POST['referenceTransferDeposit']);
-            $acc = $util->testInput($_POST['receivingAccount']);
-            //$receivingAccount = $util->testInput($_POST['receivingAccount']);    
-        } else if ($idclearencetype === 4) {
-        } else if ($idclearencetype === 5) {
-        } else if ($idclearencetype === 6) {
-            $bankACH = $util->testInput($_POST['bankAccountMovilTransfer']);
-            $acc = $util->testInput($_POST['accMovilTransfer']);
-            $routingACH = $util->testInput($_POST['routingMovilTransfer']);
-        } else if ($idclearencetype === 7) {
-        } else if ($idclearencetype === 8) {
+         // validar cuando sea deposito
+         if ($_SESSION['paidMethodToChange']) {
+            $idclearencetype = $_SESSION['paidMethodToChange'];
+            $amount = $_SESSION['amountToChange'];
+        } else {
+            if ($idclearencetype === 1) {
+                $reference = $util->testInput($_POST['referenceTransferCash']);
+            } else if ($idclearencetype === 3) {
+                $reference = $util->testInput($_POST['referenceTransferDeposit']);
+                $acc = $util->testInput($_POST['receivingAccount']);
+                //$receivingAccount = $util->testInput($_POST['receivingAccount']);    
+            } else if ($idclearencetype === 4) {
+            } else if ($idclearencetype === 5) {
+            } else if ($idclearencetype === 6) {
+                $bankACH = $util->testInput($_POST['bankAccountMovilTransfer']);
+                $acc = $util->testInput($_POST['accMovilTransfer']);
+                $routingACH = $util->testInput($_POST['routingMovilTransfer']);
+            } else if ($idclearencetype === 7) {
+            } else if ($idclearencetype === 8) {
+            }
         }
+
+
 
         $bfirstname = $util->testInput($_POST['firstNameTransfer']);
         $bmiddlename = $util->testInput($_POST['secondNameTransfer']);
@@ -311,6 +332,18 @@ if (isset($_POST["cond"])) {
         $bank = isset($_POST['bank']) ? $util->testInput($_POST['bank']) : "";
         $numref = isset($_POST['reference']) ? $util->testInput($_POST['reference']) : "";
         $routing = isset($_POST['routing']) ? $util->testInput($_POST['routing']) : "";
+
+        // Si entrega es efectivo || Encomienda || Transferencia
+        if ($idinstrumentsrc === "1") {
+            $_SESSION['amountToChange'] = $amount;
+            $_SESSION['paidMethodToChange'] = $idinstrumentsrc;
+
+            if ($idinstrumentdst === "2") {
+                $_SESSION['refToChange'] = "Encomienda";
+            } else if ($idinstrumentdst === "4") {
+                $_SESSION['refToChange'] = "Transferencia";
+            }
+        }
 
         $data_json = $client->mcalcexchange($_SESSION['idlead'], $idinstrumentsrc, $idinstrumentdst, $idcurrencysrc, $idcurrencydst, $amount, $bank, $numref, $routing);
         print_r(json_encode($data_json));

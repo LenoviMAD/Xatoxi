@@ -35,7 +35,7 @@ xpresentationLayer::buildInputNumberGrid("Monto", "", "amountWallet", "0.00");
 
 $data_json = $serviceCall->mgetcurrencyremitancel();
 xpresentationLayer::buildSelectJson("Moneda", "currencyWallet", "", $data_json, "", "");
-$data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(6,2,3,5));
+$data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(6, 2, 3, 5));
 xpresentationLayer::buildSelectJson("Forma de pago", "paidFormWallet", "", $data_json, "", "", "grid-item-2");
 
 //ACH
@@ -95,7 +95,7 @@ xpresentationLayer::endDiv();
 
 //Comienzo seccion Encomienda
 xpresentationLayer::startContentofOption("Encomienda");
-xpresentationLayer::startForm("encomiendaForm","","pb20");
+xpresentationLayer::startForm("encomiendaForm", "", "pb20");
 xpresentationLayer::startSectionTwoColumns("", "encomiendaFormTest");
 xpresentationLayer::buildInputNumberGrid("Monto", "", "amountCommend", "0.00", "");
 $data_json = $serviceCall->mgetcountryl();
@@ -104,10 +104,15 @@ xpresentationLayer::buildSelectJson("Proveedor", "providerCommend", "providerCom
 $data_json = $serviceCall->mgetcurrencyremitancel();
 xpresentationLayer::buildSelectJson("Moneda", "currencyCommend", "", $data_json, "", "");
 xpresentationLayer::buildSelectJson("Entrega", "sendFormCommend", "sendFormCommend", "");
+
+
 $data_json = $serviceCall->mgetclearencetypel();
 xpresentationLayer::buildSelectJson("Forma de pago", "paidFormCommend", "", $data_json, "", "");
-xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "", "exchangeRateCommend", "0.00", "", "", "", true);
-xpresentationLayer::buildInputTextGrid("Monto Bs", "", "amountBsCommend", "0.00", "", "", "", true);
+
+$customClass = $_SESSION['refToChange'] ? "hidden" : "";
+xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "", "exchangeRateCommend", "0.00", "", $customClass, "", true);
+xpresentationLayer::buildInputTextGrid("Monto Bs", "", "amountBsCommend", "0.00", "", $customClass, "", true);
+
 
 //ACH
 xpresentationLayer::startDivHidden("sectionCommendAHC", "grid-item-2 grid-1");
@@ -140,7 +145,7 @@ xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-1");
 xpresentationLayer::buildInputNumberGrid("Mes", "", "monthVenCommend", "", "", "", 2);
 xpresentationLayer::buildInputNumberGrid("Año", "", "yearVenCommend", "", "", "", 4);
 xpresentationLayer::endSection();
-xpresentationLayer::buildInputNumberGrid("Cod. Validacion", "", "codValCommend", "", "", "",4);
+xpresentationLayer::buildInputNumberGrid("Cod. Validacion", "", "codValCommend", "", "", "", 4);
 xpresentationLayer::endDiv();
 
 // Documento Identificación
@@ -163,7 +168,7 @@ xpresentationLayer::endSection();
 
 xpresentationLayer::startDivHidden("beneficiarioCommend");
 xpresentationLayer::buildTitleBar("BENEFICIARIO");
-xpresentationLayer::buildSearchUsersCommend("usersCommend", "usersCommend", "btnAddCommend", "","","","mb20");
+xpresentationLayer::buildSearchUsersCommend("usersCommend", "usersCommend", "btnAddCommend", "", "", "", "mb20");
 xpresentationLayer::startDivHidden("userCommend");
 xpresentationLayer::startSectionTwoColumns();
 xpresentationLayer::buildInputTextGrid("Documento Identificación", "bdocumentid", "bdocumentid", "", "", "grid-item-2", "required", "");
@@ -206,9 +211,12 @@ $data_json = $serviceCall->mgetcountryl();
 xpresentationLayer::buildSelectJson("País", "countryTransfer", "countryTransfer", $data_json);
 $data_json = $serviceCall->mgetcurrencytrl();
 xpresentationLayer::buildSelectJson("Moneda", "currencyTransfer", "currencyTransfer", $data_json, "", "");
-xpresentationLayer::buildSelectJson("Forma de pago", "paidFormTransfer", "paidFormTransfer", $data_json_mgetclearencetypel, "", "");
-xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "exchangedRateTransfer", "exchangedRateTransfer", "0.00", "", "", "", true);
-xpresentationLayer::buildInputTextGrid("Monto Bs", "amountBsTransfer", "amountBsTransfer", "0.00", "", "", "", true);
+$data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(6, 2, 3, 5, 1));
+xpresentationLayer::buildSelectJson("Forma de pago", "paidFormTransfer", "paidFormTransfer", $data_json, "", "");
+
+$customClass = $_SESSION['refToChange'] ? "hidden" : "";
+xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "exchangedRateTransfer", "exchangedRateTransfer", "0.00", "", $customClass, "", true);
+xpresentationLayer::buildInputTextGrid("Monto Bs", "amountBsTransfer", "amountBsTransfer", "0.00", "", $customClass, "", true);
 
 //Deposito en cuenta
 xpresentationLayer::startDivHidden("accountDeposit", "grid-item-2 grid-1");
@@ -235,21 +243,21 @@ xpresentationLayer::buildInputTextGrid("Número de tarjeta", "numberCard", "numb
 xpresentationLayer::buildInputTextGrid("Tipo de tarjeta", "tipeCard", "tipeCard");
 ?>
 <div class="input-field1">
-<label class="font-Bold ">Fecha Venc.</label>
-<div class="container-input">
-    <div class="col-md-6">
-        <div class="input-container">
-            <input class="input" type="text" placeholder=" " />
-            <label class="placeholder">Mes</label>
+    <label class="font-Bold ">Fecha Venc.</label>
+    <div class="container-input">
+        <div class="col-md-6">
+            <div class="input-container">
+                <input class="input" type="text" placeholder=" " />
+                <label class="placeholder">Mes</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-container">
+                <input class="input" type="text" placeholder=" " />
+                <label class="placeholder">Año</label>
+            </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="input-container">
-            <input class="input" type="text" placeholder=" " />
-            <label class="placeholder">Año</label>
-        </div>
-    </div>
-</div>
 </div>
 <?php
 // xpresentationLayer::buildInputTextGridCustom("año y mes", "debitcardnumberTransfer", "debitcardnumberTransfer", "", "", "", "", "", "input-field");
@@ -276,7 +284,7 @@ xpresentationLayer::buildInputTextGrid("Primer nombre", "firstNameTransfer", "fi
 xpresentationLayer::buildInputTextGrid("Segundo nombre", "secondNameTransfer", "secondNameTransfer", "");
 xpresentationLayer::buildInputTextGrid("Primer apellido", "firstSurnameTransfer", "firstSurnameTransfer", "", "", "", "required");
 xpresentationLayer::buildInputTextGrid("Segundo apellido", "secondSurnameTransfer", "secondSurnameTransfer", "");
-xpresentationLayer::buildInputTextGrid("Dirección", "addressTransfer", "addressTransfer", "", "", "grid-item-1 grid-item-2 marginSect", "", "", "input-text-large");
+xpresentationLayer::buildInputTextGrid("Dirección", "addressTransfer", "addressTransfer", "", "", "grid-item-1 grid-item-2 marginSect", "required", "", "input-text-large");
 xpresentationLayer::buildInputTextGrid("Email", "emailTransfer", "emailTransfer", "Ejemplo@mail.com");
 xpresentationLayer::buildInputTextGrid("Teléfono", "phoneTransfer", "phoneTransfer", "", "", "");
 xpresentationLayer::buildInputTextGrid("Banco", "bankTransfer", "bankTransfer", "", "", "", "required");

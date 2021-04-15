@@ -278,23 +278,45 @@ export default function init() {
             const exchangeRateCommend = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="exchangeRateCommend"]`)
             const typeDocCommend = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="typeDocCommend"]`)
 
-            amountCommend.addEventListener('blur', () => {
+            // Fetch session currectly
+            const formData = new FormData();
+            formData.append("cond", "session");
+            const data = await fetch("ajax.php", { method: 'POST', body: formData });
+            const resUserSession = await data.json();
+            console.log(resUserSession);
+
+            // SETEAMOS LOS DATOS SI VIENEN DE CAMBIO
+            if (resUserSession.paidMethodToChange) {
+                paidFormCommend.childNodes.forEach(element => {
+                    if (element.value === resUserSession.paidMethodToChange) {
+                        element.setAttribute("selected", true)
+                    }
+                });
+                paidFormCommend.setAttribute("disabled", true)
+            }
+
+            if (resUserSession.amountToChange) {
+                amountCommend.value = resUserSession.amountToChange
+                amountCommend.setAttribute("disabled", true)
+            }
+
+            amountCommend.addEventListener('blur', async () => {
+                await step0()
                 step1Encomienda()
-                step0()
             })
-            countryCommend.addEventListener('change', () => {
+            countryCommend.addEventListener('change', async () => {
+                await step0()
                 step1Encomienda()
-                step0()
             })
 
-            providerCommend.addEventListener('change', () => {
+            providerCommend.addEventListener('change', async () => {
+                await step0()
                 step1Encomienda()
-                step0()
             })
 
-            sendFormCommend.addEventListener('change', () => {
+            sendFormCommend.addEventListener('change', async () => {
+                await step0()
                 step1Encomienda()
-                step0()
             })
             currencyCommend.addEventListener('change', () => {
                 step1Encomienda()
@@ -373,6 +395,10 @@ export default function init() {
 
                     // Abriendo modal con datos
                     modal.openModal('modalEncomienda')
+
+                    if (resUserSession.paidMethodToChange) {
+                        beneficiarioCommend.classList.remove('hidden')
+                    }
                 }
             }
 
@@ -599,7 +625,29 @@ export default function init() {
             const paidFormTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="paidFormTransfer"]`)
             const exchangedRateTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="exchangedRateTransfer"]`)
             const amountBsTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="amountBsTransfer"]`)
-            let data = new FormData()
+
+            // Fetch session currectly
+            const formData = new FormData();
+            formData.append("cond", "session");
+            const data = await fetch("ajax.php", { method: 'POST', body: formData });
+            const resUserSession = await data.json();
+            console.log(resUserSession);
+
+            // SETEAMOS LOS DATOS SI VIENEN DE CAMBIO
+            if (resUserSession.paidMethodToChange) {
+                paidFormTransfer.childNodes.forEach(element => {
+                    if (element.value === resUserSession.paidMethodToChange) {
+                        element.setAttribute("selected", true)
+                    }
+                });
+                paidFormTransfer.setAttribute("disabled", true)
+            }
+
+            if (resUserSession.amountToChange) {
+                amountTransfer.value = resUserSession.amountToChange
+                amountTransfer.setAttribute("disabled", true)
+            }
+
             amountTransfer.addEventListener('blur', () => {
                 calculandoEnvioCambioMonto()
             })
@@ -651,6 +699,10 @@ export default function init() {
                             `
                         const inner = document.querySelector('#modalTransferencia .modal-body')
                         inner.innerHTML = html
+
+                        if (resUserSession.amountToChange) {
+                            beneficiarioTransfer.classList.remove('hidden')
+                        }
                     } else {
                         // Mostramos alerta de errore
                         console.log('problems');
@@ -806,7 +858,7 @@ export default function init() {
 
                         formData.append("cond", "saveTransfer");
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
-                        let res = await data.text();
+                        let res = await data.json();
                         console.log(res);
 
                         // Quitando spinner
