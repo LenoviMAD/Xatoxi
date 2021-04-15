@@ -199,7 +199,7 @@ if (isset($_POST["cond"])) {
         $ibbankaddress = $util->testInput($_POST['bankAddressTransferIntermediary']);
         $ibbankabaswiftiban = $util->testInput($_POST['abaSwiftIbanIntermediary']);
 
-        $data_json = $client->mexecsendtr(39, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bankACH, $routingACH, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban);
+        $data_json = $client->mexecsendtr($_SESSION['idlead'], $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bankACH, $routingACH, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban);
         echo json_encode($data_json);
     }
 
@@ -217,15 +217,15 @@ if (isset($_POST["cond"])) {
 
         // Pago movil
         $mpbankcode = $util->testInput($_POST['bancoPagoMovil']);
-        $mpbankaccount = $util->testInput($_POST['countrycode'])."".$util->testInput($_POST['phone']);
-        
+        $mpbankaccount = $util->testInput($_POST['countrycode']) . "" . $util->testInput($_POST['phone']);
+
         $idlocation = $util->testInput($_POST['branchOffices']) || $_SESSION['idlocation'];
 
         $addr = "asdsad sajd lksajd jsakdjasl djsajdksaldls djsajdklsadjaskld";
         $bdate = $_SESSION['bdate'];
 
-        
-        $data_json = $client->mrecv($_SESSION['idparty'], $acc, $key, $addr, $bdate, $idlocation, $_SESSION['idlead'], $otp, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode,$mpbankaccount);
+
+        $data_json = $client->mrecv($_SESSION['idparty'], $acc, $key, $addr, $bdate, $idlocation, $_SESSION['idlead'], $otp, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount);
         print_r(json_encode($data_json));
     }
 
@@ -262,8 +262,16 @@ if (isset($_POST["cond"])) {
         $otp = $_POST["otp"];
         $idinstrumentcredit = $_POST["payForm"];
         $idinstrumentdebit = $_POST["payIn"];
+        //ARREGLAR ESTO
+        $ccnumber  = $_POST["payIn"];
+        $ccexpyear = $_POST["payIn"];
+        $ccexpmonth = $_POST["payIn"];
+        $cccvc = $_POST["payIn"];
+        $cctype = $_POST["payIn"];
+        $mpbankcode = $_POST["payIn"];
+        $mpbankaccount= $_POST["payIn"];
 
-        $data_json = $client->mexexcbuy($_SESSION['idlead'], $currency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit);
+        $data_json = $client->mexexcbuy($_SESSION['idlead'], $currency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount);
         print_r(json_encode($data_json));
     }
 
@@ -280,9 +288,17 @@ if (isset($_POST["cond"])) {
         $otp = $_POST["otp"];
         $idinstrumentcredit = $_POST["payForm"];
         $idclearencetype = $_POST["payIn"];
-        $accountBanks = $_POST["accountBanks"] || "010220202020202";
+        $acc = $_POST["receiveAccount"] || "010220202020202";
+        $reference = $_POST["referenceCuenta"];
+        $ccnumber = $_POST["numberCardCredit"];
+        $ccexpyear = $_POST["yearTransfer"];
+        $ccexpmonth = $_POST["monthTransfer"];
+        $cccvc = $_POST["ValidationCodeCardTransfer"];
+        $cctype = $_POST["typeCard"];
+        $debitcardnumber = $_POST["numberCardDebit"];
+        $creditcardnumber = $_POST["numberCardDebit"];
 
-        $data_json = $client->mexecsell($_SESSION['idlead'], $currency, $amount, $otp, $idinstrumentcredit, $idclearencetype, $accountBanks);
+        $data_json = $client->mexecsell($_SESSION['idlead'], $currency, $amount, $otp, $idinstrumentcredit, $idclearencetype, $acc, $reference, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $debitcardnumber, $creditcardnumber);
         print_r(json_encode($data_json));
     }
 

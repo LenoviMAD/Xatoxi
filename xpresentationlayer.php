@@ -1130,7 +1130,7 @@ class xpresentationLayer
     ===================================================================== */
 	static function startDivHidden($id, $customClass = "")
 	{
-		echo '<DIV id =' . $id . ' class="' . $customClass . '">';
+		echo '<DIV id =' . $id . ' class=" hidden ' . $customClass . '">';
 	} //startDivHidden
 	/*=======================================================================
 	Function: buildInputFileDoc

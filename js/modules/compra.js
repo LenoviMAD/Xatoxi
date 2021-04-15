@@ -10,15 +10,17 @@ export default function init() {
         const compraForm = document.getElementById('compraForm')
 
         if (compraForm) {
+            const btnSubmitCompra = document.querySelector('[data-targetping="compra"]')
             const amount = document.querySelector(`#${compraForm.getAttribute('id')} [name="amount"]`)
             const currency = document.querySelector(`#${compraForm.getAttribute('id')} [name="currency"]`)
             const payForm = document.querySelector(`#${compraForm.getAttribute('id')} [name="payForm"]`)
             const payIn = document.querySelector(`#${compraForm.getAttribute('id')} [name="payIn"]`)
             const accountBanks = document.querySelector(`#${compraForm.getAttribute('id')} [name="accountBanks"]`)
-            const ping = document.querySelector(`#${compraForm.getAttribute('id')} .ping`)
             const sectionPrepaid = document.getElementById(`sectionPrepaid`)
             const sectionCommend = document.getElementById(`sectionCommend`)
             const sectionCard = document.getElementById(`sectionCard`)
+            const amountBs = document.querySelector(`#${compraForm.getAttribute('id')} [name="amountBs"]`)
+            const exchangeRate = document.querySelector(`#${compraForm.getAttribute('id')} [name="exchangeRate"]`)
 
             amount.addEventListener('blur', () => {
                 calComisionCompra()
@@ -38,38 +40,41 @@ export default function init() {
                     formData.append("currency", currency.options[currency.selectedIndex].value);
 
                     // Cargando spinner
-                    modal.openModal('loader', undefined, undefined, false)
+                    modal.openModal('loader')
 
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
 
                     // LLenamos los campos correspondientes
                     if (res.code === "0000") {
+
+                        amountBs.value = numberFormater(res.totalves)
+                        exchangeRate.value = numberFormater(res.currrate)
                         // Creando elementos para mostrar
                         let html = `
                             <p>
-                                Monto Divisa a Cobrar: ${numberFormater(res.exchangeamount)}
+                                Monto Compra en Divisas: <br> ${numberFormater(res.exchangeamount)}
                             </p>
                             <p>
-                                ${res.txtcurrcommission}: ${numberFormater(res.currcommission)}
+                                ${res.txtcurrcommission}: <br> ${numberFormater(res.currcommission)}
                             </p>
                             <p>
-                                Tasa de Cambio:  ${numberFormater(res.currrate)}
+                                Tasa de Cambio:  <br> ${numberFormater(res.currrate)}
                             </p>
                             <p>
-                                ${res.txtvescommission}: ${numberFormater(res.vescommission)}
+                                ${res.txtvescommission}: <br> ${numberFormater(res.vescommission)}
                             </p>
                             <p>
-                                Total Recibir Bs. : ${numberFormater(res.totalves)}
+                                Total Pagar Bs. : <br> ${numberFormater(res.totalves)}
                             </p>
                             `
 
-                        const inner = document.querySelector('#operationSummary .modal-body')
+                        const inner = document.querySelector('#modalCompra .modal-body')
                         inner.innerHTML = html
 
                         // Entonces abreme el modal
                         if (payForm.options[payForm.selectedIndex].value !== "Seleccione") {
-                            modal.openModal('operationSummary')
+                            modal.openModal('modalCompra')
                         }
                     } else if (res.code === "5000") {
                         modal.openModal('modalDanger', 'Datos incompletos', res.message)
@@ -82,7 +87,7 @@ export default function init() {
             }
 
             // Toggle para mostrar modal (mas info)
-            payIn.addEventListener('change', async() => {
+            payIn.addEventListener('change', async () => {
                 //<option value="19">ENCOMIENDA(.) </option>
                 //<option value="20">TARJETA DE CREDITO </option>
                 //<option value="21">TARJETA DE DEBITO </option>
@@ -99,7 +104,7 @@ export default function init() {
             })
 
             // Toggle para mostrar modal (mas info)
-            payForm.addEventListener('change', async() => {
+            payForm.addEventListener('change', async () => {
                 //<option value="3">Depósito en Cuenta </option>
                 //<option value="5">Tarjeta de Credito </option>
                 let valueSelected = payForm.options[payForm.selectedIndex].value;
@@ -112,18 +117,19 @@ export default function init() {
                     sectionCommend.classList.add('hidden')
                 }
                 // Mostramos boton de enviar
-                if (ping.classList.contains('hidden')) {
-                    ping.classList.remove('hidden')
+                if (btnSubmitCompra.classList.contains('hidden')) {
+                    btnSubmitCompra.classList.remove('hidden')
                 }
 
                 // Abrir modal con datos
-                modal.openModal('operationSummary')
+                modal.openModal('modalCompra')
 
             })
 
 
             // fetch final de venta
-            ping.addEventListener('click', async() => {
+            btnSubmitCompra.addEventListener('click', async (e) => {
+                e.preventDefault()
                 // GEN OTP FETCH
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
@@ -131,8 +137,8 @@ export default function init() {
                 let formData = new FormData()
                 formData.append("cond", "genotp");
                 let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
-                let resOtp = await dataOtp.json();
-
+                let resOtp = await dataOtp.text();
+                console.log(resOtp);
                 // Quitando spinner
                 modal.closeModal('loader')
 
@@ -153,11 +159,10 @@ export default function init() {
                         formData.append("otp", resOtp.otp);
                         formData.append("payIn", payIn.options[payIn.selectedIndex].value);
                         formData.append("payForm", payForm.options[payForm.selectedIndex].value);
-                        formData.append("accountBanks", accountBanks.options[accountBanks.selectedIndex].value);
 
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
                         let res = await data.json();
-
+                        console.log(res);
                         // Quitando spinner
                         modal.closeModal('loader')
 
@@ -169,8 +174,8 @@ export default function init() {
                             modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                         }
                     })
-                } else if (res.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                } else if (resOtp.code === "5000") {
+                    modal.openModal('modalDanger', 'Datos incompletos', resOtp.message)
                 } else {
                     modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                 }

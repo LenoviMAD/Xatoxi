@@ -899,7 +899,7 @@ class xclient
 		return ($result);
 	} // mgetcurrencytrl
 
-	private function bexecsell($wsuser, $wspwd, $idlead, $idcurrency, $amount, $otp, $idinstrumentdebit, $idclearencetype, $acc)
+	private function bexecsell($wsuser, $wspwd, $idlead, $idcurrency, $amount, $otp, $idinstrumentdebit, $idclearencetype, $acc, $reference, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $debitcardnumter, $creditcardnumber)
 	{
 		$this->updateField($execsell, "wsuser", "WSITALCAMBIO");
 		$this->updateField($execsell, "wspwd", "1cc61eb7ae2187eb91f97d1ae5300919");
@@ -910,13 +910,21 @@ class xclient
 		$this->updateField($execsell, "idinstrumentdebit", $idinstrumentdebit);
 		$this->updateField($execsell, "idclearencetype", $idclearencetype);
 		$this->updateField($execsell, "acc", $acc);
+		$this->updateField($execsell, "reference", $reference);
+		$this->updateField($execsell, "ccnumber", $ccnumber);
+		$this->updateField($execsell, "ccexpyear", $ccexpyear);
+		$this->updateField($execsell, "ccexpmonth", $ccexpmonth);
+		$this->updateField($execsell, "cccvc", $cccvc);
+		$this->updateField($execsell, "cctype", $cctype);
+		$this->updateField($execsell, "debitcardnumter", $debitcardnumter);
+		$this->updateField($execsell, "creditcardnumber", $creditcardnumber);
 		return $execsell;
 	} // bexecsell
 
-	function mexecsell($idlead, $idcurrency, $amount, $otp, $idinstrumentdebit, $idclearencetype, $acc, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	function mexecsell($idlead, $idcurrency, $amount, $otp, $idinstrumentdebit, $idclearencetype, $acc, $reference, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $debitcardnumter, $creditcardnumber, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
 	{
 		$this->init($url);
-		$execsell =  $this->bexecsell("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcurrency, $amount, $otp, $idinstrumentdebit, $idclearencetype, $acc);
+		$execsell =  $this->bexecsell("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcurrency, $amount, $otp, $idinstrumentdebit, $idclearencetype, $acc, $reference, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $debitcardnumter, $creditcardnumber);
 		$data["execsell"] = $execsell;
 		$data_string = json_encode($data);
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -925,7 +933,7 @@ class xclient
 		return ($result);
 	} // mexecsell
 
-	private function bexexcbuy($wsuser, $wspwd, $idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit)
+	private function bexexcbuy($wsuser, $wspwd, $idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount)
 	{
 		$this->updateField($exexcbuy, "wsuser", "WSITALCAMBIO");
 		$this->updateField($exexcbuy, "wspwd", "1cc61eb7ae2187eb91f97d1ae5300919");
@@ -934,14 +942,22 @@ class xclient
 		$this->updateField($exexcbuy, "amount", $amount);
 		$this->updateField($exexcbuy, "otp", $otp);
 		$this->updateField($exexcbuy, "idinstrumentcredit", $idinstrumentcredit);
-		$this->updateField($exexcbuy, "idinstrumentdebit", $idinstrumentdebit);
+		$this->updateField($exexcbuy, "idinstrumentdebit", $idinstrumentdebit);		
+		$this->updateField($exexcbuy, "ccnumber", $ccnumber);
+		$this->updateField($exexcbuy, "ccexpyear", $ccexpyear);
+		$this->updateField($exexcbuy, "ccexpmonth", $ccexpmonth);
+		$this->updateField($exexcbuy, "cccvc", $cccvc);
+		$this->updateField($exexcbuy, "cctype", $cctype);
+		$this->updateField($exexcbuy, "mpbankcode", $mpbankcode);
+		$this->updateField($exexcbuy, "mpbankaccount", $mpbankaccount);
+
 		return $exexcbuy;
 	} // bexexcbuy
 
-	function mexexcbuy($idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	function mexexcbuy($idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
 	{
 		$this->init($url);
-		$exexcbuy =  $this->bexexcbuy("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit);
+		$exexcbuy =  $this->bexexcbuy("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount);
 		$data["execbuy"] = $exexcbuy;
 		$data_string = json_encode($data);
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
