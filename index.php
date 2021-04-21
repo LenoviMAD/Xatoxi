@@ -26,7 +26,7 @@ xpresentationLayer::endSection();
 
 xpresentationLayer::endMain();
 
-include './modals/modalSuccess.php';
+include './modals/modalSuccess2.php';
 include './modals/modalWrong.php';
 include './modals/modalOlvidoPin.php';
 include './modals/loader.php';

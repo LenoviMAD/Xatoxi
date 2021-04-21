@@ -3,7 +3,7 @@
 error_reporting(0);
 session_start();
 include_once("utilities.php");
-//utilities::trueUser();
+utilities::trueUser();
 include_once("xpresentationlayer.php");
 include_once("xclient.php");
 
@@ -168,7 +168,7 @@ xpresentationLayer::endSection();
 
 xpresentationLayer::startDivHidden("beneficiarioCommend");
 xpresentationLayer::buildTitleBar("BENEFICIARIO");
-xpresentationLayer::buildSearchUsersCommend("usersCommend", "usersCommend", "btnAddCommend", "", "", "", "mb20");
+xpresentationLayer::buildSearchUsersCommend("usersCommend", "usersCommend", "btnAddCommend", "", "", "", "mb20 input-field1");
 xpresentationLayer::startDivHidden("userCommend");
 xpresentationLayer::startSectionTwoColumns();
 xpresentationLayer::buildInputTextGrid("Documento Identificación", "bdocumentid", "bdocumentid", "", "", "grid-item-2", "required", "");

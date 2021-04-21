@@ -480,10 +480,8 @@ class xpresentationLayer
 	static function buildFooterXatoxi()
 	{
 		echo '<FOOTER class="main-footer">';
-		echo '	<DIV class="footer-pepin">';
-		echo '	    <A href="mailto:pepin@italcambio.com" class="grid-row-1"><H4>¿Tienes dudas? Preguntale a Pepin</H4></A>';
-		echo '	    <H4 class="grid-row-1-end">by XATOXI</H4>';
-		echo '	</DIV>';
+		echo '    <H4>¿Tienes dudas? <A target="_blank" title="contacta con Pepin" href="mailto:pepin@italcambio.com">Preguntale a Pepin</A></H4>';
+		echo '    <H4>by XATOXI</H4>';
 		echo '</FOOTER>';
 		echo '</DIV>';
 	} //buildFooterXatoxi
@@ -552,7 +550,7 @@ class xpresentationLayer
 		}
 		$data = $json->list;
 		echo '<DIV class="aside ' . $class . '">';
-		echo '       <SELECT name="' . $name . '" id="' . $id . '" ' . $event . ' class="select-width-user select-appearance-user">';
+		echo '       <SELECT name="' . $name . '" id="' . $id . '" ' . $event . ' class="select-width-user">';
 		echo '       <OPTION disabled selected>Seleccione</OPTION>';
 		foreach ($data as $value) {
 			echo '<OPTION value="' . $value->id . '" >' . $value->name . ' </OPTION>';
@@ -851,8 +849,8 @@ class xpresentationLayer
 		echo '    </TBODY>';
 		echo '</TABLE>';
 		echo '<DIV style="display: flex;">';
-		echo '<A class="wordsFM" id="openPinChange" href="">Cambio de PIN</A>';
-		echo '<A class="wordsFM" href="">Olvido de pin</A>';
+		echo '<BUTTON class="wordsFM" id="openPinChange">Cambio de PIN</BUTTON>';
+		echo '<A class="wordsFM" id="btnForgetPin" href="">Olvido de pin</A>';
 		echo '</DIV>';
 		echo '<DIV class="centrarObjets">';
 		echo '    <SPAN id="btnPin" class="btn" ' . $btnId . ' ' . $eventButton . '> Aceptar </SPAN>';

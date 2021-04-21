@@ -65,7 +65,9 @@ label.required:after {
 .mb20 {
     margin-bottom: 20px;
 }
-
+.mb15 {
+    margin-bottom: 15px;
+}
 .p0 {
     padding: 0;
 }

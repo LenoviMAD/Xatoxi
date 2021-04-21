@@ -11,7 +11,7 @@ include_once("../xpresentationlayer.php");
                 <p class="modal__text">Presione aceptar, este código expirará en: <span id="contador" class="font-green">00:114</span></p>
             </header>
             <aside class="modal-body">
-                <input type="password" class="input-otp" disabled name="otpCode" id="otpCode" class="input-otp">
+                <input type="text" class="input-otp" disabled name="otpCode" id="otpCode" class="input-otp">
             </aside>
             <footer class="modal-footer">
                 <button class="btn btn-semi-rounded" data-id="btnOtp">Aceptar</button>

@@ -153,20 +153,21 @@ class xclient
 		return ($result);
 	} // mgenotp
 
-	private function bupdpin($wsuser, $wspwd, $name, $phoneNumber, $pin)
+	private function bupdpin($wsuser, $wspwd, $pin, $tag)
 	{
 		$this->updateField($updpin, "wsuser", "WSITALCAMBIO");
 		$this->updateField($updpin, "wspwd", "1cc61eb7ae2187eb91f97d1ae5300919");
-		$this->updateField($updpin, "name", $name);
+		// $this->updateField($updpin, "name", $name);
 		// $this->updateField($updpin, "phonenumber", $phoneNumber);
 		$this->updateField($updpin, "pin", $pin);
+		$this->updateField($updpin, "tag", $tag);
 		return $updpin;
 	} // bupdpin
 
-	function mupdpin($name, $phoneNumber, $pin, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	function mupdpin($pin,$tag, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
 	{
 		$this->init($url);
-		$updpin =  $this->bupdpin("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $name, $phoneNumber, $pin);
+		$updpin =  $this->bupdpin("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $pin,$tag);
 		$data["updpin"] = $updpin;
 		$data_string = json_encode($data);
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -656,20 +657,18 @@ class xclient
 		return ($result);
 	} // mendpoint
 
-	private function bresetpin($wsuser, $wspwd, $imei, $tag)
+	private function bresetpin($wsuser, $wspwd, $tag)
 	{
 		$this->updateField($resetpin, "wsuser", "WSITALCAMBIO");
 		$this->updateField($resetpin, "wspwd", "1cc61eb7ae2187eb91f97d1ae5300919");
-		// $this->updateField($resetpin, "name", "2e");
-		// $this->updateField($resetpin, "imei", $imei);
-		// $this->updateField($resetpin, "tag", $tag);
+		$this->updateField($resetpin, "tag", $tag);
 		return $resetpin;
 	} // bresetpin
 
-	function mresetpin($imei, $tag, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	function mresetpin($tag, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
 	{
 		$this->init($url);
-		$resetpin =  $this->bresetpin("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $imei, $tag);
+		$resetpin =  $this->bresetpin("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $tag);
 		$data["resetpin"] = $resetpin;
 		$data_string = json_encode($data);
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -933,16 +932,18 @@ class xclient
 		return ($result);
 	} // mexecsell
 
-	private function bexexcbuy($wsuser, $wspwd, $idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount)
+	private function bexexcbuy($wsuser, $wspwd, $idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber)
 	{
 		$this->updateField($exexcbuy, "wsuser", "WSITALCAMBIO");
 		$this->updateField($exexcbuy, "wspwd", "1cc61eb7ae2187eb91f97d1ae5300919");
-		$this->updateField($exexcbuy, "idlead", $idlead);
 		$this->updateField($exexcbuy, "idcurrency", $idcurrency);
-		$this->updateField($exexcbuy, "amount", $amount);
+		$this->updateField($exexcbuy, "idlead", $idlead);
+        $this->updateField($exexcbuy, "amount", $amount);
+        $this->updateField($exexcbuy, "acc", $acc);
 		$this->updateField($exexcbuy, "otp", $otp);
 		$this->updateField($exexcbuy, "idinstrumentcredit", $idinstrumentcredit);
-		$this->updateField($exexcbuy, "idinstrumentdebit", $idinstrumentdebit);		
+        $this->updateField($exexcbuy, "idinstrumentdebit", $idinstrumentdebit);		
+        $this->updateField($exexcbuy, "debitcardnumber", $debitcardnumber);		
 		$this->updateField($exexcbuy, "ccnumber", $ccnumber);
 		$this->updateField($exexcbuy, "ccexpyear", $ccexpyear);
 		$this->updateField($exexcbuy, "ccexpmonth", $ccexpmonth);
@@ -954,10 +955,10 @@ class xclient
 		return $exexcbuy;
 	} // bexexcbuy
 
-	function mexexcbuy($idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	function mexexcbuy($idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
 	{
 		$this->init($url);
-		$exexcbuy =  $this->bexexcbuy("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount);
+		$exexcbuy =  $this->bexexcbuy("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber);
 		$data["execbuy"] = $exexcbuy;
 		$data_string = json_encode($data);
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);

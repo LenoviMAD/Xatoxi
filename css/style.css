@@ -181,10 +181,13 @@ p {
 
 .wordsFM {
     color: #5983B0;
-    font-size: 18px;
-    font-weight: bolder;
-    text-align: center;
-    width: 100%;
+font-size: 18px;
+font-weight: bolder;
+text-align: center;
+width: 100%;
+background: no-repeat;
+border: none;
+text-decoration: underline;
 }
 
 .button {
@@ -237,16 +240,6 @@ p {
 
 select {
     padding: 5px;
-    cursor: pointer;
-}
-
-.select-appearance-user {
-    padding: 5px;
-    border: 0;
-    border-bottom: 1px solid #999;
-    background: url(../img/user.png) no-repeat 96% 40%;
-    background-size: 20px;
-    appearance: none;
     cursor: pointer;
 }
 
@@ -322,18 +315,22 @@ select {
 .main-footer {
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: space-between;
+    align-items: center;    
     background-color: var(--primary);
     height: 4vh;
+    padding: 5px 10px;
 }
 
 .main-footer>* {
     margin: 0;
     color: white;
-    padding-right: 15px;
     text-transform: capitalize;
     font-size: .8em;
+}
+.main-footer a {
+    text-decoration: none;
+    color: white;
 }
 
 .pie_pagina {
@@ -355,7 +352,10 @@ select {
 
 .grid-1 .titles,
 .grid-2 .titles,
-.grid-3 .titles {
+.grid-3 .titles,
+.grid-1 .section-Titles,
+.grid-2 .section-Titles,
+.grid-3 .section-Titles  {
     margin: 0;
 }
 

@@ -15,6 +15,7 @@ export default function init() {
 
         // Billetera
         if (billeteraForm) {
+            const TITLE_SECTION = "Encomienda"
             const fileInputWallet = document.getElementById('fileInputWallet')
             const docsWallet = document.getElementById('docsWallet')
             const beneficiarioWallet = document.getElementById('beneficiarioWallet')
@@ -80,9 +81,9 @@ export default function init() {
                         modal.openModal('operationSummary')
                         beneficiarioWallet.classList.remove('hidden')
                     } else if (res.code === "5000") {
-                        modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
-                        modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                        modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                     }
                 }
             }
@@ -118,9 +119,9 @@ export default function init() {
                         finalFetch()
                     })
                 } else if (resOtp.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', resOtp.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                 }
             })
 
@@ -174,11 +175,11 @@ export default function init() {
                 modal.closeModal('loader')
 
                 if (resUpload.code === "0000") {
-                    modal.openModal('modalSuccess', 'OK', resUpload.message, undefined, true)
+                    modal.openModal('modalSuccess', TITLE_SECTION, resUpload.message, undefined, true)
                 } else if (resUpload.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', resUpload.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, resUpload.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                 }
             })
 
@@ -217,11 +218,11 @@ export default function init() {
                         modal.closeModal('loader')
 
                         if (res.code === "0000") {
-                            modal.openModal('modalSuccess', 'OK', res.message, undefined, true)
+                            modal.openModal('modalSuccess', TITLE_SECTION, res.message)
                         } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                            modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                         }
                     })
                 }
@@ -247,22 +248,23 @@ export default function init() {
                 modal.closeModal('loader')
 
                 if (res.code === "0000") {
-                    modal.openModal('modalSuccess', 'Transaccion satisfactoria', res.message, undefined)
+                    modal.openModal('modalSuccess', 'Transaccion satisfactoria', res.message)
                 } else if (res.code.charAt(0) === "7") {
                     // MENSAJE DE ERROR
-                    modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
 
                     // MOSTRAMOS LOS CAMPOS PA' QUE SUBAN DOCUMENTOS
                     docsWallet.classList.remove('hidden')
                 } else if (res.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                 }
             }
         }
 
         if (encomiendaForm) {
+            const TITLE_SECTION = "Remesa"
             const file = document.querySelector(`#${encomiendaForm.getAttribute('id')} [name="file1"]`)
             const beneficiarioCommend = document.getElementById('beneficiarioCommend')
             const btnSubmitCommend = document.querySelector('[data-targetping="encomienda"]')
@@ -375,9 +377,9 @@ export default function init() {
                         const inner = document.querySelector('#modalEncomienda .modal-body')
                         inner.innerHTML = html
                     } else if (res.code === "5000") {
-                        modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
-                        modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                        modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                     }
                 }
             }
@@ -465,11 +467,11 @@ export default function init() {
                 modal.closeModal('loader')
 
                 if (resUpload.code === "0000") {
-                    modal.openModal('modalSuccess', 'OK', resUpload.message, undefined, true)
+                    modal.openModal('modalSuccess', TITLE_SECTION, resUpload.message, undefined, true)
                 } else if (resUpload.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', resUpload.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, resUpload.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                 }
             })
 
@@ -508,11 +510,11 @@ export default function init() {
                         modal.closeModal('loader')
 
                         if (res.code === "0000") {
-                            modal.openModal('modalSuccess', 'OK', res.message, undefined, true)
+                            modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, true)
                         } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                            modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                         }
                     })
                 }
@@ -585,17 +587,17 @@ export default function init() {
                         modal.closeModal('loader')
 
                         if (res.code === "0000") {
-                            modal.openModal('modalSuccess', 'Transaccion satisfactoria', res.message, undefined, )
+                            modal.openModal('modalSuccess', 'Transaccion satisfactoria', res.message, undefined)
                         } else if (res.code.charAt(0) === "7") {
                             // Tienes documentos faltantes
-                            modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
 
                             // MOSTRAMOS LOS CAMPOS PA' QUE SUBAN DOCUMENTOS
                             docsCommend.classList.remove('hidden')
                         } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                            modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                         }
                     })
                 } else {

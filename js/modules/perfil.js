@@ -5,6 +5,7 @@ import { selectValorforId } from '../helpers.js';
 export default function init() {
     document.addEventListener('DOMContentLoaded', () => {
         const profileForm = document.getElementById('profileForm')
+        const TITLE_SECTION = "Perfil"
         const modal = new Modal()
         modal.initModal()
 
@@ -33,8 +34,6 @@ export default function init() {
                 const data = await fetch("ajax.php", { method: 'POST', body: formData });
                 const res = await data.json();
 
-                console.log(res);
-
                 // Fetch getparty
                 const formDataIsParty = new FormData();
 
@@ -44,8 +43,6 @@ export default function init() {
 
                 const dataIsParty = await fetch("ajax.php", { method: 'POST', body: formDataIsParty });
                 const resIsParty = await dataIsParty.json();
-
-                console.log(resIsParty);
 
                 if (resIsParty.code === "0000") {
                     typeDocument.childNodes.forEach(element => {
@@ -127,11 +124,11 @@ export default function init() {
                 modal.closeModal('loader')
                 
                 if (res.code === "0000") {
-                    modal.openModal('modalSuccess', 'Perfil', res.message)
+                    modal.openModal('modalSuccess', TITLE_SECTION, res.message)
                 } else if (res.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                 }
             })
         }

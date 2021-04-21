@@ -61,7 +61,14 @@ if (isset($_POST["cond"])) {
     }
 
     if ($_POST["cond"] == "resetpin") {
-        $data_json = $client->mresetpin("", "");
+        $tag = $_POST['tag'];
+        $data_json = $client->mresetpin($tag);
+        print_r(json_encode($data_json));
+    }
+    if ($_POST["cond"] == "updpin") {
+        $pin = $_POST['pin'];
+        $tag = $_POST['tag'];
+        $data_json = $client->mupdpin($pin, $tag);
         print_r(json_encode($data_json));
     }
 
@@ -278,7 +285,7 @@ if (isset($_POST["cond"])) {
     }
 
     if ($_POST["cond"] == "execsell") {
-        $currency = $_POST["currency"];
+        $idcurrency = $_POST["currency"];
         $amount = $_POST["amount"];
         $otp = $_POST["otp"];
         $idinstrumentcredit = $_POST["payForm"];
@@ -292,7 +299,21 @@ if (isset($_POST["cond"])) {
         $mpbankcode = $_POST["bancoPagoMovil"];
         $mpbankaccount= $util->testInput($_POST['countrycodes']). "" . $_POST['codeArea'] . "" . $util->testInput($_POST['phone']);
 
-        $data_json = $client->mexexcbuy($_SESSION['idlead'], $currency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount);
+        $mpbankaccount = "";
+        
+        $mpbankcode = $_POST["bancoPagoMovil"];
+        $debitcardnumber =  $_POST["debitcardnumber"];
+        $mpbankaccount= $util->testInput($_POST['countrycode']). "" . $_POST['codeArea'] . "" . $util->testInput($_POST['phone']);
+
+        // TARJETA DE CREDITO
+        $ccnumber  = $_POST["ccnumber"];
+        $ccexpyear = $_POST["ccexpyear"];
+        $ccexpmonth = $_POST["ccexpmonth"];
+        $cccvc = $_POST["cccvc"];
+        $cctype = $_POST["cctype"];
+        
+        $data_json = $client->mexexcbuy($_SESSION['idlead'], $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber);
+
         print_r(json_encode($data_json));
     }
 

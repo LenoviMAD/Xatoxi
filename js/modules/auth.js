@@ -11,8 +11,10 @@ export default function init() {
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
-            inputPin.value = "9883"
-            inputTag.value = "miatagbuenisimo20"
+            inputPin.value = "2021"
+            inputTag.value = "miatagbuenisimo31"
+            // inputPin.value = "9883"
+            // inputTag.value = "miatagbuenisimo20"
 
             btnPin.addEventListener('click', async e => {
                 e.preventDefault()
@@ -26,6 +28,7 @@ export default function init() {
                 formData.append("tag", inputTag.value);
                 const data = await fetch("ajax.php", { method: 'POST', body: formData });
                 const res = await data.json();
+                modal.closeModal('loader')
 
                 console.log(res);
                 if (res.code === "0000") {
@@ -77,13 +80,10 @@ export default function init() {
                         modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                     }
                 } else if (res.code === "6000") {
-                    modal.closeModal('loader')
                     modal.openModal('modalDanger', 'Autenticación', res.message)
                 } else if (res.code === "5000") {
-                    modal.closeModal('loader')
                     modal.openModal('modalDanger', 'Datos incompletos', res.message)
                 } else {
-                    modal.closeModal('loader')
                     modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                 }
             })

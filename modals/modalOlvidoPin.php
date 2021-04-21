@@ -11,7 +11,7 @@
             </header>
             <footer class="modal-footer">
                 <a class="btn btn-danger" type="button" aria-label="close modal" data-close>Cancelar</a>
-                <a class="btn btn-primary" type="button" aria-label="close modal" id="btnOlvidoPin">Aceptar</a>
+                <a class="btn btn-primary" type="button" aria-label="close modal" id="btnOlvidoPinModal">Aceptar</a>
             </footer>
         </section>
     </div>

@@ -1,43 +1,45 @@
 <?php
-
 error_reporting(0);
 session_start();
 include_once("utilities.php");
-//utilities::trueUser();
-include_once("xpresentationlayerBase.php");
+utilities::trueUser();
+
 include_once("xpresentationlayer.php");
 include_once("xclient.php");
-
 $serviceCall = new xclient("");
 xpresentationLayer::startHtml("esp");
 xpresentationLayer::buildHead("Xatoxi");
-xpresentationlayerBase::a("", "", "btn btn-white btn-animated", "envio");
+xpresentationLayer::buildHeaderXatoxi();
 
-$data_json = $serviceCall->mgetclearencetypel();
-xpresentationLayer::buildSelectJson("Forma de pago", "paidFormWallet", "", $data_json, "", "", "grid-item-2");
-xpresentationLayer::buildFooterXatoxi();
-xpresentationLayer::endHtml();
-include './modals/modalFirma.php';
+
+xpresentationLayer::startMain();
+xpresentationLayer::startFirtsSection();
+xpresentationLayer::buildOptionGrid("Venta Divisa");
+xpresentationLayer::endSection();
+xpresentationLayer::startForm("ventaForm", "", "grid-2");
+
+xpresentationLayer::buildInputNumberGrid("Monto", "", "amount", "0.00");
+xpresentationLayer::buildSelectJson("Divisa", "currency", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson("Debitar de", "payIn", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson("Abonar en", "payForm", "", $data_json, "", "");
+xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "", "amountChange", "0.00", "", "", "", true);
+xpresentationLayer::buildInputTextGrid("Monto a recibir Bs.", "", "amountRecieve", "0.00", "", "", "", true);
+
+
+
+xpresentationLayer::endSection();
+
+xpresentationLayer::buildSectionPin("","grid-item-2");
+xpresentationLayer::endMain();
 
 include './modals/loader.php';
 include './modals/operationSummary.php';
 include './modals/modalOtpVerification.php';
 include './modals/modalSuccess.php';
-include './modals/modalEncomienda.php';
-include './modals/modalTransferencia.php';
 include './modals/modalWrong.php';
-include './modals/modalFirma.php';
 
+xpresentationLayer::buildFooterXatoxi();
 
-?>
-<div class="input-field">
-    <input id="last_name" type="text">
-    <label for="last_name" class="">Last Name</label>
-</div>
-
-<br>
-<div class="input-field">
-                <input id="email2" type="email" class="validate">
-                <label for="email2" class="">Email</label>
-                <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-              </div>
+xpresentationLayer::endSection();
+xpresentationLayer::endForm();
+xpresentationLayer::endHtml();

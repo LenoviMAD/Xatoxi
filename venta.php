@@ -2,7 +2,7 @@
 error_reporting(0);
 session_start();
 include_once("utilities.php");
-//utilities::trueUser();
+utilities::trueUser();
 
 include_once("xpresentationlayer.php");
 include_once("xclient.php");
@@ -16,60 +16,69 @@ xpresentationLayer::startMain();
 xpresentationLayer::startFirtsSection();
 xpresentationLayer::buildOptionGrid("Venta Divisa");
 xpresentationLayer::endSection();
-xpresentationLayer::startForm("ventaForm");
+xpresentationLayer::startForm("ventaForm", "", "grid-2");
 
-xpresentationLayer::startSectionTwoColumns();
-
-xpresentationLayer::buildInputNumberGrid("Monto", "amount", "amount", "0.00");
+xpresentationLayer::buildInputNumberGrid("Monto", "", "amount", "0.00");
 $data_json = $serviceCall->mgetcurrencyl();
-xpresentationLayer::buildSelectJson("Divisa", "currency", "currency", $data_json, "", "");
+xpresentationLayer::buildSelectJson("Divisa", "currency", "", $data_json, "", "");
 $data_json = $serviceCall->mgetdebitinstrumentl();
-xpresentationLayer::buildSelectJson("Debitar de", "payIn", "payIn", $data_json, "", "");
+xpresentationLayer::buildSelectJson("Debitar de", "payIn", "", $data_json, "", "");
 $data_json = $serviceCall->mgetcreditinstrumentl();
-xpresentationLayer::buildSelectJson("Abonar en", "payForm", "payForm", $data_json, "", "");
-xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "amountChange", "amountChange", "0.00", "", "", "", true);
-xpresentationLayer::buildInputTextGrid("Monto a recibir Bs.", "amountRecieve", "amountRecieve", "0.00", "", "", "", true);
+xpresentationLayer::buildSelectJson("Abonar en", "payForm", "", $data_json, "", "");
+xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "", "amountChange", "0.00", "", "", "", true);
+xpresentationLayer::buildInputTextGrid("Monto a recibir Bs.", "", "amountRecieve", "0.00", "", "", "", true);
+
+
+// DEBITAR DE -------------------------------
+xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-2", "test1");
 
 // TARJETA DE CREDITO
-xpresentationLayer::startDivHidden("sectionVentaCreditCard", "grid-item-2 grid-1");
+xpresentationLayer::startDivHidden("sectionVentaCreditCard", "grid-item-2 grid-1 mb15");
 xpresentationLayer::buildTitleBar("DATOS DEL DEBITO", "grid-item-2");
-xpresentationLayer::startSectionTwoColumns();
-xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "cardNumber");
+xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-2");
+xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "ccnumber");
 $data_json = $serviceCall->mgetcreditcardtypel();
-xpresentationLayer::buildSelectJson("Tipo Tarjeta", "typeCard", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson("Tipo Tarjeta", "cctype", "", $data_json, "", "");
 xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-1");
-xpresentationLayer::buildInputNumberGrid("Mes", "", "monthVen", "", "", "", 2);
-xpresentationLayer::buildInputNumberGrid("Año", "", "yearVen", "", "", "", 4);
+xpresentationLayer::buildInputNumberGrid("Mes", "", "ccexpmonth", "", "", "", 2);
+xpresentationLayer::buildInputNumberGrid("Año", "", "ccexpyear", "", "", "", 4);
 xpresentationLayer::endSection();
-xpresentationLayer::buildInputNumberGrid("Cod. Validacion", "", "codVal", "", "", "",4);
+xpresentationLayer::buildInputNumberGrid("Cod. Validacion", "", "cccvc", "", "", "", 4);
 xpresentationLayer::endDiv();
 
+
 // TARJETA DE DEBITO
-xpresentationLayer::startDivHidden("sectionVentaCreditCard", "grid-item-2 grid-1");
-xpresentationLayer::buildTitleBar("DATOS DEL DEBITO", "grid-item-2");
+xpresentationLayer::startDivHidden("sectionVentaDebitCard", "grid-item-2 grid-1 mb15");
+xpresentationLayer::buildTitleBar("DATOS DEL DEBITO");
 xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "debitcardnumber");
 xpresentationLayer::endSection();
 
+xpresentationLayer::endSection();
+
+// Abonar en -------------------------------
+
+xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-2", "test2");
+
 // Pago movil
-xpresentationLayer::startDivHidden("sectionVentaPagoMovil", "grid-item-2 grid-1");
-xpresentationLayer::buildTitleBar("DATOS DEL ABONO", "grid-item-2");
+xpresentationLayer::startDivHidden("sectionVentaPagoMovil", "grid-item-3 grid-1 mb15");
+xpresentationLayer::buildTitleBar("DATOS DEL ABONO", "grid-item-3");
 $data_json = $serviceCall->mgetbankl("238");
-xpresentationLayer::buildSelectJson("Banco pago móvil", "bancoPagoMovil", "bancoPagoMovil", $data_json, "", "",  "grid-item-2");
-xpresentationLayer::buildInputTextGrid("countrycode", "countrycode", "countrycode", "", "", "", "", "disabled");
+xpresentationLayer::buildSelectJson("Banco pago móvil", "bancoPagoMovil", "", $data_json, "", "",  "grid-item-3");
+xpresentationLayer::buildInputTextGrid("countrycode", "", "countrycode", "", "", "", "", "");
 $data_jsonCodePhone = $serviceCall->mgetcellphoneareacodel("58");
-xpresentationLayer::buildSelectJson("Prefijo", "codeArea", "codeArea", $data_jsonCodePhone);
-xpresentationLayer::buildInputNumberGrid("Móvil", "phone", "phone");
+xpresentationLayer::buildSelectJson("Prefijo", "codeArea", "", $data_jsonCodePhone);
+xpresentationLayer::buildInputNumberGrid("Móvil", "", "phone");
 xpresentationLayer::endDiv();
 
-// Pago movil
-xpresentationLayer::startDivHidden("sectionVentaTrasferencia", "grid-item-2");
-xpresentationLayer::buildTitleBar("DATOS DEL ABONO", "grid-item-2");
-xpresentationLayer::buildInputNumberGrid("Cuenta bancaria", "bankAccount", "bankAccount", "","","","","","",$_SESSION['bacc']);
+// Transferencia
+xpresentationLayer::startDivHidden("sectionVentaTrasferencia", "grid-item-2 grid-1 mb15");
+xpresentationLayer::buildTitleBar("DATOS DEL ABONO");
+xpresentationLayer::buildInputNumberGrid("Cuenta bancaria", "", "acc", "", "", "", "", "", "", $_SESSION['bacc']);
 xpresentationLayer::endDiv();
-
 
 xpresentationLayer::endSection();
-xpresentationLayer::buildSectionPin();
+
+xpresentationLayer::buildSectionPin("","grid-item-2");
 xpresentationLayer::endMain();
 
 include './modals/loader.php';

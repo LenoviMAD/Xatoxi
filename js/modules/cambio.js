@@ -93,20 +93,21 @@ export default function init() {
 
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
                         let res = await data.json();
+                        console.log(res);
 
                         // Quitando loader
                         modal.closeModal('loader')
 
                         if (res.code === "0000") {
-                            modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, false)
+                            modal.openModal('modalSuccess', TITLE_SECTION, res.message)
                         } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
                             modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                         }
                     })
                 } else if (res.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
                     modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                 }
@@ -160,7 +161,7 @@ export default function init() {
                         }
 
                     } else if (res.code === "5000") {
-                        modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
                         modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                     }

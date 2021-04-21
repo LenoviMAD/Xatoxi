@@ -2,6 +2,13 @@ export function numberFormater(num) {
     return new Intl.NumberFormat().format(num)
 }
 
+export function putRequiered(padre = "ventaForm") {
+    let hijitos = document.querySelectorAll(`#${padre} input, #${padre} select, #${padre} textarea`)
+    for (const hijo of hijitos) {
+        console.log(hijo.setAttribute('required', true));
+    }
+}
+
 //Funcion que permite enviar los datos indicados de 1 o varios selects y enviarlos el ajax, que permite ir a servicio
 //y devolver una lista para agregarla a otro select
 //srcdst = Es una cadena de caracteres donde se encuentran los ID de los elementos html, separados por "/" 
@@ -78,7 +85,7 @@ export async function closeEverythingExceptThis(padre, elqueno) {
             }
         }
     })
-    
+
     hijo.classList.remove('hidden')
 }
 
@@ -104,7 +111,7 @@ export async function closeEverythingExceptThese(padre, losqueno) {
             hijo.classList.remove('hidden')
         }
     })
-    
+
 }
 export async function closeEverything(padre) {
     const container = document.getElementById(padre)
