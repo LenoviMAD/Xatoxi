@@ -4,7 +4,7 @@ import { numberFormater, toBase64, servicioFirma, closeEverythingExceptThis, clo
 
 // Envio
 export default function init() {
-    document.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener('DOMContentLoaded', async() => {
         const modal = new Modal()
         modal.initModal()
 
@@ -67,10 +67,10 @@ export default function init() {
                         // Creando elementos para mostrar
                         let html = `
                             <p>
-                                Monto envio en divisa: <span> ${parseInt(resAmount).toFixed(2)}</span> 
+                                Monto Envío en Divisa <span> ${parseInt(resAmount).toFixed(2)}</span> 
                             </p>
                             <p>
-                                ${res.txtusdcommission}: <span> ${parseInt(resComission).toFixed(2)}</span> 
+                                ${res.txtusdcommission} <span> ${parseInt(resComission).toFixed(2)}</span> 
                             </p>
                         `
                         const inner = document.querySelector('#operationSummary .modal-body')
@@ -152,7 +152,7 @@ export default function init() {
             }
 
             // docuemntos menos firma
-            file.addEventListener('change', async (e) => {
+            file.addEventListener('change', async(e) => {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
@@ -183,7 +183,7 @@ export default function init() {
             })
 
             // toggle de tipos de documentos
-            typeDocWallet.addEventListener('change', async () => {
+            typeDocWallet.addEventListener('change', async() => {
                 /* 
                     ci: 1
                     firma: 2
@@ -197,7 +197,7 @@ export default function init() {
                     // abrir modal para hacer firma
                     modal.openModal('modalFirma')
 
-                    btnModalFirma.addEventListener('click', async () => {
+                    btnModalFirma.addEventListener('click', async() => {
                         const encoded = document.getElementById('draw-image').getAttribute('src')
 
                         const payload = {
@@ -208,7 +208,7 @@ export default function init() {
 
                         // Quitando spinner
                         modal.closeModal('modalFirma')
-                        // Cargando spinner
+                            // Cargando spinner
                         modal.openModal('loader', undefined, undefined, false)
 
                         const res = await servicioFirma(payload)
@@ -300,21 +300,21 @@ export default function init() {
                 amountCommend.setAttribute("disabled", true)
             }
 
-            amountCommend.addEventListener('blur', async () => {
+            amountCommend.addEventListener('blur', async() => {
                 await step0()
                 step1Encomienda()
             })
-            countryCommend.addEventListener('change', async () => {
-                await step0()
-                step1Encomienda()
-            })
-
-            providerCommend.addEventListener('change', async () => {
+            countryCommend.addEventListener('change', async() => {
                 await step0()
                 step1Encomienda()
             })
 
-            sendFormCommend.addEventListener('change', async () => {
+            providerCommend.addEventListener('change', async() => {
+                await step0()
+                step1Encomienda()
+            })
+
+            sendFormCommend.addEventListener('change', async() => {
                 await step0()
                 step1Encomienda()
             })
@@ -357,19 +357,19 @@ export default function init() {
                         // Creando elementos para mostrar
                         let html = `
                              <p>
-                                 Monto Divisa a Enviar: <span> ${numberFormater(amountCommend.value)}</span>
+                                 Monto Divisa a Enviar <span> ${numberFormater(amountCommend.value)}</span>
                              </p>
                              <p>
-                                 ${res.txtusdcommission}: <span> ${numberFormater(res.usdcommission)}</span>
+                                 ${res.txtusdcommission} <span> ${numberFormater(res.usdcommission)}</span>
                              </p>
                              <p>
-                                 Tasa de Cambio: <span> ${numberFormater(res.usdrate)}</span>
+                                 Tasa de Cambio <span> ${numberFormater(res.usdrate)}</span>
                              </p>
                              <p>
-                                 ${res.txtvescommission}: <span> ${numberFormater(res.vescommission)}</span>
+                                 ${res.txtvescommission} <span> ${numberFormater(res.vescommission)}</span>
                              </p>
                              <p>
-                                 Total Enviar Bs. : <span> ${numberFormater(res.totalves)}</span>
+                                 Total Enviar Bs.  <span> ${numberFormater(res.totalves)}</span>
                              </p>
                          `
                         const inner = document.querySelector('#modalEncomienda .modal-body')
@@ -443,7 +443,7 @@ export default function init() {
             })
 
             // docuemntos menos firma
-            file.addEventListener('change', async (e) => {
+            file.addEventListener('change', async(e) => {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
@@ -474,7 +474,7 @@ export default function init() {
             })
 
             // toggle de tipos de documentos
-            typeDocCommend.addEventListener('change', async () => {
+            typeDocCommend.addEventListener('change', async() => {
                 /* 
                     ci: 1
                     firma: 2
@@ -488,7 +488,7 @@ export default function init() {
                     // abrir modal para hacer firma
                     modal.openModal('modalFirma')
 
-                    btnModalFirma.addEventListener('click', async () => {
+                    btnModalFirma.addEventListener('click', async() => {
                         const encoded = document.getElementById('draw-image').getAttribute('src')
 
                         const payload = {
@@ -499,7 +499,7 @@ export default function init() {
 
                         // Quitando spinner
                         modal.closeModal('modalFirma')
-                        // Cargando spinner
+                            // Cargando spinner
                         modal.openModal('loader', undefined, undefined, false)
 
                         const res = await servicioFirma(payload)
@@ -544,7 +544,7 @@ export default function init() {
                 }
             })
 
-            btnSubmitCommend.addEventListener('click', async (e) => {
+            btnSubmitCommend.addEventListener('click', async(e) => {
                 e.preventDefault()
 
                 // Cargando spinner
@@ -566,7 +566,7 @@ export default function init() {
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
                         e.preventDefault()
-                        // let valueSelected = paidFormCommend.options[paidFormCommend.selectedIndex].value;
+                            // let valueSelected = paidFormCommend.options[paidFormCommend.selectedIndex].value;
 
                         // Quitando Otp
                         modal.closeModal('otpVerification')
@@ -585,7 +585,7 @@ export default function init() {
                         modal.closeModal('loader')
 
                         if (res.code === "0000") {
-                            modal.openModal('modalSuccess', 'Transaccion satisfactoria', res.message, undefined,)
+                            modal.openModal('modalSuccess', 'Transaccion satisfactoria', res.message, undefined, )
                         } else if (res.code.charAt(0) === "7") {
                             // Tienes documentos faltantes
                             modal.openModal('modalDanger', 'Datos incompletos', res.message)
@@ -617,11 +617,11 @@ export default function init() {
             //Idlead <- falta por indicar, esta hardcode
             //idcountry
             const countryTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="countryTransfer"]`)
-            //idcurrency
+                //idcurrency
             const currencyTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="currencyTransfer"]`)
-            //amount
+                //amount
             const amountTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="amountTransfer"]`)
-            //idclearencetype
+                //idclearencetype
             const paidFormTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="paidFormTransfer"]`)
             const exchangedRateTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="exchangedRateTransfer"]`)
             const amountBsTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="amountBsTransfer"]`)
@@ -681,19 +681,19 @@ export default function init() {
                         let html = `
                             <div class="text-center">
                                 <p>
-                                    Monto Transferencia en Divisa: <br> ${numberFormater(amountTransfer.value)}
+                                    Monto Transferencia en Divisa <br> ${numberFormater(amountTransfer.value)}
                                 </p>
                                 <p>
-                                    ${res.txtusdcommission}: <br> ${numberFormater(res.usdcommission)}
+                                    ${res.txtusdcommission} <br> ${numberFormater(res.usdcommission)}
                                 </p>
                                 <p>
-                                    Tasa de Cambio: <br> ${numberFormater(res.usdrate)}
+                                    Tasa de Cambio <br> ${numberFormater(res.usdrate)}
                                 </p>
                                 <p>
-                                    ${res.txtvescommission}: <br> ${numberFormater(res.vescommission)}
+                                    ${res.txtvescommission} <br> ${numberFormater(res.vescommission)}
                                 </p>
                                 <p>
-                                    Total Transferencia Bs.: <br> ${numberFormater(res.totalves)}
+                                    Total Transferencia Bs. <br> ${numberFormater(res.totalves)}
                                 </p>
                             </div>
                             `
@@ -729,27 +729,27 @@ export default function init() {
                 let valueSelected = paidFormTransfer.options[paidFormTransfer.selectedIndex].value;
                 const accountDeposit = document.getElementById(`accountDeposit`)
                 const cash = document.getElementById(`cash`)
-                /*
-                1 = Efectivo 
-                2 = Billetera
-                3 = Depósito en Cuenta
-                4 = Pago Movil 
-                5 = Tarjeta de Credito 
-                6 = ACH 
-                7 = Tarjeta Prepagada 
-                8 = Tarjeta de Debito en Divisa 
-                */
+                    /*
+                    1 = Efectivo 
+                    2 = Billetera
+                    3 = Depósito en Cuenta
+                    4 = Pago Movil 
+                    5 = Tarjeta de Credito 
+                    6 = ACH 
+                    7 = Tarjeta Prepagada 
+                    8 = Tarjeta de Debito en Divisa 
+                    */
 
                 if (valueSelected === "1") {
                     beneficiarioTransfer.classList.remove('hidden')
                     cash.classList.remove('hidden')
-                    // Poner hidden los demas                
+                        // Poner hidden los demas                
                     accountDeposit.classList.add('hidden')
                     MovilPay.classList.add('hidden')
                     SectionPrepaid.classList.add('hidden')
                 } else if (valueSelected === "2") {
                     beneficiarioTransfer.classList.remove('hidden')
-                    // Poner hidden los demas
+                        // Poner hidden los demas
                     accountDeposit.classList.add('hidden')
                     cash.classList.add('hidden')
                     MovilPay.classList.add('hidden')
@@ -757,13 +757,13 @@ export default function init() {
                 } else if (valueSelected === "3") {
                     beneficiarioTransfer.classList.remove('hidden')
                     accountDeposit.classList.remove('hidden')
-                    // Poner hidden los demas
+                        // Poner hidden los demas
                     cash.classList.add('hidden')
                     MovilPay.classList.add('hidden')
                     SectionPrepaid.classList.add('hidden')
                 } else if (valueSelected === "4") {
                     beneficiarioTransfer.classList.remove('hidden')
-                    // Poner hidden los demas
+                        // Poner hidden los demas
                     MovilPay.classList.add('hidden')
                     SectionPrepaid.classList.add('hidden')
                     accountDeposit.classList.add('hidden')
@@ -771,27 +771,27 @@ export default function init() {
                 } else if (valueSelected === "5") {
                     SectionPrepaid.classList.remove('hidden')
                     beneficiarioTransfer.classList.remove('hidden')
-                    // Poner hidden los demas
+                        // Poner hidden los demas
                     MovilPay.classList.add('hidden')
                     accountDeposit.classList.add('hidden')
                     cash.classList.add('hidden')
                 } else if (valueSelected === "6") {
                     MovilPay.classList.remove('hidden')
                     beneficiarioTransfer.classList.remove('hidden')
-                    // Poner hidden los demas
+                        // Poner hidden los demas
                     SectionPrepaid.classList.add('hidden')
                     accountDeposit.classList.add('hidden')
                     cash.classList.add('hidden')
                 } else if (valueSelected === "7") {
                     beneficiarioTransfer.classList.remove('hidden')
-                    // Poner hidden los demas
+                        // Poner hidden los demas
                     SectionPrepaid.classList.add('hidden')
                     MovilPay.classList.add('hidden')
                     accountDeposit.classList.add('hidden')
                     cash.classList.add('hidden')
                 } else if (valueSelected === "8") {
                     beneficiarioTransfer.classList.remove('hidden')
-                    // Poner hidden los demas
+                        // Poner hidden los demas
                     MovilPay.classList.add('hidden')
                     SectionPrepaid.classList.add('hidden')
                     accountDeposit.classList.add('hidden')
@@ -823,7 +823,7 @@ export default function init() {
 
                     // ocultamos los campos nuevamente
                     userInfo.classList.add('hidden')
-                    // Mostramos el ping button
+                        // Mostramos el ping button
                     btnSubmitTransfer.classList.remove('hidden')
                 }
             })

@@ -48,7 +48,7 @@ xpresentationLayer::buildInputNumberGrid("Número de Tarjeta", "prepaidcard", "p
 
 // Tarjeta de Debito en Divisa
 xpresentationLayer::buildInputNumberGrid("Número de Tarjeta ", "debitcardnumber", "debitcardnumber", "", "", "grid-item-2 hidden", "", "debitcardNumberSection", false);
-
+xpresentationLayer::endDiv();
 xpresentationLayer::buildSectionPin();
 xpresentationLayer::endMain();
 

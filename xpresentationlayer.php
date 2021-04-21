@@ -433,7 +433,7 @@ class xpresentationLayer
 			} else if ($value->code) {
 				echo '<OPTION value="' . $value->code . '">' . $value->code . ' </OPTION>';
 			} else {
-				if ($id != "currencyCommend" && $id != "currencyTransfer" && $id != "currencyWallet") {
+				if ($name != "currency" && $id != "currencyTransfer" && $id != "currencyWallet" && $id != "currencyCommend") {
 					echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
 				} else {
 					echo '<OPTION value="' . $value->id . '">' . $value->iso . ' </OPTION>';
@@ -480,7 +480,10 @@ class xpresentationLayer
 	static function buildFooterXatoxi()
 	{
 		echo '<FOOTER class="main-footer">';
-		echo '    <H4>by XATOXI</H4>';
+		echo '	<DIV class="footer-pepin">';
+		echo '	    <A href="mailto:pepin@italcambio.com" class="grid-row-1"><H4>¿Tienes dudas? Preguntale a Pepin</H4></A>';
+		echo '	    <H4 class="grid-row-1-end">by XATOXI</H4>';
+		echo '	</DIV>';
 		echo '</FOOTER>';
 		echo '</DIV>';
 	} //buildFooterXatoxi

@@ -34,7 +34,7 @@ xpresentationLayer::buildInputTextGrid("Monto a Pagar Bs.", "", "amountBs", "0.0
 xpresentationLayer::endSection();
 
 xpresentationLayer::startDivHidden("sectionCard");
-xpresentationLayer::buildTitleBar("DATOS DEL DÉBITO", "grid-item-2");
+xpresentationLayer::buildTitleBar("DATOS DEL ABONO", "grid-item-2");
 xpresentationLayer::buildInputTextGrid("Número de tarjeta", "numberCardDebit", "numberCardDebit", "", "", "grid-item-2", "", "", "input-text-large");
 xpresentationLayer::endDiv();
 
@@ -42,7 +42,8 @@ xpresentationLayer::endDiv();
 xpresentationLayer::startDivHidden("sectionPrepaid", "grid-item-2 grid-2 mt20 mb20");
 xpresentationLayer::buildTitleBar("DATOS FORMA DE PAGO", "grid-item-2 m0");
 xpresentationLayer::buildInputTextGrid("Número de tarjeta", "numberCardCredit", "numberCardCredit");
-xpresentationLayer::buildInputTextGrid("Tipo de tarjeta", "typeCard", "typeCard");
+$data_json = $serviceCall->mgetcreditcardtypel();
+xpresentationLayer::buildSelectJson("Tipo de tarjeta", "typeCard", "typeCard", $data_json, "", "");
 xpresentationLayer::buildInputsDate("monthTransfer", "monthTransfer", "yearTransfer", "yearTransfer");
 xpresentationLayer::buildInputTextGrid("Cod. Validación", "ValidationCodeCardTransfer", "ValidationCodeCardTransfer");  
 xpresentationLayer::endDiv();

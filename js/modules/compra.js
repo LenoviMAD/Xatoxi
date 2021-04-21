@@ -50,22 +50,22 @@ export default function init() {
 
                         amountBs.value = numberFormater(res.totalves)
                         exchangeRate.value = numberFormater(res.currrate)
-                        // Creando elementos para mostrar
+                            // Creando elementos para mostrar
                         let html = `
                             <p>
-                                Monto Compra en Divisas: <br> ${numberFormater(res.exchangeamount)}
+                                Monto Compra en Divisas <br> ${numberFormater(res.exchangeamount)}
                             </p>
                             <p>
-                                ${res.txtcurrcommission}: <br> ${numberFormater(res.currcommission)}
+                                ${res.txtcurrcommission} <br> ${numberFormater(res.currcommission)}
                             </p>
                             <p>
-                                Tasa de Cambio:  <br> ${numberFormater(res.currrate)}
+                                Tasa de Cambio  <br> ${numberFormater(res.currrate)}
                             </p>
                             <p>
-                                ${res.txtvescommission}: <br> ${numberFormater(res.vescommission)}
+                                ${res.txtvescommission} <br> ${numberFormater(res.vescommission)}
                             </p>
                             <p>
-                                Total Pagar Bs. : <br> ${numberFormater(res.totalves)}
+                                Total Pagar Bs. <br> ${numberFormater(res.totalves)}
                             </p>
                             `
 
@@ -87,7 +87,7 @@ export default function init() {
             }
 
             // Toggle para mostrar modal (mas info)
-            payIn.addEventListener('change', async () => {
+            payIn.addEventListener('change', async() => {
                 //<option value="19">ENCOMIENDA(.) </option>
                 //<option value="20">TARJETA DE CREDITO </option>
                 //<option value="21">TARJETA DE DEBITO </option>
@@ -104,7 +104,7 @@ export default function init() {
             })
 
             // Toggle para mostrar modal (mas info)
-            payForm.addEventListener('change', async () => {
+            payForm.addEventListener('change', async() => {
                 //<option value="3">Depósito en Cuenta </option>
                 //<option value="5">Tarjeta de Credito </option>
                 let valueSelected = payForm.options[payForm.selectedIndex].value;
@@ -128,10 +128,10 @@ export default function init() {
 
 
             // fetch final de venta
-            btnSubmitCompra.addEventListener('click', async (e) => {
+            btnSubmitCompra.addEventListener('click', async(e) => {
                 e.preventDefault()
-                // GEN OTP FETCH
-                // Cargando spinner
+                    // GEN OTP FETCH
+                    // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
                 let formData = new FormData()

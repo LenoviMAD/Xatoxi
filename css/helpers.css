@@ -61,18 +61,32 @@ label.required:after {
 .mb0 {
     margin-bottom: 0;
 }
+
 .mb20 {
     margin-bottom: 20px;
 }
+
 .p0 {
     padding: 0;
 }
+
 .m0 {
     margin: 0;
 }
+
 .pb20 {
     padding-bottom: 20px;
 }
+
 .m0auto {
     margin: 0 auto;
+}
+
+.grid-row-1 {
+    grid-row: 1;
+}
+
+.grid-row-1-end {
+    grid-row: 1;
+    text-align: end;
 }

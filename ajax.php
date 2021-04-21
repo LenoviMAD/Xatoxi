@@ -284,13 +284,13 @@ if (isset($_POST["cond"])) {
         $idinstrumentcredit = $_POST["payForm"];
         $idinstrumentdebit = $_POST["payIn"];
         //ARREGLAR ESTO
-        $ccnumber  = $_POST["payIn"];
-        $ccexpyear = $_POST["payIn"];
-        $ccexpmonth = $_POST["payIn"];
-        $cccvc = $_POST["payIn"];
-        $cctype = $_POST["payIn"];
-        $mpbankcode = $_POST["payIn"];
-        $mpbankaccount= $_POST["payIn"];
+        $ccnumber  = $_POST["cardNumber"];
+        $ccexpyear = $_POST["yearVen"];
+        $ccexpmonth = $_POST["monthVen"];
+        $cccvc = $_POST["codVal"];
+        $cctype = $_POST["typeCard"];
+        $mpbankcode = $_POST["bancoPagoMovil"];
+        $mpbankaccount= $util->testInput($_POST['countrycodes']). "" . $_POST['codeArea'] . "" . $util->testInput($_POST['phone']);
 
         $data_json = $client->mexexcbuy($_SESSION['idlead'], $currency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount);
         print_r(json_encode($data_json));
@@ -401,8 +401,8 @@ if (isset($_POST["cond"])) {
         $code = "";
         $idparty = "";
         $email = $_POST["email"];
-        $deviceid = "20moises20";
-        $deviceidalt = "20moises20";
+        $deviceid = "21moises21";
+        $deviceidalt = "21moises21";
         $phoneNumber = $_POST["phone"];
         $observation = "";
         $pin = "";
@@ -410,7 +410,7 @@ if (isset($_POST["cond"])) {
         $pinfirsttime = "";
         $countrycode = $_POST["country"];
         $areacode = $_POST["codeArea"];
-        $tag = "miatagbuenisimo20";
+        $tag = "miatagbuenisimo21";
         $otp = "";
         $active = "";
         $deleted = "";
