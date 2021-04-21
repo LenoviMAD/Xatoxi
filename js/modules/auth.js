@@ -12,7 +12,7 @@ export default function init() {
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
             inputPin.value = "2021"
-            inputTag.value = "miatagbuenisimo31"
+            inputTag.value = "642e92efb79421734881b53e1e1b18b6"
             // inputPin.value = "9883"
             // inputTag.value = "miatagbuenisimo20"
 

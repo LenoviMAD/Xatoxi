@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await fetch("ajax.php", { method: 'POST', body })
                 const res = await data.json()
+                console.log(res)
 
                 // Cerramos modal
                 modal.closeModal('loader')
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!pinAnterior) {
                         pinAnterior = cambioPin.value
                         cambioPin.value = ''
-                        document.querySelector('#modalCambioPin h1').innerText = "Confirmar PIN"
+                        document.querySelector('#modalCambioPin h1').innerText = "CONFIRMAR PIN"
                         return
                     }
 
@@ -108,10 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         const body = new FormData()
                         body.append("cond", "updpin")
-                        body.append("pin", cambioPin.value)
+                        body.append("pin", inputPin.value)
+                        body.append("newpin", cambioPin.value)
                         body.append("tag", inputTag.value)
                         const data = await fetch("ajax.php", { method: 'POST', body })
-                        const res = await data.json()
+                        const res = await data.text()
                         console.log(res)
 
                         // Cerramos modal
@@ -124,6 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         } else {
                             modal.openModal('modalDanger', 'Autenticacion', 'Ocurrio un error, favor intente de nuevo')
                         }
+
+                        document.querySelector('#modalCambioPin h1').innerText = "CAMBIAR PIN"
+                        cambioPin.value = ''
+                        pinAnterior =''
                     }
                 })
             } else if (res.code === "6000") {

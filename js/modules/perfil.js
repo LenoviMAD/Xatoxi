@@ -25,6 +25,8 @@ export default function init() {
             const bankAccount = document.querySelector(`#${profileForm.getAttribute('id')} [name="bankAccount"]`)
             const bancoPagoMovil = document.querySelector(`#${profileForm.getAttribute('id')} [name="bancoPagoMovil"]`)
             const telMovil = document.querySelector(`#${profileForm.getAttribute('id')} [name="telMovil"]`)
+            const prepaidcardnumber = document.querySelector(`#${profileForm.getAttribute('id')} [name="prepaidcardnumber"]`)
+            const debitcardnumber = document.querySelector(`#${profileForm.getAttribute('id')} [name="debitcardnumber"]`)
 
             // Llenamos todos los campos si getparty 
             async function getParty() {

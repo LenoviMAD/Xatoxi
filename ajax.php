@@ -62,13 +62,18 @@ if (isset($_POST["cond"])) {
 
     if ($_POST["cond"] == "resetpin") {
         $tag = $_POST['tag'];
+        // print_r($tag);
         $data_json = $client->mresetpin($tag);
         print_r(json_encode($data_json));
     }
     if ($_POST["cond"] == "updpin") {
         $pin = $_POST['pin'];
         $tag = $_POST['tag'];
-        $data_json = $client->mupdpin($pin, $tag);
+        $newpin = $_POST['newpin'];
+
+        // print_r($_POST);
+        
+        $data_json = $client->mupdpin($pin, $tag, $newpin);
         print_r(json_encode($data_json));
     }
 
@@ -422,8 +427,8 @@ if (isset($_POST["cond"])) {
         $code = "";
         $idparty = "";
         $email = $_POST["email"];
-        $deviceid = "21moises21";
-        $deviceidalt = "21moises21";
+        $deviceid = "deviceiddeviceid99";
+        $deviceidalt = "deviceidaltdeviceidalt99";
         $phoneNumber = $_POST["phone"];
         $observation = "";
         $pin = "";
@@ -431,12 +436,36 @@ if (isset($_POST["cond"])) {
         $pinfirsttime = "";
         $countrycode = $_POST["country"];
         $areacode = $_POST["codeArea"];
-        $tag = "miatagbuenisimo21";
+        $tag = "miatagbuenisimo99";
         $otp = "";
         $active = "";
         $deleted = "";
 
         $data_json = $client->maddlead($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areacode, $tag,  $otp, $active, $deleted);
+        print_r(json_encode($data_json));
+    }
+
+    if ($_POST["cond"] == "addleadweb") {
+        $code = "";
+        $idparty = "";
+        $email = $_POST["email"];
+        $deviceid = "";
+        $deviceidalt = "";
+        $phoneNumber = $_POST["phone"];
+        $observation = "";
+        $pin = "";
+        $date  = gmdate('Y/m/d h:i:s');
+        $pinfirsttime = "";
+        $countrycode = $_POST["country"];
+        $areacode = $_POST["codeArea"];
+        $tag = "";
+        $otp = "";
+        $active = "";
+        $deleted = "";
+
+        // print_r($_POST);
+
+        $data_json = $client->maddleadweb($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areacode, $tag,  $otp, $active, $deleted);
         print_r(json_encode($data_json));
     }
 

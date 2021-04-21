@@ -96,20 +96,22 @@ export default function init() {
 
                                 // Enviamos info para primer paso de registro
                                 let formData = new FormData(registerForm);
-                                let codeArea = document.querySelector(
-                                    '#registerForm [name="codeArea"]'
-                                );
-                                formData.append("cond", "addlead");
+                                // let codeArea = document.querySelector(
+                                //     '#registerForm [name="codeArea"]'
+                                // );
+                                formData.append("cond", "addleadweb");
                                 formData.append("country", "58");
-                                formData.append(
-                                    "codeArea",
-                                    codeArea.options[codeArea.selectedIndex].textContent
-                                );
+                                // formData.append(
+                                //     "codeArea",
+                                //     codeArea.options[codeArea.selectedIndex].textContent
+                                // );
                                 let dataSignup = await fetch("ajax.php", {
                                     method: "POST",
                                     body: formData,
                                 });
                                 let resSignup = await dataSignup.json();
+                                console.log(resSignup);
+                                
 
                                 // Quitando loader
                                 modal.closeModal("loader");

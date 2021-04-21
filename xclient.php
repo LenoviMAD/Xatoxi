@@ -112,6 +112,42 @@ class xclient
 		$result = json_decode($response);
 		return ($result);
 	} // maddlead
+	private function baddleadweb($wsuser, $wspwd, $code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areacode, $tag,  $otp, $active, $deleted)
+	{
+		$this->updateField($addleadweb, "wsuser", "WSITALCAMBIO");
+		$this->updateField($addleadweb, "wspwd", "1cc61eb7ae2187eb91f97d1ae5300919");
+		$this->updateField($addleadweb, "code", $code);
+		// $this->updateField($addleadweb, "name", $name);
+		$this->updateField($addleadweb, "idparty", $idparty);
+		$this->updateField($addleadweb, "email", $email);
+		$this->updateField($addleadweb, "deviceid", $deviceid);
+		$this->updateField($addleadweb, "deviceidalt", $deviceidalt);
+		$this->updateField($addleadweb, "phonenumber", $phoneNumber);
+		$this->updateField($addleadweb, "observation", $observation);
+		$this->updateField($addleadweb, "pin", $pin);
+		$this->updateField($addleadweb, "date", $date);
+		$this->updateField($addleadweb, "pinfirsttime", $pinfirsttime);
+		$this->updateField($addleadweb, "countrycode", $countrycode);
+		$this->updateField($addleadweb, "areacode", $areacode);
+		$this->updateField($addleadweb, "tag", $tag);
+		$this->updateField($addleadweb, "otp", $otp);
+		$this->updateField($addleadweb, "active", $active);
+		$this->updateField($addleadweb, "deleted", $deleted);
+		// $this->updateField($addleadweb, "idlocation", $idlocation);
+		return $addleadweb;
+	} // baddleadweb
+
+	function maddleadweb($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areacode, $tag,  $otp, $active, $deleted, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	{
+		$this->init($url);
+		$addleadweb =  $this->baddleadweb("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areacode, $tag,  $otp, $active, $deleted);
+		$data["addleadweb"] = $addleadweb;
+		$data_string = json_encode($data);
+		curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+		$response = curl_exec($this->client);
+		$result = json_decode($response);
+		return ($result);
+	} // maddleadweb
 
 	private function bgenpin($wsuser, $wspwd)
 	{
@@ -153,21 +189,20 @@ class xclient
 		return ($result);
 	} // mgenotp
 
-	private function bupdpin($wsuser, $wspwd, $pin, $tag)
+	private function bupdpin($wsuser, $wspwd, $pin, $tag, $newpin)
 	{
 		$this->updateField($updpin, "wsuser", "WSITALCAMBIO");
 		$this->updateField($updpin, "wspwd", "1cc61eb7ae2187eb91f97d1ae5300919");
-		// $this->updateField($updpin, "name", $name);
-		// $this->updateField($updpin, "phonenumber", $phoneNumber);
 		$this->updateField($updpin, "pin", $pin);
+		$this->updateField($updpin, "newpin", $newpin);
 		$this->updateField($updpin, "tag", $tag);
 		return $updpin;
 	} // bupdpin
 
-	function mupdpin($pin,$tag, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	function mupdpin($pin,$tag,$newpin, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
 	{
 		$this->init($url);
-		$updpin =  $this->bupdpin("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $pin,$tag);
+		$updpin =  $this->bupdpin("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $pin,$tag, $newpin);
 		$data["updpin"] = $updpin;
 		$data_string = json_encode($data);
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
