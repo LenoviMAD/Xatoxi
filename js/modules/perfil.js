@@ -101,8 +101,8 @@ export default function init() {
 
                     telMovil.value = res.mpbankaccount
 
-                    prepaidcardnumber.value = res.prepaidcardnumber
-                    debitcardnumber.value = res.debitcardnumber
+                    // prepaidcardnumber.value = res.prepaidcardnumber
+                    // debitcardnumber.value = res.debitcardnumber
                 }
             }
             getParty()

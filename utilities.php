@@ -3,7 +3,7 @@ class utilities
 {
 	static function trueUser()
 	{
-		if (isset($_SESSION['idparty'])) {
+		if (isset($_SESSION['idlead'])) {
 
 		} else {
 			utilities::redirect('index.php');

@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         body.append("newpin", cambioPin.value)
                         body.append("tag", inputTag.value)
                         const data = await fetch("ajax.php", { method: 'POST', body })
-                        const res = await data.text()
+                        const res = await data.json()
                         console.log(res)
 
                         // Cerramos modal

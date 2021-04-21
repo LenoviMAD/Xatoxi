@@ -11,8 +11,8 @@ export default function init() {
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
-            inputPin.value = "2021"
-            inputTag.value = "642e92efb79421734881b53e1e1b18b6"
+            inputPin.value = "3299"
+            inputTag.value = "f3ea97d2cd1f5619f570c06a10a041b5"
             // inputPin.value = "9883"
             // inputTag.value = "miatagbuenisimo20"
 
@@ -71,6 +71,7 @@ export default function init() {
                         let test = document.querySelector('#modalDanger a')
                         test.setAttribute("href", "./perfil.php")
                         test.removeAttribute("data-close")
+                        test.removeAttribute("type")
 
                         test.addEventListener('click', e => {
                             location.href = "./perfil.php";
