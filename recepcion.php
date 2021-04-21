@@ -15,41 +15,48 @@ xpresentationLayer::startMain();
 xpresentationLayer::startFirtsSection();
 xpresentationLayer::buildOptionGrid("Recepción Remesas");
 xpresentationLayer::endSection();
-xpresentationLayer::startForm("recepcionForm", "", "grid-2");
-
+xpresentationLayer::startForm("recepcionForm");
+xpresentationLayer::startSectionTwoColumns("", "principal");
 xpresentationLayer::buildInputTextGrid("Clave Remesa", "remittances", "remittances", "", "", "", "", "", "", "", false);
 
 $data_json = $serviceCall->mgetclearencetypel(array(2, 3, 1, 4, 8, 7));
 xpresentationLayer::buildSelectJson("Forma Recepción", "formRecepcion", "formRecepcion", $data_json, "", "", "", false);
 
+
 // Deposito en cuenta
-xpresentationLayer::buildInputNumberGrid("Cuenta Bancaria", "bankAccount", "bankAccount", "", 20, "hidden grid-item-2", "", "banckAccountSection", false);
+xpresentationLayer::startDivHidden("banckAccountSection", "grid-item-2");
+xpresentationLayer::buildInputNumberGrid("Cuenta Bancaria", "bankAccount", "bankAccount", "", 20, " grid-item-1", "", "", false);
+xpresentationLayer::endDiv();
 
 // Efectivo
+xpresentationLayer::startDivHidden("branckOfficesSection", "grid-item-2");
 $data_json = $serviceCall->mgetlocationl();
-xpresentationLayer::buildSelectJson("Sucursales", "branchOffices", "", $data_json, "", "", "grid-item-2 hidden", false, "branckOfficesSection");
+xpresentationLayer::buildSelectJson("Sucursales", "branchOffices", "", $data_json, "", "", "grid-item-2 ", false, "");
+xpresentationLayer::endDiv();
+
 
 // Pago movil
+xpresentationLayer::startDivHidden("bancoPagoMovilSection", "grid-item-2");
+
 $data_json = $serviceCall->mgetbankl("238");
-xpresentationLayer::buildSelectJson("Banco pago móvil", "bancoPagoMovil", "bancoPagoMovil", $data_json, "", "",  "grid-item-2 hidden", false, "bancoPagoMovilSection");
-
-xpresentationLayer::startDivHidden("codeAreaSection", "grid-2");
-
-xpresentationLayer::buildInputTextGrid("countrycode", "countrycode", "countrycode", "", "", "", "", "disabled", "", "", false);
+xpresentationLayer::buildSelectJson("Banco pago móvil", "bancoPagoMovil", "bancoPagoMovil", $data_json, "", "",  "grid-item-2 ", false, "");
 
 $data_jsonCodePhone = $serviceCall->mgetcellphoneareacodel("58");
-xpresentationLayer::buildSelectJson("Prefijo", "codeArea", "codeArea", $data_jsonCodePhone, "", "", "", "", false);
-xpresentationLayer::endDiv();
+xpresentationLayer::buildPhoneComplete("Teléfono Pago Móvil", "countrycode",  "codeArea", "phone", "countrycode",  "codeArea", "phone", "", $data_jsonCodePhone, "", "disabled", "grid-item-2 mt20 center-height", "full-width");
 
-xpresentationLayer::buildInputNumberGrid("Móvil", "phone", "phone", "", "", " hidden", "", "phoneSection", false);
+xpresentationLayer::endDiv();
 
 // Tarjeta de Prepaga en Divisa
-xpresentationLayer::buildInputNumberGrid("Número de Tarjeta", "prepaidcard", "prepaidcard", "", 20, "grid-item-2 hidden", "", "prepaidCardSection", false);
+xpresentationLayer::startDivHidden("prepaidCardSection", "grid-item-2");
+xpresentationLayer::buildInputNumberGrid("Número de Tarjeta", "prepaidcard", "prepaidcard", "", 20, "grid-item-2 ", "", "", false);
+xpresentationLayer::endDiv();
 
 // Tarjeta de Debito en Divisa
-xpresentationLayer::buildInputNumberGrid("Número de Tarjeta ", "debitcardnumber", "debitcardnumber", "", "", "grid-item-2 hidden", "", "debitcardNumberSection", false);
+xpresentationLayer::startDivHidden("debitcardNumberSection", "grid-item-2");
+xpresentationLayer::buildInputNumberGrid("Número de Tarjeta ", "debitcardnumber", "debitcardnumber", "", "", "grid-item-2 ", "", "", false);
 xpresentationLayer::endDiv();
-xpresentationLayer::buildSectionPin();
+xpresentationLayer::endSection();
+xpresentationLayer::buildSectionPin("recepcion", "mt20");
 xpresentationLayer::endMain();
 
 include './modals/loader.php';

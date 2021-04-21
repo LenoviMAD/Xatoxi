@@ -137,7 +137,7 @@ export default function init() {
                 let formData = new FormData()
                 formData.append("cond", "genotp");
                 let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
-                let resOtp = await dataOtp.text();
+                let resOtp = await dataOtp.json();
                 console.log(resOtp);
                 // Quitando spinner
                 modal.closeModal('loader')
@@ -145,6 +145,7 @@ export default function init() {
                 if (resOtp.code == "0000") {
                     // abrir modal para ultimo fetch 
                     modal.openModal('otpVerification')
+                    console.log("entro");
                     document.getElementById('otpCode').value = resOtp.otp
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
@@ -177,7 +178,7 @@ export default function init() {
                 } else if (resOtp.code === "5000") {
                     modal.openModal('modalDanger', 'Datos incompletos', resOtp.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', 'Hubo un error', resOtp.message)
                 }
             })
         }

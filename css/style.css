@@ -181,13 +181,13 @@ p {
 
 .wordsFM {
     color: #5983B0;
-font-size: 18px;
-font-weight: bolder;
-text-align: center;
-width: 100%;
-background: no-repeat;
-border: none;
-text-decoration: underline;
+    font-size: 18px;
+    font-weight: bolder;
+    text-align: center;
+    width: 100%;
+    background: no-repeat;
+    border: none;
+    text-decoration: underline;
 }
 
 .button {
@@ -316,7 +316,7 @@ select {
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
     display: flex;
     justify-content: space-between;
-    align-items: center;    
+    align-items: center;
     background-color: var(--primary);
     height: 4vh;
     padding: 5px 10px;
@@ -328,6 +328,7 @@ select {
     text-transform: capitalize;
     font-size: .8em;
 }
+
 .main-footer a {
     text-decoration: none;
     color: white;
@@ -355,7 +356,7 @@ select {
 .grid-3 .titles,
 .grid-1 .section-Titles,
 .grid-2 .section-Titles,
-.grid-3 .section-Titles  {
+.grid-3 .section-Titles {
     margin: 0;
 }
 

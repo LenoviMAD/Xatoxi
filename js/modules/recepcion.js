@@ -10,15 +10,15 @@ export default function init() {
         const recepcionForm = document.getElementById('recepcionForm')
 
         if (recepcionForm) {
-            const ping = document.querySelector(`#${recepcionForm.getAttribute('id')} .ping`)
+            const btnSubmitReception = document.querySelector('[data-targetping="recepcion"]')
             const formRecepcion = document.getElementById('formRecepcion')
             const bancoPagoMovil = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="bancoPagoMovil"]`)
             const codeArea = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="codeArea"]`)
             const countrycode = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="countrycode"]`)
             const phone = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="phone"]`)
             const bankAccount = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="bankAccount"]`)
-            
-            const init = async () => {
+
+            const init = async() => {
                 // Fetch session currectly
                 const formData = new FormData();
                 formData.append("cond", "session");
@@ -32,8 +32,7 @@ export default function init() {
                 });
 
                 countrycode.value = res.countrycode
-                phone.value = res.mpbankaccount
-                
+                phone.value = res.mpbankaccount //.replace(res.countrycode, "").replace(res.areacode, "")
                 codeArea.childNodes.forEach(element => {
                     if (element.value === res.areacode.trim()) {
                         element.setAttribute("selected", true)
@@ -47,18 +46,18 @@ export default function init() {
             // Toggle para mostrar modal (mas info)
             formRecepcion.addEventListener('change', async() => {
                 // Mostramos boton de enviar
-                if (ping.classList.contains('hidden')) {
-                    ping.classList.remove('hidden')
+                if (btnSubmitReception.classList.contains('hidden')) {
+                    btnSubmitReception.classList.remove('hidden')
                 }
             })
 
             // fetch final de venta
-            recepcionForm.addEventListener('submit', async (e) => {
+            recepcionForm.addEventListener('submit', async(e) => {
                 e.preventDefault()
-                
+
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
-                
+
                 // GEN OTP FETCH
                 let formData = new FormData()
                 formData.append("cond", "genotp");
@@ -82,12 +81,11 @@ export default function init() {
                         modal.openModal('loader', undefined, undefined, false)
 
                         let formData = new FormData(recepcionForm)
-                    
+
                         formData.append("cond", "reception");
                         formData.append("otp", resOtp.otp);
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
                         let res = await data.json();
-                        console.log(res);
 
                         // Quitando spinner
                         modal.closeModal('loader')
@@ -97,13 +95,13 @@ export default function init() {
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', 'Datos incompletos', res.message)
                         } else {
-                            modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                            modal.openModal('modalDanger', 'Hubo un error', res.message)
                         }
                     })
-                } else if (res.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                } else if (resOtp.code === "5000") {
+                    modal.openModal('modalDanger', 'Datos incompletos', resOtp.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', 'Hubo un error', resOtp.message)
                 }
             })
 
@@ -122,17 +120,17 @@ export default function init() {
                 */
 
                 if (valueSelected === "3") {
-                    closeEverythingExceptThese('recepcionForm', ['banckAccountSection'])
+                    closeEverythingExceptThese('principal', ['banckAccountSection'])
                 } else if (valueSelected === "1") {
-                    closeEverythingExceptThese('recepcionForm', ['branckOfficesSection'])
+                    closeEverythingExceptThese('principal', ['branckOfficesSection'])
                 } else if (valueSelected === "4") {
-                    closeEverythingExceptThese('recepcionForm', ['bancoPagoMovilSection', 'codeAreaSection', 'phoneSection'])
+                    closeEverythingExceptThese('principal', ['bancoPagoMovilSection'])
                 } else if (valueSelected === "7") {
-                    closeEverythingExceptThese('recepcionForm', ['prepaidCardSection'])
+                    closeEverythingExceptThese('principal', ['prepaidCardSection'])
                 } else if (valueSelected === "8") {
-                    closeEverythingExceptThese('recepcionForm', ['debitcardNumberSection'])
+                    closeEverythingExceptThese('principal', ['debitcardNumberSection'])
                 } else {
-                    closeEverything('recepcionForm')
+                    closeEverything('principal')
                 }
             })
         }

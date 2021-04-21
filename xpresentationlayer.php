@@ -433,7 +433,7 @@ class xpresentationLayer
 			} else if ($value->code) {
 				echo '<OPTION value="' . $value->code . '">' . $value->code . ' </OPTION>';
 			} else {
-				if ($name != "currency" && $id != "currencyTransfer" && $id != "currencyWallet" && $id != "currencyCommend") {
+				if ($name != "currency" && $name != "currencyTransfer" && $name != "currencyWallet" && $name != "currencyCommend") {
 					echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
 				} else {
 					echo '<OPTION value="' . $value->id . '">' . $value->iso . ' </OPTION>';
@@ -519,15 +519,15 @@ class xpresentationLayer
 			$id = ' id="' . $id . '" ';
 
 		$data = $json->list;
-		echo '<DIV class="aside">';
+		echo '<DIV class="aside input-field1">';
 		echo '       <SELECT name="' . $name . '" ' . $id . ' ' . $event . ' class="select-width-user select-appearance-user">';
 		echo '       <OPTION disabled selected>Seleccione</OPTION>';
 		foreach ($data as $value) {
 			echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
 		}
 		echo '        </SELECT>';
-		echo '        <BUTTON class="btn-contacts"><figure><img src="img/address-book.png" alt=""></figure></BUTTON>';
-		echo '        <BUTTON class="btn-search"><figure><img src="img/search.png" alt=""></figure></BUTTON>';
+		// echo '        <BUTTON class="btn-contacts"><figure><img src="img/address-book.png" alt=""></figure></BUTTON>';
+		// echo '        <BUTTON class="btn-search"><figure><img src="img/search.png" alt=""></figure></BUTTON>';
 		echo '</DIV>';
 	} //buildSearchUsersWallet
 
@@ -549,7 +549,7 @@ class xpresentationLayer
 			$eventAddContact = 'onclick="' . $eventAddContact . '"';
 		}
 		$data = $json->list;
-		echo '<DIV class="aside ' . $class . '">';
+		echo '<DIV class="aside input-field1' . $class . '">';
 		echo '       <SELECT name="' . $name . '" id="' . $id . '" ' . $event . ' class="select-width-user">';
 		echo '       <OPTION disabled selected>Seleccione</OPTION>';
 		foreach ($data as $value) {
@@ -665,7 +665,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/20 12:00
     ===================================================================== */
-	static function buildPhoneComplete($titleLabel, $nameCountry, $nameArea, $namePhone, $idCountry, $idArea, $idPhone, $jsonCode, $jsonArea, $event = "")
+	static function buildPhoneComplete($titleLabel, $nameCountry, $nameArea, $namePhone, $idCountry, $idArea, $idPhone, $jsonCode, $jsonArea, $event = "", $disabled ="", $classContainer="", $classChildren ="")
 	{
 
 		$data = $jsonCode->list;
@@ -674,10 +674,13 @@ class xpresentationLayer
 		if ($event != "") {
 			$event = 'onchange="' . $event . '"';
 		}
-
-		echo '<DIV class="input-field1">';
+		if ($disabled != "") {
+			$disabled = 'disabled="' . $disabled . '"';
+		}
+		echo '<DIV class="input-field1 '.$classContainer.'">';
 		echo '  <LABEL class="font-Bold margin-label">' . $titleLabel . '</LABEL>';
-		echo '  <DIV class="flex-content">';
+		echo '  <DIV class="flex-content '.$classChildren.'">';
+		echo '    <INPUT type="text" name="' . $nameCountry . '" id="' . $idCountry . '" class="input-radius" '.$disabled.' pattern="[0-9]+([\.,][0-9]+)?">';
 		// echo '<SELECT name="' . $nameCountry . '" id="' . $idCountry . '" ' . $event . ' class="select-width">';
 		// echo '<OPTION disabled selected>Seleccione</OPTION>';
 		// foreach ($data as $value) {
@@ -691,7 +694,7 @@ class xpresentationLayer
 		echo '<SELECT name="' . $nameArea . '" id="' . $idArea . '" class="select-width">';
 		echo '<OPTION disabled selected>Seleccione</OPTION>';
 		foreach ($data2 as $value) {
-			echo '<OPTION value="' . $value->id . '" >' . $value->code . ' </OPTION>';
+			echo '<OPTION value="' . $value->code . '" >' . $value->code . ' </OPTION>';
 		}
 		echo '</SELECT>';
 

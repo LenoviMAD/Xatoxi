@@ -18,14 +18,14 @@ export default function init() {
             const amountRecieve = document.querySelector(`#${ventaForm.getAttribute('id')} [name="amountRecieve"]`)
             const amountChange = document.querySelector(`#${ventaForm.getAttribute('id')} [name="amountChange"]`)
             const ping = document.querySelector(`#${ventaForm.getAttribute('id')} .ping`)
-            
+
             // Pago movil
             const bancoPagoMovil = document.querySelector(`#${ventaForm.getAttribute('id')} [name="bancoPagoMovil"]`)
             const countrycode = document.querySelector(`#${ventaForm.getAttribute('id')} [name="countrycode"]`)
             const codeArea = document.querySelector(`#${ventaForm.getAttribute('id')} [name="codeArea"]`)
             const phone = document.querySelector(`#${ventaForm.getAttribute('id')} [name="phone"]`)
 
-            const init = async () => {
+            const init = async() => {
                 // Fetch session currectly
                 const formData = new FormData();
                 formData.append("cond", "session");
@@ -40,7 +40,7 @@ export default function init() {
 
                 countrycode.value = res.countrycode
                 phone.value = res.mpbankaccount
-                
+
                 codeArea.childNodes.forEach(element => {
                     if (element.value === res.areacode.trim()) {
                         element.setAttribute("selected", true)
@@ -148,7 +148,7 @@ export default function init() {
 
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
-                
+
                 // GEN OTP FETCH
                 let formData = new FormData()
                 formData.append("cond", "genotp");
@@ -161,7 +161,7 @@ export default function init() {
                 if (resOtp.code == "0000") {
                     // abrir modal para ultimo fetch 
                     modal.openModal('otpVerification')
-                    
+
                     document.getElementById('otpCode').value = resOtp.otp
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
@@ -171,7 +171,7 @@ export default function init() {
 
                         // Cargando spinner
                         modal.openModal('loader', undefined, undefined, false)
-                        
+
                         let formData = new FormData(ventaForm)
                         formData.append("cond", "execsell");
                         formData.append("otp", resOtp.otp);

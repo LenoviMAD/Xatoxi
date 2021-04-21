@@ -427,8 +427,8 @@ if (isset($_POST["cond"])) {
         $code = "";
         $idparty = "";
         $email = $_POST["email"];
-        $deviceid = "deviceiddeviceid99";
-        $deviceidalt = "deviceidaltdeviceidalt99";
+        $deviceid = "22moises22";
+        $deviceidalt = "22moises22";
         $phoneNumber = $_POST["phone"];
         $observation = "";
         $pin = "";

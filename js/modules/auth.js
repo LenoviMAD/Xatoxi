@@ -11,10 +11,17 @@ export default function init() {
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
+<<<<<<< Updated upstream
             inputPin.value = "3299"
             inputTag.value = "f3ea97d2cd1f5619f570c06a10a041b5"
             // inputPin.value = "9883"
             // inputTag.value = "miatagbuenisimo20"
+=======
+            inputPin.value = "7951"
+            inputTag.value = "cc56c60c44b115d80171f569aa80c002"
+                // inputPin.value = "9883"
+                // inputTag.value = "miatagbuenisimo20"
+>>>>>>> Stashed changes
 
             btnPin.addEventListener('click', async e => {
                 e.preventDefault()
@@ -63,8 +70,8 @@ export default function init() {
                                 }
                             }
                         })
-                        
-                        location.href = location.origin + "/xatoxi/" +url
+
+                        location.href = location.origin + "/xatoxi/" + url
 
                     } else if (resIsParty.code === "5000") {
                         // setear para donde redireccionara
