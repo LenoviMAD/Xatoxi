@@ -315,7 +315,10 @@ class xpresentationLayer
             $class = ' class="input-field1" ';
         }
 
-        $maxlength = ' maxlength="' . $maxlength . '" ';
+        if ($maxlength == "") {
+            $maxlength = 35;
+            $maxlength = ' maxlength="' . $maxlength . '" ';
+        }
 
         echo '<DIV ' . $class . $idContainer . '>';
         echo '    <LABEL class="font-Bold">' . $titleLabel . '</LABEL>';
@@ -334,7 +337,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-    static function buildInputTextGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $idContainer = "", $required = false, $value = "", $type = "text")
+    static function buildInputTextGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $maxlength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $idContainer = "", $required = false, $value = "", $type = "text")
     {
         if ($disabled != "") {
             $disabled = 'disabled="' . $disabled . '"';
@@ -362,9 +365,14 @@ class xpresentationLayer
             $classInput = 'class="' . $classInput . '"';
         }
 
+        if ($maxlength == "") {
+            $maxlength = 35;
+            $maxlength = ' maxlength="' . $maxlength . '" ';
+        }
+
         echo '<DIV class="input-field1 ' . $customClass . ' " ' . $idContainer . '>';
         echo '       <LABEL class="font-Bold ' . $classLabel . '">' . $titleLabel . '</LABEL>';
-        echo '       <INPUT  type="' . $type . '" ' . $value . $disabled . $nameInput . $idInput . $required . ' placeholder="' . $placeholder . '" maxlength="' . $maxLength . '" ' . $classInput . '>';
+        echo '       <INPUT  type="' . $type . '" ' . $value . $disabled . $nameInput . $idInput . $required . ' placeholder="' . $placeholder . '" ' . $maxlength . ' ' . $classInput . '>';
         echo '</DIV>';
     } //buildInputTextGrid
 
@@ -379,7 +387,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-    static function buildInputTextGridCustom($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $textHelp = "")
+    static function buildInputTextGridCustom($titleLabel, $idInput, $nameInput, $placeholder = "", $maxlength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $textHelp = "")
     {
         if ($disabled != "") {
             $disabled = 'disabled="' . $disabled . '"';
@@ -391,8 +399,13 @@ class xpresentationLayer
             $classInput = 'class="grid-item-no-border"';
         }
 
+        if ($maxlength == "") {
+            $maxlength = 35;
+            $maxlength = ' maxlength="' . $maxlength . '" ';
+        }
+
         echo '<DIV class="' . $customClass . ' ">';
-        echo ' <INPUT ' . $disabled . ' type="text" name="' . $nameInput . '" id="' . $idInput . '" placeholder="' . $placeholder . '" maxlength="' . $maxLength . '" ' . $classInput . '>';
+        echo ' <INPUT ' . $disabled . ' type="text" name="' . $nameInput . '" id="' . $idInput . '" placeholder="' . $placeholder . '" ' . $maxlength . ' ' . $classInput . '>';
         echo ' <LABEL class="font-Bold ' . $classLabel . '">' . $titleLabel . '</LABEL>';
 
         if ($textHelp != "") {
@@ -412,7 +425,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-    static function buildInputTextGridCustom2($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $textHelp = "")
+    static function buildInputTextGridCustom2($titleLabel, $idInput, $nameInput, $placeholder = "", $maxlength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $textHelp = "")
     {
         if ($disabled != "") {
             $disabled = 'disabled="' . $disabled . '"';
@@ -424,9 +437,14 @@ class xpresentationLayer
             $classInput = 'class="grid-item-no-border"';
         }
 
+        if ($maxlength == "") {
+            $maxlength = 35;
+            $maxlength = ' maxlength="' . $maxlength . '" ';
+        }
+
         echo '<DIV class="' . $customClass . ' ">';
         echo ' <LABEL class="font-Bold ' . $classLabel . '">' . $titleLabel . '</LABEL>';
-        echo ' <INPUT ' . $disabled . ' type="text" name="' . $nameInput . '" id="' . $idInput . '" placeholder="' . $placeholder . '" maxlength="' . $maxLength . '" ' . $classInput . '>';
+        echo ' <INPUT ' . $disabled . ' type="text" name="' . $nameInput . '" id="' . $idInput . '" placeholder="' . $placeholder . '" ' . $maxlength . ' ' . $classInput . '>';
         if ($textHelp != "") {
             echo '<span class="helper-text" data-error="wrong" data-success="right">' . $textHelp . '</span>';
         }
