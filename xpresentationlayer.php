@@ -37,6 +37,8 @@ class xpresentationLayer
 	static function endHtml()
 	{
 		echo '</HTML>';
+		echo  ' <SCRIPT src="js/jquery.min.js"></SCRIPT>';
+		echo  ' <SCRIPT src="js/select2.full.min.js"></SCRIPT>';
 		echo  ' <SCRIPT src="js/main.js" language="javascript" type="text/javascript"></SCRIPT>';
 		echo  ' <SCRIPT src="js/main2.js" type="module"></SCRIPT>';
 	} // endHtml
@@ -56,7 +58,8 @@ class xpresentationLayer
 		echo  '<HEAD>';
 		echo  ' <TITLE>' . $title . '</TITLE> ';
 		echo  ' <META charset="UTF-8"> ';
-		echo  ' <META name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> ';
+        echo  ' <META name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> ';
+		echo  ' <LINK rel="stylesheet" type="text/css" href="css/select2.min.css"> ';
 		echo  ' <LINK rel="stylesheet" type="text/css" href="css/style.css"> ';
 		echo  ' <LINK rel="stylesheet" type="text/css" href="css/animations.css"> ';
 		echo  ' <LINK rel="stylesheet" type="text/css" href="css/modal.css"> ';
@@ -86,7 +89,7 @@ class xpresentationLayer
 		echo  ' <TITLE>' . $title . '</TITLE> ';
 		echo  ' <META charset="UTF-8"> ';
 		echo  ' <META name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> ';
-		// echo  ' <LINK rel="stylesheet" type="text/css" href="css/normalize.css"> ';
+		echo  ' <LINK rel="stylesheet" type="text/css" href="css/select2.min.css"> ';
 		echo  ' <LINK rel="stylesheet" type="text/css" href="css/style.css"> ';
 		echo  ' <LINK rel="stylesheet" type="text/css" href="css/animations.css"> ';
 		echo  ' <LINK rel="stylesheet" type="text/css" href="css/modal.css"> ';
@@ -98,8 +101,6 @@ class xpresentationLayer
 		echo  ' <LINK rel="stylesheet" type="text/css" href="css/canvas.css"> ';
 		echo  ' <LINK rel="stylesheet" type="text/css" href="css/helpers.css"> ';
 
-		// echo  ' <link rel="preconnect" href="https://fonts.gstatic.com">';
-		// echo  ' <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">';
 		echo  ' </HEAD> ';
 		echo  ' <DIV class="phone-big">';
 	} //buildHead
@@ -114,14 +115,24 @@ class xpresentationLayer
     ===================================================================== */
 	static function buildHeaderXatoxi()
 	{
-		echo '<HEADER class="header">';
-		echo '<DIV class="encabezado encabezado-home">';
-		echo '    <A href="index.php" style="width: 25%;">';
-		echo '    <IMG class="logo" src="img/home.png">';
-		echo '    </A>';
-		echo '    <IMG class="logo" src="img/logo.png">';
-		echo '</DIV>';
-		echo '</HEADER>';
+        if(isset($_SESSION['idlead'])) {
+            echo '<HEADER class="header">';
+            echo '<DIV class="encabezado encabezado-home">';
+            echo '    <A href="index.php" style="width: 25%;">';
+            echo '    <IMG class="logo" src="img/home.png">';
+            echo '    </A>';
+            echo '    <IMG class="logo" src="img/logo.png">';
+            echo '</DIV>';
+            echo '</HEADER>';
+        }else {
+            echo '<HEADER class="header">';
+            echo '  <DIV class="encabezado">';  
+            echo '    <A href="index.php" style="width: 25%;">';
+            echo '  	<IMG class="logo" src="img/logo.png">';
+            echo '    </A>';
+            echo '  </DIV>';
+            echo '</HEADER>';
+        }
 	} // buildHeaderXatoxi
 
 	/*=======================================================================
@@ -134,11 +145,25 @@ class xpresentationLayer
     ===================================================================== */
 	static function buildHeaderPrincipalXatoxi()
 	{
-		echo '<HEADER class="header">';
-		echo '  <DIV class="encabezado">';
-		echo '  	<IMG class="logo" src="img/logo.png">';
-		echo '  </DIV>';
-		echo '</HEADER>';
+        if(isset($_SESSION['idlead'])) {
+            echo '<HEADER class="header">';
+            echo '<DIV class="encabezado encabezado-home">';
+            echo '    <A href="index.php" style="width: 25%;">';
+            echo '    <IMG class="logo" src="img/home.png">';
+            echo '    </A>';
+            echo '    <IMG class="logo" src="img/logo.png">';
+            echo '</DIV>';
+            echo '</HEADER>';
+        }else {
+            echo '<HEADER class="header">';
+            echo '  <DIV class="encabezado">';  
+            echo '    <A href="index.php" style="width: 25%;">';
+            echo '  	<IMG class="logo" src="img/logo.png">';
+            echo '    </A>';
+            echo '  </DIV>';
+            echo '</HEADER>';
+        }
+        
 	} // buildHeaderPrincipalXatoxi
 
 	/*=======================================================================

@@ -521,6 +521,7 @@ if (isset($_POST["cond"])) {
         $data_json = $client->misparty($_SESSION['idparty']);
         print_r(json_encode($data_json));
     }
+
     if ($_POST["cond"] == "leadToParty") {
         $firstname = $_POST["firstName"];
         $middlename = $_POST["secondName"];
@@ -560,6 +561,14 @@ if (isset($_POST["cond"])) {
         $type = $_POST['type'];
 
         $data_json = $client->mupload($_SESSION['idlead'], $_SESSION['idparty'], $filename, $encoded, $type);
+        print_r(json_encode($data_json));
+    }
+
+    if ($_POST["cond"] == "getpartyexists") {
+        $documentid = $_POST['documentid'];
+
+        // print_r($_POST);
+        $data_json = $client->mgetpartyexists($_SESSION['idlead'], $documentid);
         print_r(json_encode($data_json));
     }
 

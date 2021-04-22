@@ -4,7 +4,11 @@ import { numberFormater, toBase64, servicioFirma, closeEverythingExceptThis, clo
 
 // Envio
 export default function init() {
-    document.addEventListener('DOMContentLoaded', async() => {
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function () {
+    });
+
+    document.addEventListener('DOMContentLoaded', async () => {
         const modal = new Modal()
         modal.initModal()
 
@@ -26,6 +30,8 @@ export default function init() {
             const amountWallet = document.querySelector(`#${billeteraForm.getAttribute('id')} [name="amountWallet"]`)
             const currencyWallet = document.querySelector(`#${billeteraForm.getAttribute('id')} [name="currencyWallet"]`)
             const paidFormWallet = document.querySelector(`#${billeteraForm.getAttribute('id')} [name="paidFormWallet"]`)
+
+            $(`#${billeteraForm.getAttribute('id')} [name="users"]`).select2();
 
             amountWallet.addEventListener('blur', () => {
                 step1Wallet()
@@ -153,7 +159,7 @@ export default function init() {
             }
 
             // docuemntos menos firma
-            file.addEventListener('change', async(e) => {
+            file.addEventListener('change', async (e) => {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
@@ -184,7 +190,7 @@ export default function init() {
             })
 
             // toggle de tipos de documentos
-            typeDocWallet.addEventListener('change', async() => {
+            typeDocWallet.addEventListener('change', async () => {
                 /* 
                     ci: 1
                     firma: 2
@@ -198,7 +204,7 @@ export default function init() {
                     // abrir modal para hacer firma
                     modal.openModal('modalFirma')
 
-                    btnModalFirma.addEventListener('click', async() => {
+                    btnModalFirma.addEventListener('click', async () => {
                         const encoded = document.getElementById('draw-image').getAttribute('src')
 
                         const payload = {
@@ -209,7 +215,7 @@ export default function init() {
 
                         // Quitando spinner
                         modal.closeModal('modalFirma')
-                            // Cargando spinner
+                        // Cargando spinner
                         modal.openModal('loader', undefined, undefined, false)
 
                         const res = await servicioFirma(payload)
@@ -302,21 +308,21 @@ export default function init() {
                 amountCommend.setAttribute("disabled", true)
             }
 
-            amountCommend.addEventListener('blur', async() => {
+            amountCommend.addEventListener('blur', async () => {
                 await step0()
                 step1Encomienda()
             })
-            countryCommend.addEventListener('change', async() => {
-                await step0()
-                step1Encomienda()
-            })
-
-            providerCommend.addEventListener('change', async() => {
+            countryCommend.addEventListener('change', async () => {
                 await step0()
                 step1Encomienda()
             })
 
-            sendFormCommend.addEventListener('change', async() => {
+            providerCommend.addEventListener('change', async () => {
+                await step0()
+                step1Encomienda()
+            })
+
+            sendFormCommend.addEventListener('change', async () => {
                 await step0()
                 step1Encomienda()
             })
@@ -445,7 +451,7 @@ export default function init() {
             })
 
             // docuemntos menos firma
-            file.addEventListener('change', async(e) => {
+            file.addEventListener('change', async (e) => {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
@@ -476,7 +482,7 @@ export default function init() {
             })
 
             // toggle de tipos de documentos
-            typeDocCommend.addEventListener('change', async() => {
+            typeDocCommend.addEventListener('change', async () => {
                 /* 
                     ci: 1
                     firma: 2
@@ -490,7 +496,7 @@ export default function init() {
                     // abrir modal para hacer firma
                     modal.openModal('modalFirma')
 
-                    btnModalFirma.addEventListener('click', async() => {
+                    btnModalFirma.addEventListener('click', async () => {
                         const encoded = document.getElementById('draw-image').getAttribute('src')
 
                         const payload = {
@@ -501,7 +507,7 @@ export default function init() {
 
                         // Quitando spinner
                         modal.closeModal('modalFirma')
-                            // Cargando spinner
+                        // Cargando spinner
                         modal.openModal('loader', undefined, undefined, false)
 
                         const res = await servicioFirma(payload)
@@ -546,7 +552,7 @@ export default function init() {
                 }
             })
 
-            btnSubmitCommend.addEventListener('click', async(e) => {
+            btnSubmitCommend.addEventListener('click', async (e) => {
                 e.preventDefault()
 
                 // Cargando spinner
@@ -568,7 +574,7 @@ export default function init() {
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
                         e.preventDefault()
-                            // let valueSelected = paidFormCommend.options[paidFormCommend.selectedIndex].value;
+                        // let valueSelected = paidFormCommend.options[paidFormCommend.selectedIndex].value;
 
                         // Quitando Otp
                         modal.closeModal('otpVerification')
@@ -619,11 +625,11 @@ export default function init() {
             //Idlead <- falta por indicar, esta hardcode
             //idcountry
             const countryTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="countryTransfer"]`)
-                //idcurrency
+            //idcurrency
             const currencyTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="currencyTransfer"]`)
-                //amount
+            //amount
             const amountTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="amountTransfer"]`)
-                //idclearencetype
+            //idclearencetype
             const paidFormTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="paidFormTransfer"]`)
             const exchangedRateTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="exchangedRateTransfer"]`)
             const amountBsTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="amountBsTransfer"]`)
@@ -731,27 +737,27 @@ export default function init() {
                 let valueSelected = paidFormTransfer.options[paidFormTransfer.selectedIndex].value;
                 const accountDeposit = document.getElementById(`accountDeposit`)
                 const cash = document.getElementById(`cash`)
-                    /*
-                    1 = Efectivo 
-                    2 = Billetera
-                    3 = Depósito en Cuenta
-                    4 = Pago Movil 
-                    5 = Tarjeta de Credito 
-                    6 = ACH 
-                    7 = Tarjeta Prepagada 
-                    8 = Tarjeta de Debito en Divisa 
-                    */
+                /*
+                1 = Efectivo 
+                2 = Billetera
+                3 = Depósito en Cuenta
+                4 = Pago Movil 
+                5 = Tarjeta de Credito 
+                6 = ACH 
+                7 = Tarjeta Prepagada 
+                8 = Tarjeta de Debito en Divisa 
+                */
 
                 if (valueSelected === "1") {
                     beneficiarioTransfer.classList.remove('hidden')
                     cash.classList.remove('hidden')
-                        // Poner hidden los demas                
+                    // Poner hidden los demas                
                     accountDeposit.classList.add('hidden')
                     MovilPay.classList.add('hidden')
                     SectionPrepaid.classList.add('hidden')
                 } else if (valueSelected === "2") {
                     beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
+                    // Poner hidden los demas
                     accountDeposit.classList.add('hidden')
                     cash.classList.add('hidden')
                     MovilPay.classList.add('hidden')
@@ -759,13 +765,13 @@ export default function init() {
                 } else if (valueSelected === "3") {
                     beneficiarioTransfer.classList.remove('hidden')
                     accountDeposit.classList.remove('hidden')
-                        // Poner hidden los demas
+                    // Poner hidden los demas
                     cash.classList.add('hidden')
                     MovilPay.classList.add('hidden')
                     SectionPrepaid.classList.add('hidden')
                 } else if (valueSelected === "4") {
                     beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
+                    // Poner hidden los demas
                     MovilPay.classList.add('hidden')
                     SectionPrepaid.classList.add('hidden')
                     accountDeposit.classList.add('hidden')
@@ -773,27 +779,27 @@ export default function init() {
                 } else if (valueSelected === "5") {
                     SectionPrepaid.classList.remove('hidden')
                     beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
+                    // Poner hidden los demas
                     MovilPay.classList.add('hidden')
                     accountDeposit.classList.add('hidden')
                     cash.classList.add('hidden')
                 } else if (valueSelected === "6") {
                     MovilPay.classList.remove('hidden')
                     beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
+                    // Poner hidden los demas
                     SectionPrepaid.classList.add('hidden')
                     accountDeposit.classList.add('hidden')
                     cash.classList.add('hidden')
                 } else if (valueSelected === "7") {
                     beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
+                    // Poner hidden los demas
                     SectionPrepaid.classList.add('hidden')
                     MovilPay.classList.add('hidden')
                     accountDeposit.classList.add('hidden')
                     cash.classList.add('hidden')
                 } else if (valueSelected === "8") {
                     beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
+                    // Poner hidden los demas
                     MovilPay.classList.add('hidden')
                     SectionPrepaid.classList.add('hidden')
                     accountDeposit.classList.add('hidden')
@@ -825,7 +831,7 @@ export default function init() {
 
                     // ocultamos los campos nuevamente
                     userInfo.classList.add('hidden')
-                        // Mostramos el ping button
+                    // Mostramos el ping button
                     btnSubmitTransfer.classList.remove('hidden')
                 }
             })

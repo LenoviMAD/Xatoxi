@@ -1,5 +1,10 @@
+<?php
+include_once("../xpresentationlayer.php");
+?>
+
 <div class="modal modal--Otp modal--fullViewport" id="modalFirma">
     <div class="modal-dialog">
+        <?php xpresentationLayer::buildHeaderPrincipalXatoxi(); ?>
         <section class="modal-content">
             <aside class="modal-body">
                 <div class="grid-3">
@@ -21,5 +26,9 @@
                 </div>
             </aside>
         </section>
+        <FOOTER class="main-footer">
+            <H4>¿Tienes dudas? <A target="_blank" title="contacta con Pepin" href="mailto:pepin@italcambio.com">Preguntale a Pepin</A></H4>
+            <H4>by XATOXI</H4>
+        </FOOTER>
     </div>
 </div>

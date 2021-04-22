@@ -28,25 +28,9 @@ export default function init() {
             const prepaidcardnumber = document.querySelector(`#${profileForm.getAttribute('id')} [name="prepaidcardnumber"]`)
             const debitcardnumber = document.querySelector(`#${profileForm.getAttribute('id')} [name="debitcardnumber"]`)
 
-            // Llenamos todos los campos si getparty 
-            async function getParty() {
-                // Fetch session currectly
-                const formData = new FormData();
-                formData.append("cond", "session");
-                const data = await fetch("ajax.php", { method: 'POST', body: formData });
-                const res = await data.json();
-
-                // Fetch getparty
-                const formDataIsParty = new FormData();
-
-                formDataIsParty.append("cond", "getparty");
-                formDataIsParty.append("idParty", res.idparty);
-                formDataIsParty.append("idLead", res.idlead);
-
-                const dataIsParty = await fetch("ajax.php", { method: 'POST', body: formDataIsParty });
-                const resIsParty = await dataIsParty.json();
-
-                if (resIsParty.code === "0000") {
+            // Funcion solamente para llenar campos del perfil 
+            async function test(resIsParty) {
+                if (resIsParty) {
                     typeDocument.childNodes.forEach(element => {
                         if (element.textContent.trim() === resIsParty.documentid.substr(0, 1)) {
                             element.setAttribute("selected", true)
@@ -92,6 +76,30 @@ export default function init() {
 
                     direction.value = resIsParty.address
                     bankAccount.value = resIsParty.bankaccount
+                }
+                // prepaidcardnumber.value = res.prepaidcardnumber
+                // debitcardnumber.value = res.debitcardnumber
+            }
+            // Llenamos todos los campos si getparty 
+            async function getParty() {
+                // Fetch session currectly
+                const formData = new FormData();
+                formData.append("cond", "session");
+                const data = await fetch("ajax.php", { method: 'POST', body: formData });
+                const res = await data.json();
+
+                // Fetch getparty
+                const formDataIsParty = new FormData();
+
+                formDataIsParty.append("cond", "getparty");
+                formDataIsParty.append("idParty", res.idparty);
+                formDataIsParty.append("idLead", res.idlead);
+
+                const dataIsParty = await fetch("ajax.php", { method: 'POST', body: formDataIsParty });
+                const resIsParty = await dataIsParty.json();
+
+                if (resIsParty.code === "0000") {
+                    test(resIsParty)
 
                     bancoPagoMovil.childNodes.forEach(element => {
                         if (element.value === res.mpbankcode) {
@@ -100,13 +108,46 @@ export default function init() {
                     });
 
                     telMovil.value = res.mpbankaccount
-
-                    // prepaidcardnumber.value = res.prepaidcardnumber
-                    // debitcardnumber.value = res.debitcardnumber
                 }
             }
             getParty()
 
+            // cliente ya existente en la organizacion ci
+            async function getpartyexists() {
+                // Fetch session currectly
+                const formData = new FormData();
+                formData.append("cond", "session");
+                const data = await fetch("ajax.php", { method: 'POST', body: formData });
+                const res = await data.json();
+
+                if (!res.idparty) {
+                    if (documentC.value &&
+                        (typeDocument.options[typeDocument.selectedIndex].value !== "Seleccione")) {
+
+                        let doc = typeDocument.options[typeDocument.selectedIndex].textContent.trim() + "" + documentC.value.trim()
+
+                        // Fetch session currectly
+                        const formData = new FormData();
+                        formData.append("cond", "getpartyexists");
+                        formData.append("documentid", doc);
+
+                        const data = await fetch("ajax.php", { method: 'POST', body: formData });
+                        const res = await data.json();
+
+                        // Llenar los campos correspondientes
+                        if (res.code == "0000") {
+                            test(res)
+                        }
+                    }
+                }
+            }
+
+            typeDocument.addEventListener('change', () => {
+                getpartyexists()
+            })
+            documentC.addEventListener('blur', () => {
+                getpartyexists()
+            })
             profileForm.addEventListener('submit', async e => {
                 e.preventDefault()
 
@@ -124,7 +165,7 @@ export default function init() {
 
                 // Quitando spinner
                 modal.closeModal('loader')
-                
+
                 if (res.code === "0000") {
                     modal.openModal('modalSuccess', TITLE_SECTION, res.message)
                 } else if (res.code === "5000") {
