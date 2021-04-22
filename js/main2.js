@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function resetTimer() {
             clearTimeout(time);
-            time = setTimeout(logout, 2000)
+            time = setTimeout(logout, 120000)
         }
     };
 

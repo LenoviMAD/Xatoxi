@@ -48,7 +48,7 @@ export default class Timer {
 
 
         function countDown() {
-            var contador = 5;
+            var contador = 10;
 
             // cuentaAtras.style.color = 'black';
 
