@@ -6,26 +6,26 @@
             <tbody>
                 <tr>
                     <td>
-                        <input value=" 1 " onclick="numero('1')" type="button" class="botones">
+                        <input value=" 1 " onclick="numero2('1')" type="button" class="botones">
                     </td>
-                    <td> <input value=" 2 " onclick="numero('2')" type="button" class="botones"></td>
-                    <td> <input value=" 3 " onclick="numero('3')" type="button" class="botones"></td>
+                    <td> <input value=" 2 " onclick="numero2('2')" type="button" class="botones"></td>
+                    <td> <input value=" 3 " onclick="numero2('3')" type="button" class="botones"></td>
                 </tr>
                 <tr>
-                    <td> <input value=" 4 " onclick="numero('4')" type="button" class="botones"></td>
-                    <td> <input value=" 5 " onclick="numero('5')" type="button" class="botones"></td>
-                    <td> <input value=" 6 " onclick="numero('6')" type="button" class="botones"></td>
+                    <td> <input value=" 4 " onclick="numero2('4')" type="button" class="botones"></td>
+                    <td> <input value=" 5 " onclick="numero2('5')" type="button" class="botones"></td>
+                    <td> <input value=" 6 " onclick="numero2('6')" type="button" class="botones"></td>
                 </tr>
                 <tr>
-                    <td> <input value=" 7 " onclick="numero('7')" type="button" class="botones"></td>
-                    <td> <input value=" 8 " onclick="numero('8')" type="button" class="botones"></td>
-                    <td> <input value=" 9 " onclick="numero('9')" type="button" class="botones"></td>
+                    <td> <input value=" 7 " onclick="numero2('7')" type="button" class="botones"></td>
+                    <td> <input value=" 8 " onclick="numero2('8')" type="button" class="botones"></td>
+                    <td> <input value=" 9 " onclick="numero2('9')" type="button" class="botones"></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input value=" 0 " onclick="numero('0')" type="button" class="botones"></td>
+                    <td><input value=" 0 " onclick="numero2('0')" type="button" class="botones"></td>
                     <td>
-                        <input type="image" name="botondeenvio" src="img/iconoborrar.png" class="imgErase" onclick="borradoUltimaCifra()">
+                        <input type="image" name="botondeenvio" src="img/iconoborrar.png" class="imgErase" onclick="borradoUltimaCifra2()">
                     </td>
                 </tr>
             </tbody>

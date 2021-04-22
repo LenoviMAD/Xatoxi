@@ -5,7 +5,6 @@ window.onload = function() {
 //MODAL
 if (document.getElementsByClassName("openModal")) {
 
-    //console.log("entre")
     var modal = document.getElementById("tvesModal");
 
     //Seleccionas todos los elementos con clase btnModal
@@ -128,7 +127,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         formData.append("cond", "session");
         const data = await fetch("ajax.php", { method: 'POST', body: formData });
         const resUserSession = await data.json();
-        console.log(resUserSession);
 
         // SETEAMOS LOS DATOS SI VIENEN DE CAMBIO
         if (resUserSession.refToChange) {
@@ -149,8 +147,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             const iterator = document.querySelector(`button[data-id="${resUserSession.refToChange}"]`)
             const iterator2 = document.querySelector(`div[data-id="${resUserSession.refToChange}"]`)
 
-            console.log(`[data-id="${resUserSession.refToChange}"]`);
-
+            
             // Ponemos activo a uno y desactivamos los demas
             for (const other of wrapperButtons.children) {
                 // recorriendo opciones targets
@@ -270,7 +267,8 @@ if (true) {
 
     //Acciones tras cargar la página
     mostrarEnPantalla = document.getElementById("inputPin");
-    if (mostrarEnPantalla) {
+    mostrarEnPantalla2 = document.getElementById("cambioPin");
+    if (mostrarEnPantalla || mostrarEnPantalla2) {
 
         //Variable para ir guardando el valor del caracter
         x = "0";
@@ -299,6 +297,24 @@ if (true) {
             x1 = 0;
         }
     }
+    
+    //Función numero para registar la escritura en pantalla
+    function numero2(xx) {
+        // Si x es igual a 0 el número que se muestra en pantalla es igual a 1.
+        if (mostrarEnPantalla2.value.length < 4) {
+            if (x == "0" || x1 == 1) {
+                mostrarEnPantalla2.value = xx;
+                //Con esta variable se guarda el número y se continua con este
+                x = xx;
+            } else {
+                /*Esta operación se hace mediante una cadena de texto para que el 
+                         número tan solo se añada y no se sume al anterior*/
+                mostrarEnPantalla2.value += xx;
+                x += xx;
+            }
+            x1 = 0;
+        }
+    }
 
     //En esta función solo borraremos la última cifra que puesta en la pantalla
     function borradoUltimaCifra() {
@@ -310,6 +326,17 @@ if (true) {
         x = x.substr(0, cifras - 1);
 
         mostrarEnPantalla.value = x;
+    }
+    //En esta función solo borraremos la última cifra que puesta en la pantalla
+    function borradoUltimaCifra2() {
+        //Con 'length' podemos localizar la última cifra
+        cifras = x.length;
+
+        //Una vez localizada puede ser borrada
+        borrar = x.substr(cifras - 1, cifras);
+        x = x.substr(0, cifras - 1);
+
+        mostrarEnPantalla2.value = x;
     }
 }
 
@@ -392,7 +419,6 @@ async function selectValuesforSepartor(srcdst, url) {
     }
 
     const data = await fetch(`${url}${values}`, { method: "GET" });
-    console.log(data);
     const rest = await data.json();
 
     let output = "<option disabled selected>Seleccione</option>';";

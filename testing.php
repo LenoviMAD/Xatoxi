@@ -20,10 +20,12 @@ xpresentationLayer::endSection();
 xpresentationLayer::buildSectionPin("","grid-item-2");
 xpresentationLayer::endMain();
 
-include './modals/modalFirma.php';
-include './modals/modalOtpVerification.php';
-include './modals/modalSuccess.php';
-include './modals/modalPinVerification.php';
+// include './modals/modalFirma.php';
+// include './modals/modalOtpVerification.php';
+// include './modals/modalSuccess.php';
+// include './modals/modalPinVerification.php';
+// include './modals/modalPinVerification.php';
+// include './modals/modalPinVerification.php';     
 
 xpresentationLayer::buildFooterXatoxi();
 
