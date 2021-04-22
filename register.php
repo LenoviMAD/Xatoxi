@@ -6,7 +6,7 @@ $serviceCall = new xclient("");
 
 xpresentationLayer::startHtml("esp");
 xpresentationLayer::buildHead("Xatoxi");
-xpresentationLayer::buildHeaderXatoxi();
+xpresentationLayer::buildHeaderXatoxi44();
 
 xpresentationLayer::startMain();
 
