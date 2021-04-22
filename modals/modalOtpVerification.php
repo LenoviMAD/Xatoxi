@@ -15,8 +15,8 @@ include_once("../xpresentationlayer.php");
                 <input type="text" class="input-otp" disabled name="otpCode" id="otpCode" class="input-otp">
             </aside>
             <footer class="modal-footer">
-                <button class="btn btn-semi-rounded" data-id="btnOtp">Aceptar</button>
-                <button class="modal__button btn btn-danger btn-semi-rounded" type="button" aria-label="close modal" data-close>Cancelar</button>
+                <button class="btn btn-semi-rounded" data-id="btnOtp" aria-label="close modal" data-close>Aceptar</button>
+                <!-- <button class="modal__button btn btn-danger btn-semi-rounded" type="button" aria-label="close modal" data-close>Cancelar</button> -->
             </footer>
         </section>
         <FOOTER class="main-footer">

@@ -316,7 +316,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-	static function buildInputTextGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $idContainer = "", $required = false, $value = "")
+	static function buildInputTextGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $idContainer = "", $required = false, $value = "", $type = "text")
 	{
 		if ($disabled != "") {
 			$disabled = 'disabled="' . $disabled . '"';
@@ -346,7 +346,7 @@ class xpresentationLayer
 
 		echo '<DIV class="input-field1 ' . $customClass . ' " ' . $idContainer . '>';
 		echo '       <LABEL class="font-Bold ' . $classLabel . '">' . $titleLabel . '</LABEL>';
-		echo '       <INPUT  type="text" ' . $value . $disabled . $nameInput . $idInput . $required . ' placeholder="' . $placeholder . '" maxlength="' . $maxLength . '" ' . $classInput . '>';
+		echo '       <INPUT  type="'.$type.'" ' . $value . $disabled . $nameInput . $idInput . $required . ' placeholder="' . $placeholder . '" maxlength="' . $maxLength . '" ' . $classInput . '>';
 		echo '</DIV>';
 	} //buildInputTextGrid
 
@@ -544,8 +544,8 @@ class xpresentationLayer
 			$id = ' id="' . $id . '" ';
 
 		$data = $json->list;
-		echo '<DIV class="aside input-field1">';
-		echo '       <SELECT name="' . $name . '" ' . $id . ' ' . $event . ' class="select-width-user select-appearance-user">';
+		echo '<DIV class="input-field1">';
+		echo '       <SELECT required name="' . $name . '" ' . $id . ' ' . $event . ' class="">';
 		echo '       <OPTION disabled selected>Seleccione</OPTION>';
 		foreach ($data as $value) {
 			echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';

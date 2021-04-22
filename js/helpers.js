@@ -2,10 +2,27 @@ export function numberFormater(num) {
     return new Intl.NumberFormat().format(num)
 }
 
-export function putRequiered(padre = "ventaForm") {
-    let hijitos = document.querySelectorAll(`#${padre} input, #${padre} select, #${padre} textarea`)
-    for (const hijo of hijitos) {
-        console.log(hijo.setAttribute('required', true));
+export function putRequiered(padre = [], quitarDeAqui = []) {
+    // let hijitos = document.querySelectorAll(`#${padre} input, #${padre} select, #${padre} textarea`)
+    // for (const hijo of hijitos) {
+    //     console.log(hijo.setAttribute('required', true));
+    // }
+    let testing2
+    for (const hijo of padre) {
+        testing2 = document.querySelectorAll(`#${hijo} input, #${hijo} select, #${hijo} textarea`)
+        for (const test of testing2) {
+            test.setAttribute('required', true)
+        }
+    }
+
+    // QUITAR REQUIRED DE LOS DEMAS INPUTS OCULTOS
+    let testing
+
+    for (const quitar of quitarDeAqui) {
+        testing = document.querySelectorAll(`#${quitar} input, #${quitar} select, #${quitar} textarea`)
+        for (const test of testing) {
+            test.removeAttribute('required')
+        }
     }
 }
 

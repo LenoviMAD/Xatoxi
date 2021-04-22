@@ -1,6 +1,6 @@
 import Modal from './Modal.js';
 import { test } from './validations.js';
-import { numberFormater, toBase64, servicioFirma, closeEverythingExceptThis, closeEverything } from '../helpers.js';
+import { numberFormater, toBase64, servicioFirma, closeEverythingExceptThis, closeEverything, putRequiered } from '../helpers.js';
 
 // Envio
 export default function init() {
@@ -94,12 +94,15 @@ export default function init() {
                 }
             }
 
-            beneficiarioWallet.addEventListener('change', () => {
-                // Mostramos boton de enviar
+            $(`#${billeteraForm.getAttribute('id')} [name="users"]`).on('select2:select', function (e) {
+                // Do something
                 btnSubmitBilletera.classList.remove('hidden')
-            })
+            });
+            // beneficiarioWallet.addEventListener('change', () => {
+            //     // Mostramos boton de enviar
+            // })
 
-            btnSubmitBilletera.addEventListener('click', async e => {
+            billeteraForm.addEventListener('submit', async e => {
                 e.preventDefault()
 
                 // Cargando spinner
@@ -149,13 +152,25 @@ export default function init() {
 
                 if (valueSelected === "6") {
                     closeEverythingExceptThis('billeteraFormTest', 'sectionWalletAHC')
+                    putRequiered(['sectionWalletAHC'], ['sectionAccountDeposit', 'sectionCreditCard'])
                 } else if (valueSelected === "3") {
                     closeEverythingExceptThis('billeteraFormTest', 'sectionAccountDeposit')
+                    putRequiered(['sectionAccountDeposit'], ['sectionWalletAHC', 'sectionCreditCard'])
                 } else if (valueSelected === "5") {
                     closeEverythingExceptThis('billeteraFormTest', 'sectionCreditCard')
+                    putRequiered(['sectionCreditCard'], ['sectionWalletAHC', 'sectionAccountDeposit'])
                 } else {
                     closeEverything('billeteraFormTest')
                 }
+                // if (valueSelected === "6") {
+                //     closeEverythingExceptThis('billeteraFormTest', 'sectionWalletAHC')
+                // } else if (valueSelected === "3") {
+                //     closeEverythingExceptThis('billeteraFormTest', 'sectionAccountDeposit')
+                // } else if (valueSelected === "5") {
+                //     closeEverythingExceptThis('billeteraFormTest', 'sectionCreditCard')
+                // } else {
+                //     closeEverything('billeteraFormTest')
+                // }
             }
 
             // docuemntos menos firma
@@ -237,7 +252,7 @@ export default function init() {
             async function finalFetch() {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
-
+                
                 // Todo: validar campos
                 let formData = new FormData(billeteraForm)
                 formData.append("cond", "addEnvio");
@@ -439,12 +454,16 @@ export default function init() {
 
                 if (valueSelected === "6") {
                     closeEverythingExceptThis('encomiendaFormTest', 'sectionCommendAHC')
+                    putRequiered(['sectionCommendAHC'], ['sectionCommendDeposit', 'efectivoCommend', 'sectionCommendCreditCard'])
                 } else if (valueSelected === "3") {
                     closeEverythingExceptThis('encomiendaFormTest', 'sectionCommendDeposit')
+                    putRequiered(['sectionCommendDeposit'], ['sectionCommendAHC', 'efectivoCommend', 'sectionCommendCreditCard'])
                 } else if (valueSelected === "5") {
                     closeEverythingExceptThis('encomiendaFormTest', 'sectionCommendCreditCard')
+                    putRequiered(['sectionCommendCreditCard'], ['sectionCommendAHC', 'efectivoCommend', 'sectionCommendDeposit'])
                 } else if (valueSelected === "1") {
                     closeEverythingExceptThis('encomiendaFormTest', 'efectivoCommend')
+                    putRequiered(['efectivoCommend'], ['sectionCommendAHC', 'sectionCommendCreditCard', 'sectionCommendDeposit'])
                 } else {
                     closeEverything('encomiendaFormTest')
                 }
@@ -552,7 +571,7 @@ export default function init() {
                 }
             })
 
-            btnSubmitCommend.addEventListener('click', async (e) => {
+            encomiendaForm.addEventListener('submit', async (e) => {
                 e.preventDefault()
 
                 // Cargando spinner

@@ -13,20 +13,16 @@ xpresentationLayer::startMain();
 xpresentationLayer::startForm("registerForm");
 xpresentationLayer::startAsideOneColumn();
 // xpresentationLayer::buildInputTextGrid("Usuario", "username", "username", "");
-xpresentationLayer::buildInputTextGrid("Email", "email", "email", "Ejemplo@gmail.com");
+xpresentationLayer::buildInputTextGrid("Email", "email", "email", "Ejemplo@gmail.com", "","","","","","",true, "","email");
 
-$data_jsonAreaPhone = $serviceCall->mgetallcountrydetaill();
-xpresentationLayer::buildSelectJson("Pais", "country", "", $data_jsonAreaPhone, "", "");
-
-// $data_jsonAreaPhone = $serviceCall->mgetlocationl();
-// xpresentationLayer::buildSelectJson("Sucursal", "idlocation", "idlocation", $data_jsonAreaPhone, "", "");
-
-$data_jsonCodePhone = $serviceCall->mgetcellphoneareacodel("58");
+$data_jsonAreaPhone = $serviceCall->mgetcountryl();
+xpresentationLayer::buildSelectJson("Pais", "country", "", $data_jsonAreaPhone, "", "","",true);
 
 xpresentationLayer::startFirtsSection("grid-3", "");
 
-xpresentationLayer::buildSelectJson("Prefijo", "codeArea", "codeArea", $data_jsonCodePhone, "", "");
-xpresentationLayer::buildInputTextGrid("Móvil", "phone", "phone", "", "", "grid-item-2");
+$data_jsonCodePhone = $serviceCall->mgetcellphoneareacodel("58");
+xpresentationLayer::buildSelectJson("Prefijo", "codeArea", "codeArea", $data_jsonCodePhone, "", "", "",true);
+xpresentationLayer::buildInputTextGrid("Móvil", "phone", "phone", "", "", "grid-item-2", "","","","",true);
 
 xpresentationLayer::endSection();
 

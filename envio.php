@@ -31,12 +31,12 @@ xpresentationLayer::startContentSection();
 xpresentationLayer::startContentofOption("Billetera");
 xpresentationLayer::startForm("billeteraForm", "", "pb20");
 xpresentationLayer::startSectionTwoColumns("", "billeteraFormTest");
-xpresentationLayer::buildInputNumberGrid("Monto", "", "amountWallet", "0.00");
+xpresentationLayer::buildInputNumberGrid("Monto", "", "amountWallet", "0.00", "","","","",true);
 
 $data_json = $serviceCall->mgetcurrencyremitancel();
-xpresentationLayer::buildSelectJson("Moneda", "currencyWallet", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson("Moneda", "currencyWallet", "", $data_json, "", "", "", true);
 $data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(6, 2, 3, 5));
-xpresentationLayer::buildSelectJson("Forma de pago", "paidFormWallet", "", $data_json, "", "", "grid-item-2");
+xpresentationLayer::buildSelectJson("Forma de pago", "paidFormWallet", "", $data_json, "", "", "grid-item-2",true);
 
 //ACH
 xpresentationLayer::startDivHidden("sectionWalletAHC", "grid-item-2 grid-1");
@@ -97,17 +97,17 @@ xpresentationLayer::endDiv();
 xpresentationLayer::startContentofOption("Encomienda");
 xpresentationLayer::startForm("encomiendaForm", "", "pb20");
 xpresentationLayer::startSectionTwoColumns("", "encomiendaFormTest");
-xpresentationLayer::buildInputNumberGrid("Monto", "", "amountCommend", "0.00", "");
+xpresentationLayer::buildInputNumberGrid("Monto", "", "amountCommend", "0.00", "", "","","",true);
 $data_json = $serviceCall->mgetcountryl();
-xpresentationLayer::buildSelectJson("País", "countryCommend", "countryCommend", $data_json, "", "selectValorforId('countryCommend/providerCommend', 'ajax.php?cond=mgetproviderl')");
-xpresentationLayer::buildSelectJson("Proveedor", "providerCommend", "providerCommend", "", "", "selectValorforId('providerCommend/sendFormCommend', 'ajax.php?cond=mgetremitancetypel')");
+xpresentationLayer::buildSelectJson("País", "countryCommend", "countryCommend", $data_json, "", "selectValorforId('countryCommend/providerCommend', 'ajax.php?cond=mgetproviderl')", "", true);
+xpresentationLayer::buildSelectJson("Proveedor", "providerCommend", "providerCommend", "", "", "selectValorforId('providerCommend/sendFormCommend', 'ajax.php?cond=mgetremitancetypel')", "",true);
 $data_json = $serviceCall->mgetcurrencyremitancel();
-xpresentationLayer::buildSelectJson("Moneda", "currencyCommend", "", $data_json, "", "");
-xpresentationLayer::buildSelectJson("Entrega", "sendFormCommend", "sendFormCommend", "");
+xpresentationLayer::buildSelectJson("Moneda", "currencyCommend", "", $data_json, "", "", "", true);
+xpresentationLayer::buildSelectJson("Entrega", "sendFormCommend", "sendFormCommend", "","","","",true);
 
 
 $data_json = $serviceCall->mgetclearencetypel();
-xpresentationLayer::buildSelectJson("Forma de pago", "paidFormCommend", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson("Forma de pago", "paidFormCommend", "", $data_json, "", "","",true);
 
 $customClass = $_SESSION['refToChange'] ? "hidden" : "";
 xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "", "exchangeRateCommend", "0.00", "", $customClass, "", true);

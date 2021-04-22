@@ -18,12 +18,12 @@ xpresentationLayer::buildOptionGrid("Cambio");
 xpresentationLayer::endSection();
 xpresentationLayer::startForm("cambioForm", "", "grid-2");
 
-xpresentationLayer::buildInputNumberGrid("Monto", "amount", "amount", "0,00", "", "grid-item-2");
+xpresentationLayer::buildInputNumberGrid("Monto", "amount", "amount", "0,00", "", "grid-item-2", "","",true);
 $data_json = $serviceCall->mgetinstrumentsrcl();
-xpresentationLayer::buildSelectJson("Entrego", "paidMethod", "paidMethod", $data_json, "", "selectValorforId('paidMethod/sendCurrency', 'ajax.php?cond=mgetcurrencysrcl')");
-xpresentationLayer::buildSelectJson("Entrego Divisa", "sendCurrency", "sendCurrency", "", "", "selectValorforId('paidMethod/sendCurrency/recieveMethod', 'ajax.php?cond=mgetinstrumentdstl')");
-xpresentationLayer::buildSelectJson("Recibe", "recieveMethod", "recieveMethod", "", "", "selectValorforId('paidMethod/sendCurrency/recieveMethod/recieveCurrency', 'ajax.php?cond=mgetcurrencydstl')");
-xpresentationLayer::buildSelectJson("Recibe Divisa", "recieveCurrency", "recieveCurrency", "");
+xpresentationLayer::buildSelectJson("Entrego", "paidMethod", "paidMethod", $data_json, "", "selectValorforId('paidMethod/sendCurrency', 'ajax.php?cond=mgetcurrencysrcl')", "",true);
+xpresentationLayer::buildSelectJson("Entrego Divisa", "sendCurrency", "sendCurrency", "", "", "selectValorforId('paidMethod/sendCurrency/recieveMethod', 'ajax.php?cond=mgetinstrumentdstl')","",true);
+xpresentationLayer::buildSelectJson("Recibe", "recieveMethod", "recieveMethod", "", "", "selectValorforId('paidMethod/sendCurrency/recieveMethod/recieveCurrency', 'ajax.php?cond=mgetcurrencydstl')","",true);
+xpresentationLayer::buildSelectJson("Recibe Divisa", "recieveCurrency", "recieveCurrency", "","","","",true);
 
 // Campos ocultos
 xpresentationLayer::buildInputTextGrid("Banco / Proveedor", "", "bank", "", 20, "hidden", "", "", "", "bankProviderInput", "", "Italbank");

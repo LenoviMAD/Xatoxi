@@ -33,8 +33,8 @@ export default class Modal {
         const miModal = document.getElementById(idmodal)
 
         // Seteando boton regresar o index
-        let custom1 = document.querySelector(`#${miModal.getAttribute('id')} footer button`)
-        let custom2 = document.querySelector(`#${miModal.getAttribute('id')} footer a`)
+        let custom1 = document.querySelector(`#modalSuccess footer button`)
+        let custom2 = document.querySelector(`#modalSuccess footer a`)
 
         if (custom1 && custom2) {
             if (!custom1.classList.contains('hidden')) {
@@ -55,8 +55,8 @@ export default class Modal {
             document.querySelector(`#${miModal.getAttribute('id')} .modal__text`).innerHTML = message
         }
         if (customHidden) {
-            document.querySelector(`#${miModal.getAttribute('id')} footer button`).classList.remove('hidden')
-            document.querySelector(`#${miModal.getAttribute('id')} footer a`).classList.add('hidden')
+            custom1.classList.remove('hidden')
+            custom2.classList.add('hidden')
         }
         if (miModal) {
             miModal.classList.add('is-visible')

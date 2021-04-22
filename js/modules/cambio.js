@@ -1,5 +1,5 @@
 import Modal from './Modal.js';
-import { numberFormater, closeEverythingExceptThese, closeEverything, URI } from '../helpers.js';
+import { numberFormater, closeEverythingExceptThese, closeEverything, URI, putRequiered } from '../helpers.js';
 
 // Cambio
 export default function init() {
@@ -14,7 +14,6 @@ export default function init() {
         //     return test
         // }
         // const resUserSession = await userSession()
-
         const modal = new Modal()
         modal.initModal()
 
@@ -152,12 +151,12 @@ export default function init() {
                         // 2 enco
                         // 4 trans
 
-                        if ((recieveMethod.options[recieveMethod.selectedIndex].value !== "2")) {   
-                            btnRedirect.setAttribute("href", URI+ "envio.php")
+                        if ((recieveMethod.options[recieveMethod.selectedIndex].value !== "2")) {
+                            btnRedirect.setAttribute("href", URI + "envio.php")
                         }
-                        
+
                         if ((recieveMethod.options[recieveMethod.selectedIndex].value !== "4")) {
-                            btnRedirect.setAttribute("href", URI+ "envio.php")
+                            btnRedirect.setAttribute("href", URI + "envio.php")
                         }
 
                     } else if (res.code === "5000") {
@@ -188,10 +187,13 @@ export default function init() {
 
                 if (valueSelected === "5") {
                     closeEverythingExceptThese('cambioForm', ['bankProviderInput', 'numRefInput', 'routingInput'])
+                    putRequiered(['bankProviderInput', 'numRefInput', 'routingInput'])
                 } else if (valueSelected === "2" || valueSelected === "20" || valueSelected === "21" || valueSelected === "4") {
                     closeEverythingExceptThese('cambioForm', ['bankProviderInput', 'numRefInput'])
+                    putRequiered(['bankProviderInput', 'numRefInput'], ['routingInput'])
                 } else {
                     closeEverything('cambioForm')
+                    putRequiered([], ['bankProviderInput', 'numRefInput', 'routingInput'])
                 }
             })
 
