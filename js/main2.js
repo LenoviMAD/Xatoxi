@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await fetch("ajax.php", { method: 'POST', body })
                 const res = await data.json()
-                console.log(res)
 
                 // Cerramos modal
                 modal.closeModal('loader')
@@ -85,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append("tag", inputTag.value);
             const data = await fetch("ajax.php", { method: 'POST', body: formData });
             const res = await data.json();
-            console.log(res);
 
             modal.closeModal('loader')
 
@@ -114,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         body.append("tag", inputTag.value)
                         const data = await fetch("ajax.php", { method: 'POST', body })
                         const res = await data.json()
-                        console.log(res)
 
                         // Cerramos modal
                         modal.closeModal('loader')
