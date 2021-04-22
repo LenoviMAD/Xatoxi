@@ -1,6 +1,6 @@
 import Modal from './Modal.js';
 import { test } from './validations.js';
-import { numberFormater, toBase64, servicioFirma, closeEverythingExceptThis, closeEverything } from '../helpers.js';
+import { numberFormater, toBase64, servicioFirma, closeEverythingExceptThis, closeEverything, putRequiered } from '../helpers.js';
 import Timer from '../timer.js';
 // Envio
 export default function init() {
