@@ -57,13 +57,17 @@ xpresentationLayer::endDiv();
 // TARJETA DE CREDITO
 xpresentationLayer::startDivHidden("sectionCreditCard", "grid-item-2 grid-1");
 xpresentationLayer::startSectionTwoColumns();
-xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "cardNumberWallet", "");
+xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "cardNumberWallet", "", "", "", 20);
 $data_json = $serviceCall->mgetcreditcardtypel();
 xpresentationLayer::buildSelectJson("Tipo Tarjeta", "typeCardWallet", "", $data_json, "", "");
-xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-1");
-xpresentationLayer::buildInputNumberGrid("Año", "", "yearVenWallet", "", "", "", 4);
-xpresentationLayer::buildInputNumberGrid("Mes", "", "monthVenWallet", "", "", "", 2);
-xpresentationLayer::endSection();
+
+xpresentationLayer::buildInputsMonthYear("Fecha Venc","monthVenCommend", "yearVenCommend");
+
+// xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-1");
+// xpresentationLayer::buildInputNumberGrid("Año", "", "yearVenWallet", "", "", "", 4);
+// xpresentationLayer::buildInputNumberGrid("Mes", "", "monthVenWallet", "", "", "", 2);
+// xpresentationLayer::endSection();
+
 xpresentationLayer::buildInputNumberGrid("Cod. Validacion", "", "codValWallet", "", "", "", 4);
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
@@ -138,14 +142,16 @@ xpresentationLayer::endDiv();
 // TARJETA DE CREDITO
 xpresentationLayer::startDivHidden("sectionCommendCreditCard", "grid-item-2 grid-1");
 xpresentationLayer::startSectionTwoColumns();
-xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "cardNumberCommend");
+xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "cardNumberCommend", "", "", "", 20);
 $data_json = $serviceCall->mgetcreditcardtypel();
 xpresentationLayer::buildSelectJson("Tipo Tarjeta", "typeCardCommend", "", $data_json, "", "");
-xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-1");
-xpresentationLayer::buildInputNumberGrid("Mes", "", "monthVenCommend", "", "", "", 2);
-xpresentationLayer::buildInputNumberGrid("Año", "", "yearVenCommend", "", "", "", 4);
-xpresentationLayer::endSection();
-xpresentationLayer::buildInputNumberGrid("Cod. Validacion", "", "codValCommend", "", "", "", 4);
+// xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-1");
+xpresentationLayer::buildInputsMonthYear("Fecha Venc","monthVenCommend", "yearVenCommend");
+
+// xpresentationLayer::buildInputNumberGrid("Mes", "", "monthVenCommend", "", "", "", 2);
+// xpresentationLayer::buildInputNumberGrid("Año", "", "yearVenCommend", "", "", "", 4);
+// xpresentationLayer::endSection();
+xpresentationLayer::buildInputNumberGrid("Cod. Validacion", "", "codValCommend", "", "", "", 3);
 xpresentationLayer::endDiv();
 
 // Documento Identificación
@@ -242,8 +248,11 @@ xpresentationLayer::startSectionTwoColumns();
 xpresentationLayer::buildInputNumberGrid("Número de tarjeta", "numberCard", "numberCard", "", "", "", "18");
 $data_json = $serviceCall->mgetcreditcardtypel();
 xpresentationLayer::buildSelectJson("Tipo de tarjeta", "tipeCard", "tipeCard", $data_json, "", "");
+xpresentationLayer::buildInputsMonthYear("Fecha Venc","monthVenCommend", "yearVenCommend");
+
+
 ?>
-<div class="input-field1">
+<!-- <div class="input-field1">
     <label class="font-Bold ">Fecha Venc.</label>
     <div class="container-input">
         <div class="col-md-6">
@@ -259,7 +268,7 @@ xpresentationLayer::buildSelectJson("Tipo de tarjeta", "tipeCard", "tipeCard", $
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <?php
 // xpresentationLayer::buildInputTextGridCustom("año y mes", "debitcardnumberTransfer", "debitcardnumberTransfer", "", "", "", "", "", "input-field");
 xpresentationLayer::buildInputNumberGrid("Cod. Validación", "ValidationCodeCardTransfer", "ValidationCodeCardTransfer", "", "", "", "3");

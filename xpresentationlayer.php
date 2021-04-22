@@ -315,16 +315,47 @@ class xpresentationLayer
             $class = ' class="input-field1" ';
         }
 
-        if ($maxlength == "") {
-            $maxlength = 35;
-            $maxlength = ' maxlength="' . $maxlength . '" ';
-        }
+        $maxlength = ' maxlength="' . $maxlength . '" ';
 
         echo '<DIV ' . $class . $idContainer . '>';
         echo '    <LABEL class="font-Bold">' . $titleLabel . '</LABEL>';
         echo '	  <INPUT type="text" onkeypress="return validaNumericos(event)" ' . $maxlength . ' name="' . $nameInput . '" ' . $value . $idInput . $required . ' placeholder="' . $placeholder . '" ' . $onblur . '/>';
         echo '</DIV>';
     } //buildInputNumberGrid
+    /*=======================================================================
+    Function: buildInputsMonthYear
+    Description: Build Input number with decimals (2 Columns)
+    Parameters: $titleLabel <-- Name label
+                $idInput <-- Id Input
+                $nameInput <-- Name Input
+                $placeholder <-- Message Field
+    Algorithm:
+    Remarks:
+    Standarized: 2021/01/18 14:00
+    ===================================================================== */
+    static function buildInputsMonthYear($titleLabel="", $nameMonth = "", $nameYear = "")
+    {
+        if ($nameMonth != "") {
+            $nameMonth = ' name="' . $nameMonth . '" ';
+        }
+        if ($nameYear != "") {
+            $nameYear = ' name="' . $nameYear . '" ';
+        }
+
+        echo '<div class="input-field1">';
+            echo '<label class="font-Bold ">'.$titleLabel.'</label>';
+            echo '<div class="container-input">';
+                echo '<div class="input-container mr15">';
+                    echo '<input class="input" ' . $nameMonth . ' onkeypress="return validaNumericos(event)" type="text" maxlength="2" />';
+                    echo '<label class="placeholder">Mes</label>';
+                echo '</div>';
+                echo '<div class="input-container">';
+                    echo '<input class="input" ' . $nameYear . ' onkeypress="return validaNumericos(event)" type="text" maxlength="4" />';
+                    echo '<label class="placeholder">Año</label>';
+                echo '</div>';
+            echo '</div>';
+        echo '</div>';
+    } //buildInputsMonthYear
 
     /*=======================================================================
     Function: buildInputTextGrid
@@ -365,10 +396,7 @@ class xpresentationLayer
             $classInput = 'class="' . $classInput . '"';
         }
 
-        if ($maxlength == "") {
-            $maxlength = 35;
-            $maxlength = ' maxlength="' . $maxlength . '" ';
-        }
+        $maxlength = ' maxlength="' . $maxlength . '" ';
 
         echo '<DIV class="input-field1 ' . $customClass . ' " ' . $idContainer . '>';
         echo '       <LABEL class="font-Bold ' . $classLabel . '">' . $titleLabel . '</LABEL>';

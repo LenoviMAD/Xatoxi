@@ -62,22 +62,23 @@ export default function init() {
                     // Quitando spinner
                     modal.closeModal('loader')
 
+                    console.log(res);
                     // Fetch exitoso
                     if (res.code == "0000") {
                         // Setear forma de pago
                         showPaidForm()
 
                         // liberando inputs y mostrando los resultados
-                        let resAmount = new Intl.NumberFormat().format(amountWallet.value),
-                            resComission = new Intl.NumberFormat().format(res.usdcommission)
+                        let resAmount = numberFormater(amountWallet.value),
+                            resComission = numberFormater(res.usdcommission)
 
                         // Creando elementos para mostrar
                         let html = `
                             <p>
-                                Monto Envío en Divisa <span> ${parseInt(resAmount).toFixed(2)}</span> 
+                                Monto Envío en Divisa <span> ${resAmount}</span> 
                             </p>
                             <p>
-                                ${res.txtusdcommission} <span> ${parseInt(resComission).toFixed(2)}</span> 
+                                ${res.txtusdcommission} <span> ${resComission}</span> 
                             </p>
                         `
                         const inner = document.querySelector('#operationSummary .modal-body')
@@ -368,6 +369,7 @@ export default function init() {
 
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
+                    console.log(res)
 
                     // Quitando spinner
                     modal.closeModal('loader')

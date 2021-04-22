@@ -1,6 +1,9 @@
 import Modal from './Modal.js';
-import { numberFormater, closeEverythingExceptThese, closeEverything, URI, putRequiered } from '../helpers.js';
+import { numberFormater, closeEverythingExceptThese, closeEverything, URI, putRequiered, number_format_js } from '../helpers.js';
 import Timer from '../timer.js';
+
+// var valueBalance = number_format_js('254351480',2,',','.');    
+// console.log(valueBalance);
 
 // Cambio
 export default function init() {

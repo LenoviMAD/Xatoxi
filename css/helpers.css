@@ -77,6 +77,9 @@ label.required:after {
 .pb15 {
     padding-bottom: 15px;
 }
+.mr15 {
+    margin-right: 15px;
+}
 
 .p0 {
     padding: 0;
