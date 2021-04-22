@@ -95,12 +95,10 @@ export default function init() {
                 //<option value="21">TARJETA DE DEBITO </option>
                 let valueSelected = payIn.options[payIn.selectedIndex].value;
 
-                if (valueSelected === "19") {
-                    sectionCard.classList.add('hidden')
-                } else if (valueSelected === "20") {
-                    sectionCard.classList.remove('hidden')
-                } else if (valueSelected === "21") {
-                    sectionCard.classList.remove('hidden')
+                if (valueSelected === "20" || valueSelected === "21") {
+                    closeEverythingExceptThis('principalform', 'sectionCard')
+                } else {
+                    closeEverything('principalform')
                 }
 
             })
@@ -111,6 +109,13 @@ export default function init() {
                 //<option value="5">Tarjeta de Credito </option>
                 let valueSelected = payForm.options[payForm.selectedIndex].value;
 
+                if (valueSelected === "3") {
+                    closeEverythingExceptThis('principalform', 'sectionCommend')
+                } else if (valueSelected === "5") {
+                    closeEverythingExceptThis('principalform', 'sectionPrepaid')
+                } else {
+                    closeEverything('principalform')
+                }
                 if (valueSelected === "3") {
                     sectionPrepaid.classList.add('hidden')
                     sectionCommend.classList.remove('hidden')

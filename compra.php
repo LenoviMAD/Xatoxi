@@ -18,7 +18,7 @@ xpresentationLayer::buildOptionGrid("Compra Divisa");
 xpresentationLayer::endSection();
 xpresentationLayer::startForm("compraForm");
 
-xpresentationLayer::startSectionTwoColumns();
+xpresentationLayer::startSectionTwoColumns("", "principalform");
 xpresentationLayer::buildInputNumberGrid("Monto", "amount", "amount", "0.00", "", "", "", "", true);
 
 $data_json = $serviceCall->mgetcurrencyl();
@@ -31,7 +31,7 @@ $data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(3,5));
 xpresentationLayer::buildSelectJson("Forma de Pago", "payForm", "payForm", $data_json, "", "", "", true);
 xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "", "exchangeRate", "0.00", "", "", "", true);
 xpresentationLayer::buildInputTextGrid("Monto a Pagar Bs.", "", "amountBs", "0.00", "", "", "", true);
-xpresentationLayer::endSection();
+
 
 xpresentationLayer::startDivHidden("sectionCard");
 xpresentationLayer::buildTitleBar("DATOS DEL ABONO", "grid-item-2");
@@ -55,7 +55,7 @@ $data_json = $serviceCall->mgeticccbankl();
 xpresentationLayer::buildSelectJson("Cta. Receptora", "receiveAccount", "", $data_json, "", "");
 xpresentationLayer::buildInputTextGrid("Referencia", "referenceCuenta", "referenceCuenta", "");
 xpresentationLayer::endDiv();
-
+xpresentationLayer::endSection();
 xpresentationLayer::buildSectionPin("compra");
 xpresentationLayer::endMain();
 

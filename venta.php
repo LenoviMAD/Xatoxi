@@ -18,13 +18,13 @@ xpresentationLayer::buildOptionGrid("Venta Divisa");
 xpresentationLayer::endSection();
 xpresentationLayer::startForm("ventaForm", "", "grid-2");
 
-xpresentationLayer::buildInputNumberGrid("Monto", "", "amount", "0.00");
+xpresentationLayer::buildInputNumberGrid("Monto", "", "amount", "0.00", "", "", "", "", true);
 $data_json = $serviceCall->mgetcurrencyl();
-xpresentationLayer::buildSelectJson("Divisa", "currency", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson("Divisa", "currency", "", $data_json, "", "", "", true);
 $data_json = $serviceCall->mgetdebitinstrumentl();
-xpresentationLayer::buildSelectJson("Debitar de", "payIn", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson("Debitar de", "payIn", "", $data_json, "", "", "", true);
 $data_json = $serviceCall->mgetcreditinstrumentl();
-xpresentationLayer::buildSelectJson("Abonar en", "payForm", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson("Abonar en", "payForm", "", $data_json, "", "", "", true);
 xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "", "amountChange", "0.00", "", "", "", true);
 xpresentationLayer::buildInputTextGrid("Monto a recibir Bs.", "", "amountRecieve", "0.00", "", "", "", true);
 

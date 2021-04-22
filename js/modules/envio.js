@@ -94,7 +94,7 @@ export default function init() {
                 }
             }
 
-            $(`#${billeteraForm.getAttribute('id')} [name="users"]`).on('select2:select', function (e) {
+            $(`#${billeteraForm.getAttribute('id')} [name="users"]`).on('select2:select', function(e) {
                 // Do something
                 btnSubmitBilletera.classList.remove('hidden')
             });
@@ -252,7 +252,7 @@ export default function init() {
             async function finalFetch() {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
-                
+
                 // Todo: validar campos
                 let formData = new FormData(billeteraForm)
                 formData.append("cond", "addEnvio");
@@ -768,63 +768,81 @@ export default function init() {
                     8 = Tarjeta de Debito en Divisa 
                     */
 
-                if (valueSelected === "1") {
-                    beneficiarioTransfer.classList.remove('hidden')
-                    cash.classList.remove('hidden')
-                        // Poner hidden los demas                
-                    accountDeposit.classList.add('hidden')
-                    MovilPay.classList.add('hidden')
-                    SectionPrepaid.classList.add('hidden')
-                } else if (valueSelected === "2") {
-                    beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
-                    accountDeposit.classList.add('hidden')
-                    cash.classList.add('hidden')
-                    MovilPay.classList.add('hidden')
-                    SectionPrepaid.classList.add('hidden')
+                beneficiarioTransfer.classList.remove('hidden')
+
+                if (valueSelected === "6") {
+                    closeEverythingExceptThis('transferenciaFormTest', 'MovilPayTransfer')
+                    putRequiered(['MovilPayTransfer'], ['accountDeposit', 'cash', 'SectionPrepaidTransfer'])
                 } else if (valueSelected === "3") {
-                    beneficiarioTransfer.classList.remove('hidden')
-                    accountDeposit.classList.remove('hidden')
-                        // Poner hidden los demas
-                    cash.classList.add('hidden')
-                    MovilPay.classList.add('hidden')
-                    SectionPrepaid.classList.add('hidden')
-                } else if (valueSelected === "4") {
-                    beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
-                    MovilPay.classList.add('hidden')
-                    SectionPrepaid.classList.add('hidden')
-                    accountDeposit.classList.add('hidden')
-                    cash.classList.add('hidden')
+                    closeEverythingExceptThis('transferenciaFormTest', 'accountDeposit')
+                    putRequiered(['accountDeposit'], ['MovilPayTransfer', 'cash', 'SectionPrepaidTransfer'])
                 } else if (valueSelected === "5") {
-                    SectionPrepaid.classList.remove('hidden')
-                    beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
-                    MovilPay.classList.add('hidden')
-                    accountDeposit.classList.add('hidden')
-                    cash.classList.add('hidden')
-                } else if (valueSelected === "6") {
-                    MovilPay.classList.remove('hidden')
-                    beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
-                    SectionPrepaid.classList.add('hidden')
-                    accountDeposit.classList.add('hidden')
-                    cash.classList.add('hidden')
-                } else if (valueSelected === "7") {
-                    beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
-                    SectionPrepaid.classList.add('hidden')
-                    MovilPay.classList.add('hidden')
-                    accountDeposit.classList.add('hidden')
-                    cash.classList.add('hidden')
-                } else if (valueSelected === "8") {
-                    beneficiarioTransfer.classList.remove('hidden')
-                        // Poner hidden los demas
-                    MovilPay.classList.add('hidden')
-                    SectionPrepaid.classList.add('hidden')
-                    accountDeposit.classList.add('hidden')
-                    cash.classList.add('hidden')
+                    closeEverythingExceptThis('transferenciaFormTest', 'SectionPrepaidTransfer')
+                    putRequiered(['SectionPrepaidTransfer'], ['accountDeposit', 'cash', 'MovilPayTransfer'])
+                } else if (valueSelected === "1") {
+                    closeEverythingExceptThis('transferenciaFormTest', 'cash')
+                    putRequiered(['cash'], ['accountDeposit', 'MovilPayTransfer', 'SectionPrepaidTransfer'])
+                } else {
+                    closeEverything('transferenciaFormTest')
                 }
+
+                // if (valueSelected === "1") {
+                //     beneficiarioTransfer.classList.remove('hidden')
+                //     cash.classList.remove('hidden')
+                //         // Poner hidden los demas                
+                //     accountDeposit.classList.add('hidden')
+                //     MovilPay.classList.add('hidden')
+                //     SectionPrepaid.classList.add('hidden')
+                // } else if (valueSelected === "2") {
+                //     beneficiarioTransfer.classList.remove('hidden')
+                //         // Poner hidden los demas
+                //     accountDeposit.classList.add('hidden')
+                //     cash.classList.add('hidden')
+                //     MovilPay.classList.add('hidden')
+                //     SectionPrepaid.classList.add('hidden')
+                // } else if (valueSelected === "3") {
+                //     beneficiarioTransfer.classList.remove('hidden')
+                //     accountDeposit.classList.remove('hidden')
+                //         // Poner hidden los demas
+                //     cash.classList.add('hidden')
+                //     MovilPay.classList.add('hidden')
+                //     SectionPrepaid.classList.add('hidden')
+                // } else if (valueSelected === "4") {
+                //     beneficiarioTransfer.classList.remove('hidden')
+                //         // Poner hidden los demas
+                //     MovilPay.classList.add('hidden')
+                //     SectionPrepaid.classList.add('hidden')
+                //     accountDeposit.classList.add('hidden')
+                //     cash.classList.add('hidden')
+                // } else if (valueSelected === "5") {
+                //     SectionPrepaid.classList.remove('hidden')
+                //     beneficiarioTransfer.classList.remove('hidden')
+                //         // Poner hidden los demas
+                //     MovilPay.classList.add('hidden')
+                //     accountDeposit.classList.add('hidden')
+                //     cash.classList.add('hidden')
+                // } else if (valueSelected === "6") {
+                //     MovilPay.classList.remove('hidden')
+                //     beneficiarioTransfer.classList.remove('hidden')
+                //         // Poner hidden los demas
+                //     SectionPrepaid.classList.add('hidden')
+                //     accountDeposit.classList.add('hidden')
+                //     cash.classList.add('hidden')
+                // } else if (valueSelected === "7") {
+                //     beneficiarioTransfer.classList.remove('hidden')
+                //         // Poner hidden los demas
+                //     SectionPrepaid.classList.add('hidden')
+                //     MovilPay.classList.add('hidden')
+                //     accountDeposit.classList.add('hidden')
+                //     cash.classList.add('hidden')
+                // } else if (valueSelected === "8") {
+                //     beneficiarioTransfer.classList.remove('hidden')
+                //         // Poner hidden los demas
+                //     MovilPay.classList.add('hidden')
+                //     SectionPrepaid.classList.add('hidden')
+                //     accountDeposit.classList.add('hidden')
+                //     cash.classList.add('hidden')
+                // }
 
                 // Abrir modal con datos
                 modal.openModal('modalTransferencia')

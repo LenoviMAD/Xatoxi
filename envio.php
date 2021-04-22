@@ -205,7 +205,7 @@ xpresentationLayer::endDiv();
 //Comiendo seccion Transferencia
 xpresentationLayer::startContentofOption("Transferencia");
 xpresentationLayer::startForm("transferenciaForm");
-xpresentationLayer::startSectionTwoColumns();
+xpresentationLayer::startSectionTwoColumns("", "transferenciaFormTest");
 xpresentationLayer::buildInputNumberGrid("Monto", "amountTransfer", "amountTransfer", "0.00", "", "", 35, "", true);
 $data_json = $serviceCall->mgetcountryl();
 xpresentationLayer::buildSelectJson("País", "countryTransfer", "countryTransfer", $data_json, "", "", "", true);
