@@ -1,11 +1,12 @@
 import Modal from './Modal.js';
 import { closeEverythingExceptThese, closeEverything } from '../helpers.js';
-
+import Timer from '../timer.js';
 // Venta
 export default function init() {
     document.addEventListener('DOMContentLoaded', () => {
         const modal = new Modal()
         modal.initModal()
+        const timer = new Timer
 
         const recepcionForm = document.getElementById('recepcionForm')
 
@@ -70,7 +71,7 @@ export default function init() {
                 if (resOtp.code == "0000") {
                     // abrir modal para ultimo fetch 
                     modal.openModal('otpVerification')
-
+                    timer.updateClock()
                     document.getElementById('otpCode').value = resOtp.otp
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {

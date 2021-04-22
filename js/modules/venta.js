@@ -1,11 +1,12 @@
 import Modal from './Modal.js';
 import { numberFormater, closeEverything, closeEverythingExceptThese } from '../helpers.js';
-
+import Timer from '../timer.js';
 // Venta
 export default function init() {
     document.addEventListener('DOMContentLoaded', () => {
         const modal = new Modal()
         modal.initModal()
+        const timer = new Timer
 
         const ventaForm = document.getElementById('ventaForm')
 
@@ -39,7 +40,7 @@ export default function init() {
                 });
 
                 countrycode.value = res.countrycode
-                phone.value = res.phonenumber
+                phone.value = res.mpbankaccount
 
                 codeArea.childNodes.forEach(element => {
                     if (element.value === res.areacode.trim()) {
@@ -161,6 +162,7 @@ export default function init() {
                 if (resOtp.code == "0000") {
                     // abrir modal para ultimo fetch 
                     modal.openModal('otpVerification')
+                    timer.updateClock()
 
                     document.getElementById('otpCode').value = resOtp.otp
 

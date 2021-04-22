@@ -145,7 +145,8 @@ export default function init() {
 
                 if (resOtp.code == "0000") {
                     // abrir modal para ultimo fetch 
-
+                    modal.openModal('otpVerification')
+                    timer.updateClock()
                     document.getElementById('otpCode').value = resOtp.otp
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {

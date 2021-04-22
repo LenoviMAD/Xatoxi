@@ -1,5 +1,6 @@
 import Modal from './Modal.js';
-import { numberFormater, closeEverythingExceptThese, closeEverything, URI, putRequiered } from '../helpers.js';
+import { numberFormater, closeEverythingExceptThese, closeEverything, URI } from '../helpers.js';
+import Timer from '../timer.js';
 
 // Cambio
 export default function init() {
@@ -15,6 +16,7 @@ export default function init() {
         // }
         // const resUserSession = await userSession()
         const modal = new Modal()
+        const timer = new Timer
         modal.initModal()
 
         const cambioForm = document.getElementById('cambioForm')
@@ -48,7 +50,7 @@ export default function init() {
             })
 
             // Toggle para mostrar modal (mas info)
-            recieveCurrency.addEventListener('change', async () => {
+            recieveCurrency.addEventListener('change', async() => {
                 togglePing()
                 calComisionCompra()
             })
@@ -72,6 +74,7 @@ export default function init() {
                 if (resOtp.code == "0000") {
                     // abrir modal para ultimo fetch 
                     modal.openModal('otpVerification')
+                    timer.updateClock()
                     document.getElementById('otpCode').value = resOtp.otp
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {

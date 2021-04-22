@@ -1,15 +1,17 @@
 import Modal from "./Modal.js";
+import Timer from '../timer.js';
 
 // Cambio
 export default function init() {
     document.addEventListener("DOMContentLoaded", () => {
         const modal = new Modal();
         modal.initModal();
+        const timer = new Timer
         const TITLE_SECTION = "Registro"
         const registerForm = document.getElementById("registerForm");
 
         if (registerForm) {
-            registerForm.addEventListener("submit", async (e) => {
+            registerForm.addEventListener("submit", async(e) => {
                 e.preventDefault();
 
                 // Cargando loader
@@ -50,7 +52,7 @@ export default function init() {
                     if (resEmailPin.code === "0000") {
                         // abriendo pin modal
                         modal.openModal("pinVerification");
-
+                        timer.updateClock();
                         // Eliminando el mensaje si lo tiene
                         if (document.getElementById('messageModalCustom')) {
                             document.getElementById('messageModalCustom').remove()
@@ -62,7 +64,7 @@ export default function init() {
                         messageModal.innerHTML = `
 						Te hemos enviado el código al email <br><b>${document.getElementById('email').value}</b>
 						`
-                        // agregando al modal
+                            // agregando al modal
                         document.querySelector('#pinVerification footer').prepend(messageModal)
 
                         const btnPin = document.querySelector(
@@ -70,7 +72,7 @@ export default function init() {
                         );
                         let inputPin = document.querySelector("#pinVerification #pinCode");
 
-                        btnPin.addEventListener("click", async () => {
+                        btnPin.addEventListener("click", async() => {
                             // Cargando loader
                             modal.openModal('loader', undefined, undefined, false)
 
@@ -111,7 +113,7 @@ export default function init() {
                                 });
                                 let resSignup = await dataSignup.json();
                                 console.log(resSignup);
-                                
+
 
                                 // Quitando loader
                                 modal.closeModal("loader");

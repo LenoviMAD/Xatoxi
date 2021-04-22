@@ -9,7 +9,7 @@ include_once("../xpresentationlayer.php");
             <header class="modal-header">
                 <button class="close-modal hidden" type="button" aria-label="close modal" data-close>✕</button>
                 <h3 class="modal__title">Validar PIN</h3>
-                <p class="modal__text">Este código expirará en: <span id="contador" class="font-green">00:114</span></p>
+                <p class="modal__text">Este código expirará en: <span id="countdown"></span></p>
             </header>
             <aside class="modal-body text-center">
                 <input type="password" class="input-pin" name="pinCode" maxlength="4" id="pinCode" class="input-pin">
