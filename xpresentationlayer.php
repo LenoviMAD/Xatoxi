@@ -274,7 +274,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/18 14:00
     ===================================================================== */
-	static function buildInputNumberGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $onblur = "", $class = "", $maxlength = 20, $idContainer = "", $required = false, $value = "")
+	static function buildInputNumberGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $onblur = "", $class = "", $maxlength = 35, $idContainer = "", $required = false, $value = "")
 	{
 		if ($onblur != "") {
 			$onblur = ' onBlur="' . $onblur . '" ';
@@ -301,7 +301,7 @@ class xpresentationLayer
 
 		echo '<DIV ' . $class . $idContainer . '>';
 		echo '    <LABEL class="font-Bold">' . $titleLabel . '</LABEL>';
-		echo '    <INPUT type="number" ' . $maxlength . ' name="' . $nameInput . '" ' . $value . $idInput . $required . ' pattern="[0-9]+([\.,][0-9]+)?" step=".01" placeholder="' . $placeholder . '" ' . $onblur . '>';
+		echo '	  <INPUT type="text" onkeypress="return validaNumericos(event)" ' . $maxlength . ' name="' . $nameInput . '" ' . $value . $idInput . $required . ' placeholder="' . $placeholder . '" ' . $onblur . '/>';
 		echo '</DIV>';
 	} //buildInputNumberGrid
 
@@ -316,7 +316,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-	static function buildInputTextGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = "", $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $idContainer = "", $required = false, $value = "")
+	static function buildInputTextGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $idContainer = "", $required = false, $value = "")
 	{
 		if ($disabled != "") {
 			$disabled = 'disabled="' . $disabled . '"';
@@ -361,7 +361,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-	static function buildInputTextGridCustom($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = "", $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $textHelp = "")
+	static function buildInputTextGridCustom($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $textHelp = "")
 	{
 		if ($disabled != "") {
 			$disabled = 'disabled="' . $disabled . '"';
@@ -394,7 +394,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-	static function buildInputTextGridCustom2($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = "", $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $textHelp = "")
+	static function buildInputTextGridCustom2($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $textHelp = "")
 	{
 		if ($disabled != "") {
 			$disabled = 'disabled="' . $disabled . '"';
@@ -1215,13 +1215,13 @@ class xpresentationLayer
 		echo '	<DIV class="container-input">';
 		echo '	    <DIV class="col-md-6">';
 		echo '	        <DIV class="input-container">';
-		echo '	            <INPUT class="input" type="text" name="' . $nameMonth . '" id="' . $idMonth . '" placeholder=" " />';
+		echo '	            <INPUT class="input" type="text" name="' . $nameMonth . '" id="' . $idMonth . '" placeholder=" " maxlength="2"/>';
 		echo '	            <LABEL class="placeholder">Mes</LABEL>';
 		echo '	        </DIV>';
 		echo '	    </DIV>';
 		echo '	    <DIV class="col-md-6">';
 		echo '	        <DIV class="input-container">';
-		echo '	            <INPUT class="input" type="text" name="' . $nameYear . '" id="' . $idYear . '" placeholder=" " />';
+		echo '	            <INPUT class="input" type="text" name="' . $nameYear . '" id="' . $idYear . '" placeholder=" "  maxlength="4"/>';
 		echo '	            <LABEL class="placeholder">Año</LABEL>';
 		echo '	        </DIV>';
 		echo '	    </DIV>';

@@ -10,7 +10,7 @@ if (document.getElementsByClassName("openModal")) {
     //Recorres la lista de elementos seleccionados
     for (var i = 0; i < btn.length; i++) {
         //Añades un evento a cada elemento
-        btn[i].addEventListener("click", function () {
+        btn[i].addEventListener("click", function() {
             //Aquí la función que se ejecutará cuando se dispare el evento
             modal.style.display = "block";
 
@@ -25,14 +25,14 @@ if (document.getElementsByClassName("openModal")) {
     var body = document.getElementsByTagName("body")[0];
 
     if (span) {
-        span.onclick = function () {
+        span.onclick = function() {
             modal.style.display = "none";
             body.style.position = "inherit";
             body.style.height = "auto";
             body.style.overflow = "visible";
         }
     }
-    window.onclick = function (event) {
+    window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
 
@@ -107,10 +107,10 @@ function closeEverythingExceptThese(padre, losqueno) {
             hijo.classList.remove('hidden')
         }
     })
-    
+
 }
 
-document.addEventListener('DOMContentLoaded', async function () {
+document.addEventListener('DOMContentLoaded', async function() {
     const container = document.querySelector("#item-container");
     const wrapperButtons = document.querySelector("#wrapperButtons");
     const wrapperSections = document.querySelector("#wrapperSections")
@@ -146,40 +146,40 @@ document.addEventListener('DOMContentLoaded', async function () {
             const iterator2 = document.querySelector(`div[data-id="${resUserSession.refToChange}"]`)
 
             console.log(`[data-id="${resUserSession.refToChange}"]`);
-            
+
             // Ponemos activo a uno y desactivamos los demas
             for (const other of wrapperButtons.children) {
                 // recorriendo opciones targets
                 if (iterator.dataset.id === other.dataset.id) {
                     actives(iterator)
-                } 
+                }
             }
-            
+
             // Abrimos la seccion correspondiente
             for (const other of wrapperSections.children) {
                 // recorriendo opciones targets
                 if (iterator2.dataset.id === other.dataset.id) {
                     iterator2.classList.remove('hidden')
-                } 
+                }
             }
-        }else {
+        } else {
             // recorriendo header targets
             for (const iterator of container.children) {
-                iterator.addEventListener('click', async () => {
+                iterator.addEventListener('click', async() => {
                     // Agregamos las animaciones a la botonera 1
                     container.classList.add('animate')
                     container.classList.add('animate__fadeOut')
                     setTimeout(() => { container.classList.add('hidden') }, 1000);
-    
+
                     // Agregando clases al segundo wrapper
                     wrapper.classList.remove('hidden')
                     wrapper.classList.add('overlap-a')
                     wrapper.classList.add('animate')
                     wrapper.classList.add('animate__fadeIn')
-    
+
                     // QUITAMOS EL PADDING DEL WRAPPER
                     document.querySelector('.wrapper').classList.add('p0')
-    
+
                     for (const other of wrapperSections.children) {
                         if (other.dataset.id === iterator.dataset.id) {
                             actives(iterator)
@@ -190,9 +190,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                     }
                 })
             }
-    
+
             for (const iterator of wrapperButtons.children) {
-                iterator.addEventListener('click', async () => {
+                iterator.addEventListener('click', async() => {
                     // recorriendo opciones targets
                     for (const other of wrapperSections.children) {
                         if (other.dataset.id === iterator.dataset.id) {
@@ -309,12 +309,12 @@ if (true) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function (params) {
+document.addEventListener("DOMContentLoaded", function(params) {
     const form = document.getElementById("idForm");
 
     if (form) {
 
-        form.addEventListener("submit", async (e) => {
+        form.addEventListener("submit", async(e) => {
             const idCodeCountry = document.getElementById("CodeCountry");
             const idAreaCode = document.getElementById("codeArea");
 
@@ -331,19 +331,19 @@ document.addEventListener("DOMContentLoaded", function (params) {
     }
 })
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const mainMenu = document.getElementById("mainMenu");
 
     if (mainMenu) {
         mainMenu.childNodes.forEach(value => {
-            value.addEventListener('click', async () => {
+            value.addEventListener('click', async() => {
                 value.classList.add("activeClass")
             })
         })
     }
 
     const tvesModal = document.getElementById("tvesModal");
-    window.onclick = function (event) {
+    window.onclick = function(event) {
         if (event.target == tvesModal) {
             modal.style.display = "none";
 
@@ -445,4 +445,11 @@ async function onblurCustom(src, dst, url) {
 function execTwoFuntions(fsrc, fdst, furl, ssrcdst, surl) {
     onblurCustom(fsrc, fdst, furl);
     selectValorforId(ssrcdst, surl);
+}
+
+function validaNumericos(event) {
+    if (event.charCode >= 48 && event.charCode <= 57) {
+        return true;
+    }
+    return false;
 }

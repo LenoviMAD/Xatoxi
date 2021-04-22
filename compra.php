@@ -35,7 +35,7 @@ xpresentationLayer::endSection();
 
 xpresentationLayer::startDivHidden("sectionCard");
 xpresentationLayer::buildTitleBar("DATOS DEL ABONO", "grid-item-2");
-xpresentationLayer::buildInputTextGrid("Número de tarjeta", "numberCardDebit", "numberCardDebit", "", "", "grid-item-2", "", "", "input-text-large");
+xpresentationLayer::buildInputTextGrid("Número de tarjeta", "numberCardDebit", "numberCardDebit", "", "18", "grid-item-2", "", "", "input-text-large");
 xpresentationLayer::endDiv();
 
 //Transferencia y tarjeta de credito 
@@ -45,7 +45,7 @@ xpresentationLayer::buildInputTextGrid("Número de tarjeta", "numberCardCredit",
 $data_json = $serviceCall->mgetcreditcardtypel();
 xpresentationLayer::buildSelectJson("Tipo de tarjeta", "typeCard", "typeCard", $data_json, "", "");
 xpresentationLayer::buildInputsDate("monthTransfer", "monthTransfer", "yearTransfer", "yearTransfer");
-xpresentationLayer::buildInputTextGrid("Cod. Validación", "ValidationCodeCardTransfer", "ValidationCodeCardTransfer");  
+xpresentationLayer::buildInputTextGrid("Cod. Validación", "ValidationCodeCardTransfer", "ValidationCodeCardTransfer", "", 3);  
 xpresentationLayer::endDiv();
 
 // DEPOSITO EN CUENTA

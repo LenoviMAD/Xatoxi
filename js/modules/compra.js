@@ -158,6 +158,7 @@ export default function init() {
 
                         formData.append("cond", "execbuy");
                         formData.append("otp", resOtp.otp);
+                        console.log(resOtp.otp);
                         formData.append("payIn", payIn.options[payIn.selectedIndex].value);
                         formData.append("payForm", payForm.options[payForm.selectedIndex].value);
 
