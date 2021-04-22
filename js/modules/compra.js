@@ -1,5 +1,5 @@
 import Modal from './Modal.js';
-import { numberFormater } from '../helpers.js';
+import { numberFormater, closeEverythingExceptThis, closeEverything } from '../helpers.js';
 import Timer from '../timer.js';
 
 // Compra

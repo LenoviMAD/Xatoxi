@@ -27,14 +27,21 @@ export default class Timer {
                 }
             }, 1000);
 
-            document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
-                e.preventDefault()
-                clearInterval(valorCuentaAtras);
-            })
-            document.querySelector("[data-id='btnPin']").addEventListener('click', async e => {
-                e.preventDefault()
-                clearInterval(valorCuentaAtras);
-            })
+            const btnOtp = document.querySelector("[data-id='btnOtp']")
+            if (btnOtp) {
+                document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
+                    e.preventDefault()
+                    clearInterval(valorCuentaAtras);
+                })
+            }
+
+            const btnPin = document.querySelector("[data-id='btnPin']")
+            if (btnPin) {
+                document.querySelector("[data-id='btnPin']").addEventListener('click', async e => {
+                    e.preventDefault()
+                    clearInterval(valorCuentaAtras);
+                })
+            }
         };
 
         countDown()
