@@ -9,6 +9,7 @@ import auth from './modules/auth.js'
 import perfil from './modules/perfil.js'
 import canvas from './modules/canvas.js'
 import Modal from './modules/Modal.js';
+import Timer from './timer.js';
 
 // Modules init
 envio()
@@ -24,6 +25,16 @@ canvas()
 document.addEventListener('DOMContentLoaded', () => {
     const modal = new Modal()
     modal.initModal()
+    const timer = new Timer()
+
+
+    window.onload = function() {
+        const modalInactividad = document.getElementById('modalInactividad')
+        if (modalInactividad) {
+            inactivityTime();
+        }
+    }
+
 
     const btnForgetPin = document.getElementById('btnForgetPin'),
         inputTag = document.getElementById('inputTag'),
@@ -139,5 +150,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
         })
     }
+
+    var inactivityTime = function() {
+        var time;
+        window.onload = resetTimer;
+        // DOM Events
+        document.onmousemove = resetTimer;
+        document.onkeypress = resetTimer;
+        document.onload = resetTimer;
+        document.onmousemove = resetTimer;
+        document.onmousedown = resetTimer; // touchscreen presses
+        document.ontouchstart = resetTimer;
+        document.onclick = resetTimer; // touchpad clicks
+        document.onscroll = resetTimer; // scrolling with arrow keys
+        document.onkeypress = resetTimer;
+
+        function logout() {
+            modal.openModal("modalInactividad")
+            timer.closeWindowClock()
+            document.querySelector("[data-id='btnNo']").addEventListener('click', async e => {
+                e.preventDefault()
+                location.href = "./index.php";
+            })
+
+            document.querySelector("[data-id='btnYes']").addEventListener('click', async e => {
+                e.preventDefault()
+                resetTimer()
+            })
+
+
+
+            //location.href = 'logout.html'
+        }
+
+        function resetTimer() {
+            clearTimeout(time);
+            time = setTimeout(logout, 2000)
+        }
+    };
 
 })

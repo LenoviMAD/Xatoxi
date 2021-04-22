@@ -68,6 +68,7 @@ xpresentationLayer::endMain();
 include './modals/loader.php';
 include './modals/modalSuccess.php';
 include './modals/modalWrong.php';
+include './modals/modalInactividad.php';
 
 xpresentationLayer::buildFooterXatoxi();
 

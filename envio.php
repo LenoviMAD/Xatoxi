@@ -321,6 +321,7 @@ include './modals/modalEncomienda.php';
 include './modals/modalTransferencia.php';
 include './modals/modalWrong.php';
 include './modals/modalFirma.php';
+include './modals/modalInactividad.php';
 
 xpresentationLayer::buildFooterXatoxi();
 xpresentationLayer::endSection();

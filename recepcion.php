@@ -17,7 +17,7 @@ xpresentationLayer::buildOptionGrid("Recepción Remesas");
 xpresentationLayer::endSection();
 xpresentationLayer::startForm("recepcionForm");
 xpresentationLayer::startSectionTwoColumns("", "principal");
-xpresentationLayer::buildInputTextGrid("Clave Remesa", "remittances", "remittances", "", "", "", "", "", "", "", false);
+xpresentationLayer::buildInputTextGrid("Clave Remesa", "remittances", "remittances", "", 35, "", "", "", "", "", false);
 
 $data_json = $serviceCall->mgetclearencetypel(array(2, 3, 1, 4, 8, 7));
 xpresentationLayer::buildSelectJson("Forma Recepción", "formRecepcion", "formRecepcion", $data_json, "", "", "", false);
@@ -53,7 +53,7 @@ xpresentationLayer::endDiv();
 
 // Tarjeta de Debito en Divisa
 xpresentationLayer::startDivHidden("debitcardNumberSection", "grid-item-2");
-xpresentationLayer::buildInputNumberGrid("Número de Tarjeta ", "debitcardnumber", "debitcardnumber", "", "", "grid-item-2 ", "", "", false);
+xpresentationLayer::buildInputNumberGrid("Número de Tarjeta ", "debitcardnumber", "debitcardnumber", "", "", "grid-item-2 ", 20, "", false);
 xpresentationLayer::endDiv();
 xpresentationLayer::endSection();
 xpresentationLayer::buildSectionPin("recepcion", "mt20");

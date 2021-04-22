@@ -11,10 +11,10 @@ export default function init() {
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
-            inputPin.value = "3333"
-            inputTag.value = "0ec2375c72f380b44eaa0d5827ff4785"
-            // inputPin.value = "9883"
-            // inputTag.value = "miatagbuenisimo20"
+            inputPin.value = "7951"
+            inputTag.value = "cc56c60c44b115d80171f569aa80c002"
+                // inputPin.value = "9883"
+                // inputTag.value = "miatagbuenisimo20"
 
             btnPin.addEventListener('click', async e => {
                 e.preventDefault()

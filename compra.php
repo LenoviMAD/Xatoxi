@@ -4,8 +4,8 @@ session_start();
 include_once("utilities.php");
 utilities::trueUser();
 include_once("xpresentationlayer.php");
-include_once("xclient.php");
-$serviceCall = new xclient("");
+// include_once("xclient.php");
+// $serviceCall = new xclient("");
 
 xpresentationLayer::startHtml("esp");
 xpresentationLayer::buildHead("Xatoxi");
@@ -21,13 +21,13 @@ xpresentationLayer::startForm("compraForm");
 xpresentationLayer::startSectionTwoColumns();
 xpresentationLayer::buildInputNumberGrid("Monto", "amount", "amount", "0.00");
 
-$data_json = $serviceCall->mgetcurrencyl();
+// $data_json = $serviceCall->mgetcurrencyl();
 xpresentationLayer::buildSelectJson("Divisa", "currency", "currency", $data_json, "", "");
 
-$data_json = $serviceCall->mgetdebitinstrumentl();
+// $data_json = $serviceCall->mgetdebitinstrumentl();
 xpresentationLayer::buildSelectJson("Abonar en", "payIn", "payIn", $data_json, "", "");
 
-$data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(3,5));
+// $data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(3,5));
 xpresentationLayer::buildSelectJson("Forma de Pago", "payForm", "payForm", $data_json, "", "");
 xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "", "exchangeRate", "0.00", "", "", "", true);
 xpresentationLayer::buildInputTextGrid("Monto a Pagar Bs.", "", "amountBs", "0.00", "", "", "", true);
@@ -42,7 +42,7 @@ xpresentationLayer::endDiv();
 xpresentationLayer::startDivHidden("sectionPrepaid", "grid-item-2 grid-2 mt20 mb20");
 xpresentationLayer::buildTitleBar("DATOS FORMA DE PAGO", "grid-item-2 m0");
 xpresentationLayer::buildInputTextGrid("Número de tarjeta", "numberCardCredit", "numberCardCredit");
-$data_json = $serviceCall->mgetcreditcardtypel();
+// $data_json = $serviceCall->mgetcreditcardtypel();
 xpresentationLayer::buildSelectJson("Tipo de tarjeta", "typeCard", "typeCard", $data_json, "", "");
 xpresentationLayer::buildInputsDate("monthTransfer", "monthTransfer", "yearTransfer", "yearTransfer");
 xpresentationLayer::buildInputTextGrid("Cod. Validación", "ValidationCodeCardTransfer", "ValidationCodeCardTransfer", "", 3);  
@@ -51,7 +51,7 @@ xpresentationLayer::endDiv();
 // DEPOSITO EN CUENTA
 xpresentationLayer::startDivHidden("sectionCommend", "grid-item-2 grid-2 mt20 mb20");
 xpresentationLayer::buildTitleBar("DATOS FORMA DE PAGO", "grid-item-2 m0");
-$data_json = $serviceCall->mgeticccbankl();
+// $data_json = $serviceCall->mgeticccbankl();
 xpresentationLayer::buildSelectJson("Cta. Receptora", "receiveAccount", "", $data_json, "", "");
 xpresentationLayer::buildInputTextGrid("Referencia", "referenceCuenta", "referenceCuenta", "");
 xpresentationLayer::endDiv();
@@ -65,6 +65,7 @@ include './modals/modalOtpVerification.php';
 include './modals/modalSuccess.php';
 include './modals/modalWrong.php';
 include './modals/modalFirma.php';
+include './modals/modalInactividad.php';
 
 xpresentationLayer::buildFooterXatoxi();
 xpresentationLayer::endForm();

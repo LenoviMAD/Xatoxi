@@ -2,15 +2,20 @@
     <div class="modal-dialog">
         <section class="modal-content">
             <header class="modal-header">
-                <h3 class="">Atención</h3>
+                <h1 class="modal__title">Atención</h1>
                 <button class="close-modal hidden" type="button" aria-label="close modal" data-close>✕</button>
             </header>
-            <aside class="modal-body">
-            <p>No se ha detectado actividad en los ultimos minutos.</p>
-            <div class=""><p>Desea mantener la sesión activa</p></div>
+            <aside>
+                <p>No se ha detectado actividad en los ultimos minutos.</p>
+                <div>
+                    <p class="text-center">¿Desea mantener la sesión activa?</p>
+                </div>
             </aside>
             <footer class="modal-footer">
-                <button class="modal__button" type="button" aria-label="close modal" data-close>Continuar</button>
+                <div class="spc-ard">
+                    <button class="modal__button" type="button" aria-label="close modal" data-close data-id="btnNo">No</button>
+                    <button class="modal__button" type="button" aria-label="close modal" data-close data-id="btnYes">Si</button>
+                </div>
             </footer>
         </section>
     </div>

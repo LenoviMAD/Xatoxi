@@ -1,7 +1,3 @@
-window.onload = function() {
-    inactivityTime();
-}
-
 //MODAL
 if (document.getElementsByClassName("openModal")) {
 
@@ -147,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             const iterator = document.querySelector(`button[data-id="${resUserSession.refToChange}"]`)
             const iterator2 = document.querySelector(`div[data-id="${resUserSession.refToChange}"]`)
 
-            
+
             // Ponemos activo a uno y desactivamos los demas
             for (const other of wrapperButtons.children) {
                 // recorriendo opciones targets
@@ -297,7 +293,7 @@ if (true) {
             x1 = 0;
         }
     }
-    
+
     //Función numero para registar la escritura en pantalla
     function numero2(xx) {
         // Si x es igual a 0 el número que se muestra en pantalla es igual a 1.
@@ -483,28 +479,3 @@ function validaNumericos(event) {
     }
     return false;
 }
-
-var inactivityTime = function() {
-    var time;
-    window.onload = resetTimer;
-    // DOM Events
-    document.onmousemove = resetTimer;
-    document.onkeypress = resetTimer;
-    document.onload = resetTimer;
-    document.onmousemove = resetTimer;
-    document.onmousedown = resetTimer; // touchscreen presses
-    document.ontouchstart = resetTimer;
-    document.onclick = resetTimer; // touchpad clicks
-    document.onscroll = resetTimer; // scrolling with arrow keys
-    document.onkeypress = resetTimer;
-
-    function logout() {
-        alert("You are now logged out.")
-            //location.href = 'logout.html'
-    }
-
-    function resetTimer() {
-        clearTimeout(time);
-        time = setTimeout(logout, 120000)
-    }
-};
