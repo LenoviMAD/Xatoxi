@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Abrimos modal
             modal.openModal('modalOlvioPin')
 
-            btnOlvidoPinModal.addEventListener('click', async () => {
+            btnOlvidoPinModal.addEventListener('click', async() => {
                 // Fetch session currectly
                 const body = new FormData()
                 body.append("cond", "resetpin")
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 modal.openModal('modalCambioPin')
                 let pinAnterior
 
-                btnPinChange.addEventListener('click', async () => {
+                btnPinChange.addEventListener('click', async() => {
                     if (!pinAnterior) {
                         pinAnterior = cambioPin.value
                         cambioPin.value = ''
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         document.querySelector('#modalCambioPin h1').innerText = "CAMBIAR PIN"
                         cambioPin.value = ''
-                        pinAnterior =''
+                        pinAnterior = ''
                     }
                 })
             } else if (res.code === "6000") {

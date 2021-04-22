@@ -7,7 +7,7 @@ export default class Modal {
 
         // abrir modales
         for (const el of openEls) {
-            el.addEventListener("click", function () {
+            el.addEventListener("click", function() {
                 const modalId = this.dataset.open
                 document.getElementById(modalId).classList.add(isVisible)
             })
@@ -15,7 +15,7 @@ export default class Modal {
 
         // cerrando modal en el boton
         for (const el of closeEls) {
-            el.addEventListener("click", function (e) {
+            el.addEventListener("click", function(e) {
                 e.preventDefault()
                 this.closest(".modal").classList.remove(isVisible)
             })
@@ -23,7 +23,7 @@ export default class Modal {
 
         // cerrando modal en el boton
         for (const el of removeEls) {
-            el.addEventListener("click", function (e) {
+            el.addEventListener("click", function(e) {
                 e.preventDefault()
                 this.closest(".modal").remove(isVisible)
             })

@@ -31,7 +31,7 @@ export default function init() {
                 formData.append("cond", "session");
                 const data = await fetch("ajax.php", { method: 'POST', body: formData });
                 const res = await data.json();
-
+                console.log(res);
                 bancoPagoMovil.childNodes.forEach(element => {
                     if (element.value === res.mpbankcode) {
                         element.setAttribute("selected", true)
@@ -39,7 +39,7 @@ export default function init() {
                 });
 
                 countrycode.value = res.countrycode
-                phone.value = res.mpbankaccount
+                phone.value = res.phonenumber
 
                 codeArea.childNodes.forEach(element => {
                     if (element.value === res.areacode.trim()) {
