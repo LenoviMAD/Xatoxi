@@ -1,10 +1,12 @@
 import Modal from './Modal.js';
 import { numberFormater } from '../helpers.js';
+import Timer from '../timer.js';
 
 // Compra
 export default function init() {
     document.addEventListener('DOMContentLoaded', () => {
         const modal = new Modal()
+        const timer = new Timer
         modal.initModal()
 
         const compraForm = document.getElementById('compraForm')
@@ -138,14 +140,12 @@ export default function init() {
                 formData.append("cond", "genotp");
                 let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
                 let resOtp = await dataOtp.json();
-                console.log(resOtp);
                 // Quitando spinner
                 modal.closeModal('loader')
 
                 if (resOtp.code == "0000") {
                     // abrir modal para ultimo fetch 
-                    modal.openModal('otpVerification')
-                    console.log("entro");
+
                     document.getElementById('otpCode').value = resOtp.otp
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
