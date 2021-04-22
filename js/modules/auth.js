@@ -11,8 +11,8 @@ export default function init() {
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
-            inputPin.value = "7951"
-            inputTag.value = "cc56c60c44b115d80171f569aa80c002"
+            // inputPin.value = "6442"
+            // inputTag.value = "bc6bee4eecb7ad250cd0b5ef7e1387d3"
                 // inputPin.value = "9883"
                 // inputTag.value = "miatagbuenisimo20"
 

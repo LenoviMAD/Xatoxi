@@ -884,7 +884,7 @@ class xpresentationLayer
 
         echo '<H1 class="divpin mt0">' . $title . '</H1>';
         echo '<INPUT type="password" name="pin" id="inputPin" pattern=".{' . $minLength . ',}" maxlength="' . $limitPass . '" class ="passInput">';
-        echo '<DIV class="full-center"><LABEL class="label-pin" >TAG</LABEL><INPUT type="password" name="tag" id="inputTag"  pattern=".{24,}" maxlength="24" class="passInput"></DIV>';
+        echo '<DIV class="full-center"><LABEL class="label-pin" >TAG</LABEL><INPUT type="password" name="tag" id="inputTag"  pattern=".{24,}" maxlength="40" class="passInput"></DIV>';
         echo '<TABLE class="centrarObjets">';
         echo '    <TBODY>';
         echo '        <TR></TR>';
