@@ -62,7 +62,7 @@ export default function init() {
                     // Quitando spinner
                     modal.closeModal('loader')
 
-                    console.log(res);
+                    // console.log(res);
                     // Fetch exitoso
                     if (res.code == "0000") {
                         // Setear forma de pago
@@ -307,7 +307,7 @@ export default function init() {
             formData.append("cond", "session");
             const data = await fetch("ajax.php", { method: 'POST', body: formData });
             const resUserSession = await data.json();
-            console.log(resUserSession);
+            // console.log(resUserSession);
 
             // SETEAMOS LOS DATOS SI VIENEN DE CAMBIO
             if (resUserSession.paidMethodToChange) {
@@ -369,7 +369,7 @@ export default function init() {
 
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
-                    console.log(res)
+                    // console.log(res)
 
                     // Quitando spinner
                     modal.closeModal('loader')
@@ -609,7 +609,7 @@ export default function init() {
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
                         let res = await data.json();
 
-                        console.log(res);
+                        // console.log(res);
 
                         // Quitando spinner
                         modal.closeModal('loader')
@@ -661,7 +661,7 @@ export default function init() {
             formData.append("cond", "session");
             const data = await fetch("ajax.php", { method: 'POST', body: formData });
             const resUserSession = await data.json();
-            console.log(resUserSession);
+            // console.log(resUserSession);
 
             // SETEAMOS LOS DATOS SI VIENEN DE CAMBIO
             if (resUserSession.paidMethodToChange) {
@@ -733,9 +733,10 @@ export default function init() {
                         if (resUserSession.amountToChange) {
                             beneficiarioTransfer.classList.remove('hidden')
                         }
+                    } else if (res.code === "5000") {
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
-                        // Mostramos alerta de errore
-                        console.log('problems');
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     }
                     modal.closeModal('loader')
                 }
@@ -787,64 +788,6 @@ export default function init() {
                 } else {
                     closeEverything('transferenciaFormTest')
                 }
-
-                // if (valueSelected === "1") {
-                //     beneficiarioTransfer.classList.remove('hidden')
-                //     cash.classList.remove('hidden')
-                //         // Poner hidden los demas                
-                //     accountDeposit.classList.add('hidden')
-                //     MovilPay.classList.add('hidden')
-                //     SectionPrepaid.classList.add('hidden')
-                // } else if (valueSelected === "2") {
-                //     beneficiarioTransfer.classList.remove('hidden')
-                //         // Poner hidden los demas
-                //     accountDeposit.classList.add('hidden')
-                //     cash.classList.add('hidden')
-                //     MovilPay.classList.add('hidden')
-                //     SectionPrepaid.classList.add('hidden')
-                // } else if (valueSelected === "3") {
-                //     beneficiarioTransfer.classList.remove('hidden')
-                //     accountDeposit.classList.remove('hidden')
-                //         // Poner hidden los demas
-                //     cash.classList.add('hidden')
-                //     MovilPay.classList.add('hidden')
-                //     SectionPrepaid.classList.add('hidden')
-                // } else if (valueSelected === "4") {
-                //     beneficiarioTransfer.classList.remove('hidden')
-                //         // Poner hidden los demas
-                //     MovilPay.classList.add('hidden')
-                //     SectionPrepaid.classList.add('hidden')
-                //     accountDeposit.classList.add('hidden')
-                //     cash.classList.add('hidden')
-                // } else if (valueSelected === "5") {
-                //     SectionPrepaid.classList.remove('hidden')
-                //     beneficiarioTransfer.classList.remove('hidden')
-                //         // Poner hidden los demas
-                //     MovilPay.classList.add('hidden')
-                //     accountDeposit.classList.add('hidden')
-                //     cash.classList.add('hidden')
-                // } else if (valueSelected === "6") {
-                //     MovilPay.classList.remove('hidden')
-                //     beneficiarioTransfer.classList.remove('hidden')
-                //         // Poner hidden los demas
-                //     SectionPrepaid.classList.add('hidden')
-                //     accountDeposit.classList.add('hidden')
-                //     cash.classList.add('hidden')
-                // } else if (valueSelected === "7") {
-                //     beneficiarioTransfer.classList.remove('hidden')
-                //         // Poner hidden los demas
-                //     SectionPrepaid.classList.add('hidden')
-                //     MovilPay.classList.add('hidden')
-                //     accountDeposit.classList.add('hidden')
-                //     cash.classList.add('hidden')
-                // } else if (valueSelected === "8") {
-                //     beneficiarioTransfer.classList.remove('hidden')
-                //         // Poner hidden los demas
-                //     MovilPay.classList.add('hidden')
-                //     SectionPrepaid.classList.add('hidden')
-                //     accountDeposit.classList.add('hidden')
-                //     cash.classList.add('hidden')
-                // }
 
                 // Abrir modal con datos
                 modal.openModal('modalTransferencia')
@@ -907,10 +850,10 @@ export default function init() {
 
                         formData.append("cond", "saveTransfer");
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
-                        console.log(data);
+                        // console.log(data);
 
                         let res = await data.json();
-                        console.log(res);
+                        // console.log(res);
 
                         // Quitando spinner
                         modal.closeModal('loader')

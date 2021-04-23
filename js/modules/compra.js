@@ -83,7 +83,7 @@ export default function init() {
                     } else {
                         modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                     }
-                    console.log(res);
+                    // console.log(res);
                     modal.closeModal('loader')
                 }
             }
@@ -159,13 +159,13 @@ export default function init() {
 
                         formData.append("cond", "execbuy");
                         formData.append("otp", resOtp.otp);
-                        console.log(resOtp.otp);
+                        // console.log(resOtp.otp);
                         formData.append("payIn", payIn.options[payIn.selectedIndex].value);
                         formData.append("payForm", payForm.options[payForm.selectedIndex].value);
 
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
                         let res = await data.json();
-                        console.log(res);
+                        // console.log(res);
                         // Quitando spinner
                         modal.closeModal('loader')
 

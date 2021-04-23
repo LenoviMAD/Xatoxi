@@ -32,7 +32,7 @@ export default function init() {
                 formData.append("cond", "session");
                 const data = await fetch("ajax.php", { method: 'POST', body: formData });
                 const res = await data.json();
-                console.log(res);
+                // console.log(res);
                 bancoPagoMovil.childNodes.forEach(element => {
                     if (element.value === res.mpbankcode) {
                         element.setAttribute("selected", true)
@@ -182,7 +182,7 @@ export default function init() {
 
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });
                         let res = await data.json();
-                        console.log(res);
+                        // console.log(res);
 
                         // Quitando spinner
                         modal.closeModal('loader')
@@ -194,7 +194,7 @@ export default function init() {
                         } else {
                             modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
                         }
-                        console.log(res);
+                        // console.log(res);
                     })
                 } else if (res.code === "5000") {
                     modal.openModal('modalDanger', 'Datos incompletos', res.message)

@@ -36,7 +36,7 @@ export default function init() {
                         body: formData1,
                     });
                     await dataSavePin.text();
-                    console.log(resPin.pin);
+                    // console.log(resPin.pin);
 
                     // Enviar pin al correo
                     let formData = new FormData(registerForm)
@@ -112,7 +112,7 @@ export default function init() {
                                     body: formData,
                                 });
                                 let resSignup = await dataSignup.json();
-                                console.log(resSignup);
+                                // console.log(resSignup);
 
 
                                 // Quitando loader
