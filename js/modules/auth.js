@@ -11,8 +11,8 @@ export default function init() {
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
-            // inputPin.value = "0000"
-            // inputTag.value = "b888505b4a737e9dde86e2247077a88b"
+            inputPin.value = "0000"
+            inputTag.value = "b888505b4a737e9dde86e2247077a88b"
             // inputPin.value = "9883"
             // inputTag.value = "miatagbuenisimo20"
 
@@ -66,14 +66,12 @@ export default function init() {
                         let a = location.pathname
                         let b = a.split('/')
                         let c = ''
-                        if (b.length === 3) {
+
+                        if (b[b.length - 1] === 'index.php') {
                             c = `${b[b.length - 2]}`
                         } else {
-                            c = `${b[b.length - 1]}`
+                            c = `${b[b.length - 2]}`
                         }
-
-                        let a = location.pathname
-                        let b = a.split('/')
 
                         location.href = location.origin + `/${c}/` + url
 
