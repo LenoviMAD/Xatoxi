@@ -39,10 +39,7 @@ xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-2");
 xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "ccnumber");
 $data_json = $serviceCall->mgetcreditcardtypel();
 xpresentationLayer::buildSelectJson("Tipo Tarjeta", "cctype", "", $data_json, "", "");
-xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-1");
-xpresentationLayer::buildInputNumberGrid("Mes", "", "ccexpmonth", "", "", "", 2);
-xpresentationLayer::buildInputNumberGrid("Año", "", "ccexpyear", "", "", "", 4);
-xpresentationLayer::endSection();
+xpresentationLayer::buildInputsDate("ccexpmonth", "ccexpmonth", "ccexpyear", "ccexpyear");
 xpresentationLayer::buildInputNumberGrid("Cod. Validacion", "", "cccvc", "", "", "", 4);
 xpresentationLayer::endDiv();
 

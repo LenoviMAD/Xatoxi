@@ -904,7 +904,6 @@ export default function init() {
                         // Cargando spinner
                         modal.openModal('loader', undefined, undefined, false)
                         let formData = new FormData(transferenciaForm)
-                        console.log(transferenciaForm);
 
                         formData.append("cond", "saveTransfer");
                         let data = await fetch("ajax.php", { method: 'POST', body: formData });

@@ -33,7 +33,7 @@ export default function init() {
                 });
 
                 countrycode.value = res.countrycode
-                phone.value = res.mpbankaccount //.replace(res.countrycode, "").replace(res.areacode, "")
+                phone.value = res.phonenumber //.replace(res.countrycode, "").replace(res.areacode, "")
                 codeArea.childNodes.forEach(element => {
                     if (element.value === res.areacode.trim()) {
                         element.setAttribute("selected", true)

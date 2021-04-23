@@ -33,9 +33,9 @@ xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "", "exchangeRate", "0.
 xpresentationLayer::buildInputTextGrid("Monto a Pagar Bs.", "", "amountBs", "0.00", "", "", "", true);
 
 
-xpresentationLayer::startDivHidden("sectionCard");
-xpresentationLayer::buildTitleBar("DATOS DEL ABONO", "grid-item-2");
-xpresentationLayer::buildInputTextGrid("Número de tarjeta", "numberCardDebit", "numberCardDebit", "", "18", "grid-item-2", "", "", "input-text-large");
+xpresentationLayer::startDivHidden("sectionCard", "grid-item-2 grid-1 mb15");
+xpresentationLayer::buildTitleBar("DATOS DEL ABONO");
+xpresentationLayer::buildInputTextGrid("Número de tarjeta", "numberCardDebit", "numberCardDebit", "", "18", "", "", "", "input-text-large");
 xpresentationLayer::endDiv();
 
 //Transferencia y tarjeta de credito 

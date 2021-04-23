@@ -40,7 +40,7 @@ export default function init() {
                 });
 
                 countrycode.value = res.countrycode
-                phone.value = res.mpbankaccount
+                phone.value = res.phonenumber
 
                 codeArea.childNodes.forEach(element => {
                     if (element.value === res.areacode.trim()) {
