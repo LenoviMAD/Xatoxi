@@ -240,7 +240,7 @@ export default function init() {
                         modal.closeModal('loader')
 
                         if (res.code === "0000") {
-                            modal.openModal('modalSuccess', TITLE_SECTION, res.message)
+                            modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, true)
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
