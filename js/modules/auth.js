@@ -11,7 +11,10 @@ export default function init() {
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
-            // inputTag.value = "cc56c60c44b115d80171f569aa80c002"
+            // inputPin.value = "0000"
+            // inputTag.value = "b888505b4a737e9dde86e2247077a88b"
+            // inputPin.value = "9883"
+            // inputTag.value = "miatagbuenisimo20"
 
             btnPin.addEventListener('click', async e => {
                 e.preventDefault()
@@ -60,8 +63,19 @@ export default function init() {
                                 }
                             }
                         })
+                        let a = location.pathname
+                        let b = a.split('/')
+                        let c = ''
+                        if (b.length === 3) {
+                            c = `${b[b.length - 2]}`
+                        } else {
+                            c = `${b[b.length - 1]}`
+                        }
 
-                        location.href = location.origin + "/xatoxi/" + url
+                        let a = location.pathname
+                        let b = a.split('/')
+
+                        location.href = location.origin + `/${c}/` + url
 
                     } else if (resIsParty.code === "5000") {
                         // setear para donde redireccionara

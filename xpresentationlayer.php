@@ -183,6 +183,24 @@ class xpresentationLayer
             echo '</HEADER>';
         }
     } // buildHeaderPrincipalXatoxi
+    /*=======================================================================
+    Function: buildHeaderPrincipalXatoxitest
+    Description: Construye el encabezado de la app xatoxi 
+    Parameters: 
+    Algorithm:
+    Remarks:
+    Standarized: 2021/01/18 14:00
+    ===================================================================== */
+    static function buildHeaderPrincipalXatoxitest()
+    {
+        echo '<HEADER class="header">';
+        echo '  <DIV class="encabezado">';
+        echo '    <A href="index.php" style="width: 25%;">';
+        echo '  	<IMG class="logo" src="img/logo.png">';
+        echo '    </A>';
+        echo '  </DIV>';
+        echo '</HEADER>';
+    } // buildHeaderPrincipalXatoxitest
 
     /*=======================================================================
     Function: startMain

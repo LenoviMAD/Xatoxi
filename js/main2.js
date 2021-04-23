@@ -10,7 +10,7 @@ import perfil from './modules/perfil.js'
 import canvas from './modules/canvas.js'
 import Modal from './modules/Modal.js';
 import Timer from './timer.js';
-
+// console.log(location);
 // Modules init
 envio()
 venta()
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const timer = new Timer()
 
 
-    window.onload = function() {
+    window.onload = function () {
         const modalInactividad = document.getElementById('modalInactividad')
         if (modalInactividad) {
             inactivityTime();
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Abrimos modal
             modal.openModal('modalOlvioPin')
 
-            btnOlvidoPinModal.addEventListener('click', async() => {
+            btnOlvidoPinModal.addEventListener('click', async () => {
                 // Fetch session currectly
                 const body = new FormData()
                 body.append("cond", "resetpin")
@@ -100,45 +100,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (res.code === "0000") {
                 // Abrimos modal
-                modal.openModal('modalCambioPin')
-                let pinAnterior
+                if (document.querySelector('#modalCambioPin .centrarObjets p')) {
+                    document.querySelector('#modalCambioPin .centrarObjets p').remove()
+                }
+                var pinAnterior = ''
 
-                btnPinChange.addEventListener('click', async() => {
+                modal.openModal('modalCambioPin')
+                document.querySelector('#modalCambioPin h1').innerText = "CAMBIAR PIN"
+
+                // cerrando modal por fuera
+                document.addEventListener("click", e => {
+                    if (e.target == document.querySelector("#modalCambioPin")) {
+                        pinAnterior = ''
+                        // console.log('que bolas');
+                    }
+                    
+                    //presionando escape
+                    document.addEventListener("keyup", e => {
+                        if (e.key == "Escape" && document.querySelector("#modalCambioPin")) {
+                            // console.log('que bolas2');
+                            pinAnterior = ''
+                        }
+                    })
+                })
+
+                btnPinChange.addEventListener('click', async () => {
                     if (!pinAnterior) {
                         pinAnterior = cambioPin.value
                         cambioPin.value = ''
                         document.querySelector('#modalCambioPin h1').innerText = "CONFIRMAR PIN"
+                        console.log(pinAnterior, cambioPin.value);
                         return
-                    }
+                    } else {
+                        // console.log(pinAnterior, cambioPin.value);
+                        if (pinAnterior === cambioPin.value) {
 
-                    if (pinAnterior === cambioPin.value) {
-                        // Abrimos el loader
-                        modal.closeModal('modalCambioPin')
-                        modal.openModal('loader', undefined, undefined, false)
+                            // Abrimos el loader
+                            modal.closeModal('modalCambioPin')
+                            modal.openModal('loader', undefined, undefined, false)
 
-                        const body = new FormData()
-                        body.append("cond", "updpin")
-                        body.append("pin", inputPin.value)
-                        body.append("newpin", cambioPin.value)
-                        body.append("tag", inputTag.value)
-                        const data = await fetch("ajax.php", { method: 'POST', body })
-                        const res = await data.json()
+                            const body = new FormData()
+                            body.append("cond", "updpin")
+                            body.append("pin", inputPin.value)
+                            body.append("newpin", cambioPin.value)
+                            body.append("tag", inputTag.value)
+                            const data = await fetch("ajax.php", { method: 'POST', body })
+                            const res = await data.json()
 
-                        // Cerramos modal
-                        modal.closeModal('loader')
+                            // Cerramos modal
+                            modal.closeModal('loader')
 
-                        if (res.code === "0000") {
-                            modal.openModal('modalSuccess2', 'Autenticacion', res.message)
-                        } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', 'Autenticacion', res.message)
+                            if (res.code === "0000") {
+                                modal.openModal('modalSuccess2', 'Autenticacion', res.message)
+                            } else if (res.code === "5000") {
+                                modal.openModal('modalDanger', 'Autenticacion', res.message)
+                            } else {
+                                modal.openModal('modalDanger', 'Autenticacion', 'Ocurrio un error, favor intente de nuevo')
+                            }
+
+                            cambioPin.value = ''
+                            pinAnterior = ''
+                            return
                         } else {
-                            modal.openModal('modalDanger', 'Autenticacion', 'Ocurrio un error, favor intente de nuevo')
+                            if ((!document.querySelector('#modalCambioPin div.centrarObjets p') && (pinAnterior !== cambioPin.value))) {
+                                let test = document.createElement('p')
+                                test.innerText = 'Los pins no coinciden'
+                                test.style.color = 'red'
+                                let test2 = document.querySelector('#modalCambioPin div.centrarObjets')
+                                test2.append(test)
+                            }
                         }
-
-                        document.querySelector('#modalCambioPin h1').innerText = "CAMBIAR PIN"
-                        cambioPin.value = ''
-                        pinAnterior = ''
                     }
+                    cambioPin.value = ''
                 })
             } else if (res.code === "6000") {
                 modal.openModal('modalDanger', 'Autenticación', res.message)
@@ -151,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    var inactivityTime = function() {
+    var inactivityTime = function () {
         var time;
         window.onload = resetTimer;
         // DOM Events

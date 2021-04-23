@@ -6,7 +6,7 @@ session_destroy();
 xpresentationLayer::startHtml("esp");
 xpresentationLayer::buildHead("Xatoxi");
 
-xpresentationLayer::buildHeaderPrincipalXatoxi();
+xpresentationLayer::buildHeaderPrincipalXatoxitest();
 
 xpresentationLayer::startMain("p0");
 
