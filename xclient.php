@@ -1171,7 +1171,7 @@ class xclient
 		return ($result);
 	} // mexecsendw
 
-	private function bexecsendtr($wsuser, $wspwd, $idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban)
+	private function bexecsendtr($wsuser, $wspwd, $idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $ccnumber, $ccexpyear, $ccexpmonth,$cccvc, $cctype, $otp)
 	{
 		$this->updateField($execsendtr, "wsuser", "WSITALCAMBIO");
 		$this->updateField($execsendtr, "wspwd", "1cc61eb7ae2187eb91f97d1ae5300919");
@@ -1202,13 +1202,20 @@ class xclient
 		$this->updateField($execsendtr, "ibbankcity", $ibbankcity);
 		$this->updateField($execsendtr, "ibbankaddress", $ibbankaddress);
 		$this->updateField($execsendtr, "ibbankabaswiftiban", $ibbankabaswiftiban);
+		$this->updateField($execsendtr, "ccnumber", $ccnumber);
+		$this->updateField($execsendtr, "ccexpyear", $ccexpyear);
+		$this->updateField($execsendtr, "ccexpmonth", $ccexpmonth);
+		$this->updateField($execsendtr, "cccvc", $cccvc);
+		$this->updateField($execsendtr, "cctype", $cctype);
+		$this->updateField($execsendtr, "otp", $otp);
+		
 		return $execsendtr;
 	} // bexecsendtr
 
-	function mexecsendtr($idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+	function mexecsendtr($idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $ccnumber, $ccexpyear, $ccexpmonth,$cccvc, $cctype, $otp, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
 	{
 		$this->init($url);
-		$execsendtr =  $this->bexecsendtr("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban);
+		$execsendtr =  $this->bexecsendtr("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $ccnumber, $ccexpyear, $ccexpmonth,$cccvc, $cctype, $otp);
 		$data["execsendtr"] = $execsendtr;
 		$data_string = json_encode($data);
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
