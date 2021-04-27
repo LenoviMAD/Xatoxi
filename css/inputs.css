@@ -140,6 +140,9 @@
         padding: 10px;
         height: 40px;
     }
+    .input-field1 label {
+        display: block;
+    }
     
     .input-field1 textarea {
         height: auto;

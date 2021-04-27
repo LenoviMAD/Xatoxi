@@ -11,7 +11,7 @@ $serviceCall = new xclient("");
 
 
 include_once("xpresentationlayer.php");
-xpresentationLayer::startHtml("esp");
+xpresentationLayer::startHtml("es");
 xpresentationLayer::buildHead("Xatoxi");
 xpresentationLayer::buildHeaderXatoxi();
 

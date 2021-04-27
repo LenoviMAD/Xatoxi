@@ -3,7 +3,7 @@
     background-color: white;
 }
 
-.no-active{
+.no-active {
     background-color: gray;
 }
 
@@ -19,12 +19,12 @@
 }
 
 .animation-slideOutUp {
-    transition: all .5s linear;
+    transition: all 0.5s linear;
     transform: translateY(-120%);
 }
 
 .animation-slideInRight {
-    transition: all .5s linear;
+    transition: all 0.5s linear;
     transform: translateX(0%);
 }
 
@@ -46,7 +46,6 @@
         opacity: 0;
     }
 }
-
 
 /* FadeIn */
 .animate__fadeIn {
@@ -75,5 +74,34 @@
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+.blob {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+    transform: scale(1);
+    animation: pulse-black 2s infinite;
+}
+
+.blob.white {
+    background: white;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 1);
+    animation: pulse-white 2s infinite;
+}
+
+@keyframes pulse-white {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
     }
 }

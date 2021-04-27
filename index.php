@@ -3,7 +3,7 @@
 include_once("xpresentationlayer.php");
 session_destroy();
 
-xpresentationLayer::startHtml("esp");
+xpresentationLayer::startHtml("es");
 xpresentationLayer::buildHead("Xatoxi");
 
 xpresentationLayer::buildHeaderPrincipalXatoxitest();

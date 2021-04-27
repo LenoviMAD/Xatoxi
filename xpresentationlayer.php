@@ -300,6 +300,28 @@ class xpresentationLayer
     } //startSectionTwoColumns
 
     /*=======================================================================
+    Function: startSection
+    Description: Start Tag SECTION  (SecondSection) with 2 columns
+    Parameters: 
+    Algorithm:
+    Remarks:
+    Standarized: 2021/01/18 14:00
+    ===================================================================== */
+    static function startSection($class = "", $id = "")
+    {
+        if ($class != "") {
+            $class = ' class="' . $class . '" ';
+        }
+
+        if ($id != "") {
+            $id = ' id="' . $id . '" ';
+        }
+
+        echo '<SECTION ' . $class . $id . ' >';
+    } //startSection
+
+
+    /*=======================================================================
     Function: buildInputNumberGrid
     Description: Build Input number with decimals (2 Columns)
     Parameters: $titleLabel <-- Name label
@@ -333,7 +355,7 @@ class xpresentationLayer
             $class = ' class="input-field1" ';
         }
 
-        if ($maxlength == ""){
+        if ($maxlength == "") {
             $maxlength = 35;
         }
         $maxlength = ' maxlength="' . $maxlength . '" ';
@@ -354,7 +376,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/18 14:00
     ===================================================================== */
-    static function buildInputsMonthYear($titleLabel="", $nameMonth = "", $nameYear = "")
+    static function buildInputsMonthYear($titleLabel = "", $nameMonth = "", $nameYear = "")
     {
         if ($nameMonth != "") {
             $nameMonth = ' name="' . $nameMonth . '" ';
@@ -364,17 +386,17 @@ class xpresentationLayer
         }
 
         echo '<div class="input-field1">';
-            echo '<label class="font-Bold ">'.$titleLabel.'</label>';
-            echo '<div class="container-input">';
-                echo '<div class="input-container mr15">';
-                    echo '<input class="input" ' . $nameMonth . ' onkeypress="return validaNumericos(event)" type="text" maxlength="2" />';
-                    echo '<label class="placeholder">Mes</label>';
-                echo '</div>';
-                echo '<div class="input-container">';
-                    echo '<input class="input" ' . $nameYear . ' onkeypress="return validaNumericos(event)" type="text" maxlength="4" />';
-                    echo '<label class="placeholder">Año</label>';
-                echo '</div>';
-            echo '</div>';
+        echo '<label class="font-Bold ">' . $titleLabel . '</label>';
+        echo '<div class="container-input">';
+        echo '<div class="input-container mr15">';
+        echo '<input class="input" ' . $nameMonth . ' onkeypress="return validaNumericos(event)" type="text" maxlength="2" />';
+        echo '<label class="placeholder">Mes</label>';
+        echo '</div>';
+        echo '<div class="input-container">';
+        echo '<input class="input" ' . $nameYear . ' onkeypress="return validaNumericos(event)" type="text" maxlength="4" />';
+        echo '<label class="placeholder">Año</label>';
+        echo '</div>';
+        echo '</div>';
         echo '</div>';
     } //buildInputsMonthYear
 
@@ -417,7 +439,7 @@ class xpresentationLayer
             $classInput = 'class="' . $classInput . '"';
         }
 
-        if ($maxLength == ""){
+        if ($maxLength == "") {
             $maxLength = 35;
         }
 
@@ -450,7 +472,7 @@ class xpresentationLayer
             $classInput = 'class="grid-item-no-border"';
         }
 
-        if ($maxLength == ""){
+        if ($maxLength == "") {
             $maxLength = 35;
         }
 
@@ -487,7 +509,7 @@ class xpresentationLayer
             $classInput = 'class="grid-item-no-border"';
         }
 
-        if ($maxLength == ""){
+        if ($maxLength == "") {
             $maxLength = 35;
         }
 
@@ -740,9 +762,14 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 14:00
     ===================================================================== */
-    static function startAsideOneColumn()
+    static function startAsideOneColumn($class= "")
     {
-        echo '<ASIDE class="grid-1">';
+        if ($class != "") {
+            $class = 'class="' . $class . '"';
+        }else {
+            $class = 'class="grid-1"';
+        }
+        echo '<ASIDE '.$class.'>';
     } //startSectionTwoColumns
 
     /*=======================================================================
