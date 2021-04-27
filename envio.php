@@ -183,7 +183,7 @@ xpresentationLayer::buildInputTextGrid("Segundo nombre", "secondNameCommend", "s
 xpresentationLayer::buildInputTextGrid("Primer apellido", "firstSurnameCommend", "firstSurnameCommend", "", "", "", "required");
 xpresentationLayer::buildInputTextGrid("Segundo apellido", "secondSurnameCommend", "secondSurnameCommend", "");
 xpresentationLayer::buildInputTextGrid("Dirección", "addressCommend", "addressCommend", "", "", "grid-item-1 grid-item-2 ", "", "", "input-text-large");
-xpresentationLayer::buildInputTextGrid("Email", "emailCommend", "emailCommend", "Ejemplo@mail.com");
+xpresentationLayer::buildInputTextGrid("Email", "emailCommend", "emailCommend", "Ejemplo@mail.com", 50);
 xpresentationLayer::buildInputNumberGrid("Telefono", "phoneCommend", "phoneCommend", "", "");
 xpresentationLayer::buildInputTextGrid("Banco", "bankCommend", "bankCommend", "", "");
 xpresentationLayer::buildInputNumberGrid("Cuenta", "accountCommend", "accountCommend", "");
@@ -274,7 +274,7 @@ xpresentationLayer::buildInputTextGrid("Segundo nombre", "secondNameTransfer", "
 xpresentationLayer::buildInputTextGrid("Primer apellido", "firstSurnameTransfer", "firstSurnameTransfer", "", "", "", "required");
 xpresentationLayer::buildInputTextGrid("Segundo apellido", "secondSurnameTransfer", "secondSurnameTransfer", "");
 xpresentationLayer::buildInputTextGrid("Dirección", "addressTransfer", "addressTransfer", "", "", "grid-item-1 grid-item-2 ", "", "", "input-text-large");
-xpresentationLayer::buildInputTextGrid("Email", "emailTransfer", "emailTransfer", "Ejemplo@mail.com", "", "grid-item-1 grid-item-2");
+xpresentationLayer::buildInputTextGrid("Email", "emailTransfer", "emailTransfer", "Ejemplo@mail.com", 50, "grid-item-1 grid-item-2");
 xpresentationLayer::buildInputNumberGrid("Telefono", "phoneTransfer", "phoneTransfer", "", "", "grid-item-1 grid-item-2");
 xpresentationLayer::buildInputTextGrid("Banco", "bankTransfer", "bankTransfer", "", "", "grid-item-1 grid-item-2");
 xpresentationLayer::buildInputTextGrid("Cuenta", "accountTransfer", "accountTransfer", "", "", "grid-item-1 grid-item-2");

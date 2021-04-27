@@ -11,10 +11,8 @@ export default function init() {
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
-            inputPin.value = "0000"
-            inputTag.value = "b888505b4a737e9dde86e2247077a88b"
-            // inputPin.value = "9883"
-            // inputTag.value = "miatagbuenisimo20"
+            // inputPin.value = "7951"
+            // inputTag.value = "cc56c60c44b115d80171f569aa80c002"
 
             btnPin.addEventListener('click', async e => {
                 e.preventDefault()
@@ -30,7 +28,7 @@ export default function init() {
                 const res = await data.json();
                 modal.closeModal('loader')
 
-                console.log(res);
+                // console.log(res);
                 if (res.code === "0000") {
 
                     // is party (getParty)
@@ -50,7 +48,7 @@ export default function init() {
                     // const resIsParty = await dataIsParty.json();
                     // console.log(resIsParty);
 
-                    console.log(resIsParty);
+                    // console.log(resIsParty);
                     // No es cliente lead to party (redireccionamos a perfil)
                     if (resIsParty.code === "0000") {
                         let url = ""
@@ -63,17 +61,8 @@ export default function init() {
                                 }
                             }
                         })
-                        let a = location.pathname
-                        let b = a.split('/')
-                        let c = ''
 
-                        if (b[b.length - 1] === 'index.php') {
-                            c = `${b[b.length - 2]}`
-                        } else {
-                            c = `${b[b.length - 2]}`
-                        }
-
-                        location.href = location.origin + `/${c}/` + url
+                        location.href = location.origin + "/xatoxi/" + url
 
                     } else if (resIsParty.code === "5000") {
                         // setear para donde redireccionara
