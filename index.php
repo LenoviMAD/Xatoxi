@@ -10,11 +10,12 @@ xpresentationLayer::buildHeaderPrincipalXatoxitest();
 
 xpresentationLayer::startMain("p0");
 
-xpresentationLayer::startInputModal("modalContainer","tvesModal");
+xpresentationLayer::startInputModal("modalContainer", "tvesModal");
 xpresentationLayer::buildPinPrincipalModal("PIN", 4, 4);
 xpresentationLayer::endInputModal();
 
-xpresentationLayer::startSectionTwoColumns("grid-2 full-height");
+xpresentationLayer::startSectionTwoColumns("grid-index full-height");
+
 xpresentationLayer::buildMenuOptionGrid("envio.png", "ENVIO", true, "envio.php");
 xpresentationLayer::buildMenuOptionGrid("recepcion.png", "RECEPCION", true, "recepcion.php");
 xpresentationLayer::buildMenuOptionGrid("venta.png", "VENTA", true, "venta.php");

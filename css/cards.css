@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
     cursor: pointer;
     transition: transform .2s ease-out;
 }
@@ -23,11 +23,15 @@
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.card.card-a> :not(:last-child) {
-    margin-bottom: 20px;
+.card.card-a .card__title {
+    font-size: 1em;
+}
+.card-img {
+    height: 50px;
 }
 
-.card.card-a .card__title {
-    font-size: 1.17em;
-    margin: 0;
+@media (max-height: 678px) {
+    .card-img {
+        height: 30px;
+    }
 }
