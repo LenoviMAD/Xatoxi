@@ -8,9 +8,11 @@ import register from './modules/register.js'
 import auth from './modules/auth.js'
 import perfil from './modules/perfil.js'
 import canvas from './modules/canvas.js'
+import debitCardRequest from './modules/debitCardRequest.js'
 import Modal from './modules/Modal.js';
 import Timer from './timer.js';
 // console.log(location);
+
 // Modules init
 envio()
 venta()
@@ -21,6 +23,7 @@ register()
 auth()
 perfil()
 canvas()
+debitCardRequest()
 
 document.addEventListener('DOMContentLoaded', () => {
     const modal = new Modal()
@@ -31,10 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.onload = function () {
         const modalInactividad = document.getElementById('modalInactividad')
         if (modalInactividad) {
-            inactivityTime();
+            // inactivityTime();
         }
     }
-
 
     const btnForgetPin = document.getElementById('btnForgetPin'),
         inputTag = document.getElementById('inputTag'),

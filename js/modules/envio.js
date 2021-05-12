@@ -5,9 +5,9 @@ import Timer from '../timer.js';
 // Envio
 export default function init() {
     // In your Javascript (external .js resource or <script> tag)
-    $(document).ready(function() {});
+    $(document).ready(function () { });
 
-    document.addEventListener('DOMContentLoaded', async() => {
+    document.addEventListener('DOMContentLoaded', async () => {
         const modal = new Modal()
         modal.initModal()
         const timer = new Timer
@@ -95,7 +95,7 @@ export default function init() {
                 }
             }
 
-            $(`#${billeteraForm.getAttribute('id')} [name="users"]`).on('select2:select', function(e) {
+            $(`#${billeteraForm.getAttribute('id')} [name="users"]`).on('select2:select', function (e) {
                 // Do something
                 btnSubmitBilletera.classList.remove('hidden')
             });
@@ -175,7 +175,7 @@ export default function init() {
             }
 
             // docuemntos menos firma
-            file.addEventListener('change', async(e) => {
+            file.addEventListener('change', async (e) => {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
@@ -206,21 +206,17 @@ export default function init() {
             })
 
             // toggle de tipos de documentos
-            typeDocWallet.addEventListener('change', async() => {
+            typeDocWallet.addEventListener('change', async () => {
                 /* 
                     ci: 1
                     firma: 2
                     huellas: 3
                 */
-
-                if (typeDocWallet.options[typeDocWallet.selectedIndex].value === '1' || typeDocWallet.options[typeDocWallet.selectedIndex].value === '2') {
-                    // Activamos input para subir archivo
-                    fileInputWallet.classList.remove('hidden')
-                } else {
+                if (typeDocWallet.options[typeDocWallet.selectedIndex].value === '3') {
                     // abrir modal para hacer firma
                     modal.openModal('modalFirma')
 
-                    btnModalFirma.addEventListener('click', async() => {
+                    btnModalFirma.addEventListener('click', async () => {
                         const encoded = document.getElementById('draw-image').getAttribute('src')
 
                         const payload = {
@@ -231,7 +227,7 @@ export default function init() {
 
                         // Quitando spinner
                         modal.closeModal('modalFirma')
-                            // Cargando spinner
+                        // Cargando spinner
                         modal.openModal('loader', undefined, undefined, false)
 
                         const res = await servicioFirma(payload)
@@ -247,6 +243,9 @@ export default function init() {
                             modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                         }
                     })
+                } else {
+                    // Activamos input para subir archivo
+                    fileInputWallet.classList.remove('hidden')
                 }
             })
 
@@ -324,21 +323,21 @@ export default function init() {
                 amountCommend.setAttribute("disabled", true)
             }
 
-            amountCommend.addEventListener('blur', async() => {
+            amountCommend.addEventListener('blur', async () => {
                 await step0()
                 step1Encomienda()
             })
-            countryCommend.addEventListener('change', async() => {
-                await step0()
-                step1Encomienda()
-            })
-
-            providerCommend.addEventListener('change', async() => {
+            countryCommend.addEventListener('change', async () => {
                 await step0()
                 step1Encomienda()
             })
 
-            sendFormCommend.addEventListener('change', async() => {
+            providerCommend.addEventListener('change', async () => {
+                await step0()
+                step1Encomienda()
+            })
+
+            sendFormCommend.addEventListener('change', async () => {
                 await step0()
                 step1Encomienda()
             })
@@ -472,7 +471,7 @@ export default function init() {
             })
 
             // docuemntos menos firma
-            file.addEventListener('change', async(e) => {
+            file.addEventListener('change', async (e) => {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
@@ -503,21 +502,18 @@ export default function init() {
             })
 
             // toggle de tipos de documentos
-            typeDocCommend.addEventListener('change', async() => {
+            typeDocCommend.addEventListener('change', async () => {
                 /* 
                     ci: 1
                     firma: 2
                     huellas: 3
                 */
 
-                if (typeDocCommend.options[typeDocCommend.selectedIndex].value === '1' || typeDocCommend.options[typeDocCommend.selectedIndex].value === '2') {
-                    // Activamos input para subir archivo
-                    fileInputCommend.classList.remove('hidden')
-                } else {
+                if (typeDocCommend.options[typeDocCommend.selectedIndex].value === '3') {
                     // abrir modal para hacer firma
                     modal.openModal('modalFirma')
 
-                    btnModalFirma.addEventListener('click', async() => {
+                    btnModalFirma.addEventListener('click', async () => {
                         const encoded = document.getElementById('draw-image').getAttribute('src')
 
                         const payload = {
@@ -528,7 +524,7 @@ export default function init() {
 
                         // Quitando spinner
                         modal.closeModal('modalFirma')
-                            // Cargando spinner
+                        // Cargando spinner
                         modal.openModal('loader', undefined, undefined, false)
 
                         const res = await servicioFirma(payload)
@@ -544,6 +540,9 @@ export default function init() {
                             modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
                         }
                     })
+                } else {
+                    // Activamos input para subir archivo
+                    fileInputCommend.classList.remove('hidden')
                 }
             })
 
@@ -573,7 +572,7 @@ export default function init() {
                 }
             })
 
-            btnSubmitCommend.addEventListener('click', async(e) => {
+            btnSubmitCommend.addEventListener('click', async (e) => {
                 e.preventDefault()
 
                 // Cargando spinner
@@ -596,7 +595,7 @@ export default function init() {
 
                     document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
                         e.preventDefault()
-                            // let valueSelected = paidFormCommend.options[paidFormCommend.selectedIndex].value;
+                        // let valueSelected = paidFormCommend.options[paidFormCommend.selectedIndex].value;
 
                         // Quitando Otp
                         modal.closeModal('otpVerification')
@@ -647,11 +646,11 @@ export default function init() {
             //Idlead <- falta por indicar, esta hardcode
             //idcountry
             const countryTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="countryTransfer"]`)
-                //idcurrency
+            //idcurrency
             const currencyTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="currencyTransfer"]`)
-                //amount
+            //amount
             const amountTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="amountTransfer"]`)
-                //idclearencetype
+            //idclearencetype
             const paidFormTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="paidFormTransfer"]`)
             const exchangedRateTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="exchangedRateTransfer"]`)
             const amountBsTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="amountBsTransfer"]`)
@@ -760,16 +759,16 @@ export default function init() {
                 let valueSelected = paidFormTransfer.options[paidFormTransfer.selectedIndex].value;
                 const accountDeposit = document.getElementById(`accountDeposit`)
                 const cash = document.getElementById(`cash`)
-                    /*
-                    1 = Efectivo 
-                    2 = Billetera
-                    3 = Depósito en Cuenta
-                    4 = Pago Movil 
-                    5 = Tarjeta de Credito 
-                    6 = ACH 
-                    7 = Tarjeta Prepagada 
-                    8 = Tarjeta de Debito en Divisa 
-                    */
+                /*
+                1 = Efectivo 
+                2 = Billetera
+                3 = Depósito en Cuenta
+                4 = Pago Movil 
+                5 = Tarjeta de Credito 
+                6 = ACH 
+                7 = Tarjeta Prepagada 
+                8 = Tarjeta de Debito en Divisa 
+                */
 
                 beneficiarioTransfer.classList.remove('hidden')
 
@@ -814,7 +813,7 @@ export default function init() {
 
                     // ocultamos los campos nuevamente
                     userInfo.classList.add('hidden')
-                        // Mostramos el ping button
+                    // Mostramos el ping button
                     btnSubmitTransfer.classList.remove('hidden')
                 }
             })

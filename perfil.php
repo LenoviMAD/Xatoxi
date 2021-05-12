@@ -27,9 +27,23 @@ xpresentationLayer::startSectionTwoColumns("grid-2 pb15");
 $data_json = $serviceCall->mgetiddocumenttypel();
 xpresentationLayer::buildSectionDocument("T. Doc.", "Documento", "Fec. Nacimiento", "typeDocument", "document", "birthdate", "typeDocument", "document", "birthdate", $data_json, "grid-item-2");
 
+xpresentationLayer::startSectionTwoColumns("grid-3 grid-item-2", "");
+xpresentationLayer::buildInputTextGrid("Lugar Emi. Doc", "", "didemissionplace", "", "", "", "", "", "", "");
+?>
+<div class="input-field1">
+    <label class="font-Bold">Fec. Emi. Doc.</label>
+    <input type="date" name="didemissiondate">
+</div>
+<div class="input-field1">
+    <label class="font-Bold margin-label">Fec. Exp. Doc</label>
+    <input type="date" name="didexpirationdate">
+</div>
+<?php
+xpresentationLayer::endSection();
+
 xpresentationLayer::buildInputTextGrid("P. Nombre", "firstName", "firstName", "", "", "", "", "", "", "", true);
 xpresentationLayer::buildInputTextGrid("S. Nombre", "secondName", "secondName", "", "", "");
-xpresentationLayer::buildInputTextGrid("P. Apellido", "firstSurname", "firstSurname", "", "", "","", "","", "", true);
+xpresentationLayer::buildInputTextGrid("P. Apellido", "firstSurname", "firstSurname", "", "", "", "", "", "", "", true);
 xpresentationLayer::buildInputTextGrid("S. Apellido", "secondSurname", "secondSurname", "", "", "");
 
 $data_json = $serviceCall->mgetallcountrydetaill();
@@ -48,6 +62,17 @@ $data_json = $serviceCall->mgetbankl("238");
 xpresentationLayer::buildSelectJson("Banco pago móvil", "bancoPagoMovil", "bancoPagoMovil", $data_json, "", "",  "", "");
 
 xpresentationLayer::buildInputTextGrid("Número del móvil", "telMovil", "telMovil", "", 20, "", "", "", "");
+
+// Nuevos campos 
+$data_json = $serviceCall->mgetgenderl();
+xpresentationLayer::buildSelectJson("Genero", "idgender", "", $data_json);
+
+$data_json = $serviceCall->mgetallcountrydetaill();
+xpresentationLayer::buildSelectJson("Nacionalidad", "idcountrynationality", "", $data_json);
+$data_json = $serviceCall->mgetallcountrydetaill();
+xpresentationLayer::buildSelectJson("Pais de Nacimiento", "idcountrybirth", "", $data_json);
+$data_json = $serviceCall->mgetcivilstatel();
+xpresentationLayer::buildSelectJson("Estado Civil", "idcivilstate", "", $data_json);
 
 // xpresentationLayer::buildInputNumberGrid("Tarjeta de crédito Prepagada", "", "prepaidcardnumber", "");
 // xpresentationLayer::buildInputNumberGrid("Tarjeta de débito Prepagada", "", "debitcardnumber", "");

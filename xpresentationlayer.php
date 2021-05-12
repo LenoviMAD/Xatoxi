@@ -564,6 +564,8 @@ class xpresentationLayer
                 echo '<OPTION value="' . $value->code . '">' . $value->name . ' </OPTION>';
             } else if ($value->code) {
                 echo '<OPTION value="' . $value->code . '">' . $value->code . ' </OPTION>';
+            } else if ($value->id && $value->name) {
+                echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
             } else {
                 if ($name != "currency" && $name != "currencyTransfer" && $name != "currencyWallet" && $name != "currencyCommend") {
                     echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
@@ -710,7 +712,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-    static function buildMenuOptionGrid($nameImg, $titleOption, $modal, $url)
+    static function buildMenuOptionGrid($nameImg, $titleOption, $modal, $url, $customClass = "")
     {
         $opnModal = "";
 
@@ -718,7 +720,7 @@ class xpresentationLayer
             $opnModal = "openModal";
         }
 
-        echo '<ARTICLE class="card card-a grid-item ' . $opnModal . '" data-url="' . $url . '">';
+        echo '<ARTICLE class="' . $customClass . ' card card-a grid-item ' . $opnModal . '" data-url="' . $url . '">';
         echo '    <ASIDE class="card__aside">';
         echo '        <FIGURE>';
         echo '            <IMG class="imgMenu" src="img/' . $nameImg . '">';
@@ -762,14 +764,14 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 14:00
     ===================================================================== */
-    static function startAsideOneColumn($class= "")
+    static function startAsideOneColumn($class = "")
     {
         if ($class != "") {
             $class = 'class="' . $class . '"';
-        }else {
+        } else {
             $class = 'class="grid-1"';
         }
-        echo '<ASIDE '.$class.'>';
+        echo '<ASIDE ' . $class . '>';
     } //startSectionTwoColumns
 
     /*=======================================================================

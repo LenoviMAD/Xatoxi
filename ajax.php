@@ -543,7 +543,17 @@ if (isset($_POST["cond"])) {
         $prepaidcardnumber = $_POST["prepaidcardnumber"];
         $debitcardnumber = $_POST["debitcardnumber"];
 
-        $data_json = $client->mleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber);
+        $idgender = $_POST["idgender"];
+        $idcivilstate = $_POST["idcivilstate"];
+        $idcountrybirth = $_POST["idcountrybirth"];
+        $idcountrynationality = $_POST["idcountrynationality"];
+        $didemissionplace = $_POST["didemissionplace"];
+        $didemissiondate = $_POST["didemissiondate"];
+        $didexpirationdate = $_POST["didexpirationdate"];
+
+        // print_r(json_encode($_POST));
+
+        $data_json = $client->mleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber, $idgender, $idcivilstate, $idcountrybirth, $idcountrynationality, $didemissionplace, $didemissiondate, $didexpirationdate);
 
         if ($data_json->code === "0000") {
             $_SESSION['idparty'] = $data_json->idparty;
@@ -567,6 +577,14 @@ if (isset($_POST["cond"])) {
 
         // print_r($_POST);
         $data_json = $client->mgetpartyexists($_SESSION['idlead'], $documentid);
+        print_r(json_encode($data_json));
+    }
+    if ($_POST["cond"] == "mrequestdebitcard") {
+        $idlead = $_SESSION['idlead'];
+        $otp = $_POST['otp'];
+
+        $data_json = $client->mrequestdebitcard($idlead,$otp);
+
         print_r(json_encode($data_json));
     }
 

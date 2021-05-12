@@ -11,7 +11,34 @@ export default function init() {
         const registerForm = document.getElementById("registerForm");
 
         if (registerForm) {
-            registerForm.addEventListener("submit", async(e) => {
+            const country = document.querySelector(`#${registerForm.getAttribute('id')} [name="country"]`)
+            const codeArea = document.querySelector(`#${registerForm.getAttribute('id')} [name="codeArea"]`)
+
+            // country.childNodes.forEach(element => {
+            //     console.log(element.value)
+            //     if (element.value === "238") {
+            //         element.setAttribute("selected", true)
+            //         changeCodeArea()
+            //     }
+            // });
+
+            // country.addEventListener('change', () => {
+            //     changeCodeArea()
+            // })
+            // async function changeCodeArea() {
+            //     let output = "<option disabled selected>Seleccione</option>';";
+
+            //     const data = await fetch(`ajax.php?cond=getcountrystatel&valor0=${country.options[country.selectedIndex].value}`, { method: "GET" });
+            //     const res = await data.json();
+            //     console.log(res)
+
+            //     res.list.forEach(element => {
+            //         output += `<option value="${element.id}">${element.name}</option>`;
+            //     });
+            //     codeArea.innerHTML = output;
+            // }
+
+            registerForm.addEventListener("submit", async (e) => {
                 e.preventDefault();
 
                 // Cargando loader
@@ -64,7 +91,7 @@ export default function init() {
                         messageModal.innerHTML = `
 						Te hemos enviado el código al email <br><b>${document.getElementById('email').value}</b>
 						`
-                            // agregando al modal
+                        // agregando al modal
                         document.querySelector('#pinVerification footer').prepend(messageModal)
 
                         const btnPin = document.querySelector(
@@ -72,7 +99,7 @@ export default function init() {
                         );
                         let inputPin = document.querySelector("#pinVerification #pinCode");
 
-                        btnPin.addEventListener("click", async() => {
+                        btnPin.addEventListener("click", async () => {
                             // Cargando loader
                             modal.openModal('loader', undefined, undefined, false)
 

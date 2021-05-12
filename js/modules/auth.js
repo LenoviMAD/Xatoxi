@@ -11,8 +11,8 @@ export default function init() {
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
-            // inputPin.value = "7951"
-            // inputTag.value = "cc56c60c44b115d80171f569aa80c002"
+            inputPin.value = "7294"
+            inputTag.value = "ebf6a095fc668e7483cd5a9b037f0123"
 
             btnPin.addEventListener('click', async e => {
                 e.preventDefault()
@@ -26,9 +26,9 @@ export default function init() {
                 formData.append("tag", inputTag.value);
                 const data = await fetch("ajax.php", { method: 'POST', body: formData });
                 const res = await data.json();
+                
                 modal.closeModal('loader')
 
-                // console.log(res);
                 if (res.code === "0000") {
 
                     // is party (getParty)
@@ -46,9 +46,7 @@ export default function init() {
                     // formDataIsParty.append("idParty", res.idParty);
                     // const dataIsParty = await fetch("ajax.php", { method: 'POST', body: formDataIsParty });
                     // const resIsParty = await dataIsParty.json();
-                    // console.log(resIsParty);
 
-                    // console.log(resIsParty);
                     // No es cliente lead to party (redireccionamos a perfil)
                     if (resIsParty.code === "0000") {
                         let url = ""
