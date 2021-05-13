@@ -11,9 +11,32 @@ export default function init() {
         const registerForm = document.getElementById("registerForm");
 
         if (registerForm) {
+            const btnRegister = document.getElementById('btnRegister')
             const country = document.querySelector(`#${registerForm.getAttribute('id')} [name="country"]`)
             const codeArea = document.querySelector(`#${registerForm.getAttribute('id')} [name="codeArea"]`)
+            const confirmEmail = document.querySelector(`#${registerForm.getAttribute('id')} [name="confirmEmail"]`)
+            const email = document.querySelector(`#${registerForm.getAttribute('id')} [name="email"]`)
+            const textDanger = document.querySelector(`.helper-text`)
 
+            confirmEmail.addEventListener('blur', () => {
+                isEmailsEquals()
+            })
+            function isEmailsEquals() {
+                if (email.value !== confirmEmail.value) {
+                    console.log('hay peitos')
+                    confirmEmail.style.borderColor = "red"
+                    textDanger.classList.remove('hidden')
+                    btnRegister.setAttribute("disabled", true)
+                    btnRegister.classList.add("disabled")
+                    return
+                } else {
+                    console.log('todo bien papu')
+                    textDanger.classList.add('hidden')
+                    confirmEmail.style.borderColor = "initial"
+                    btnRegister.removeAttribute("disabled")
+                    btnRegister.classList.remove("disabled")
+                }
+            }
             // country.childNodes.forEach(element => {
             //     console.log(element.value)
             //     if (element.value === "238") {
@@ -40,6 +63,8 @@ export default function init() {
 
             registerForm.addEventListener("submit", async (e) => {
                 e.preventDefault();
+
+                test()
 
                 // Cargando loader
                 modal.openModal('loader', undefined, undefined, false)

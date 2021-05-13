@@ -720,7 +720,7 @@ class xpresentationLayer
             $opnModal = "openModal";
         }
 
-        echo '<ARTICLE class="' . $customClass . ' card card-a grid-item ' . $opnModal . '" data-url="' . $url . '">';
+        echo '<ARTICLE class="' . $customClass . ' card card-b grid-item ' . $opnModal . '" data-url="' . $url . '">';
         echo '    <ASIDE class="card__aside">';
         echo '        <FIGURE>';
         echo '            <IMG class="card-img" src="img/' . $nameImg . '">';

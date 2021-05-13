@@ -10,6 +10,9 @@
 .font-green {
     color: green;
 }
+.color-danger {
+    color: red;
+}
 
 .btn-semi-rounded {
     border-radius: 25px;

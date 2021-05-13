@@ -22,8 +22,7 @@ xpresentationLayer::buildMenuOptionGrid("venta.png", "VENTA", true, "venta.php")
 xpresentationLayer::buildMenuOptionGrid("compra.png", "COMPRA", true, "compra.php");
 xpresentationLayer::buildMenuOptionGrid("cambio.png", "CAMBIO", true, "cambio.php");
 xpresentationLayer::buildMenuOptionGrid("images.png", "PERFIL", true, "perfil.php");
-xpresentationLayer::buildMenuOptionGrid("images.png", "SOLICITUD TARJETA DÉBITO", true, "debitCardRequest.php", "grid-item-2");
-//xpresentationLayer::buildMenuOptionComplete("images.png","PERFIL", true);  
+xpresentationLayer::buildMenuOptionGrid("credit_card_hand2.png", "SOLICITUD TARJETA DÉBITO <br> (PARA RECIBIR REMESAS)", true, "debitCardRequest.php", "grid-item-2");
 xpresentationLayer::endSection();
 
 xpresentationLayer::endMain();
