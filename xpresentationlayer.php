@@ -38,6 +38,7 @@ class xpresentationLayer
     {
         echo '</HTML>';
         echo  ' <SCRIPT src="js/jquery.min.js"></SCRIPT>';
+        echo  ' <script type="text/javascript" src="js/libs/DataTables/datatables.min.js"></script>';
         echo  ' <SCRIPT src="js/select2.full.min.js"></SCRIPT>';
         echo  ' <SCRIPT src="js/main.js" language="javascript" type="text/javascript"></SCRIPT>';
         echo  ' <SCRIPT src="js/main2.js" type="module"></SCRIPT>';
@@ -99,7 +100,11 @@ class xpresentationLayer
         echo  ' <LINK rel="stylesheet" type="text/css" href="css/inputs.css"> ';
         echo  ' <LINK rel="stylesheet" type="text/css" href="css/titles.css"> ';
         echo  ' <LINK rel="stylesheet" type="text/css" href="css/canvas.css"> ';
+        echo  ' <LINK rel="stylesheet" type="text/css" href="css/dropdowns.css"> ';
         echo  ' <LINK rel="stylesheet" type="text/css" href="css/helpers.css"> ';
+
+        echo  ' <LINK rel="stylesheet" type="text/css" href="css/tables.css"> ';
+        echo  ' <LINK rel="stylesheet" type="text/css" href="js/libs/DataTables/datatables.min.css"> ';
 
         echo  ' </HEAD> ';
         echo  ' <DIV class="phone-big">';
@@ -122,6 +127,16 @@ class xpresentationLayer
             echo '    <IMG class="logo" src="img/home.png">';
             echo '    </A>';
             echo '    <IMG class="logo" src="img/logo.png">';
+            echo '<div class="dropdown">';
+                echo '<button id="btnDropdown" class="dropbtn">';
+                    echo 'En';
+                    echo '<div id="flechaAbajo"></div>';
+                echo '</button>';
+                echo '<div id="dropdownLanguages" class="dropdown-content">';
+                    echo '<button data-lang="es">Es</button>';
+                    echo '<button data-lang="en">En</button>';
+                echo '</div>';
+            echo '</div>';
             echo '</DIV>';
             echo '</HEADER>';
         } else {
@@ -130,6 +145,16 @@ class xpresentationLayer
             echo '    <A href="index.php" style="width: 25%;">';
             echo '  	<IMG class="logo" src="img/logo.png">';
             echo '    </A>';
+            echo '<div class="dropdown">';
+                echo '<button id="btnDropdown" class="dropbtn">';
+                    echo 'En';
+                    echo '<div id="flechaAbajo"></div>';
+                echo '</button>';
+                echo '<div id="dropdownLanguages" class="dropdown-content">';
+                    echo '<button data-lang="es">Es</button>';
+                    echo '<button data-lang="en">En</button>';
+                echo '</div>';
+            echo '</div>';
             echo '  </DIV>';
             echo '</HEADER>';
         }
@@ -151,6 +176,16 @@ class xpresentationLayer
         echo '    </A>';
         echo '    <IMG class="logo" src="img/logo.png">';
         echo '</DIV>';
+        echo '<div class="dropdown">';
+            echo '<button id="btnDropdown" class="dropbtn">';
+                echo 'En';
+                echo '<div id="flechaAbajo"></div>';
+            echo '</button>';
+            echo '<div id="dropdownLanguages" class="dropdown-content">';
+                echo '<button data-lang="es">Es</button>';
+                echo '<button data-lang="en">En</button>';
+            echo '</div>';
+        echo '</div>';
         echo '</HEADER>';
     } // buildHeaderXatoxi
 
@@ -198,8 +233,19 @@ class xpresentationLayer
         echo '    <A href="index.php" style="width: 25%;">';
         echo '  	<IMG class="logo" src="img/logo.png">';
         echo '    </A>';
+        echo '<div class="dropdown">';
+            echo '<button id="btnDropdown" class="dropbtn">';
+                echo 'En';
+                echo '<div id="flechaAbajo"></div>';
+            echo '</button>';
+            echo '<div id="dropdownLanguages" class="dropdown-content">';
+                echo '<button data-lang="es">Es</button>';
+                echo '<button data-lang="en">En</button>';
+            echo '</div>';
+        echo '</div>';
         echo '  </DIV>';
         echo '</HEADER>';
+
     } // buildHeaderPrincipalXatoxitest
 
     /*=======================================================================
@@ -269,7 +315,7 @@ class xpresentationLayer
     ===================================================================== */
     static function buildOptionGrid($title, $data_id = "")
     {
-        echo '    <BUTTON class="card card-a" data-id="' . $data_id . '" >';
+        echo '    <BUTTON class="card card-b" data-id="' . $data_id . '" >';
         echo $title;
         echo '    </BUTTON>';
     } //buildOptionGrid
@@ -712,7 +758,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-    static function buildMenuOptionGrid($nameImg, $titleOption, $modal, $url, $customClass = "")
+    static function buildMenuOptionGrid($nameImg, $titleOption, $modal, $url, $customClass = "", $dataString = "")
     {
         $opnModal = "";
 
@@ -720,14 +766,15 @@ class xpresentationLayer
             $opnModal = "openModal";
         }
 
-        echo '<ARTICLE class="' . $customClass . ' card card-b grid-item ' . $opnModal . '" data-url="' . $url . '">';
+
+        echo '<ARTICLE class="' . $customClass . ' card card-a grid-item ' . $opnModal . '" data-url="' . $url . '">';
         echo '    <ASIDE class="card__aside">';
         echo '        <FIGURE>';
         echo '            <IMG class="card-img" src="img/' . $nameImg . '">';
         echo '        </FIGURE>';
         echo '    </ASIDE>';
         echo '    <HEADER class="card__header">';
-        echo '         <H3 class="card__title">' . $titleOption . '</H3>';
+        echo '         <H3 class="card__title js-translate" data-string="'.$dataString.'">' . $titleOption . '</H3>';
         echo '    </HEADER>';
         echo '</ARTICLE>';
     } //buildMenuOptionGrid

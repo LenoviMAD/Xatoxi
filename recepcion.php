@@ -48,12 +48,12 @@ xpresentationLayer::endDiv();
 
 // Tarjeta de Prepaga en Divisa
 xpresentationLayer::startDivHidden("prepaidCardSection", "grid-item-2");
-xpresentationLayer::buildInputNumberGrid("Número de Tarjeta", "prepaidcard", "prepaidcard", "", 20, "grid-item-2 ", "", "", false);
+xpresentationLayer::buildInputNumberGrid("Número de Tarjeta", "prepaidcard", "prepaidcard", "", 20, "grid-item-2 ", "", "", false, $_SESSION['prepaidcardnumber']);
 xpresentationLayer::endDiv();
 
 // Tarjeta de Debito en Divisa
 xpresentationLayer::startDivHidden("debitcardNumberSection", "grid-item-2");
-xpresentationLayer::buildInputNumberGrid("Número de Tarjeta ", "debitcardnumber", "debitcardnumber", "", "", "grid-item-2 ", 20, "", false);
+xpresentationLayer::buildInputNumberGrid("Número de Tarjeta ", "debitcardnumber", "debitcardnumber", "", "", "grid-item-2 ", 20, "", false, $_SESSION['debitcardnumber']);
 xpresentationLayer::endDiv();
 xpresentationLayer::endSection();
 xpresentationLayer::buildSectionPin("recepcion", "mt20");

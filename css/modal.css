@@ -5,7 +5,7 @@
 
 :root {
     --lightgray: #efefef;
-    --blue: steelblue;
+    --primary: steelblue;
     --white: #fff;
     --black: rgba(0, 0, 0, 0.3);
     --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
@@ -21,7 +21,7 @@
 
 .open-modal {
     font-weight: bold;
-    background: var(--blue);
+    background: var(--primary);
     color: var(--white);
     padding: 0.75rem 1.75rem;
     margin-bottom: 1rem;
@@ -46,8 +46,8 @@
     transition: all 0.35s ease-in;
 }
 
-.modal-body {
-    padding: 20px 30px;
+.modal-body img {
+    max-width: 200px;
 }
 
 .modal-content {
@@ -360,6 +360,6 @@
     max-width: 100%;
 }
 
-figure {
-    margin: 0;
+#loader .modal-content {
+    padding: 15px;
 }

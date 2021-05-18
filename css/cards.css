@@ -10,6 +10,7 @@
     align-items: center;
     padding: 5px;
     cursor: pointer;
+    border-radius: 15px;
     transition: transform 0.2s ease-out;
 }
 .card.card-b {
@@ -35,9 +36,13 @@
 .card.card-a .card__title {
     font-size: 1em;
     text-align: center;
+    color: var(--primary);
 }
 .card-img {
     height: 50px;
+}
+.card__title {
+    margin: 0;
 }
 
 @media (max-height: 678px) {

@@ -86,3 +86,18 @@
     color: #9f9f9f !important;
     cursor: default;
 }
+
+.btn-custom {
+    padding: 0;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+.btn-custom img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -47,7 +47,7 @@ xpresentationLayer::endDiv();
 // TARJETA DE DEBITO
 xpresentationLayer::startDivHidden("sectionVentaDebitCard", "grid-item-2 grid-1 mb15");
 xpresentationLayer::buildTitleBar("DATOS DEL DEBITO");
-xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "debitcardnumber");
+xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "debitcardnumber", "","","",35,"","",$_SESSION['debitcardnumber'] );
 xpresentationLayer::endSection();
 
 xpresentationLayer::endSection();

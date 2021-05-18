@@ -1,0 +1,42 @@
+import {toCapitalize} from './helpers.js';
+
+export default function init() {
+    $(document).ready(function () {
+        // userLang = window.navigator.language.split('-')[0]
+
+        let defaultLang = 'en';
+        let tempLang = ''
+        changeLanguage(defaultLang)
+        
+        let btnDropdown = document.getElementById('btnDropdown')
+        let dropdownLanguages = document.getElementById('dropdownLanguages')
+
+        dropdownLanguages.childNodes.forEach(item => {
+            item.addEventListener('click', () => {
+                if(tempLang !== item.dataset.lang) {
+                    tempLang = item.dataset.lang
+                    btnDropdown.innerHTML = `${toCapitalize(item.dataset.lang)} <div id="flechaAbajo"></div>`
+                    changeLanguage(item.dataset.lang)
+                    console.log('son iguales marico')
+                }else{
+                    console.log('son iguales marica')
+                }
+            })
+        })
+        
+        function changeLanguage(userLang) {
+            let translations = `./translations/intl_${userLang}.json`;
+            
+            $.getJSON(translations)
+                .done(function (data) {
+                    $('.js-translate').each(function () {
+                        const string = $(this).attr('data-string');
+                        
+                        if (string) {
+                            $(this).text(data[string]);
+                        }
+                    });
+                });
+        }
+    });
+}

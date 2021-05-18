@@ -489,9 +489,6 @@ if (isset($_POST["cond"])) {
             $_SESSION['bacc'] = $data_json->bacc;
             $_SESSION['bdate'] = $data_json->bdate;
 
-            $_SESSION['debitcardnumber'] = $data_json->debitcardnumber;
-            $_SESSION['prepaidcardnumber'] = $data_json->prepaidcardnumber;
-
             $_SESSION['idcountry'] = $data_json->idcountry;
             $_SESSION['idcity'] = $data_json->idcity;
             $_SESSION['idstate'] = $data_json->idstate;
@@ -510,6 +507,11 @@ if (isset($_POST["cond"])) {
         // Guardar variables de sesion primera parte
         if ($data_json->code === "0000") {
             $_SESSION['idlocation'] = $data_json->idlocation;
+            
+            // $_SESSION['debitcardnumber'] = $data_json->debitcardnumber;
+            // $_SESSION['prepaidcardnumber'] = $data_json->prepaidcardnumber;
+            $_SESSION['debitcardnumber'] = "01021111111111111111";
+            $_SESSION['prepaidcardnumber'] = "010222222222222222";
         }
 
         print_r(json_encode($data_json));

@@ -11,6 +11,8 @@ import canvas from './modules/canvas.js'
 import debitCardRequest from './modules/debitCardRequest.js'
 import Modal from './modules/Modal.js';
 import Timer from './timer.js';
+import Translations from './Translations.js';
+import Dropdown from './Dropdown.js';
 // console.log(location);
 
 // Modules init
@@ -24,8 +26,17 @@ auth()
 perfil()
 canvas()
 debitCardRequest()
+Translations()
+Dropdown()
+
+  
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+    
     const modal = new Modal()
     modal.initModal()
     const timer = new Timer()
@@ -185,6 +196,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         })
     }
+    
+    document.getElementById("btnDropdown").addEventListener('click', () => {
+        document.getElementById("dropdownLanguages").classList.toggle("show");
+    })
 
     var inactivityTime = function () {
         var time;
@@ -212,9 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault()
                 resetTimer()
             })
-
-
-
             //location.href = 'logout.html'
         }
 

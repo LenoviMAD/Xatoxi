@@ -35,7 +35,7 @@ xpresentationLayer::buildInputTextGrid("Monto a Pagar Bs.", "", "amountBs", "0.0
 
 xpresentationLayer::startDivHidden("sectionCard", "grid-item-2 grid-1 mb15");
 xpresentationLayer::buildTitleBar("DATOS DEL ABONO");
-xpresentationLayer::buildInputTextGrid("Número de tarjeta", "numberCardDebit", "numberCardDebit", "", "18", "", "", "", "input-text-large");
+xpresentationLayer::buildInputTextGrid("Número de tarjeta", "numberCardDebit", "numberCardDebit", "", "18", "", "", "", "input-text-large", "","","",$_SESSION['debitcardnumber']);
 xpresentationLayer::endDiv();
 
 //Transferencia y tarjeta de credito 

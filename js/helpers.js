@@ -5,6 +5,10 @@ export function numberFormater(num) {
     // return num
 }
 
+export function toCapitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export function number_format_js(number, decimals, dec_point, thousands_point) {
 
     if (number == null || !isFinite(number)) {

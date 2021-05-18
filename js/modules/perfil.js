@@ -37,8 +37,8 @@ export default function init() {
             const didexpirationdate = document.querySelector(`#${profileForm.getAttribute('id')} [name="didexpirationdate"]`)
             const didemissionplace = document.querySelector(`#${profileForm.getAttribute('id')} [name="didemissionplace"]`)
             const didemissiondate = document.querySelector(`#${profileForm.getAttribute('id')} [name="didemissiondate"]`)
-            // const prepaidcardnumber = document.querySelector(`#${profileForm.getAttribute('id')} [name="prepaidcardnumber"]`)
-            // const debitcardnumber = document.querySelector(`#${profileForm.getAttribute('id')} [name="debitcardnumber"]`)
+            const prepaidcardnumber = document.querySelector(`#${profileForm.getAttribute('id')} [name="prepaidcardnumber"]`)
+            const debitcardnumber = document.querySelector(`#${profileForm.getAttribute('id')} [name="debitcardnumber"]`)
 
             // Funcion solamente para llenar campos del perfil 
             async function test(resIsParty) {
@@ -113,6 +113,9 @@ export default function init() {
                     didemissiondate.value = resIsParty.didemissiondate.split(" ")[0].split("/").reverse().join("-");
                     didemissionplace.value = resIsParty.didemissionplace
                     didexpirationdate.value = resIsParty.didexpirationdate.split(" ")[0].split("/").reverse().join("-")
+
+                    prepaidcardnumber.value = resIsParty.prepaidcardnumber
+                    debitcardnumber.value = resIsParty.debitcardnumber
                 }
                 // prepaidcardnumber.value = res.prepaidcardnumber
                 // debitcardnumber.value = res.debitcardnumber

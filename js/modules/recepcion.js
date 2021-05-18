@@ -18,6 +18,7 @@ export default function init() {
             const countrycode = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="countrycode"]`)
             const phone = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="phone"]`)
             const bankAccount = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="bankAccount"]`)
+            const TITLE_SECTION = "Recepción"
 
             const init = async() => {
                 // Fetch session currectly

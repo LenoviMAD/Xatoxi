@@ -1,0 +1,78 @@
+.dropbtn {
+    background-color: transparent;
+    border: 2px solid rgba(208,214,227,1);
+    color: white;
+    border-radius: 15px;
+    padding: 10px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all .3s ease;
+}
+
+.dropbtn:hover,
+.dropbtn:focus {
+    border-radius: 2px;
+}
+
+.dropdown {
+    display: inline-block;
+    transition: all .3s ease;
+
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dropdown-content {
+    transition: opacity .3s ease-out;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+
+    /*  */
+    box-shadow: 0 0px 20px 5px rgb(9 31 67 / 10%);
+    background: white;
+    border-radius: 10px;
+    top: 120%;
+    /* display: none; */
+    position: absolute;
+    min-width: 160px;
+    overflow: auto;
+    z-index: 1;
+}
+.show {
+    padding: 10px 0;
+    opacity: 1;
+    height: auto;
+}
+
+
+#flechaAbajo {
+    margin-left: 12px;
+    width:0px;
+    height:0px;
+    border-style: solid;
+    border-width: 5px;
+    border-bottom-width:0px;
+    border-color: white transparent transparent transparent;
+}
+
+.dropdown-content button {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-content button:hover {
+    background-color: #ddd;
+}
+
