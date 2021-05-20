@@ -46,12 +46,15 @@ export default function init() {
             // Resumen de operacion
             async function step1Wallet() {
                 // Cuando ambos campos esten llenos seguiente etapa
-                if (amountWallet.value && (currencyWallet.options[currencyWallet.selectedIndex].value !== "Seleccione") && (paidFormWallet.options[paidFormWallet.selectedIndex].value !== "Seleccione")) {
+                if (amountWallet.value 
+                    && (currencyWallet.options[currencyWallet.selectedIndex].value !== "Seleccione") 
+                    && (paidFormWallet.options[paidFormWallet.selectedIndex].value !== "Seleccione")) {
                     // Todo: validar campos
                     let formData = new FormData()
                     formData.append("cond", "calcsendw")
                     formData.append("amountWallet", amountWallet.value)
                     formData.append("currencyWallet", currencyWallet.options[currencyWallet.selectedIndex].value)
+                    formData.append("idclearencetype", paidFormWallet.options[paidFormWallet.selectedIndex].value)
 
                     // Cargando spinner
                     modal.openModal('loader', undefined, undefined, false)
@@ -90,7 +93,7 @@ export default function init() {
                     } else if (res.code === "5000") {
                         modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
-                        modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                       modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     }
                 }
             }
@@ -131,7 +134,7 @@ export default function init() {
                 } else if (resOtp.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 } else {
-                    modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                   modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 }
             })
 
@@ -201,7 +204,7 @@ export default function init() {
                 } else if (resUpload.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, resUpload.message)
                 } else {
-                    modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                   modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
 
@@ -240,7 +243,7 @@ export default function init() {
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                           modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
                 } else {
@@ -279,7 +282,7 @@ export default function init() {
                 } else if (res.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                    modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                   modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             }
         }
@@ -341,10 +344,11 @@ export default function init() {
                 await step0()
                 step1Encomienda()
             })
-            currencyCommend.addEventListener('change', () => {
+            paidFormCommend.addEventListener('change', async () => {
+                await step0()
                 step1Encomienda()
             })
-            paidFormCommend.addEventListener('change', () => {
+            currencyCommend.addEventListener('change', () => {
                 step1Encomienda()
             })
 
@@ -353,6 +357,7 @@ export default function init() {
                     amountCommend.value &&
                     (countryCommend.options[countryCommend.selectedIndex].value !== "Seleccione") &&
                     (providerCommend.options[providerCommend.selectedIndex].value !== "Seleccione") &&
+                    (paidFormCommend.options[paidFormCommend.selectedIndex].value !== "Seleccione") &&
                     (sendFormCommend.options[sendFormCommend.selectedIndex].value !== "Seleccione")
                 ) {
                     // Todo: validar campos
@@ -362,13 +367,14 @@ export default function init() {
                     formData.append("amountCommend", amountCommend.value);
                     formData.append("countryCommend", countryCommend.options[countryCommend.selectedIndex].value);
                     formData.append("providerCommend", providerCommend.options[providerCommend.selectedIndex].value);
+                    formData.append("idclearencetype", paidFormCommend.options[paidFormCommend.selectedIndex].value);
 
                     // Cargando spinner
                     modal.openModal('loader', undefined, undefined, false)
 
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
-                    // console.log(res)
+                    console.log(res)
 
                     // Quitando spinner
                     modal.closeModal('loader')
@@ -401,7 +407,7 @@ export default function init() {
                     } else if (res.code === "5000") {
                         modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
-                        modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                       modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     }
                 }
             }
@@ -497,7 +503,7 @@ export default function init() {
                 } else if (resUpload.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, resUpload.message)
                 } else {
-                    modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                   modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
 
@@ -537,7 +543,7 @@ export default function init() {
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                           modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
                 } else {
@@ -624,11 +630,13 @@ export default function init() {
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                           modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
+                } else if (resOtp.code === "5000") {
+                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 }
             })
         }
@@ -638,6 +646,7 @@ export default function init() {
             const btnIconAdd = document.getElementById(`btnIconAdd`)
             const beneficiarioTransfer = document.getElementById(`beneficiarioTransfer`)
             const addContactTransfer = document.getElementById(`addContactTransfer`)
+            const TITLE_SECTION = "Transferencia"
 
             const MovilPay = document.getElementById('MovilPayTransfer')
             const SectionPrepaid = document.getElementById('SectionPrepaidTransfer')
@@ -686,21 +695,31 @@ export default function init() {
             currencyTransfer.addEventListener('change', () => {
                 calculandoEnvioCambioMonto()
             })
+            paidFormTransfer.addEventListener('change', () => {
+                calculandoEnvioCambioMonto()
+            })
 
             async function calculandoEnvioCambioMonto() {
-                if (amountTransfer.value && (countryTransfer.options[countryTransfer.selectedIndex].value !== "Seleccione") && (currencyTransfer.options[currencyTransfer.selectedIndex].value !== "Seleccione")) {
+                if (amountTransfer.value
+                    && (countryTransfer.options[countryTransfer.selectedIndex].value !== "Seleccione")
+                    && (currencyTransfer.options[currencyTransfer.selectedIndex].value !== "Seleccione")
+                    && (paidFormTransfer.options[paidFormTransfer.selectedIndex].value !== "Seleccione")) {
                     // Todo: validar campos
                     let formData = new FormData()
                     formData.append("cond", "calcsendtr");
                     formData.append("amountTransfer", amountTransfer.value);
                     formData.append("countryTransfer", countryTransfer.options[countryTransfer.selectedIndex].value);
                     formData.append("currencyTransfer", currencyTransfer.options[currencyTransfer.selectedIndex].value);
+                    formData.append("idclearencetype", paidFormTransfer.options[paidFormTransfer.selectedIndex].value);
 
                     // Cargando spinner
                     modal.openModal('loader', undefined, undefined, false)
 
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
+
+                    modal.closeModal('loader')
+
                     // LLenamos los campos correspondientes
                     if (res.code === "0000") {
                         amountBsTransfer.value = numberFormater(res.totalves)
@@ -729,6 +748,9 @@ export default function init() {
                         const inner = document.querySelector('#modalTransferencia .modal-body')
                         inner.innerHTML = html
 
+                        // Abrir modal con datos
+                        modal.openModal('modalTransferencia')
+
                         if (resUserSession.amountToChange) {
                             beneficiarioTransfer.classList.remove('hidden')
                         }
@@ -737,7 +759,6 @@ export default function init() {
                     } else {
                         modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     }
-                    modal.closeModal('loader')
                 }
             }
             // -tasa de cambio y monto se llenan cuando (proveedor, pais, monto) sean completados
@@ -787,9 +808,6 @@ export default function init() {
                 } else {
                     closeEverything('transferenciaFormTest')
                 }
-
-                // Abrir modal con datos
-                modal.openModal('modalTransferencia')
             })
 
             // Agregar usuario estatico al select y ocultando los campos nuevamente
@@ -860,25 +878,17 @@ export default function init() {
                         if (res.code === "0000") {
                             modal.openModal('modalSuccess')
                         } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
+                } else if (resOtp.code === "5000") {
+                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 } else {
-                    modal.openModal('modalDanger')
+                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 }
             })
         }
     })
-}
-
-function separateCode(code) {
-    const element = []
-    for (let index = 0; index < code.length; index++) {
-        if (code.charAt(index) != 0 && code.charAt(index) != 7) {
-            element = code.charAt(index);
-        }
-    }
-    return element
 }

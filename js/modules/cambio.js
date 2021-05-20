@@ -1,5 +1,6 @@
 import Modal from './Modal.js';
 import { numberFormater, closeEverythingExceptThese, closeEverything, URI, putRequiered, number_format_js } from '../helpers.js';
+import { changeLanguage } from '../Translations.js'
 import Timer from '../timer.js';
 
 // var valueBalance = number_format_js('254351480',2,',','.');    
@@ -108,13 +109,13 @@ export default function init() {
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
-                } else if (res.code === "5000") {
-                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                } else if (resOtp.code === "5000") {
+                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 }
             })
 
@@ -141,18 +142,19 @@ export default function init() {
                         // Creando elementos para mostrar
                         let html = `
                             <p>
-                                Monto <span> ${numberFormater(amount.value)} </span>
+                                <span class="js-translate" data-string="trad_monto">Monto</span> <span class="result"> ${numberFormater(amount.value)} </span>
                             </p>
                             <p>
-                                ${res.txtcommission} <span> ${numberFormater(res.commission)} </span>
+                                ${res.txtcommission} <span class="result"> ${numberFormater(res.commission)} </span>
                             </p>
                             <p>
-                                Monto Cambiando <span> ${numberFormater(res.exchangeamount)} </span>
+                            <span class="js-translate" data-string="trad_monto_cambiado">Monto Cambiando</span> <span class="result"> ${numberFormater(res.exchangeamount)} </span>
                             </p>
                         `
+
                         const inner = document.querySelector('#operationSummary .modal-body')
                         inner.innerHTML = html
-
+                        changeLanguage('en')
                         // Modificar el boton para que redireccione correctamente
                         // 2 enco
                         // 4 trans
@@ -168,7 +170,7 @@ export default function init() {
                     } else if (res.code === "5000") {
                         modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
-                        modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     }
 
                     // Quitando loader

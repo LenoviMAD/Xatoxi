@@ -7,7 +7,7 @@
             <aside class="modal-body">
                 <div class="loader">Loading...</div>
                 <p>
-                    <b>
+                    <b class="js-translate" data-string="trad_favor_espere">
                         Favor Espere...
                     </b>
                 </p>

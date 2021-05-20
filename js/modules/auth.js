@@ -72,16 +72,16 @@ export default function init() {
                         test.addEventListener('click', e => {
                             location.href = "./perfil.php";
                         })
-                        modal.openModal('modalDanger', 'Datos incompletos', resIsParty.message)
+                        modal.openModal('modalDanger', TITLE_SECTION,  res.messageresIsParty.message)
                     } else {
-                        modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     }
                 } else if (res.code === "6000") {
                     modal.openModal('modalDanger', 'Autenticación', res.message)
                 } else if (res.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
         }

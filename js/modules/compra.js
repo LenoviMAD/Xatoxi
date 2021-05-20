@@ -1,5 +1,6 @@
 import Modal from './Modal.js';
 import { numberFormater } from '../helpers.js';
+import { changeLanguage } from '../Translations.js'
 import Timer from '../timer.js';
 
 // Compra
@@ -23,6 +24,7 @@ export default function init() {
             const sectionCard = document.getElementById(`sectionCard`)
             const amountBs = document.querySelector(`#${compraForm.getAttribute('id')} [name="amountBs"]`)
             const exchangeRate = document.querySelector(`#${compraForm.getAttribute('id')} [name="exchangeRate"]`)
+            const TITLE_SECTION = "Compra"
 
             amount.addEventListener('blur', () => {
                 calComisionCompra()
@@ -30,16 +32,26 @@ export default function init() {
             currency.addEventListener('change', () => {
                 calComisionCompra()
             })
+            payForm.addEventListener('change', () => {
+                calComisionCompra()
+            })
+            payIn.addEventListener('change', () => {
+                calComisionCompra()
+            })
 
             // mostrar modal cuando se modifique monto o divisa, teniendo seleccionado una forma de abono
             async function calComisionCompra() {
-                if (amount.value && (currency.options[currency.selectedIndex].value !== "Seleccione")) {
+                if (amount.value && (currency.options[currency.selectedIndex].value !== "Seleccione")
+                    && (payIn.options[payIn.selectedIndex].value !== "Seleccione")
+                    && (payForm.options[payForm.selectedIndex].value !== "Seleccione")) {
 
                     // Todo: validar campos
                     let formData = new FormData()
                     formData.append("cond", "calcbuy");
                     formData.append("amount", amount.value);
                     formData.append("currency", currency.options[currency.selectedIndex].value);
+                    formData.append("idinstrumentdebit", payIn.options[payIn.selectedIndex].value);
+                    formData.append("idclearancetype", payForm.options[payForm.selectedIndex].value);
 
                     // Cargando spinner
                     modal.openModal('loader')
@@ -47,49 +59,54 @@ export default function init() {
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
 
+                    modal.closeModal('loader')
+
+                    console.log(res)
                     // LLenamos los campos correspondientes
                     if (res.code === "0000") {
 
                         amountBs.value = numberFormater(res.totalves)
                         exchangeRate.value = numberFormater(res.currrate)
-                            // Creando elementos para mostrar
+
+                        // Creando elementos para mostrar
                         let html = `
                             <p>
-                                Monto Compra en Divisas <br> ${numberFormater(res.exchangeamount)}
+                                <span class="js-translate" data-string="trad_monto_compra_en_divisa">Monto Compra en Divisas</span> <span class="result">${numberFormater(res.exchangeamount)} </span>
                             </p>
                             <p>
-                                ${res.txtcurrcommission} <br> ${numberFormater(res.currcommission)}
+                                ${res.txtcurrcommission} <span class="result">${numberFormater(res.currcommission)} </span>
                             </p>
                             <p>
-                                Tasa de Cambio  <br> ${numberFormater(res.currrate)}
+                                <span class="js-translate" data-string="trad_tasa_de_cambio">Tasa de Cambio</span>  <span class="result">${numberFormater(res.currrate)} </span>
                             </p>
                             <p>
-                                ${res.txtvescommission} <br> ${numberFormater(res.vescommission)}
+                                ${res.txtvescommission} <span class="result">${numberFormater(res.vescommission)} </span>
                             </p>
                             <p>
-                                Total Pagar Bs. <br> ${numberFormater(res.totalves)}
+                                <span class="js-translate" data-string="trad_total_pagar_bs">Total Pagar Bs.</span> <span class="result">${numberFormater(res.totalves)} </span>
                             </p>
-                            `
+                        `
 
                         const inner = document.querySelector('#modalCompra .modal-body')
                         inner.innerHTML = html
+                        changeLanguage('en')
+                        // Abrir modal con datos
+                        modal.openModal('modalCompra')
 
                         // Entonces abreme el modal
                         if (payForm.options[payForm.selectedIndex].value !== "Seleccione") {
                             modal.openModal('modalCompra')
                         }
                     } else if (res.code === "5000") {
-                        modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
-                        modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     }
-                    // console.log(res);
-                    modal.closeModal('loader')
                 }
             }
 
             // Toggle para mostrar modal (mas info)
-            payIn.addEventListener('change', async() => {
+            payIn.addEventListener('change', async () => {
                 //<option value="19">ENCOMIENDA(.) </option>
                 //<option value="20">TARJETA DE CREDITO </option>
                 //<option value="21">TARJETA DE DEBITO </option>
@@ -106,7 +123,7 @@ export default function init() {
             })
 
             // Toggle para mostrar modal (mas info)
-            payForm.addEventListener('change', async() => {
+            payForm.addEventListener('change', async () => {
                 //<option value="3">Depósito en Cuenta </option>
                 //<option value="5">Tarjeta de Credito </option>
                 let valueSelected = payForm.options[payForm.selectedIndex].value;
@@ -122,18 +139,14 @@ export default function init() {
                 if (btnSubmitCompra.classList.contains('hidden')) {
                     btnSubmitCompra.classList.remove('hidden')
                 }
-
-                // Abrir modal con datos
-                modal.openModal('modalCompra')
-
             })
 
 
             // fetch final de venta
-            btnSubmitCompra.addEventListener('click', async(e) => {
+            btnSubmitCompra.addEventListener('click', async (e) => {
                 e.preventDefault()
-                    // GEN OTP FETCH
-                    // Cargando spinner
+                // GEN OTP FETCH
+                // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
                 let formData = new FormData()
@@ -172,15 +185,15 @@ export default function init() {
                         if (res.code === "0000") {
                             modal.openModal('modalSuccess')
                         } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
                 } else if (resOtp.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', resOtp.message)
+                    modal.openModal('modalDanger', TITLE_SECTION,  resOtp.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', resOtp.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 }
             })
         }

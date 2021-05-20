@@ -1,6 +1,8 @@
 import Modal from './Modal.js';
 import { numberFormater, closeEverything, closeEverythingExceptThese } from '../helpers.js';
 import Timer from '../timer.js';
+import { changeLanguage } from '../Translations.js'
+
 // Venta
 export default function init() {
     document.addEventListener('DOMContentLoaded', () => {
@@ -26,7 +28,7 @@ export default function init() {
             const codeArea = document.querySelector(`#${ventaForm.getAttribute('id')} [name="codeArea"]`)
             const phone = document.querySelector(`#${ventaForm.getAttribute('id')} [name="phone"]`)
 
-            const init = async() => {
+            const init = async () => {
                 // Fetch session currectly
                 const formData = new FormData();
                 formData.append("cond", "session");
@@ -53,48 +55,44 @@ export default function init() {
 
             amount.addEventListener('blur', () => {
                 calComisionVenta()
-                step2()
                 togglePing()
             })
             currency.addEventListener('change', () => {
                 calComisionVenta()
-                step2()
                 togglePing()
             })
             payForm.addEventListener('change', () => {
-                step2()
+                calComisionVenta()
                 togglePing()
             })
             payIn.addEventListener('change', () => {
-                step2()
+                calComisionVenta()
                 togglePing()
             })
 
-            function step2() {
-                if (amount.value &&
-                    (currency.options[currency.selectedIndex].value !== "Seleccione") &&
-                    (payIn.options[payIn.selectedIndex].value !== "Seleccione") &&
-                    (payForm.options[payForm.selectedIndex].value !== "Seleccione")
-                ) {
-                    modal.openModal('operationSummary')
-                }
-            }
-
             // mostrar modal cuando se modifique monto o divisa, teniendo seleccionado una forma de abono
             async function calComisionVenta() {
-                if (amount.value && (currency.options[currency.selectedIndex].value !== "Seleccione")) {
+                if (amount.value 
+                    && (currency.options[currency.selectedIndex].value !== "Seleccione")
+                    && (payIn.options[payIn.selectedIndex].value !== "Seleccione")
+                    && (payForm.options[payForm.selectedIndex].value !== "Seleccione")
+                    ) {
 
                     // Todo: validar campos
                     let formData = new FormData()
                     formData.append("cond", "calcsell");
                     formData.append("amount", amount.value);
                     formData.append("currency", currency.options[currency.selectedIndex].value);
+                    formData.append("idinstrumentdebit", payIn.options[payIn.selectedIndex].value);
+                    formData.append("idclearencetype", payForm.options[payForm.selectedIndex].value);
 
                     // Cargando spinner
                     modal.openModal('loader', undefined, undefined, false)
 
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
+
+                    console.log(res)
 
                     // LLenamos los campos correspondientes
                     if (res.code === "0000") {
@@ -104,27 +102,30 @@ export default function init() {
                         // Creando elementos para mostrar
                         let html = `
                             <p>
-                                Monto Divisa a Cobrar<span> ${numberFormater(res.exchangeamount)}</span>
+                                <span class="js-translate" data-string="trad_monto_divisa_a_cobrar">Monto Divisa a Cobrar</span> <span> ${numberFormater(res.exchangeamount)}</span>
                             </p>
                             <p>
                                 ${res.txtcurrcommission}<span> ${numberFormater(res.currcommission)}</span>
                             </p>
                             <p>
-                                Tasa de Cambio<span>  ${numberFormater(res.currrate)}</span>
+                                <span class="js-translate" data-string="trad_tasa_de_cambio">Tasa de Cambio</span> <span>  ${numberFormater(res.currrate)}</span>
                             </p>
                             <p>
                                 ${res.txtvescommission}<span> ${numberFormater(res.vescommission)}</span>
                             </p>
                             <p>
-                                Total Recibir Bs. <span> ${numberFormater(res.totalves)}</span>
+                                <span class="js-translate" data-string="trad_total_pagar_bs">Total Recibir Bs.</span> <span> <span> ${numberFormater(res.totalves)}</span>
                             </p>
                             `
                         const inner = document.querySelector('#operationSummary .modal-body')
                         inner.innerHTML = html
+                        changeLanguage('en')
+
+                        modal.openModal('operationSummary')
                     } else if (res.code === "5000") {
-                        modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
-                        modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     }
                     modal.closeModal('loader')
                 }
@@ -190,20 +191,20 @@ export default function init() {
                         if (res.code === "0000") {
                             modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, false)
                         } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                         // console.log(res);
                     })
-                } else if (res.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                } else if (resOtp.code === "5000") {
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
 
-            payIn.addEventListener('change', async() => {
+            payIn.addEventListener('change', async () => {
                 // Mostramos boton de enviar
                 let valueSelected = payIn.options[payIn.selectedIndex].value;
                 /*
@@ -219,7 +220,7 @@ export default function init() {
                     closeEverything('test1')
                 }
             })
-            payForm.addEventListener('change', async() => {
+            payForm.addEventListener('change', async () => {
                 // Mostramos boton de enviar
                 let valueSelected = payForm.options[payForm.selectedIndex].value;
                 /*

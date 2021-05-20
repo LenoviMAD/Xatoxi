@@ -3,7 +3,7 @@
 error_reporting(0);
 session_start();
 include_once("utilities.php");
-utilities::trueUser();
+//utilities::trueUser();
 include_once("xpresentationlayer.php");
 include_once("xclient.php");
 
@@ -31,7 +31,13 @@ xpresentationLayer::startContentSection();
 xpresentationLayer::startContentofOption("Billetera");
 xpresentationLayer::startForm("billeteraForm", "", "pb20");
 xpresentationLayer::startSectionTwoColumns("", "billeteraFormTest");
-xpresentationLayer::buildInputNumberGrid("Monto", "", "amountWallet", "0.00", "", "", "", "", true);
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Monto',
+    'name' => 'amountWallet',
+    'placeholder' => '0.00',
+    'required' => true,
+    'dataString' => 'trad_monto'
+]);
 
 $data_json = $serviceCall->mgetcurrencyremitancel();
 xpresentationLayer::buildSelectJson("Moneda", "currencyWallet", "", $data_json, "", "", "", true);
@@ -41,7 +47,10 @@ xpresentationLayer::buildSelectJson("Forma de pago", "paidFormWallet", "", $data
 //ACH
 xpresentationLayer::startDivHidden("sectionWalletAHC", "grid-item-2 grid-1");
 xpresentationLayer::buildInputTextGrid("Banco", "", "bankAccountACHWallet");
-xpresentationLayer::buildInputNumberGrid("Cuenta", "accACHWallet", "accACHWallet", "", "", "", "35", "");
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Cuenta',
+    'name' => 'accACHWallet'
+]);
 xpresentationLayer::buildInputTextGrid("Routing", "", "routingACHWallet");
 xpresentationLayer::endDiv();
 
@@ -57,18 +66,22 @@ xpresentationLayer::endDiv();
 // TARJETA DE CREDITO
 xpresentationLayer::startDivHidden("sectionCreditCard", "grid-item-2 grid-1");
 xpresentationLayer::startSectionTwoColumns();
-xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "cardNumberWallet", "", "", "", 20);
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Numero Tarjeta',
+    'name' => 'cardNumberWallet',
+    'maxlength' => 20
+]);
 $data_json = $serviceCall->mgetcreditcardtypel();
 xpresentationLayer::buildSelectJson("Tipo Tarjeta", "typeCardWallet", "", $data_json, "", "");
 
 xpresentationLayer::buildInputsMonthYear("Fecha Venc","monthVenCommend", "yearVenCommend");
 
-// xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-1");
-// xpresentationLayer::buildInputNumberGrid("Año", "", "yearVenWallet", "", "", "", 4);
-// xpresentationLayer::buildInputNumberGrid("Mes", "", "monthVenWallet", "", "", "", 2);
-// xpresentationLayer::endSection();
-
-xpresentationLayer::buildInputNumberGrid("Cod. Validacion", "", "codValWallet", "", "", "", 4);
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Cod. Validacion',
+    'name' => 'codValWallet',
+    'placeholder' => '0.00',
+    'maxlength' => 4
+]);
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
 
@@ -101,7 +114,12 @@ xpresentationLayer::endDiv();
 xpresentationLayer::startContentofOption("Encomienda");
 xpresentationLayer::startForm("encomiendaForm", "", "pb20");
 xpresentationLayer::startSectionTwoColumns("", "encomiendaFormTest");
-xpresentationLayer::buildInputNumberGrid("Monto", "", "amountCommend", "0.00", "", "", "", "", true);
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Monto',
+    'name' => 'amountCommend',
+    'placeholder' => '0.00',
+    'required' => true
+]);
 $data_json = $serviceCall->mgetcountryl();
 xpresentationLayer::buildSelectJson("País", "countryCommend", "countryCommend", $data_json, "", "selectValorforId('countryCommend/providerCommend', 'ajax.php?cond=mgetproviderl')", "", true);
 xpresentationLayer::buildSelectJson("Proveedor", "providerCommend", "providerCommend", "", "", "selectValorforId('providerCommend/sendFormCommend', 'ajax.php?cond=mgetremitancetypel')", "", true);
@@ -121,8 +139,16 @@ xpresentationLayer::buildInputTextGrid("Monto Bs", "", "amountBsCommend", "0.00"
 //ACH
 xpresentationLayer::startDivHidden("sectionCommendAHC", "grid-item-2 grid-1");
 xpresentationLayer::buildInputTextGrid("Banco", "", "bankAccountACHCommend", "", 20);
-xpresentationLayer::buildInputNumberGrid("Cuenta", "", "accACHCommend");
-xpresentationLayer::buildInputNumberGrid("Routing", "", "routingACHCommend");
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Cuenta',
+    'name' => 'accACHCommend',
+    'maxlength' => 20
+]);
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Routing',
+    'name' => 'routingACHCommend',
+    'maxlength' => 20
+]);
 xpresentationLayer::endDiv();
 
 // DEPOSITO EN CUENTA
@@ -142,16 +168,21 @@ xpresentationLayer::endDiv();
 // TARJETA DE CREDITO
 xpresentationLayer::startDivHidden("sectionCommendCreditCard", "grid-item-2 grid-1");
 xpresentationLayer::startSectionTwoColumns();
-xpresentationLayer::buildInputNumberGrid("Numero Tarjeta", "", "cardNumberCommend", "", "", "", 20);
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Numero Tarjeta',
+    'name' => 'cardNumberCommend',
+    'maxlength' => 20
+]);
 $data_json = $serviceCall->mgetcreditcardtypel();
 xpresentationLayer::buildSelectJson("Tipo Tarjeta", "typeCardCommend", "", $data_json, "", "");
 // xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-1");
 xpresentationLayer::buildInputsMonthYear("Fecha Venc","monthVenCommend", "yearVenCommend");
 
-// xpresentationLayer::buildInputNumberGrid("Mes", "", "monthVenCommend", "", "", "", 2);
-// xpresentationLayer::buildInputNumberGrid("Año", "", "yearVenCommend", "", "", "", 4);
-// xpresentationLayer::endSection();
-xpresentationLayer::buildInputNumberGrid("Cod. Validacion", "", "codValCommend", "", "", "", 3);
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Cod. Validacion',
+    'name' => 'codValCommend',
+    'maxlength' => 3
+]);
 xpresentationLayer::endDiv();
 
 // Documento Identificación
@@ -177,16 +208,24 @@ xpresentationLayer::buildTitleBar("BENEFICIARIO");
 xpresentationLayer::buildSearchUsersCommend("usersCommend", "usersCommend", "btnAddCommend", "", "", "", "mb20 input-field1");
 xpresentationLayer::startDivHidden("userCommend");
 xpresentationLayer::startSectionTwoColumns();
-xpresentationLayer::buildInputTextGrid("Documento Identificación", "bdocumentid", "bdocumentid", "", "", "grid-item-2", "required", "");
+xpresentationLayer::buildInputTextGrid("Documento Identificación", "bdocumentid", "bdocumentid", "", 20, "grid-item-2", "required", "");
 xpresentationLayer::buildInputTextGrid("Primer nombre", "firstNameCommend", "firstNameCommend", "", "", "", "required");
 xpresentationLayer::buildInputTextGrid("Segundo nombre", "secondNameCommend", "secondNameCommend", "");
 xpresentationLayer::buildInputTextGrid("Primer apellido", "firstSurnameCommend", "firstSurnameCommend", "", "", "", "required");
 xpresentationLayer::buildInputTextGrid("Segundo apellido", "secondSurnameCommend", "secondSurnameCommend", "");
 xpresentationLayer::buildInputTextGrid("Dirección", "addressCommend", "addressCommend", "", "", "grid-item-1 grid-item-2 ", "", "", "input-text-large");
 xpresentationLayer::buildInputTextGrid("Email", "emailCommend", "emailCommend", "Ejemplo@mail.com", 50);
-xpresentationLayer::buildInputNumberGrid("Telefono", "phoneCommend", "phoneCommend", "", "");
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Telefono',
+    'name' => 'phoneCommend',
+    'maxlength' => 20
+]);
 xpresentationLayer::buildInputTextGrid("Banco", "bankCommend", "bankCommend", "", "");
-xpresentationLayer::buildInputNumberGrid("Cuenta", "accountCommend", "accountCommend", "");
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Cuenta',
+    'name' => 'accountCommend',
+    'maxlength' => 20
+]);
 xpresentationLayer::buildButtonCenter("Aceptar", "", "addContact", "btn", "centrarObjets grid-item-2");
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
@@ -212,7 +251,13 @@ xpresentationLayer::endDiv();
 xpresentationLayer::startContentofOption("Transferencia");
 xpresentationLayer::startForm("transferenciaForm");
 xpresentationLayer::startSectionTwoColumns("", "transferenciaFormTest");
-xpresentationLayer::buildInputNumberGrid("Monto", "amountTransfer", "amountTransfer", "0.00", "", "", 35, "", true);
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Monto',
+    'name' => 'amountTransfer',
+    'placeholder' => '0.00',
+    'maxlength' => 20,
+    'required' => true
+]);
 $data_json = $serviceCall->mgetcountryl();
 xpresentationLayer::buildSelectJson("País", "countryTransfer", "countryTransfer", $data_json, "", "", "", true);
 $data_json = $serviceCall->mgetcurrencytrl();
@@ -245,12 +290,19 @@ xpresentationLayer::endDiv();
 //Tarjeta prepagada
 xpresentationLayer::startDivHidden("SectionPrepaidTransfer", "grid-item-2 grid-1");
 xpresentationLayer::startSectionTwoColumns();
-xpresentationLayer::buildInputNumberGrid("Número de tarjeta", "numberCardTransfer", "numberCardTransfer", "", "", "", "18");
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Número de tarjeta',
+    'name' => 'numberCardTransfer',
+    'maxlength' => 20
+]);
 $data_json = $serviceCall->mgetcreditcardtypel();
 xpresentationLayer::buildSelectJson("Tipo de tarjeta", "typeCardTransfer", "typeCardTransfer", $data_json, "", "");
 xpresentationLayer::buildInputsDate("monthTransfer", "monthTransfer", "yearTransfer", "yearTransfer");
-// xpresentationLayer::buildInputTextGridCustom("año y mes", "debitcardnumberTransfer", "debitcardnumberTransfer", "", "", "", "", "", "input-field");
-xpresentationLayer::buildInputNumberGrid("Cod. Validación", "ValidationCodeCardTransfer", "ValidationCodeCardTransfer", "", "", "", "3");
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Cod. Validación',
+    'name' => 'ValidationCodeCardTransfer',
+    'maxlength' => 3
+]);
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
 
@@ -268,14 +320,19 @@ xpresentationLayer::buildTitleBar("BENEFICIARIO");
 xpresentationLayer::buildSearchUsersCommend("usersTransfer", "usersTransfer", "btnIconAdd", "", "", "", "mb20 input-field1");
 xpresentationLayer::startDivHidden("userTransfer");
 xpresentationLayer::startSectionTwoColumns();
-xpresentationLayer::buildInputTextGrid("Documento Identificación", "bdocumentidTransfer", "bdocumentidTransfer", "", "", "grid-item-2", "required", "");
+xpresentationLayer::buildInputTextGrid("Documento Identificación", "bdocumentidTransfer", "bdocumentidTransfer", "", 20, "grid-item-2", "required", "");
 xpresentationLayer::buildInputTextGrid("Primer nombre", "firstNameTransfer", "firstNameTransfer", "", "", "", "required");
 xpresentationLayer::buildInputTextGrid("Segundo nombre", "secondNameTransfer", "secondNameTransfer", "");
 xpresentationLayer::buildInputTextGrid("Primer apellido", "firstSurnameTransfer", "firstSurnameTransfer", "", "", "", "required");
 xpresentationLayer::buildInputTextGrid("Segundo apellido", "secondSurnameTransfer", "secondSurnameTransfer", "");
 xpresentationLayer::buildInputTextGrid("Dirección", "addressTransfer", "addressTransfer", "", "", "grid-item-1 grid-item-2 ", "", "", "input-text-large");
 xpresentationLayer::buildInputTextGrid("Email", "emailTransfer", "emailTransfer", "Ejemplo@mail.com", 50, "grid-item-1 grid-item-2");
-xpresentationLayer::buildInputNumberGrid("Telefono", "phoneTransfer", "phoneTransfer", "", "", "grid-item-1 grid-item-2");
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Telefono',
+    'name' => 'phoneTransfer',
+    'class' => 'grid-item-1 grid-item-2',
+    'maxlength' => 3
+]);
 xpresentationLayer::buildInputTextGrid("Banco", "bankTransfer", "bankTransfer", "", "", "grid-item-1 grid-item-2");
 xpresentationLayer::buildInputTextGrid("Cuenta", "accountTransfer", "accountTransfer", "", "", "grid-item-1 grid-item-2");
 xpresentationLayer::buildInputTextGrid("Pais Banco", "countryBankTransfer", "countryBankTransfer", "", "", "", "required");
@@ -283,7 +340,11 @@ xpresentationLayer::buildInputTextGrid("Ciudad Banco", "cityBankTransfer", "city
 xpresentationLayer::buildInputTextGrid("Dirección Banco", "bankAddressTransfer", "bankAddressTransfer", "", "", "grid-item-1 grid-item-2", "required", "", "input-text-large");
 xpresentationLayer::buildInputTextGrid("ABA / SWIFT/ IBAN", "abaSwiftIban", "abaSwiftIban", "", "", "grid-item-1 grid-item-2", "required", "", "input-text-large");
 xpresentationLayer::buildInputTextGrid("Banco Intermediario", "bankTransferIntermediary", "bankTransferIntermediary", "", "", "grid-item-1 grid-item-2", "", "", "input-text-large");
-xpresentationLayer::buildInputNumberGrid("Cuenta Intermediario", "accountTransferIntermediary", "accountTransferIntermediary", "", "", "grid-item-1 grid-item-2");
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Cuenta Intermediario',
+    'name' => 'accountTransferIntermediary',
+    'class' => 'grid-item-1 grid-item-2'
+]);
 xpresentationLayer::buildInputTextGrid("Pais Intermediario", "countryBankTransferIntermediary", "countryBankTransferIntermediary");
 xpresentationLayer::buildInputTextGrid("Ciudad Intermediario", "cityBankTransferIntermediary", "cityBankTransferIntermediary");
 xpresentationLayer::buildInputTextGrid("Dirección Banco Intermediario", "bankAddressTransferIntermediary", "bankAddressTransferIntermediary", "", "", "grid-item-1 grid-item-2", "", "", "input-text-large");

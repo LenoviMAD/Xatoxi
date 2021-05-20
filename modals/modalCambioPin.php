@@ -1,6 +1,6 @@
 <div class="modal modal--danger modalContainer" id="modalCambioPin">
     <div class="modal-content">
-        <h1 class="divpin mt0">CAMBIAR PIN</h1>
+        <h1 class="divpin mt0 js-translate" data-string="trad_cambiar_pin">CAMBIAR PIN</h1>
         <input type="password" id="cambioPin" pattern=".{4,}" maxlength="4" class="passInput">
         <table class="centrarObjets">
             <tbody>
@@ -31,7 +31,7 @@
             </tbody>
         </table>
         <div class="centrarObjets">
-            <span id="btnPinChange" class="btn"> Aceptar </span>
+            <span id="btnPinChange" class="btn js-translate" data-string="trad_aceptar"> Aceptar </span>
         </div>
     </div>
 </div>

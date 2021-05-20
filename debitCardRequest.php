@@ -2,7 +2,7 @@
 error_reporting(0);
 session_start();
 include_once("utilities.php");
-utilities::trueUser();
+//utilities::trueUser();
 
 include_once("xpresentationlayer.php");
 include_once("xclient.php");
@@ -14,11 +14,11 @@ xpresentationLayer::buildHeaderXatoxi();
 
 xpresentationLayer::startMain();
 xpresentationLayer::startFirtsSection();
-xpresentationLayer::buildOptionGrid("Solicitud");
+xpresentationLayer::buildOptionGrid("Solicitud", "", "trad_solicitud");
 xpresentationLayer::endSection();
 xpresentationLayer::startForm("requestDebitConsignmentForm", "", "grid-2");
 
-xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "grid-item-2");
+xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "grid-item-2", "trad_documentos_requeridos");
 $data_json = $serviceCall->mgetcompliancedoctypel();
 xpresentationLayer::buildSelectJson("", "typeDocWallet", "", $data_json, "", "");
 ?>

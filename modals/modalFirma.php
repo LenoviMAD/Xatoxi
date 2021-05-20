@@ -27,7 +27,7 @@ include_once("../xpresentationlayer.php");
             </aside>
         </section>
         <FOOTER class="main-footer">
-            <H4>¿Tienes dudas? <A target="_blank" title="contacta con Pepin" href="mailto:pepin@italcambio.com">Preguntale a Pepin</A></H4>
+            <H4 class="js-translate" data-string="trad_pepin">¿Tienes dudas? <A target="_blank" title="contacta con Pepin" href="mailto:pepin@italcambio.com">Preguntale a Pepin</A></H4>
             <H4>by XATOXI</H4>
         </FOOTER>
     </div>

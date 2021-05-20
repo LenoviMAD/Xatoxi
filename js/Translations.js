@@ -17,26 +17,23 @@ export default function init() {
                     tempLang = item.dataset.lang
                     btnDropdown.innerHTML = `${toCapitalize(item.dataset.lang)} <div id="flechaAbajo"></div>`
                     changeLanguage(item.dataset.lang)
-                    console.log('son iguales marico')
-                }else{
-                    console.log('son iguales marica')
                 }
             })
         })
         
-        function changeLanguage(userLang) {
-            let translations = `./translations/intl_${userLang}.json`;
-            
-            $.getJSON(translations)
-                .done(function (data) {
-                    $('.js-translate').each(function () {
-                        const string = $(this).attr('data-string');
-                        
-                        if (string) {
-                            $(this).text(data[string]);
-                        }
-                    });
-                });
-        }
     });
+}
+
+export function changeLanguage(userLang) {
+    let translations = `./translations/intl_${userLang}.json`;
+    
+    $.getJSON(translations)
+        .done(function (data) {
+            $('.js-translate').each(function () {
+                const string = $(this).attr('data-string');
+                if (string) {
+                    $(this).html(data[string]);
+                }
+            });
+        });
 }

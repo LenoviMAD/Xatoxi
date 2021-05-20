@@ -18,6 +18,20 @@ xpresentationLayer::startAsideOneColumn("grid-2");
 xpresentationLayer::buildInputTextGrid("Email", "", "email", "", "", "grid-item-2", "", "", "", "", true, "", "email");
 xpresentationLayer::buildInputTextGrid("Password", "", "password", "", "", "grid-item-2", "", "", "", "", true, "", "password");
 xpresentationLayer::buildInputTextGrid("Codigo de seguridad", "", "code", "", "", "", "", "", "", "", true, "", "text");
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'title',
+            'id' => 'id',
+            'name' => 'name',
+            'placeholder' => 'placeholder',
+            'onblur' => 'onblur',
+            'class' => 'class',
+            'maxlength' => 35,
+            'idContainer' => 'idContainer',
+            'required' => true,
+            'value' => 'value',
+            'dataString' => 'dataString'
+]);
+
 ?>
 <h2>Clickable Dropdown</h2>
 <p>Click on the button to open the dropdown menu.</p>

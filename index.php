@@ -12,13 +12,13 @@ xpresentationLayer::startMain("");
 
 xpresentationLayer::startSectionTwoColumns("grid-index full-height");
 
-xpresentationLayer::buildMenuOptionGrid("envio.png", "ENVIO", true, "envio.php", "", "test");
-xpresentationLayer::buildMenuOptionGrid("recepcion.png", "RECEPCION", true, "recepcion.php");
-xpresentationLayer::buildMenuOptionGrid("venta.png", "VENTA", true, "venta.php");
-xpresentationLayer::buildMenuOptionGrid("compra.png", "COMPRA", true, "compra.php");
-xpresentationLayer::buildMenuOptionGrid("cambio.png", "CAMBIO", true, "cambio.php");
-xpresentationLayer::buildMenuOptionGrid("box.png", "REPORTES DE OPERACIÓN", true, "operationReports.php");
-xpresentationLayer::buildMenuOptionGrid("debito_icon.png", "SOLICITUD TARJETA DÉBITO <br> (PARA RECIBIR REMESAS)", true, "debitCardRequest.php", "");
+xpresentationLayer::buildMenuOptionGrid("envio.png", "ENVIO", true, "envio.php", "", "trad_envio");
+xpresentationLayer::buildMenuOptionGrid("recepcion.png", "RECEPCION", true, "recepcion.php", "", "trad_recepcion");
+xpresentationLayer::buildMenuOptionGrid("venta.png", "VENTA", true, "venta.php", "", "trad_venta");
+xpresentationLayer::buildMenuOptionGrid("compra.png", "COMPRA", true, "compra.php", "", "trad_compra");
+xpresentationLayer::buildMenuOptionGrid("cambio.png", "CAMBIO", true, "cambio.php", "", "trad_cambio");
+xpresentationLayer::buildMenuOptionGrid("box.png", "REPORTES DE OPERACIÓN", true, "operationReports.php", "", "trad_reportes_de_operaciones");
+xpresentationLayer::buildMenuOptionGrid("debito_icon.png", "SOLICITUD TARJETA DÉBITO <br> (PARA RECIBIR REMESAS)", true, "debitCardRequest.php", "", "trad_solicitud_tarjeta_debito");
 xpresentationLayer::buildMenuOptionGrid("pepinvs1_black.png", "Mr Pepin", true, "#", "");
 ?>
 

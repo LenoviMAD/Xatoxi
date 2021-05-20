@@ -44,37 +44,6 @@ class xpresentationLayer
         echo  ' <SCRIPT src="js/main2.js" type="module"></SCRIPT>';
     } // endHtml
 
-
-    /*=======================================================================
-    Function: buildHead2
-    Description: HTML Head, rendering "title"
-    Parameters: $title <-- name of App
-    Algorithm:
-    Remarks:
-    Standarized: 2021/01/18 09:40
-    ===================================================================== */
-
-    static function buildHead2($title)
-    {
-        echo  '<HEAD>';
-        echo  ' <TITLE>' . $title . '</TITLE> ';
-        echo  ' <META charset="UTF-8"> ';
-        echo  ' <META name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/select2.min.css"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/style.css"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/animations.css"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/modal.css"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/loader.css"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/helpers.css"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/buttons.css"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/cards.css"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/inputs.css"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/titles.css"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/landing.css"> ';
-        echo  ' <LINK rel="stylesheet" type="text/css" href="css/canvas.css"> ';
-        echo  ' </HEAD> ';
-    } //buildHead
-
     /*=======================================================================
     Function: buildHead
     Description: HTML Head, rendering "title"
@@ -128,14 +97,14 @@ class xpresentationLayer
             echo '    </A>';
             echo '    <IMG class="logo" src="img/logo.png">';
             echo '<div class="dropdown">';
-                echo '<button id="btnDropdown" class="dropbtn">';
-                    echo 'En';
-                    echo '<div id="flechaAbajo"></div>';
-                echo '</button>';
-                echo '<div id="dropdownLanguages" class="dropdown-content">';
-                    echo '<button data-lang="es">Es</button>';
-                    echo '<button data-lang="en">En</button>';
-                echo '</div>';
+            echo '<button id="btnDropdown" class="dropbtn">';
+            echo 'En';
+            echo '<div id="flechaAbajo"></div>';
+            echo '</button>';
+            echo '<div id="dropdownLanguages" class="dropdown-content">';
+            echo '<button data-lang="es">Es</button>';
+            echo '<button data-lang="en">En</button>';
+            echo '</div>';
             echo '</div>';
             echo '</DIV>';
             echo '</HEADER>';
@@ -146,14 +115,14 @@ class xpresentationLayer
             echo '  	<IMG class="logo" src="img/logo.png">';
             echo '    </A>';
             echo '<div class="dropdown">';
-                echo '<button id="btnDropdown" class="dropbtn">';
-                    echo 'En';
-                    echo '<div id="flechaAbajo"></div>';
-                echo '</button>';
-                echo '<div id="dropdownLanguages" class="dropdown-content">';
-                    echo '<button data-lang="es">Es</button>';
-                    echo '<button data-lang="en">En</button>';
-                echo '</div>';
+            echo '<button id="btnDropdown" class="dropbtn">';
+            echo 'En';
+            echo '<div id="flechaAbajo"></div>';
+            echo '</button>';
+            echo '<div id="dropdownLanguages" class="dropdown-content">';
+            echo '<button data-lang="es">Es</button>';
+            echo '<button data-lang="en">En</button>';
+            echo '</div>';
             echo '</div>';
             echo '  </DIV>';
             echo '</HEADER>';
@@ -177,14 +146,14 @@ class xpresentationLayer
         echo '    <IMG class="logo" src="img/logo.png">';
         echo '</DIV>';
         echo '<div class="dropdown">';
-            echo '<button id="btnDropdown" class="dropbtn">';
-                echo 'En';
-                echo '<div id="flechaAbajo"></div>';
-            echo '</button>';
-            echo '<div id="dropdownLanguages" class="dropdown-content">';
-                echo '<button data-lang="es">Es</button>';
-                echo '<button data-lang="en">En</button>';
-            echo '</div>';
+        echo '<button id="btnDropdown" class="dropbtn">';
+        echo 'En';
+        echo '<div id="flechaAbajo"></div>';
+        echo '</button>';
+        echo '<div id="dropdownLanguages" class="dropdown-content">';
+        echo '<button data-lang="es">Es</button>';
+        echo '<button data-lang="en">En</button>';
+        echo '</div>';
         echo '</div>';
         echo '</HEADER>';
     } // buildHeaderXatoxi
@@ -234,18 +203,17 @@ class xpresentationLayer
         echo '  	<IMG class="logo" src="img/logo.png">';
         echo '    </A>';
         echo '<div class="dropdown">';
-            echo '<button id="btnDropdown" class="dropbtn">';
-                echo 'En';
-                echo '<div id="flechaAbajo"></div>';
-            echo '</button>';
-            echo '<div id="dropdownLanguages" class="dropdown-content">';
-                echo '<button data-lang="es">Es</button>';
-                echo '<button data-lang="en">En</button>';
-            echo '</div>';
+        echo '<button id="btnDropdown" class="dropbtn">';
+        echo 'En';
+        echo '<div id="flechaAbajo"></div>';
+        echo '</button>';
+        echo '<div id="dropdownLanguages" class="dropdown-content">';
+        echo '<button data-lang="es">Es</button>';
+        echo '<button data-lang="en">En</button>';
+        echo '</div>';
         echo '</div>';
         echo '  </DIV>';
         echo '</HEADER>';
-
     } // buildHeaderPrincipalXatoxitest
 
     /*=======================================================================
@@ -313,9 +281,9 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/18 14:00
     ===================================================================== */
-    static function buildOptionGrid($title, $data_id = "")
+    static function buildOptionGrid($title, $data_id = "", $dataString = "")
     {
-        echo '    <BUTTON class="card card-b" data-id="' . $data_id . '" >';
+        echo '    <BUTTON class="card card-b js-translate" data-id="' . $data_id . '" data-string="' . $dataString . '">';
         echo $title;
         echo '    </BUTTON>';
     } //buildOptionGrid
@@ -378,39 +346,74 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/18 14:00
     ===================================================================== */
-    static function buildInputNumberGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $onblur = "", $class = "", $maxlength = 35, $idContainer = "", $required = false, $value = "")
+    static function buildInputNumberGrid($params)
     {
-        if ($onblur != "") {
-            $onblur = ' onBlur="' . $onblur . '" ';
+        $defaults = [
+            'title' => '',
+            'id' => '',
+            'name' => '',
+            'placeholder' => '',
+            'onblur' => '',
+            'class' => '',
+            'maxlength' => 35,
+            'idContainer' => '',
+            'required' => false,
+            'value' => '',
+            'disabled' => false,
+            'dataString' => ''
+        ];
+
+        $options = array_merge($defaults, $params);
+
+        if ($options['onblur']) {
+            $options['onblur'] = 'onBlur="' . $options['onblur'] . '" ';
         }
-        if ($value != "") {
-            $value = ' value="' . $value . '" ';
+        if ($options['dataString']) {
+            $options['dataString'] = 'data-string="' . $options['dataString'] . '" ';
         }
-        if ($required != "") {
-            $required = ' required';
+        if ($options['value']) {
+            $options['value'] = 'value="' . $options['value'] . '" ';
         }
-        if ($idInput != "") {
-            $idInput = ' id="' . $idInput . '" ';
+        if ($options['required']) {
+            $options['required'] = 'required ';
         }
-        if ($idContainer != "") {
-            $idContainer = 'id="' . $idContainer . '"';
+        if ($options['disabled']) {
+            $options['disabled'] = 'disabled ';
         }
-        if ($class != "") {
-            $class = ' class="input-field1 ' . $class . '" ';
+        if ($options['id']) {
+            $options['id'] = 'id="' . $options['id'] . '" ';
+        }
+        if ($options['name']) {
+            $options['name'] = 'name="' . $options['name'] . '" ';
+        }
+        if ($options['placeholder']) {
+            $options['placeholder'] = 'placeholder="' . $options['placeholder'] . '" ';
+        }
+        if ($options['idContainer']) {
+            $options['idContainer'] = 'id="' . $options['idContainer'] . '" ';
+        }
+        if ($options['class']) {
+            $options['class'] = 'class="input-field1 ' . $options['class'] . '" ';
         } else {
-            $class = ' class="input-field1" ';
+            $options['class'] = 'class="input-field1" ';
         }
 
-        if ($maxlength == "") {
-            $maxlength = 35;
-        }
-        $maxlength = ' maxlength="' . $maxlength . '" ';
+        $options['maxlength'] = 'maxlength="' . $options['maxlength'] . '" ';
 
-        echo '<DIV ' . $class . $idContainer . '>';
-        echo '    <LABEL class="font-Bold">' . $titleLabel . '</LABEL>';
-        echo '	  <INPUT type="text" onkeypress="return validaNumericos(event)" ' . $maxlength . ' name="' . $nameInput . '" ' . $value . $idInput . $required . ' placeholder="' . $placeholder . '" ' . $onblur . '/>';
+        echo '<DIV ' . $options['class'] . $options['idContainer'] . '>';
+        echo '<LABEL class="font-Bold js-translate" ' . $options['dataString'] . '>' . $options['title'] . '</LABEL>';
+        echo '<INPUT type="text" onkeypress="return validaNumericos(event)" ' .
+            $options['maxlength'] .
+            $options['name'] .
+            $options['value'] .
+            $options['id'] .
+            $options['required'] .
+            $options['disabled'] .
+            $options['placeholder'] .
+            $options['onblur'] . '/>';
         echo '</DIV>';
     } //buildInputNumberGrid
+
     /*=======================================================================
     Function: buildInputsMonthYear
     Description: Build Input number with decimals (2 Columns)
@@ -422,7 +425,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/18 14:00
     ===================================================================== */
-    static function buildInputsMonthYear($titleLabel = "", $nameMonth = "", $nameYear = "")
+    static function buildInputsMonthYear($titleLabel = "", $nameMonth = "", $nameYear = "", $dataString="")
     {
         if ($nameMonth != "") {
             $nameMonth = ' name="' . $nameMonth . '" ';
@@ -432,15 +435,15 @@ class xpresentationLayer
         }
 
         echo '<div class="input-field1">';
-        echo '<label class="font-Bold ">' . $titleLabel . '</label>';
+        echo '<label class="font-Bold js-translate" data-string="'.$dataString.'">' . $titleLabel . '</label>';
         echo '<div class="container-input">';
         echo '<div class="input-container mr15">';
         echo '<input class="input" ' . $nameMonth . ' onkeypress="return validaNumericos(event)" type="text" maxlength="2" />';
-        echo '<label class="placeholder">Mes</label>';
+        echo '<label class="font-Bold js-translate" data-string="trad_mes">Mes</label>';
         echo '</div>';
         echo '<div class="input-container">';
         echo '<input class="input" ' . $nameYear . ' onkeypress="return validaNumericos(event)" type="text" maxlength="4" />';
-        echo '<label class="placeholder">Año</label>';
+        echo '<label class="font-Bold js-translate" data-string="trad_ano">Año</label>';
         echo '</div>';
         echo '</div>';
         echo '</div>';
@@ -457,7 +460,85 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-    static function buildInputTextGrid($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $idContainer = "", $required = false, $value = "", $type = "text")
+    static function buildInputTextGrid($params)
+    {
+        $defaults = [
+            'title' => '',
+            'id' => '',
+            'name' => '',
+            'placeholder' => '',
+            'maxlength' => 35,
+            'classContainer' => '',
+            'classLabel' => '',
+            'disabled' => false,
+            'classInput' => '',
+            'idContainer' => '',
+            'required' => false,
+            'value' => '',
+            'type' => 'text',
+            'dataString' => ''
+        ];
+
+        $options = array_merge($defaults, $params);
+
+        if ($options['disabled']) {
+            $options['disabled'] = 'disabled ';
+        }
+        if ($options['required']) {
+            $options['required'] = 'required ';
+        }
+        if ($options['name']) {
+            $options['name'] = 'name="' . $options['name'] . '" ';
+        }
+        if ($options['id']) {
+            $options['id'] = 'id="' . $options['id'] . '" ';
+        }
+        if ($options['value']) {
+            $options['value'] = 'value="' . $options['value'] . '" ';
+        }
+        if ($options['idContainer']) {
+            $options['idContainer'] = 'id="' . $options['idContainer'] . '" ';
+        }
+        if ($options['placeholder']) {
+            $options['placeholder'] = 'placeholder="' . $options['placeholder'] . '" ';
+        }
+        if ($options['classInput']) {
+            $options['classInput'] = 'class="' . $options['classInput'] . '" ';
+        }
+        if ($options['dataString']) {
+            $options['dataString'] = 'data-string="' . $options['dataString'] . '" ';
+        }
+        $options['maxlength']= 'maxlength="' . $options['maxlength'] . '" ';
+        $options['type']= 'type="' . $options['type'] . '" ';
+
+        echo '<DIV class="input-field1 ' . $options['classContainer'] . ' " ' . $options['idContainer'] . '>';
+        echo '<LABEL ' . $options['dataString'] . ' class="font-Bold js-translate ' . $options['classLabel'] . '">' . $options['title'] . '</LABEL>';
+        echo '<INPUT ' 
+        . $options['type'] 
+        . $options['value'] 
+        . $options['disabled'] 
+        . $options['name'] 
+        . $options['id'] 
+        . $options['required'] 
+        . $options['placeholder'] 
+        . $options['classInput'] 
+        . $options['maxlength']
+        . '>';
+        echo '</DIV>';
+    } //buildInputTextGrid
+
+    /*=======================================================================
+    Function: buildInputTextGrid2
+    Description: Input text (2 columns)
+    Parameters: $titleLabel <-- Label Name
+                $idInput <-- Input Id
+                $nameInput <-- Input Nme
+                $placeholder <-- Name Show Field
+    Algorithm:
+    Remarks:
+    Standarized: 2021/01/19 12:00
+    ===================================================================== */
+    static function buildInputTextGrid2($titleLabel, $idInput, $nameInput, $placeholder = "", $maxLength = 35, $customClass = "", $classLabel = "", $disabled = "", $classInput = "", $idContainer = "", $required = false, $value = "", $type = "text", $dataString = "")
     {
         if ($disabled != "") {
             $disabled = 'disabled="' . $disabled . '"';
@@ -490,10 +571,10 @@ class xpresentationLayer
         }
 
         echo '<DIV class="input-field1 ' . $customClass . ' " ' . $idContainer . '>';
-        echo '       <LABEL class="font-Bold ' . $classLabel . '">' . $titleLabel . '</LABEL>';
+        echo '       <LABEL data-string="' . $dataString . '" class="font-Bold js-translate' . $classLabel . '">' . $titleLabel . '</LABEL>';
         echo '       <INPUT  type="' . $type . '" ' . $value . $disabled . $nameInput . $idInput . $required . ' placeholder="' . $placeholder . '" maxlength="' . $maxLength . '" ' . $classInput . '>';
         echo '</DIV>';
-    } //buildInputTextGrid
+    } //buildInputTextGrid2
 
     /*=======================================================================
     Function: buildInputTextGridCustom
@@ -583,7 +664,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/18 14:00
     ===================================================================== */
-    static function buildSelectJson($title, $name, $id, $json, $showCol = "", $event = "", $classContainer = "", $required = false, $idContainer = "")
+    static function buildSelectJson($title, $name, $id, $json, $showCol = "", $event = "", $classContainer = "", $required = false, $idContainer = "", $dataString = "")
     {
         $data = $json->list;
 
@@ -601,7 +682,7 @@ class xpresentationLayer
         }
 
         echo '<DIV class="input-field1 ' . $classContainer . '" ' . $idContainer . '>';
-        echo '    <LABEL class="font-Bold">' . $title . '</LABEL>';
+        echo '    <LABEL class="font-Bold js-translate" data-string="' . $dataString . '">' . $title . '</LABEL>';
 
         echo '<SELECT name="' . $name . '" ' . $id . $event . $required . '>';
         echo '<OPTION disabled selected>Seleccione</OPTION>';
@@ -660,7 +741,7 @@ class xpresentationLayer
     static function buildFooterXatoxi()
     {
         echo '<FOOTER class="main-footer">';
-        echo '    <H4>¿Tienes dudas? <A target="_blank" title="contacta con Pepin" href="mailto:pepin@italcambio.com">Preguntale a Pepin</A></H4>';
+        echo '    <H4 class="js-translate" data-string="trad_pepin">¿Tienes dudas? <A target="_blank" title="contacta con Pepin" href="mailto:pepin@italcambio.com">Preguntale a Pepin</A></H4>';
         echo '    <H4>by XATOXI</H4>';
         echo '</FOOTER>';
         echo '</DIV>';
@@ -674,10 +755,10 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-    static function buildTitleBar($title, $class = "")
+    static function buildTitleBar($title, $class = "", $dataString = "")
     {
         echo '<DIV class="section-Titles ' . $class . '">';
-        echo '    <H2 class="titles">' . $title . '</H2>';
+        echo '    <H2 class="titles js-translate" data-string="' . $dataString . '">' . $title . '</H2>';
         echo '</DIV>';
     } //buildTitleBar
 
@@ -774,34 +855,10 @@ class xpresentationLayer
         echo '        </FIGURE>';
         echo '    </ASIDE>';
         echo '    <HEADER class="card__header">';
-        echo '         <H3 class="card__title js-translate" data-string="'.$dataString.'">' . $titleOption . '</H3>';
+        echo '         <H3 class="card__title js-translate" data-string="' . $dataString . '">' . $titleOption . '</H3>';
         echo '    </HEADER>';
         echo '</ARTICLE>';
     } //buildMenuOptionGrid
-
-    /*=======================================================================
-    Function: buildMenuOptionComplete
-    Description: Build option with title and image dinamyc
-    Parameters: $nameImg <-- Image name
-                $titleOption <-- Option name    
-                $modal <-- Show modal or no.          
-    Algorithm:
-    Remarks:
-    Standarized: 2021/01/19 12:00
-    ===================================================================== */
-    static function buildMenuOptionComplete($nameImg, $titleOption, $modal)
-    {
-        $opnModal = "";
-        if ($modal == true) {
-            $opnModal = "openModal";
-        }
-        echo '<ARTICLE class="grid-item grid-item-2 ' . $opnModal . '">';
-        echo '    <FIGURE>';
-        echo '        <IMG class="imgMenu" src="img/' . $nameImg . '">';
-        echo '    </FIGURE>';
-        echo '    <H1>' . $titleOption . '</H1>';
-        echo '</ARTICLE>';
-    } //buildMenuOptionComplete
 
     /*=======================================================================
     Function: startSectionTwoColumns
@@ -864,7 +921,7 @@ class xpresentationLayer
             $disabled = 'disabled="' . $disabled . '"';
         }
         echo '<DIV class="input-field1 ' . $classContainer . '">';
-        echo '  <LABEL class="font-Bold margin-label">' . $titleLabel . '</LABEL>';
+        echo '  <LABEL class="font-Bold margin-label js-translate" data-string="trad_telefono_pago_movil">' . $titleLabel . '</LABEL>';
         echo '  <DIV class="flex-content ' . $classChildren . '">';
         echo '    <INPUT type="text" name="' . $nameCountry . '" id="' . $idCountry . '" class="input-radius" ' . $disabled . ' pattern="[0-9]+([\.,][0-9]+)?">';
         // echo '<SELECT name="' . $nameCountry . '" id="' . $idCountry . '" ' . $event . ' class="select-width">';
@@ -888,24 +945,6 @@ class xpresentationLayer
         echo '  </DIV>';
         echo '</DIV>';
     } //buildPhoneComplete
-
-
-    /*=======================================================================
-    Function: buildpinTemporal
-    Description: Bild information of pin temporal, without forgot password and register
-    Parameters:            
-    Algorithm:
-    Remarks:
-    Standarized: 2021/01/20 12:00
-    ===================================================================== */
-    static function buildpinTemporal()
-    {
-        echo '<P class="resOp"> Usuario creado satisfactoriamente, su PIN de entrada es:</P>';
-        echo '<DIV class="centrarObjets">';
-        echo '    <P class="font-subtitle">7213</P>';
-        echo '    <A href="#close" class="btn"> Continuar </A>';
-        echo '</DIV>';
-    } //buildpinTemporal
 
     /*=======================================================================
     Function: startSectionOpt
@@ -1038,13 +1077,13 @@ class xpresentationLayer
         echo '    </TBODY>';
         echo '</TABLE>';
         echo '<DIV style="display: flex;">';
-        echo '<BUTTON class="wordsFM" id="openPinChange">Cambio de PIN</BUTTON>';
-        echo '<A class="wordsFM" id="btnForgetPin" href="">Olvido de pin</A>';
+        echo '<BUTTON class="wordsFM js-translate" data-string="trad_cambio_de_pin" id="openPinChange">Cambio de PIN</BUTTON>';
+        echo '<A class="wordsFM js-translate" data-string="trad_olvido_de_pin" id="btnForgetPin" href="">Olvido de pin</A>';
         echo '</DIV>';
         echo '<DIV class="centrarObjets">';
-        echo '    <SPAN id="btnPin" class="btn" ' . $btnId . ' ' . $eventButton . '> Aceptar </SPAN>';
+        echo '    <SPAN id="btnPin" class="btn js-translate" data-string="trad_aceptar" ' . $btnId . ' ' . $eventButton . '> Aceptar </SPAN>';
         echo '</DIV>';
-        echo '<A class="wordsFM " href="register.php">Registro</A>';
+        echo '<A class="wordsFM js-translate" data-string="trad_registro" href="register.php">Registro</A>';
     } //buildPinPrincipalModal
 
     /*=======================================================================
@@ -1074,39 +1113,6 @@ class xpresentationLayer
         echo '    </DIV>';
         echo '</DIV>';
     } //endInputModal
-
-    /*=======================================================================
-    Function: buildHeaderText
-    Description: build header with title without logos
-    Parameters:      Transacción Satisfactoria
-    Algorithm:
-    Remarks:
-    Standarized: 2021/01/21 10:00
-    ===================================================================== */
-    static function buildHeaderText($title)
-    {
-        echo '<HEADER class="header header-text">';
-        echo '  <H1 class="titles">' . $title . '</H1>';
-        echo '</HEADER>';
-    } //buildHeaderText
-
-    /*=======================================================================
-    Function: buildSuccessful
-    Description: build section message successful
-    Parameters: $title <-- 
-                $buttonTitle <-- Button Title
-    Algorithm:
-    Remarks:
-    Standarized: 2021/01/26 10:00
-    ===================================================================== */
-    static function buildSuccessful($title, $buttonTitle)
-    {
-        echo '<DIV class="centrarObjets">';
-        echo '    <FIGURE><IMG src="img/success.png" alt="" class="logo"></FIGURE>';
-        echo '    <H1>' . $title . '</H1>';
-        echo '    <BUTTON class="btn"> ' . $buttonTitle . '</BUTTON>';
-        echo '</DIV>';
-    } //buildSuccessful
 
     /*=======================================================================
     Function: startAnimationMenu
@@ -1168,7 +1174,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/27 12:00
     ===================================================================== */
-    static function buildButtonCenter($title, $event = "", $id = "", $class = "btn", $customClass = "")
+    static function buildButtonCenter($title, $event = "", $id = "", $class = "btn", $customClass = "", $dataString = "")
     {
         if ($event != "") {
             $event = 'onclick="' . $event . '"';
@@ -1179,7 +1185,7 @@ class xpresentationLayer
         }
 
         echo '<DIV class="centrarObjets ' . $customClass . '">';
-        echo '    <BUTTON type="submit" class="' . $class . '"  ' . $event . ' ' . $id . '>' . $title . '</BUTTON>';
+        echo '    <BUTTON type="submit" data-string="' . $dataString . '" class="' . $class . ' js-translate"  ' . $event . ' ' . $id . '>' . $title . '</BUTTON>';
         echo '</DIV>';
     } //buildButtonCenter
 
@@ -1248,7 +1254,7 @@ class xpresentationLayer
 
         echo '<DIV class="grid-3 ' . $customClass . '">';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL  class="font-Bold margin-label">' . $labelSelect . '</LABEL>';
+        echo '        <LABEL  class="font-Bold margin-label js-translate" data-string="trad_t_doc">' . $labelSelect . '</LABEL>';
         echo '<SELECT name="' . $nameSelect . '" id="' . $idSelect . '" required>';
         echo '<OPTION disabled selected>Seleccione</OPTION>';
         foreach ($data as $value) {
@@ -1257,12 +1263,12 @@ class xpresentationLayer
         echo '</SELECT>';
         echo '    </DIV>';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL class="font-Bold margin-label">' . $labelInputText . '</LABEL>';
+        echo '        <LABEL class="font-Bold margin-label js-translate" data-string="trad_documento" >' . $labelInputText . '</LABEL>';
         echo '        <INPUT type="text" name="' . $nameInputText . '" id="' . $idInputText . '" required>';
         echo '    </DIV>';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL class="font-Bold margin-label">' . $labelInputDate . '</LABEL>';
-        echo '        <INPUT type="date" name="' . $nameInputDate . '" id="' . $idInputDate . '" required>';
+        echo '        <LABEL class="font-Bold margin-label js-translate" data-string="trad_fec_nacimiento">' . $labelInputDate . '</LABEL>';
+        echo '        <INPUT type="date" name="' . $nameInputDate . '"  id="' . $idInputDate . '" required>';
         echo '    </DIV>';
         echo '</DIV>';
     } //buildSectionDocument
@@ -1275,44 +1281,42 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/27 12:00
     ===================================================================== */
-    static function buildTextArea($titleLabel, $nameInput, $idInput, $placeholder = "", $minLength = "0", $customClass = "", $required = false)
+    static function buildTextArea($params)
     {
-        if ($required) {
-            $required = 'required="' . $required . '"';
-        }
-        if ($idInput) {
-            $idInput = 'id="' . $idInput . '"';
-        }
+        $defaults = [
+            'title' => '',
+            'id' => '',
+            'name' => '',
+            'placeholder' => '',
+            'customClass' => '',
+            'required' => false,
+            'maxlength'=> 30,
+            'dataString' => ''
+        ];
 
-        echo '<DIV class="input-field1 ' . $customClass . '">';
-        echo '    <LABEL class="font-Bold">' . $titleLabel . '</LABEL>';
-        echo '    <TEXTAREA type="text" name="' . $nameInput . '" ' . $idInput . $required . ' placeholder="' . $placeholder . '" minlength="' . $minLength . '" class="input-text-large" cols="40" rows="3"  style="resize: none;"></TEXTAREA>';
+        $options = array_merge($defaults, $params);
+
+        if ($options['required']) {
+            $options['required'] = 'required';
+        }
+        if ($options['placeholder']) {
+            $options['placeholder'] = 'placeholder="' . $options['placeholder'] . '"';
+        }
+        if ($options['dataString']) {
+            $options['dataString'] = 'data-string="' . $options['dataString'] . '"';
+        }
+        if ($options['name']) {
+            $options['name'] = 'name="' . $options['name'] . '"';
+        }
+        if ($options['id']) {
+            $options['id'] = 'id="' . $options['id'] . '"';
+        }
+        $options['maxlength'] = 'maxlength="' . $options['maxlength'] . '"';
+
+        echo '<DIV class="input-field1 ' . $options['customClass'] . '">';
+        echo '    <LABEL class="font-Bold js-translate" ' . $options['dataString'] . '>' . $options['title'] . '</LABEL>';
+        echo '    <TEXTAREA type="text" ' . $options['name']. $options['maxlength'] . $options['id'] . $options['required'] . $options['placeholder'] . ' cols="40" rows="3"  style="resize: none;"></TEXTAREA>';
         echo '</DIV>';
-    } //buildTextArea
-
-    /*=======================================================================
-    Function: startContentofOption
-    Description: end tag form
-    Parameters:      
-    Algorithm:
-    Remarks:
-    Standarized: 2021/01/27 12:00
-    ===================================================================== */
-    static function buildOtpContent()
-    {
-        echo '<SECTION class="text-center full-heigh center-height">';
-        echo '<HEADER class="mb-20">';
-        echo '	<H1 class="font-lg">OTP Verificación</H1>';
-        echo '	<P>Presione aceptar, este código expirará en: <SPAN id="contador" class="font-green">00:114</SPAN></P>';
-        echo '</HEADER>';
-        echo '<ASIDE class="mb-20">';
-        echo '	<INPUT type="text" disabled name="otpCode" id="otpCode" class="otpVeri">';
-        echo '</ASIDE>';
-        echo '<FOOTER>';
-        echo '	<BUTTON class="btn btn-semi-rounded" data-id="testing">Aceptar</BUTTON>';
-        echo '	<BUTTON class="modal__button btn btn-danger btn-semi-rounded" type="button" aria-label="close modal" data-close>Cancelar</BUTTON>';
-        echo '</FOOTER>';
-        echo '</SECTION>';
     } //buildTextArea
 
     /*=======================================================================
@@ -1372,18 +1376,18 @@ class xpresentationLayer
     static function buildInputsDate($nameMonth, $idMonth, $nameYear, $idYear)
     {
         echo '<DIV class="input-field1">';
-        echo '	<LABEL class="font-Bold ">Fecha Venc.</LABEL>';
+        echo '	<LABEL class="font-Bold js-translate" data-string="trad_fecha_venc">Fecha Venc.</LABEL>';
         echo '	<DIV class="container-input">';
         echo '	    <DIV class="col-md-6">';
         echo '	        <DIV class="input-container">';
         echo '	            <INPUT class="input" type="text" name="' . $nameMonth . '" id="' . $idMonth . '" placeholder=" " maxlength="2"/>';
-        echo '	            <LABEL class="placeholder">Mes</LABEL>';
+        echo '	            <LABEL class="placeholder js-translate" data-string="trad_mes">Mes</LABEL>';
         echo '	        </DIV>';
         echo '	    </DIV>';
         echo '	    <DIV class="col-md-6">';
         echo '	        <DIV class="input-container">';
         echo '	            <INPUT class="input" type="text" name="' . $nameYear . '" id="' . $idYear . '" placeholder=" "  maxlength="4"/>';
-        echo '	            <LABEL class="placeholder">Año</LABEL>';
+        echo '	            <LABEL class="placeholder js-translate" data-string="trad_ano">Año</LABEL>';
         echo '	        </DIV>';
         echo '	    </DIV>';
         echo '	</DIV>';

@@ -86,9 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (res.code === "0000") {
                     modal.openModal('modalSuccess2', 'Email enviado', res.message)
                 } else if (res.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
         })

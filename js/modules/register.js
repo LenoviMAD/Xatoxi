@@ -1,5 +1,6 @@
 import Modal from "./Modal.js";
 import Timer from '../timer.js';
+import { changeLanguage } from '../Translations.js'
 
 // Cambio
 export default function init() {
@@ -23,14 +24,12 @@ export default function init() {
             })
             function isEmailsEquals() {
                 if (email.value !== confirmEmail.value) {
-                    console.log('hay peitos')
                     confirmEmail.style.borderColor = "red"
                     textDanger.classList.remove('hidden')
                     btnRegister.setAttribute("disabled", true)
                     btnRegister.classList.add("disabled")
                     return
                 } else {
-                    console.log('todo bien papu')
                     textDanger.classList.add('hidden')
                     confirmEmail.style.borderColor = "initial"
                     btnRegister.removeAttribute("disabled")
@@ -113,9 +112,10 @@ export default function init() {
                         // Agregando mensaje para mostrar email
                         let messageModal = document.createElement('p')
                         messageModal.setAttribute('id', 'messageModalCustom')
-                        messageModal.innerHTML = `
-						Te hemos enviado el código al email <br><b>${document.getElementById('email').value}</b>
-						`
+                        messageModal.innerHTML = `<span class="js-translate" data-string="trad_te_hemos_enviado_el_codigo">Te hemos enviado el código al email</span> <br><b>${document.getElementById('email').value}</b>`
+
+                        changeLanguage('en')
+
                         // agregando al modal
                         document.querySelector('#pinVerification footer').prepend(messageModal)
 
@@ -171,11 +171,11 @@ export default function init() {
                                 modal.closeModal("loader");
 
                                 if (resSignup.code === "0000") {
-                                    modal.openModal("modalSuccess", TITLE_SECTION, `Hemos enviado su clave al correo`);
+                                    modal.openModal("modalSuccess", TITLE_SECTION, resSignup.message);
                                 } else if (resSignup.code === "5000") {
                                     modal.openModal("modalDanger", TITLE_SECTION, resSignup.message);
                                 } else {
-                                    modal.openModal("modalDanger", TITLE_SECTION, "Ocurrio un error, favor intente de nuevo");
+                                    modal.openModal("modalDanger", TITLE_SECTION, resSignup.message);
                                 }
                             } else {
                                 modal.openModal("modalDanger", TITLE_SECTION, "PIN NO VALIDO");
@@ -184,12 +184,12 @@ export default function init() {
                     } else if (resEmailPin.code === "5000") {
                         modal.openModal("modalDanger", TITLE_SECTION, resEmailPin.message);
                     } else {
-                        modal.openModal("modalDanger", TITLE_SECTION, "Ocurrio un error, favor intente de nuevo");
+                        modal.openModal("modalDanger", TITLE_SECTION, resEmailPin.message);
                     }
                 } else if (res.code === "5000") {
-                    modal.openModal("modalDanger", TITLE_SECTION, res.message);
+                    modal.openModal("modalDanger", TITLE_SECTION, resPin.message);
                 } else {
-                    modal.openModal("modalDanger", TITLE_SECTION, "Ocurrio un error, favor intente de nuevo");
+                    modal.openModal("modalDanger", TITLE_SECTION, resPin.message);
                 }
             });
         }

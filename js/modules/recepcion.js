@@ -95,15 +95,15 @@ export default function init() {
                         if (res.code === "0000") {
                             modal.openModal('modalSuccess', 'Transaccion satisfactoria', res.message, undefined)
                         } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', 'Datos incompletos', res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', 'Hubo un error', res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
                 } else if (resOtp.code === "5000") {
-                    modal.openModal('modalDanger', 'Datos incompletos', resOtp.message)
+                    modal.openModal('modalDanger', TITLE_SECTION,  resOtp.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', resOtp.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 }
             })
 

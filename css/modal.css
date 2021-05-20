@@ -151,7 +151,7 @@
     border: none;
 }
 
-.modal.modal--operationSummary .modal-body p span {
+.modal.modal--operationSummary .modal-body p .result {
     display: block;
     color: #585757;
 }

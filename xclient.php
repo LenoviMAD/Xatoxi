@@ -263,7 +263,7 @@ class xclient
         return ($result);
     } // mgeticccbankl
 
-    private function bcalcsend($wsuser, $wspwd, $idlead, $idProvider, $idCountry, $amount)
+    private function bcalcsend($wsuser, $wspwd, $idlead, $idProvider, $idCountry, $amount, $idclearencetype)
     {
         $this->updateField($calcsend, "wsuser", "WSITALCAMBIO");
         $this->updateField($calcsend, "version", "1.1");
@@ -272,13 +272,14 @@ class xclient
         $this->updateField($calcsend, "idprovider", $idProvider);
         $this->updateField($calcsend, "idcountry", $idCountry);
         $this->updateField($calcsend, "amount", $amount);
+        $this->updateField($calcsend, "idclearencetype", $idclearencetype);
         return $calcsend;
     } // bcalcsend
 
-    function mcalcsend($idlead, $idProvider, $idCountry, $amount, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+    function mcalcsend($idlead, $idProvider, $idCountry, $amount, $idclearencetype, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
     {
         $this->init($url);
-        $calcsend =  $this->bcalcsend("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idProvider, $idCountry, $amount);
+        $calcsend =  $this->bcalcsend("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idProvider, $idCountry, $amount, $idclearencetype);
         $data["calcsend"] = $calcsend;
         $data_string = json_encode($data);
         curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -307,7 +308,7 @@ class xclient
         return ($result);
     } // mgetcurrencyl
 
-    private function bcalcsell($wsuser, $wspwd, $idlead, $idCurrency, $amount)
+    private function bcalcsell($wsuser, $wspwd, $idlead, $idCurrency, $amount, $idinstrumentdebit, $idclearancetype)
     {
         $this->updateField($calcsell, "wsuser", "WSITALCAMBIO");
         $this->updateField($calcsell, "version", "1.1");
@@ -315,13 +316,15 @@ class xclient
         $this->updateField($calcsell, "idlead", $idlead);
         $this->updateField($calcsell, "idcurrency", $idCurrency);
         $this->updateField($calcsell, "amount", $amount);
+        $this->updateField($calcsell, "idinstrumentdebit", $idinstrumentdebit);
+        $this->updateField($calcsell, "idclearancetype", $idclearancetype);
         return $calcsell;
     } // bcalcsell
 
-    function mcalcsell($idlead, $idCurrency, $amount, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+    function mcalcsell($idlead, $idCurrency, $amount, $idinstrumentdebit, $idclearancetype, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
     {
         $this->init($url);
-        $calcsell =  $this->bcalcsell("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idCurrency, $amount);
+        $calcsell =  $this->bcalcsell("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idCurrency, $amount, $idinstrumentdebit, $idclearancetype);
         $data["calcsell"] = $calcsell;
         $data_string = json_encode($data);
         curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -330,7 +333,7 @@ class xclient
         return ($result);
     } // mcalcsell
 
-    private function bcalcbuy($wsuser, $wspwd, $idlead, $idCurrency, $amount)
+    private function bcalcbuy($wsuser, $wspwd, $idlead, $idCurrency, $amount, $idinstrumentdebit, $idclearencetype)
     {
         $this->updateField($calcbuy, "wsuser", "WSITALCAMBIO");
         $this->updateField($calcbuy, "version", "1.1");
@@ -338,13 +341,15 @@ class xclient
         $this->updateField($calcbuy, "idlead", $idlead);
         $this->updateField($calcbuy, "idcurrency", $idCurrency);
         $this->updateField($calcbuy, "amount", $amount);
+        $this->updateField($calcbuy, "idinstrumentdebit", $idinstrumentdebit);
+        $this->updateField($calcbuy, "idclearencetype", $idclearencetype);
         return $calcbuy;
     } // bcalcbuy
 
-    function mcalcbuy($idlead, $idCurrency, $amount, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+    function mcalcbuy($idlead, $idCurrency, $amount, $idinstrumentdebit, $idclearencetype, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
     {
         $this->init($url);
-        $calcbuy =  $this->bcalcbuy("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idCurrency, $amount);
+        $calcbuy =  $this->bcalcbuy("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idCurrency, $amount, $idinstrumentdebit, $idclearencetype);
         $data["calcbuy"] = $calcbuy;
         $data_string = json_encode($data);
         curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -936,7 +941,7 @@ class xclient
         return ($result);
     } // mgetstatecityl
 
-    private function bcalcsendtr($wsuser, $wspwd, $idlead, $idcountry, $idcurrency, $amount)
+    private function bcalcsendtr($wsuser, $wspwd, $idlead, $idcountry, $idcurrency, $amount, $idclearencetype)
     {
         $this->updateField($calcsendtr, "wsuser", "WSITALCAMBIO");
         $this->updateField($calcsendtr, "version", "1.1");
@@ -945,13 +950,14 @@ class xclient
         $this->updateField($calcsendtr, "idcountry", $idcountry);
         $this->updateField($calcsendtr, "idcurrency", $idcurrency);
         $this->updateField($calcsendtr, "amount", $amount);
+        $this->updateField($calcsendtr, "idclearencetype", $idclearencetype);
         return $calcsendtr;
     } // bcalcsendtr
 
-    function mcalcsendtr($idlead, $idcountry, $idcurrency, $amount, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+    function mcalcsendtr($idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
     {
         $this->init($url);
-        $calcsendtr =  $this->bcalcsendtr("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcountry, $idcurrency, $amount);
+        $calcsendtr =  $this->bcalcsendtr("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $idcountry, $idcurrency, $amount, $idclearencetype);
         $data["calcsendtr"] = $calcsendtr;
         $data_string = json_encode($data);
         curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -1163,7 +1169,7 @@ class xclient
         return ($result);
     } // mgetbankl
 
-    private function bcalcsendw($wsuser, $wspwd, $idlead, $amount, $idcurrency)
+    private function bcalcsendw($wsuser, $wspwd, $idlead, $amount, $idcurrency, $idclearencetype)
     {
         $this->updateField($calcsendw, "wsuser", "WSITALCAMBIO");
         $this->updateField($calcsendw, "version", "1.1");
@@ -1171,13 +1177,14 @@ class xclient
         $this->updateField($calcsendw, "idlead", $idlead);
         $this->updateField($calcsendw, "amount", $amount);
         $this->updateField($calcsendw, "idcurrency", $idcurrency);
+        $this->updateField($calcsendw, "idclearencetype", $idclearencetype);
         return $calcsendw;
     } // bcalcsendw
 
-    function mcalcsendw($idlead, $amount, $idcurrency, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+    function mcalcsendw($idlead, $amount, $idcurrency,$idclearencetype, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
     {
         $this->init($url);
-        $calcsendw =  $this->bcalcsendw("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $amount, $idcurrency);
+        $calcsendw =  $this->bcalcsendw("WSITALCAMBIO", "1cc61eb7ae2187eb91f97d1ae5300919", $idlead, $amount, $idcurrency, $idclearencetype);
         $data["calcsendw"] = $calcsendw;
         $data_string = json_encode($data);
         curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -1445,7 +1452,7 @@ class xclient
         return ($result);
     } // mgetcivilstatel
 
-    private function brequestdebitcard($idlead,$otp)
+    private function brequestdebitcard($idlead, $otp)
     {
         $this->updateField($requestdebitcard, "wsuser", "WSITALCAMBIO");
         $this->updateField($requestdebitcard, "version", "1.1");
@@ -1455,10 +1462,10 @@ class xclient
         return $requestdebitcard;
     } // brequestdebitcard
 
-    function mrequestdebitcard($idlead,$otp, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
+    function mrequestdebitcard($idlead, $otp, $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php")
     {
         $this->init($url);
-        $requestdebitcard =  $this->brequestdebitcard($idlead,$otp);
+        $requestdebitcard =  $this->brequestdebitcard($idlead, $otp);
         $data["requestdebitcard"] = $requestdebitcard;
         $data_string = json_encode($data);
         curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);

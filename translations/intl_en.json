@@ -1,13 +1,15 @@
 {
     "test": "Ingles",
+    "trad_solicitud_tarjeta_debito_web": "",
     "trad_envio": "SEND",
     "trad_recepcion": "RECEIVE",
     "trad_venta": "SALE",
     "trad_compra": "BUY",
     "trad_cambio": "EXCHANGE",
     "trad_perfil": "PROFILE",
-    "trad_pepin": "Do you have questions? Ask Pepin",	
-    "trad_solicitud_tarjeta_debito": "DEBIT CARD REQUEST",
+    "trad_pepin": "Do you have questions? <a target='_blank' title='Contact to Pepin' href='mailto:pepin@italcambio.com'>Ask Pepin</a>",	
+    "trad_pepin_web": "",
+    "trad_solicitud_tarjeta_debito": "DEBIT CARD REQUEST <br> (TO RECEIVE REMITTANCES)",
     "trab_para_recibir_remesa": "(TO RECEIVE REMITTANCES)",
     "trad_encomienda": "ENDORSEMENT",
     "trad_remesa": "REMITTANCE",
@@ -165,6 +167,7 @@
     "trad_registrado": "Registered",
     "trad_transaccion_satisfactoria": "Satisfactory Transaction",
     "trad_regreso_inicio": "Return Home",
+    "trad_regreso": "Return",
     "trad_su_otp_es": "YOUR OTP IS",
     "trad_prefijo": "Prefix",
     "trad_telefono_errado": "Wrong phone",
@@ -175,7 +178,6 @@
     "trad_desea_mantener_la_sesion": "Do you want to keep the session active?",
     "trad_no": "No",
     "trad_si": "Yes",
-
     "trad_operacion_remesa": "Operation Remittance",
     "trad_operacion_encomienda": "Operation Endorsement",
     "trad_operacion_transferencia": "Operación Transfer",
@@ -187,5 +189,5 @@
     "trad_cargar_documento": "LOAD DOCUMENT",
     "trad_tarjeta_de_credito_prepagada": "Prepaid Credit Card",
     "trad_tarjeta_de_debito_remesa": "Remittance debit card",
-    "trad_reescriba_su email": "Confirm email"
+    "trad_reescriba_su_email": "Confirm email"
 }

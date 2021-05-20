@@ -10,7 +10,7 @@
                 <p class="modal__text"></p>
             </header>
             <footer class="modal-footer">
-                <a class="btn btn-primary" type="button" aria-label="close modal" data-close>Continuar</a>
+                <a class="btn btn-primary js-translate" data-string="trad_continuar" type="button" aria-label="close modal" data-close>Continuar</a>
             </footer>
         </section>
     </div>

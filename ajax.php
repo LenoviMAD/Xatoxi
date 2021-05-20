@@ -39,7 +39,7 @@ if (isset($_GET["cond"])) {
     }
 
     if ($_GET["cond"] == "mcalcsend") {
-        $data_json = $client->mcalcsend($_SESSION['idlead'], $_GET["valor0"], $_GET["valor1"], $_GET["valor2"]);
+        $data_json = $client->mcalcsend($_SESSION['idlead'], $_GET["valor0"], $_GET["valor1"], $_GET["valor2"], $_GET["valor3"]);
         print_r(json_encode($data_json));
     }
 
@@ -56,7 +56,7 @@ if (isset($_GET["cond"])) {
 
 if (isset($_POST["cond"])) {
     if ($_POST["cond"] == "calcsendw") {
-        $data_json = $client->mcalcsendw($_SESSION['idlead'], $_POST['amountWallet'], $_POST['currencyWallet']);
+        $data_json = $client->mcalcsendw($_SESSION['idlead'], $_POST['amountWallet'], $_POST['currencyWallet'],$_POST['idclearencetype']);
         print_r(json_encode($data_json));
     }
 
@@ -83,7 +83,8 @@ if (isset($_POST["cond"])) {
     }
 
     if ($_POST["cond"] == "calcsendenvio") {
-        $data_json = $client->mcalcsend($_SESSION['idlead'], $_POST["providerCommend"], $_POST["countryCommend"], $_POST["amountCommend"]);
+        $data_json = $client->mcalcsend($_SESSION['idlead'], $_POST["providerCommend"], $_POST["countryCommend"], $_POST["amountCommend"],$_POST["idclearencetype"]);
+
         print_r(json_encode($data_json));
     }
 
@@ -264,13 +265,14 @@ if (isset($_POST["cond"])) {
         $idprovider = $_POST["providerCommend"];
         $idcountry = $_POST["countryCommend"];
         $amount = $_POST["amountCommend"];
+        $idclearencetype = $_POST["idclearencetype"];
 
-        $data_json = $client->mcalcsend($_SESSION['idlead'], $idprovider, $idcountry, $amount);
+        $data_json = $client->mcalcsend($_SESSION['idlead'], $idprovider, $idcountry, $amount, $idclearencetype);
         print_r(json_encode($data_json));
     }
 
     if ($_POST["cond"] == "calcsendtr") {
-        $data_json = $client->mcalcsendtr($_SESSION['idlead'], $_POST["countryTransfer"], $_POST["currencyTransfer"], $_POST["amountTransfer"]);
+        $data_json = $client->mcalcsendtr($_SESSION['idlead'], $_POST["countryTransfer"], $_POST["currencyTransfer"], $_POST["amountTransfer"], $_POST["idclearencetype"]);
         print_r(json_encode($data_json));
     }
 
@@ -282,8 +284,10 @@ if (isset($_POST["cond"])) {
     if ($_POST["cond"] == "calcsell") {
         $currency = $_POST["currency"];
         $amount = $_POST["amount"];
+        $idinstrumentdebit = $_POST["idinstrumentdebit"];
+        $idclearencetype = $_POST["idclearencetype"];
 
-        $data_json = $client->mcalcbuy($_SESSION['idlead'], $currency, $amount);
+        $data_json = $client->mcalcbuy($_SESSION['idlead'], $currency, $amount, $idinstrumentdebit, $idclearencetype);
         print_r(json_encode($data_json));
     }
 
@@ -323,8 +327,10 @@ if (isset($_POST["cond"])) {
     if ($_POST["cond"] == "calcbuy") {
         $currency = $_POST["currency"];
         $amount = $_POST["amount"];
+        $idinstrumentdebit = $_POST["idinstrumentdebit"];
+        $idclearancetype = $_POST["idclearancetype"];
 
-        $data_json = $client->mcalcsell($_SESSION['idlead'], $currency, $amount);
+        $data_json = $client->mcalcsell($_SESSION['idlead'], $currency, $amount, $idinstrumentdebit, $idclearancetype);
         print_r(json_encode($data_json));
     }
     if ($_POST["cond"] == "execbuy") {
@@ -507,7 +513,7 @@ if (isset($_POST["cond"])) {
         // Guardar variables de sesion primera parte
         if ($data_json->code === "0000") {
             $_SESSION['idlocation'] = $data_json->idlocation;
-            
+
             // $_SESSION['debitcardnumber'] = $data_json->debitcardnumber;
             // $_SESSION['prepaidcardnumber'] = $data_json->prepaidcardnumber;
             $_SESSION['debitcardnumber'] = "01021111111111111111";
@@ -585,7 +591,7 @@ if (isset($_POST["cond"])) {
         $idlead = $_SESSION['idlead'];
         $otp = $_POST['otp'];
 
-        $data_json = $client->mrequestdebitcard($idlead,$otp);
+        $data_json = $client->mrequestdebitcard($idlead, $otp);
 
         print_r(json_encode($data_json));
     }

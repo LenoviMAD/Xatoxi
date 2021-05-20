@@ -1,3 +1,4 @@
+
 export function numberFormater(num) {
     return new Intl.NumberFormat().format(num)
     // num = new Intl.NumberFormat("de-DE").format(num)

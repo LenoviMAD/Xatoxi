@@ -85,13 +85,13 @@ export default function init() {
                                 location.href = "./perfil.php";
                             })
                         } else {
-                            modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                           modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
                 } else if (res.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             }
 
@@ -137,7 +137,7 @@ export default function init() {
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                           modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
                 } else {
@@ -175,7 +175,7 @@ export default function init() {
                 } else if (resUpload.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, resUpload.message)
                 } else {
-                    modal.openModal('modalDanger', TITLE_SECTION, 'Ocurrio un error, favor intente de nuevo')
+                   modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
 
@@ -228,13 +228,13 @@ export default function init() {
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                            modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
                 } else if (res.code === "5000") {
-                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 } else {
-                    modal.openModal('modalDanger', 'Hubo un error', 'Ocurrio un error, favor intente de nuevo')
+                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
                 }
             })
         }
