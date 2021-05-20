@@ -1001,10 +1001,10 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/20 10:00
     ===================================================================== */
-    static function buildOptionsPrincipal($titleLabel, $data_id = "", $class = "card card-a")
+    static function buildOptionsPrincipal($titleLabel, $data_id = "", $class = "card card-a", $dataString="")
     {
         echo '	<ARTICLE class="' . $class . '" data-id="' . $data_id . '">';
-        echo '		<H1>' . $titleLabel . '</H1>';
+        echo '		<H1 class="js-translate" data-string="'.$dataString.'">' . $titleLabel . '</H1>';
         echo '	</ARTICLE>';
     } //buildOptionsPrincipal
 
