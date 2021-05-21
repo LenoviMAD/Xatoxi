@@ -40,9 +40,24 @@ xpresentationLayer::buildInputNumberGrid([
 ]);
 
 $data_json = $serviceCall->mgetcurrencyremitancel();
-xpresentationLayer::buildSelectJson("Moneda", "currencyWallet", "", $data_json, "", "", "", true);
+xpresentationLayer::buildSelectJson([
+    'title' => 'Moneda',
+    'id' => 'currencyWallet',
+    'name' => 'currencyWallet',
+    'event' => '',
+    'classContainer' => '',
+    'idContainer' => '',
+    'required' => true,
+    'dataString' => ''
+], $data_json);
 $data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(6, 2, 3, 5));
-xpresentationLayer::buildSelectJson("Forma de pago", "paidFormWallet", "", $data_json, "", "", "grid-item-2", true);
+xpresentationLayer::buildSelectJson([
+    'title' => 'Forma de pago',
+    'id' => 'paidFormWallet',
+    'name' => 'paidFormWallet',
+    'classContainer' => 'grid-item-2',
+    'required' => true,
+], $data_json);
 
 //ACH
 xpresentationLayer::startDivHidden("sectionWalletAHC", "grid-item-2 grid-1");
@@ -58,7 +73,11 @@ xpresentationLayer::endDiv();
 xpresentationLayer::startDivHidden("sectionAccountDeposit", "grid-item-2 grid-1");
 xpresentationLayer::startSectionTwoColumns();
 $data_json = $serviceCall->mgeticccbankl();
-xpresentationLayer::buildSelectJson("Cta. Receptora", "receiveAccount", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Cta. Receptora',
+    'id' => 'receiveAccount',
+    'name' => 'receiveAccount',
+], $data_json);
 xpresentationLayer::buildInputTextGrid("Referencia", "", "referenceWalletCuenta", "");
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
@@ -72,9 +91,13 @@ xpresentationLayer::buildInputNumberGrid([
     'maxlength' => 20
 ]);
 $data_json = $serviceCall->mgetcreditcardtypel();
-xpresentationLayer::buildSelectJson("Tipo Tarjeta", "typeCardWallet", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Tipo Tarjeta',
+    'id' => 'typeCardWallet',
+    'name' => 'typeCardWallet',
+], $data_json);
 
-xpresentationLayer::buildInputsMonthYear("Fecha Venc","monthVenCommend", "yearVenCommend");
+xpresentationLayer::buildInputsMonthYear("Fecha Venc", "monthVenCommend", "yearVenCommend");
 
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Cod. Validacion',
@@ -91,7 +114,10 @@ xpresentationLayer::endSection();
 xpresentationLayer::startDivHidden("beneficiarioWallet");
 xpresentationLayer::buildTitleBar("BENEFICIARIO");
 $data_json = $serviceCall->mgetpartyxl();
-xpresentationLayer::buildSearchUsersWallet("users", "", $data_json, "", "", "", "");
+xpresentationLayer::buildSearchUsersWallet([
+            'id' => 'users',
+            'name' => 'users',
+], $data_json);
 xpresentationLayer::endDiv();
 
 // DOCUMENTOS DE WALLET
@@ -99,7 +125,10 @@ xpresentationLayer::startDivHidden("docsWallet");
 xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS");
 xpresentationLayer::startSectionTwoColumns();
 $data_json = $serviceCall->mgetcompliancedoctypel();
-xpresentationLayer::buildSelectJson("", "typeDocWallet", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson([
+    'id' => 'typeDocWallet',
+    'name' => 'typeDocWallet',
+], $data_json);
 xpresentationLayer::buildInputFileDoc("fileInputWallet", "hidden", "file");
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
@@ -121,15 +150,56 @@ xpresentationLayer::buildInputNumberGrid([
     'required' => true
 ]);
 $data_json = $serviceCall->mgetcountryl();
-xpresentationLayer::buildSelectJson("País", "countryCommend", "countryCommend", $data_json, "", "selectValorforId('countryCommend/providerCommend', 'ajax.php?cond=mgetproviderl')", "", true);
-xpresentationLayer::buildSelectJson("Proveedor", "providerCommend", "providerCommend", "", "", "selectValorforId('providerCommend/sendFormCommend', 'ajax.php?cond=mgetremitancetypel')", "", true);
+xpresentationLayer::buildSelectJson([
+    'title' => 'País',
+    'id' => 'countryCommend',
+    'name' => 'countryCommend',
+    'event' => 'selectValorforId(\'countryCommend/providerCommend\', \'ajax.php?cond=mgetproviderl\')',
+    'classContainer' => '',
+    'idContainer' => '',
+    'required' => true,
+    'dataString' => ''
+],  $data_json);
+xpresentationLayer::buildSelectJson([
+    'title' => 'Proveedor',
+    'id' => 'providerCommend',
+    'name' => 'providerCommend',
+    'event' => 'selectValorforId(\'providerCommend/sendFormCommend\', \'ajax.php?cond=mgetremitancetypel\')',
+    'classContainer' => '',
+    'idContainer' => '',
+    'required' => true,
+    'dataString' => ''
+], "");
 $data_json = $serviceCall->mgetcurrencyremitancel();
-xpresentationLayer::buildSelectJson("Moneda", "currencyCommend", "", $data_json, "", "", "", true);
-xpresentationLayer::buildSelectJson("Entrega", "sendFormCommend", "sendFormCommend", "", "", "", "", true);
+xpresentationLayer::buildSelectJson([
+    'title' => 'Moneda',
+    'id' => 'currencyCommend',
+    'name' => 'currencyCommend',
+    'required' => true,
+], $data_json);
+xpresentationLayer::buildSelectJson([
+    'title' => 'Entrega',
+    'id' => 'sendFormCommend',
+    'name' => 'sendFormCommend',
+    'event' => '',
+    'classContainer' => '',
+    'idContainer' => '',
+    'required' => true,
+    'dataString' => ''
+], "");
 
 
 $data_json = $serviceCall->mgetclearencetypel();
-xpresentationLayer::buildSelectJson("Forma de pago", "paidFormCommend", "", $data_json, "", "", "", true);
+xpresentationLayer::buildSelectJson([
+    'title' => 'Forma de pago',
+    'id' => 'paidFormCommend',
+    'name' => 'paidFormCommend',
+    'event' => '',
+    'classContainer' => '',
+    'idContainer' => '',
+    'required' => true,
+    'dataString' => ''
+], $data_json);
 
 $customClass = $_SESSION['refToChange'] ? "hidden" : "";
 xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "", "exchangeRateCommend", "0.00", "", $customClass, "", true);
@@ -155,7 +225,11 @@ xpresentationLayer::endDiv();
 xpresentationLayer::startDivHidden("sectionCommendDeposit", "grid-item-2 grid-1");
 xpresentationLayer::startSectionTwoColumns();
 $data_json = $serviceCall->mgeticccbankl();
-xpresentationLayer::buildSelectJson("Cta. Receptora", "receiveAccount", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Cta. Receptora',
+    'id' => 'receiveAccount',
+    'name' => 'receiveAccount'
+], $data_json);
 xpresentationLayer::buildInputTextGrid("Referencia", "", "referenceCommendCuenta", "");
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
@@ -174,9 +248,13 @@ xpresentationLayer::buildInputNumberGrid([
     'maxlength' => 20
 ]);
 $data_json = $serviceCall->mgetcreditcardtypel();
-xpresentationLayer::buildSelectJson("Tipo Tarjeta", "typeCardCommend", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Tipo Tarjeta',
+    'id' => 'typeCardCommend',
+    'name' => 'typeCardCommend',
+], $data_json);
 // xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-1");
-xpresentationLayer::buildInputsMonthYear("Fecha Venc","monthVenCommend", "yearVenCommend");
+xpresentationLayer::buildInputsMonthYear("Fecha Venc", "monthVenCommend", "yearVenCommend");
 
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Cod. Validacion',
@@ -191,7 +269,10 @@ xpresentationLayer::startDivHidden("uploadCommend");
 xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS");
 xpresentationLayer::startSectionTwoColumns();
 $data_json = $serviceCall->mgetcompliancedoctypel();
-xpresentationLayer::buildSelectJson("", "typeDocWallet", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson([
+    'id' => 'typeDocWallet',
+    'name' => 'typeDocWallet',
+], $data_json);
 ?>
 <div class="input-field1 hidden" id="fileInputWallet1">
     <input type="file" name="file">
@@ -205,7 +286,12 @@ xpresentationLayer::endSection();
 
 xpresentationLayer::startDivHidden("beneficiarioCommend");
 xpresentationLayer::buildTitleBar("BENEFICIARIO");
-xpresentationLayer::buildSearchUsersCommend("usersCommend", "usersCommend", "btnAddCommend", "", "", "", "mb20 input-field1");
+xpresentationLayer::buildSearchUsersCommend([
+            'id' => 'usersCommend',
+            'idButtom' => 'btnAddCommend',
+            'name' => 'usersCommend',
+            'class' => 'mb20 input-field1'
+], "");
 xpresentationLayer::startDivHidden("userCommend");
 xpresentationLayer::startSectionTwoColumns();
 xpresentationLayer::buildInputTextGrid("Documento Identificación", "bdocumentid", "bdocumentid", "", 20, "grid-item-2", "required", "");
@@ -236,7 +322,10 @@ xpresentationLayer::startDivHidden("docsCommend");
 xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS");
 xpresentationLayer::startSectionTwoColumns();
 $data_json = $serviceCall->mgetcompliancedoctypel();
-xpresentationLayer::buildSelectJson("", "typeDocCommend", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson([
+    'id' => 'typeDocCommend',
+    'name' => 'typeDocCommend',
+], $data_json);
 xpresentationLayer::buildInputFileDoc("fileInputCommend", "hidden", "file1");
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
@@ -259,11 +348,26 @@ xpresentationLayer::buildInputNumberGrid([
     'required' => true
 ]);
 $data_json = $serviceCall->mgetcountryl();
-xpresentationLayer::buildSelectJson("País", "countryTransfer", "countryTransfer", $data_json, "", "", "", true);
+xpresentationLayer::buildSelectJson([
+    'title' => 'País',
+    'id' => 'countryTransfer',
+    'name' => 'countryTransfer',
+    'required' => true,
+], $data_json);
 $data_json = $serviceCall->mgetcurrencytrl();
-xpresentationLayer::buildSelectJson("Moneda", "currencyTransfer", "currencyTransfer", $data_json, "", "", "", true);
+xpresentationLayer::buildSelectJson([
+    'title' => 'Moneda',
+    'id' => 'currencyTransfer',
+    'name' => 'currencyTransfer',
+    'required' => true,
+], $data_json);
 $data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(6, 2, 3, 5, 1));
-xpresentationLayer::buildSelectJson("Forma de pago", "paidFormTransfer", "paidFormTransfer", $data_json, "", "", "", true);
+xpresentationLayer::buildSelectJson([
+    'title' => 'Forma de pago',
+    'id' => 'paidFormTransfer',
+    'name' => 'paidFormTransfer',
+    'required' => true,
+], $data_json);
 
 $customClass = $_SESSION['refToChange'] ? "hidden" : "";
 xpresentationLayer::buildInputTextGrid("Tasa de Cambio", "exchangedRateTransfer", "exchangedRateTransfer", "0.00", "", $customClass, "", true);
@@ -273,7 +377,11 @@ xpresentationLayer::buildInputTextGrid("Monto Bs", "amountBsTransfer", "amountBs
 xpresentationLayer::startDivHidden("accountDeposit", "grid-item-2 grid-1");
 $data_json = $serviceCall->mgeticccbankl();
 xpresentationLayer::startSectionTwoColumns();
-xpresentationLayer::buildSelectJson("Cta. Receptora", "receivingAccount", "receivingAccount", $data_json, "", " ");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Cta. Receptora',
+    'id' => 'receivingAccount',
+    'name' => 'receivingAccount'
+], $data_json);
 xpresentationLayer::buildInputTextGrid("Referencia", "referenceTransferDeposit", "referenceTransferDeposit", "");
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
@@ -296,7 +404,11 @@ xpresentationLayer::buildInputNumberGrid([
     'maxlength' => 20
 ]);
 $data_json = $serviceCall->mgetcreditcardtypel();
-xpresentationLayer::buildSelectJson("Tipo de tarjeta", "typeCardTransfer", "typeCardTransfer", $data_json, "", "");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Tipo de tarjeta',
+    'id' => 'typeCardTransfer',
+    'name' => 'typeCardTransfer',
+],  $data_json);
 xpresentationLayer::buildInputsDate("monthTransfer", "monthTransfer", "yearTransfer", "yearTransfer");
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Cod. Validación',
@@ -317,7 +429,12 @@ xpresentationLayer::endSection();
 
 xpresentationLayer::startDivHidden("beneficiarioTransfer");
 xpresentationLayer::buildTitleBar("BENEFICIARIO");
-xpresentationLayer::buildSearchUsersCommend("usersTransfer", "usersTransfer", "btnIconAdd", "", "", "", "mb20 input-field1");
+xpresentationLayer::buildSearchUsersCommend([
+            'id' => 'usersTransfer',
+            'idButtom' => 'btnIconAdd',
+            'name' => 'usersTransfer',
+            'class' => '"mb20 input-field1'
+], "");
 xpresentationLayer::startDivHidden("userTransfer");
 xpresentationLayer::startSectionTwoColumns();
 xpresentationLayer::buildInputTextGrid("Documento Identificación", "bdocumentidTransfer", "bdocumentidTransfer", "", 20, "grid-item-2", "required", "");

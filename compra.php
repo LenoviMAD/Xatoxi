@@ -28,13 +28,31 @@ xpresentationLayer::buildInputNumberGrid([
 ]);
 
 $data_json = $serviceCall->mgetcurrencyl();
-xpresentationLayer::buildSelectJson("Divisa", "currency", "currency", $data_json, "", "", "", true, "", "trad_divisa");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Divisa',
+    'id' => 'currency',
+    'name' => 'currency',
+    'required' => true,
+    'dataString' => 'trad_divisa'
+], $data_json);
 
 $data_json = $serviceCall->mgetdebitinstrumentl();
-xpresentationLayer::buildSelectJson("Abonar en", "payIn", "payIn", $data_json, "", "", "", true, "", "trad_abonar_en");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Abonar en',
+    'id' => 'payIn',
+    'name' => 'payIn',
+    'required' => true,
+    'dataString' => 'trad_abonar_en'
+], $data_json);
 
 $data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(3, 5));
-xpresentationLayer::buildSelectJson("Forma de Pago", "payForm", "payForm", $data_json, "", "", "", true, "", "trad_forma_de_pago");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Forma de Pago',
+    'id' => 'payForm',
+    'name' => 'payForm',
+    'required' => true,
+    'dataString' => 'trad_forma_de_pago'
+], $data_json);
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Tasa de Cambio',
     'name' => 'exchangeRate',
@@ -74,7 +92,13 @@ xpresentationLayer::buildInputTextGrid([
     'dataString' => 'trad_numero_de_tarjeta'
 ]);
 $data_json = $serviceCall->mgetcreditcardtypel();
-xpresentationLayer::buildSelectJson("Tipo de tarjeta", "typeCard", "typeCard", $data_json, "", "", "", false, "", "trad_tipo_tarjeta");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Tipo de tarjeta',
+    'id' => 'typeCard',
+    'name' => 'typeCard',
+    'dataString' => 'trad_tipo_tarjeta'
+
+], $data_json);
 xpresentationLayer::buildInputsDate("monthTransfer", "monthTransfer", "yearTransfer", "yearTransfer");
 xpresentationLayer::buildInputTextGrid([
     'title' => 'Cod. Validación',
@@ -89,7 +113,12 @@ xpresentationLayer::endDiv();
 xpresentationLayer::startDivHidden("sectionCommend", "grid-item-2 grid-2 mt20 mb20");
 xpresentationLayer::buildTitleBar("DATOS FORMA DE PAGO", "grid-item-2 m0", "trad_datos_forma_de_pago");
 $data_json = $serviceCall->mgeticccbankl();
-xpresentationLayer::buildSelectJson("Cta. Receptora", "receiveAccount", "", $data_json, "", "", "", false, "", "trad_cta_receptora");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Cta. Receptora',
+    'id' => 'receiveAccount',
+    'name' => 'receiveAccount',
+    'dataString' => 'trad_cta_receptora'
+], $data_json);
 xpresentationLayer::buildInputTextGrid([
     'title' => 'Referencia',
     'name' => 'referenceCuenta',

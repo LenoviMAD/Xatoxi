@@ -20,14 +20,17 @@ xpresentationLayer::startForm("requestDebitConsignmentForm", "", "grid-2");
 
 xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "grid-item-2", "trad_documentos_requeridos");
 $data_json = $serviceCall->mgetcompliancedoctypel();
-xpresentationLayer::buildSelectJson("", "typeDocWallet", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson([
+    'id' => 'typeDocWallet',
+    'name' => 'typeDocWallet',
+], $data_json);
 ?>
 <div class="input-field1 hidden" id="fileInputWallet">
     <input type="file" name="file">
 </div>
 <?php
 
-xpresentationLayer::buildSectionPin("","grid-item-2");
+xpresentationLayer::buildSectionPin("", "grid-item-2");
 xpresentationLayer::endMain();
 
 xpresentationLayer::buildFooterXatoxi();

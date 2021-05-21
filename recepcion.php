@@ -24,7 +24,12 @@ xpresentationLayer::buildInputTextGrid([
 ]);
 
 $data_json = $serviceCall->mgetclearencetypel(array(2, 3, 1, 4, 8, 7));
-xpresentationLayer::buildSelectJson("Forma de Recepción", "formRecepcion", "formRecepcion", $data_json, "", "", "", false, "", "trad_forma_de_recepcion");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Forma de Recepción',
+    'id' => 'formRecepcion',
+    'name' => 'formRecepcion',
+    'dataString' => 'trad_forma_de_recepcion'
+], $data_json);
 
 // Deposito en cuenta
 xpresentationLayer::startDivHidden("banckAccountSection", "grid-item-2");
@@ -40,7 +45,13 @@ xpresentationLayer::endDiv();
 // Efectivo
 xpresentationLayer::startDivHidden("branckOfficesSection", "grid-item-2");
 $data_json = $serviceCall->mgetlocationl();
-xpresentationLayer::buildSelectJson("Sucursales", "branchOffices", "", $data_json, "", "", "grid-item-2 ", false, "", "trad_sucursales");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Sucursales',
+    'id' => 'branchOffices',
+    'name' => 'branchOffices',
+    'classContainer' => 'grid-item-2',
+    'dataString' => 'trad_sucursales'
+], $data_json);
 xpresentationLayer::endDiv();
 
 
@@ -48,10 +59,27 @@ xpresentationLayer::endDiv();
 xpresentationLayer::startDivHidden("bancoPagoMovilSection", "grid-item-2");
 
 $data_json = $serviceCall->mgetbankl("238");
-xpresentationLayer::buildSelectJson("Banco pago móvil", "bancoPagoMovil", "bancoPagoMovil", $data_json, "", "",  "grid-item-2 ", false, "", "trad_banco_pago_movil");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Banco pago móvil',
+    'id' => 'bancoPagoMovil',
+    'name' => 'bancoPagoMovil',
+    'classContainer' => 'grid-item-2',
+    'dataString' => 'trad_banco_pago_movil'
+], $data_json);
 
 $data_jsonCodePhone = $serviceCall->mgetcellphoneareacodel("58");
-xpresentationLayer::buildPhoneComplete("Teléfono Pago Móvil", "countrycode",  "codeArea", "phone", "countrycode",  "codeArea", "phone", "", $data_jsonCodePhone, "", "disabled", "grid-item-2 mt20 center-height", "full-width");
+xpresentationLayer::buildPhoneComplete([
+    'titleLabel' => 'Teléfono Pago Móvil',
+    'nameCountry' => 'countrycode',
+    'nameArea' => 'codeArea',
+    'namePhone' => 'phone',
+    'idCountry' => 'countrycode',
+    'idArea' => 'codeArea',
+    'idPhone' => 'phone',
+    'disabled' => 'disabled',
+    'classContainer' => 'grid-item-2 mt20 center-height',
+    'classChildren' => 'full-width'
+], "", $data_jsonCodePhone);
 
 xpresentationLayer::endDiv();
 
