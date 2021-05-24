@@ -24,7 +24,18 @@ xpresentationLayer::startForm("profileForm");
 xpresentationLayer::startSectionTwoColumns("grid-2 pb15");
 
 // $data_json = $serviceCall->mgetiddocumenttypel();
-xpresentationLayer::buildSectionDocument("T. Doc.", "Documento", "Fec. Nacimiento", "typeDocument", "document", "birthdate", "typeDocument", "document", "birthdate", $data_json, "grid-item-2");
+xpresentationLayer::buildSectionDocument([
+    'labelSelect' => 'T. Doc.',
+    'labelInputText' => 'Documento',
+    'labelInputDate' => 'Fec. Nacimiento',
+    'nameSelect' => 'typeDocument',
+    'nameInputText' => 'document',
+    'nameInputDate' => 'birthdate',
+    'idSelect' => 'typeDocument',
+    'idInputText' => 'document',
+    'idInputDate' => 'birthdate',
+    'customClass' => 'grid-item-2',
+], $data_json);
 
 xpresentationLayer::startSectionTwoColumns("grid-3 grid-item-2", "");
 xpresentationLayer::buildInputTextGrid([
@@ -73,9 +84,27 @@ xpresentationLayer::buildInputTextGrid([
 ]);
 
 // $data_json = $serviceCall->mgetallcountrydetaill();
-xpresentationLayer::buildSelectJson("Pais", "country", "country", $data_json, "", "selectValorforId('country/state', 'ajax.php?cond=getcountrystatel')",  "grid-item-2", "", "", "trad_pais");
-xpresentationLayer::buildSelectJson("Estado", "state", "state", "", "", "selectValorforId('state/city', 'ajax.php?cond=getstatecityl')",  "", "", "", "trad_estado");
-xpresentationLayer::buildSelectJson("Ciudad", "city", "city", "", "", "",  "", "", "", "trad_ciudad");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Pais',
+    'id' => 'country',
+    'name' => 'country',
+    'event' => 'selectValorforId(\'country/state\', \'ajax.php?cond=getcountrystatel\')',
+    'classContainer' => 'grid-item-2',
+    'dataString' => 'trad_pais'
+], $data_json);
+xpresentationLayer::buildSelectJson([
+    'title' => 'Estado',
+    'id' => 'state',
+    'name' => 'state',
+    'event' => 'selectValorforId(\'state/city\', \'ajax.php?cond=getstatecityl\')',
+    'dataString' => 'trad_estado'
+], "");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Ciudad',
+    'id' => 'city',
+    'name' => 'city',
+    'dataString' => 'trad_ciudad'
+], "");
 
 xpresentationLayer::buildTextArea([
     'title' => 'Direccion',
@@ -87,7 +116,14 @@ xpresentationLayer::buildTextArea([
 ]);
 
 // $data_json = $serviceCall->mgetlocationvenl();
-xpresentationLayer::buildSelectJson("Agencia de preferencia", "preferenceAgency", "preferenceAgency", $data_json, "", "", "grid-item-2", true, "", "trad_agencia_de_preferencia");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Agencia de preferencia',
+    'id' => 'preferenceAgency',
+    'name' => 'preferenceAgency',
+    'classContainer' => 'grid-item-2',
+    'required' => true,
+    'dataString' => 'trad_agencia_de_preferencia'
+], $data_json);
 
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Cuenta bancaria',
@@ -100,7 +136,12 @@ xpresentationLayer::buildInputNumberGrid([
 ]);
 
 // $data_json = $serviceCall->mgetbankl("238");
-xpresentationLayer::buildSelectJson("Banco pago móvil", "bancoPagoMovil", "bancoPagoMovil", $data_json, "", "",  "", "", "", "trad_banco_pago_movil");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Banco pago móvil',
+    'id' => 'bancoPagoMovil',
+    'name' => 'bancoPagoMovil',
+    'dataString' => 'trad_banco_pago_movil'
+], $data_json);
 
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Número del móvil',
@@ -113,14 +154,34 @@ xpresentationLayer::buildInputNumberGrid([
 
 // Nuevos campos 
 // $data_json = $serviceCall->mgetgenderl();
-xpresentationLayer::buildSelectJson("Genero", "idgender", "", $data_json, "","","",false,"","trad_genero");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Genero',
+    'id' => 'idgender',
+    'name' => 'idgender',
+    'dataString' => 'trad_genero'
+],  $data_json);
 
 // $data_json = $serviceCall->mgetallcountrydetaill();
-xpresentationLayer::buildSelectJson("Nacionalidad", "idcountrynationality", "", $data_json, "","","",false,"","trad_nacionalidad");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Nacionalidad',
+    'id' => 'idcountrynationality',
+    'name' => 'idcountrynationality',
+    'dataString' => 'trad_nacionalidad'
+], $data_json);
 // $data_json = $serviceCall->mgetallcountrydetaill();
-xpresentationLayer::buildSelectJson("Pais de Nacimiento", "idcountrybirth", "", $data_json, "","","",false,"","trad_pais_de_nacimiento");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Pais de Nacimiento',
+    'id' => 'idcountrybirth',
+    'name' => 'idcountrybirth',
+    'dataString' => 'trad_pais_de_nacimiento'
+], $data_json);
 // $data_json = $serviceCall->mgetcivilstatel();
-xpresentationLayer::buildSelectJson("Estado Civil", "idcivilstate", "", $data_json, "","","",false,"","trad_estado_civil");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Estado Civil',
+    'id' => 'idcivilstate',
+    'name' => 'idcivilstate',
+    'dataString' => 'trad_estado_civil'
+], $data_json);
 
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Tarjeta de crédito Prepagada',
@@ -134,7 +195,10 @@ xpresentationLayer::buildInputNumberGrid([
 
 xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "grid-item-2", "trad_documentos_requeridos");
 $data_json = $serviceCall->mgetcompliancedoctypel();
-xpresentationLayer::buildSelectJson("", "typeDocWallet", "", $data_json, "", "");
+xpresentationLayer::buildSelectJson([
+    'id' => 'typeDocWallet',
+    'name' => 'typeDocWallet',
+], $data_json);
 xpresentationLayer::buildInputFileDoc("fileInputWallet", "hidden", "file");
 
 ?>

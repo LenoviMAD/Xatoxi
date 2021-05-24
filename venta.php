@@ -26,11 +26,32 @@ xpresentationLayer::buildInputNumberGrid([
     'dataString' => 'trad_monto'
 ]);
 $data_json = $serviceCall->mgetcurrencyl();
-xpresentationLayer::buildSelectJson("Divisa", "currency", "", $data_json, "", "", "", true, "", "trad_divisa");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Divisa',
+    'id' => 'currency',
+    'name' => 'currency',
+    'required' => true,
+    'dataString' => 'trad_divisa'
+], $data_json);
 $data_json = $serviceCall->mgetdebitinstrumentl();
-xpresentationLayer::buildSelectJson("Debitar de", "payIn", "", $data_json, "", "", "", true, "", "trad_debitar_de");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Debitar de',
+    'id' => 'payIn',
+    'name' => 'payIn',
+    'required' => true,
+    'dataString' => 'trad_debitar_de'
+], $data_json);
 $data_json = $serviceCall->mgetcreditinstrumentl();
-xpresentationLayer::buildSelectJson("Abonar en", "payForm", "", $data_json, "", "", "", true, "", "trad_abonar_en");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Abonar en',
+    'id' => 'payForm',
+    'name' => 'payForm',
+    'event' => '',
+    'classContainer' => '',
+    'idContainer' => '',
+    'required' => true,
+    'dataString' => 'trad_abonar_en'
+], $data_json);
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Tasa de Cambio',
     'name' => 'amountChange',
@@ -61,7 +82,11 @@ xpresentationLayer::buildInputNumberGrid([
 ]);
 
 $data_json = $serviceCall->mgetcreditcardtypel();
-xpresentationLayer::buildSelectJson("Tipo Tarjeta", "cctype", "", $data_json, "", "", "", false, "", "trad_tipo_tarjeta");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Tipo Tarjeta',
+    'id' => 'cctype',
+    'dataString' => 'trad_tipo_tarjeta'
+], $data_json);
 xpresentationLayer::buildInputsDate("ccexpmonth", "ccexpmonth", "ccexpyear", "ccexpyear");
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Cod. Validacion',
@@ -93,14 +118,29 @@ xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-2", "test2");
 xpresentationLayer::startDivHidden("sectionVentaPagoMovil", "grid-item-3 grid-1 mb15");
 xpresentationLayer::buildTitleBar("DATOS DEL ABONO", "grid-item-3", "trad_datos_del_abono");
 $data_json = $serviceCall->mgetbankl("238");
-xpresentationLayer::buildSelectJson("Banco pago móvil", "bancoPagoMovil", "", $data_json, "", "",  "grid-item-3", false, "", "trad_banco_pago_movil");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Banco pago móvil',
+    'id' => 'bancoPagoMovil',
+    'name' => 'bancoPagoMovil',
+    'classContainer' => 'grid-item-3',
+    'dataString' => 'trad_banco_pago_movil'
+], $data_json);
 xpresentationLayer::buildInputTextGrid([
     'title' => 'countrycode',
     'name' => 'countrycode',
     'dataString' => '',
 ]);
 $data_jsonCodePhone = $serviceCall->mgetcellphoneareacodel("58");
-xpresentationLayer::buildSelectJson("Prefijo", "codeArea", "", $data_jsonCodePhone, "", "", "", false, "", "trad_prefijo");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Prefijo',
+    'id' => 'codeArea',
+    'name' => 'codeArea',
+    'event' => '',
+    'classContainer' => '',
+    'idContainer' => '',
+    'required' => false,
+    'dataString' => 'trad_prefijo'
+], $data_jsonCodePhone);
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Móvil',
     'name' => 'phone',

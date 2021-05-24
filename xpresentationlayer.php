@@ -664,27 +664,41 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/18 14:00
     ===================================================================== */
-    static function buildSelectJson($title, $name, $id, $json, $showCol = "", $event = "", $classContainer = "", $required = false, $idContainer = "", $dataString = "")
+    static function buildSelectJson($params, $json)
     {
+
+        $defaults = [
+            'title' => '',
+            'id' => '',
+            'name' => '',
+            'event' => '',
+            'classContainer' => '',
+            'idContainer' => '',
+            'required' => false,
+            'dataString' => ''
+        ];
+
+        $options = array_merge($defaults, $params);
+
         $data = $json->list;
 
-        if ($event != "") {
-            $event = 'onchange="' . $event . '"';
+        if ($options['event'] != "") {
+            $options['event'] = 'onchange="' . $options['event'] . '"';
         }
-        if ($id != "") {
-            $id = 'id="' . $id . '"';
+        if ($options['id'] != "") {
+            $options['id'] = 'id="' . $options['id'] . '"';
         }
-        if ($idContainer != "") {
-            $idContainer = 'id="' . $idContainer . '"';
+        if ($options['idContainer'] != "") {
+            $options['idContainer'] = 'id="' . $options['idContainer'] . '"';
         }
-        if ($required) {
-            $required  = 'required';
+        if ($options['required']) {
+            $options['required']  = 'required';
         }
 
-        echo '<DIV class="input-field1 ' . $classContainer . '" ' . $idContainer . '>';
-        echo '    <LABEL class="font-Bold js-translate" data-string="' . $dataString . '">' . $title . '</LABEL>';
+        echo '<DIV class="input-field1 ' . $options['classContainer'] . '" ' . $options['idContainer'] . '>';
+        echo '    <LABEL class="font-Bold js-translate" data-string="' . $options['dataString'] . '">' . $options['title'] . '</LABEL>';
 
-        echo '<SELECT name="' . $name . '" ' . $id . $event . $required . '>';
+        echo '<SELECT name="' . $options['name'] . '" ' . $options['id'] . $options['event'] . $options['required'] . '>';
         echo '<OPTION disabled selected>Seleccione</OPTION>';
         foreach ($data as $value) {
             if ($value->code && $value->name) {
@@ -694,7 +708,7 @@ class xpresentationLayer
             } else if ($value->id && $value->name) {
                 echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
             } else {
-                if ($name != "currency" && $name != "currencyTransfer" && $name != "currencyWallet" && $name != "currencyCommend") {
+                if ($options['name'] != "currency" && $options['name'] != "currencyTransfer" && $options['name'] != "currencyWallet" && $options['name'] != "currencyCommend") {
                     echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
                 } else {
                     echo '<OPTION value="' . $value->id . '">' . $value->iso . ' </OPTION>';
@@ -774,14 +788,23 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-    static function buildSearchUsersWallet($name, $id, $json, $showCol = "", $event = "")
+    static function buildSearchUsersWallet($params, $json)
     {
-        if ($id != "")
-            $id = ' id="' . $id . '" ';
+
+        $defaults = [
+            'id' => '',
+            'name' => '',
+            'event' => '',
+        ];
+
+        $options = array_merge($defaults, $params);
+
+        if ($options['id'] != "")
+            $options['id'] = ' id="' . $options['id'] . '" ';
 
         $data = $json->list;
         echo '<DIV class="input-field1">';
-        echo '       <SELECT required name="' . $name . '" ' . $id . ' ' . $event . ' class="">';
+        echo '       <SELECT required name="' . $options['name'] . '" ' . $options['id'] . ' ' . $options['event'] . ' class="">';
         echo '       <OPTION disabled selected>Seleccione</OPTION>';
         foreach ($data as $value) {
             echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
@@ -804,20 +827,31 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-    static function buildSearchUsersCommend($name, $id, $idButtom, $json, $event = "", $eventAddContact = "", $class = "")
+    static function buildSearchUsersCommend($params, $json)
     {
-        if ($eventAddContact != "") {
-            $eventAddContact = 'onclick="' . $eventAddContact . '"';
+        $defaults = [
+            'id' => '',
+            'idButtom' => '',
+            'name' => '',
+            'event' => '',
+            'eventAddContact' => '',
+            'class' => ''
+        ];
+
+        $options = array_merge($defaults, $params);
+
+        if ($options['eventAddContact'] != "") {
+            $options['eventAddContact'] = 'onclick="' . $options['eventAddContact'] . '"';
         }
         $data = $json->list;
-        echo '<DIV class="aside input-field1' . $class . '">';
-        echo '       <SELECT name="' . $name . '" id="' . $id . '" ' . $event . ' class="select-width-user">';
+        echo '<DIV class="aside input-field1' . $options['class'] . '">';
+        echo '       <SELECT name="' . $options['name'] . '" id="' . $options['id'] . '" ' . $options['event'] . ' class="select-width-user">';
         echo '       <OPTION disabled selected>Seleccione</OPTION>';
         foreach ($data as $value) {
             echo '<OPTION value="' . $value->id . '" >' . $value->name . ' </OPTION>';
         }
         echo '        </SELECT>';
-        echo '    <BUTTON class="btn-contacts " ' . $eventAddContact . ' id="' . $idButtom . '">';
+        echo '    <BUTTON class="btn-contacts " ' . $options['eventAddContact'] . ' id="' . $options['idButtom'] . '">';
         echo '        <FIGURE><IMG src="img/user-plus.png" alt=""></FIGURE>';
         echo '    </BUTTON>';
         // echo '    <BUTTON class="btn-search btn">';
@@ -908,22 +942,38 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/20 12:00
     ===================================================================== */
-    static function buildPhoneComplete($titleLabel, $nameCountry, $nameArea, $namePhone, $idCountry, $idArea, $idPhone, $jsonCode, $jsonArea, $event = "", $disabled = "", $classContainer = "", $classChildren = "")
+    static function buildPhoneComplete($params, $jsonCode, $jsonArea)
     {
+        $defaults = [
+            'titleLabel' => '',
+            'nameCountry' => '',
+            'nameArea' => '',
+            'namePhone' => '',
+            'idCountry' => '',
+            'idArea' => '',
+            'idPhone' => '',
+            'idArea' => '',
+            'event' => '',
+            'disabled' => '',
+            'classContainer' => '',
+            'classChildren' => ''
+        ];
+
+        $options = array_merge($defaults, $params);
 
         $data = $jsonCode->list;
         $data2 = $jsonArea->list;
 
-        if ($event != "") {
-            $event = 'onchange="' . $event . '"';
+        if ($options['event'] != "") {
+            $options['event'] = 'onchange="' . $options['event'] . '"';
         }
-        if ($disabled != "") {
-            $disabled = 'disabled="' . $disabled . '"';
+        if ($options['disabled'] != "") {
+            $options['disabled'] = 'disabled="' . $options['disabled'] . '"';
         }
-        echo '<DIV class="input-field1 ' . $classContainer . '">';
-        echo '  <LABEL class="font-Bold margin-label js-translate" data-string="trad_telefono_pago_movil">' . $titleLabel . '</LABEL>';
-        echo '  <DIV class="flex-content ' . $classChildren . '">';
-        echo '    <INPUT type="text" name="' . $nameCountry . '" id="' . $idCountry . '" class="input-radius" ' . $disabled . ' pattern="[0-9]+([\.,][0-9]+)?">';
+        echo '<DIV class="input-field1 ' . $options['classContainer'] . '">';
+        echo '  <LABEL class="font-Bold margin-label js-translate" data-string="trad_telefono_pago_movil">' . $options['titleLabel'] . '</LABEL>';
+        echo '  <DIV class="flex-content ' . $options['classChildren'] . '">';
+        echo '    <INPUT type="text" name="' . $options['nameCountry'] . '" id="' . $options['idCountry'] . '" class="input-radius" ' . $options['disabled'] . ' pattern="[0-9]+([\.,][0-9]+)?">';
         // echo '<SELECT name="' . $nameCountry . '" id="' . $idCountry . '" ' . $event . ' class="select-width">';
         // echo '<OPTION disabled selected>Seleccione</OPTION>';
         // foreach ($data as $value) {
@@ -934,14 +984,14 @@ class xpresentationLayer
         // 	}
         // }
         // echo '</SELECT>';
-        echo '<SELECT name="' . $nameArea . '" id="' . $idArea . '" class="select-width">';
+        echo '<SELECT name="' . $options['nameArea'] . '" id="' . $options['idArea'] . '" class="select-width">';
         echo '<OPTION disabled selected>Seleccione</OPTION>';
         foreach ($data2 as $value) {
             echo '<OPTION value="' . $value->code . '" >' . $value->code . ' </OPTION>';
         }
         echo '</SELECT>';
 
-        echo '    <INPUT type="text" name="' . $namePhone . '" id="' . $idPhone . '" class="input-radius"  pattern="[0-9]+([\.,][0-9]+)?">';
+        echo '    <INPUT type="text" name="' . $options['namePhone'] . '" id="' . $options['idPhone'] . '" class="input-radius"  pattern="[0-9]+([\.,][0-9]+)?">';
         echo '  </DIV>';
         echo '</DIV>';
     } //buildPhoneComplete
@@ -1248,14 +1298,28 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/02/2 10:50
     ===================================================================== */
-    static function buildSectionDocument($labelSelect, $labelInputText, $labelInputDate, $nameSelect, $nameInputText, $nameInputDate, $idSelect, $idInputText, $idInputDate, $jsonSelect, $customClass = "")
+    static function buildSectionDocument($params, $jsonSelect)
     {
+        $defaults = [
+            'labelSelect' => '',
+            'labelInputText' => '',
+            'labelInputDate' => '',
+            'nameSelect' => '',
+            'nameInputText' => '',
+            'nameInputDate' => '',
+            'idSelect' => '',
+            'idInputText' => '',
+            'idInputDate' => '',
+            'customClass' => '',
+        ];
+
+        $options = array_merge($defaults, $params);
         $data = $jsonSelect->list;
 
-        echo '<DIV class="grid-3 ' . $customClass . '">';
+        echo '<DIV class="grid-3 ' . $options['customClass'] . '">';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL  class="font-Bold margin-label js-translate" data-string="trad_t_doc">' . $labelSelect . '</LABEL>';
-        echo '<SELECT name="' . $nameSelect . '" id="' . $idSelect . '" required>';
+        echo '        <LABEL  class="font-Bold margin-label js-translate" data-string="trad_t_doc">' . $options['labelSelect'] . '</LABEL>';
+        echo '<SELECT name="' . $options['nameSelect'] . '" id="' . $options['idSelect'] . '" required>';
         echo '<OPTION disabled selected>Seleccione</OPTION>';
         foreach ($data as $value) {
             echo '<OPTION value="' . $value->id . '" >' . $value->name . ' </OPTION>';
@@ -1263,12 +1327,12 @@ class xpresentationLayer
         echo '</SELECT>';
         echo '    </DIV>';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL class="font-Bold margin-label js-translate" data-string="trad_documento" >' . $labelInputText . '</LABEL>';
-        echo '        <INPUT type="text" name="' . $nameInputText . '" id="' . $idInputText . '" required>';
+        echo '        <LABEL class="font-Bold margin-label js-translate" data-string="trad_documento" >' . $options['labelInputText'] . '</LABEL>';
+        echo '        <INPUT type="text" name="' . $options['nameInputText'] . '" id="' . $options['idInputText'] . '" required>';
         echo '    </DIV>';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL class="font-Bold margin-label js-translate" data-string="trad_fec_nacimiento">' . $labelInputDate . '</LABEL>';
-        echo '        <INPUT type="date" name="' . $nameInputDate . '"  id="' . $idInputDate . '" required>';
+        echo '        <LABEL class="font-Bold margin-label js-translate" data-string="trad_fec_nacimiento">' . $options['labelInputDate'] . '</LABEL>';
+        echo '        <INPUT type="date" name="' . $options['nameInputDate'] . '"  id="' . $options['idInputDate'] . '" required>';
         echo '    </DIV>';
         echo '</DIV>';
     } //buildSectionDocument

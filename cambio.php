@@ -27,10 +27,41 @@ xpresentationLayer::buildInputNumberGrid([
     'dataString' => 'trad_monto'
 ]);
 $data_json = $serviceCall->mgetinstrumentsrcl();
-xpresentationLayer::buildSelectJson("Entrego", "paidMethod", "paidMethod", $data_json, "", "selectValorforId('paidMethod/sendCurrency', 'ajax.php?cond=mgetcurrencysrcl')", "",true, "", "trad_entrega");
-xpresentationLayer::buildSelectJson("Entrego Divisa", "sendCurrency", "sendCurrency", "", "", "selectValorforId('paidMethod/sendCurrency/recieveMethod', 'ajax.php?cond=mgetinstrumentdstl')","",true, "", "trad_entrega_divisa");
-xpresentationLayer::buildSelectJson("Recibe", "recieveMethod", "recieveMethod", "", "", "selectValorforId('paidMethod/sendCurrency/recieveMethod/recieveCurrency', 'ajax.php?cond=mgetcurrencydstl')","",true, "", "trad_recibe");
-xpresentationLayer::buildSelectJson("Recibe Divisa", "recieveCurrency", "recieveCurrency", "","","","",true, "", "trad_recibe_divisa");
+xpresentationLayer::buildSelectJson([
+    'title' => '',
+    'id' => '',
+    'name' => '',
+    'event' => '',
+    'classContainer' => '',
+    'idContainer' => '',
+    'required' => false,
+    'dataString' => ''
+], "Entrego", "paidMethod", "paidMethod", $data_json, "", "selectValorforId('paidMethod/sendCurrency', 'ajax.php?cond=mgetcurrencysrcl')", "", true, "", "trad_entrega");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Entrego Divisa',
+    'id' => 'sendCurrency',
+    'name' => 'sendCurrency',
+    'event' => 'selectValorforId(\'paidMethod/sendCurrency/recieveMethod\', \'ajax.php?cond=mgetinstrumentdstl\')',
+    'required' => true,
+    'dataString' => 'trad_entrega_divisa'
+], "");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Recibe',
+    'id' => 'recieveMethod',
+    'name' => 'recieveMethod',
+    'event' => 'selectValorforId(\'paidMethod/sendCurrency/recieveMethod/recieveCurrency\', \'ajax.php?cond=mgetcurrencydstl\')',
+    'classContainer' => '',
+    'idContainer' => '',
+    'required' => true,
+    'dataString' => 'trad_ecibe'
+], "");
+xpresentationLayer::buildSelectJson([
+    'title' => 'Recibe Divisa',
+    'id' => 'recieveCurrency',
+    'name' => 'recieveCurrency',
+    'required' => true,
+    'dataString' => 'trad_recibe_divisa'
+], "");
 
 // Campos ocultos
 xpresentationLayer::buildInputTextGrid([
@@ -60,7 +91,7 @@ xpresentationLayer::buildInputNumberGrid([
     'dataString' => 'trad_routing'
 ]);
 
-xpresentationLayer::buildSectionPin("","grid-item-2", true);
+xpresentationLayer::buildSectionPin("", "grid-item-2", true);
 xpresentationLayer::endMain();
 
 xpresentationLayer::buildFooterXatoxi();
