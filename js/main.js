@@ -1,46 +1,42 @@
-//MODAL
-if (document.getElementsByClassName("openModal")) {
 
-    var modal = document.getElementById("tvesModal");
+// if (document.getElementsByClassName("openModal")) {
 
-    //Seleccionas todos los elementos con clase btnModal
-    var btn = document.getElementsByClassName("openModal");
+//     var modal = document.getElementById("tvesModal");
 
-    //Recorres la lista de elementos seleccionados
-    for (var i = 0; i < btn.length; i++) {
-        //Añades un evento a cada elemento
-        btn[i].addEventListener("click", function() {
-            //Aquí la función que se ejecutará cuando se dispare el evento
-            modal.style.display = "block";
+//     var btn = document.getElementsByClassName("openModal");
 
-            body.style.position = "static";
-            body.style.height = "100%";
-            body.style.overflow = "hidden";
-        });
-    }
+//     for (var i = 0; i < btn.length; i++) {
+//         btn[i].addEventListener("click", function () {
+//             modal.style.display = "block";
+
+//             body.style.position = "static";
+//             body.style.height = "100%";
+//             body.style.overflow = "hidden";
+//         });
+//     }
 
 
-    var span = document.getElementsByClassName("close")[0];
-    var body = document.getElementsByTagName("body")[0];
+//     var span = document.getElementsByClassName("close")[0];
+//     var body = document.getElementsByTagName("body")[0];
 
-    if (span) {
-        span.onclick = function() {
-            modal.style.display = "none";
-            body.style.position = "inherit";
-            body.style.height = "auto";
-            body.style.overflow = "visible";
-        }
-    }
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+//     if (span) {
+//         span.onclick = function () {
+//             modal.style.display = "none";
+//             body.style.position = "inherit";
+//             body.style.height = "auto";
+//             body.style.overflow = "visible";
+//         }
+//     }
+//     window.onclick = function (event) {
+//         if (event.target == modal) {
+//             modal.style.display = "none";
 
-            body.style.position = "inherit";
-            body.style.height = "auto";
-            body.style.overflow = "visible";
-        }
-    }
-} //FIN MODAL
+//             body.style.position = "inherit";
+//             body.style.height = "auto";
+//             body.style.overflow = "visible";
+//         }
+//     }
+// }
 
 const item1 = document.getElementById("opc1");
 const item2 = document.getElementById("opc2");
@@ -109,7 +105,7 @@ function closeEverythingExceptThese(padre, losqueno) {
 
 }
 
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     const container = document.querySelector("#item-container");
     const wrapperButtons = document.querySelector("#wrapperButtons");
     const wrapperSections = document.querySelector("#wrapperSections")
@@ -162,7 +158,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         } else {
             // recorriendo header targets
             for (const iterator of container.children) {
-                iterator.addEventListener('click', async() => {
+                iterator.addEventListener('click', async () => {
                     // Agregamos las animaciones a la botonera 1
                     container.classList.add('animate')
                     container.classList.add('animate__fadeOut')
@@ -189,7 +185,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
 
             for (const iterator of wrapperButtons.children) {
-                iterator.addEventListener('click', async() => {
+                iterator.addEventListener('click', async () => {
                     // recorriendo opciones targets
                     for (const other of wrapperSections.children) {
                         if (other.dataset.id === iterator.dataset.id) {
@@ -336,12 +332,12 @@ if (true) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function(params) {
+document.addEventListener("DOMContentLoaded", function (params) {
     const form = document.getElementById("idForm");
 
     if (form) {
 
-        form.addEventListener("submit", async(e) => {
+        form.addEventListener("submit", async (e) => {
             const idCodeCountry = document.getElementById("CodeCountry");
             const idAreaCode = document.getElementById("codeArea");
 
@@ -358,19 +354,20 @@ document.addEventListener("DOMContentLoaded", function(params) {
     }
 })
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const mainMenu = document.getElementById("mainMenu");
 
     if (mainMenu) {
         mainMenu.childNodes.forEach(value => {
-            value.addEventListener('click', async() => {
+            value.addEventListener('click', async () => {
                 value.classList.add("activeClass")
             })
         })
     }
 
     const tvesModal = document.getElementById("tvesModal");
-    window.onclick = function(event) {
+
+    window.onclick = function (event) {
         if (event.target == tvesModal) {
             modal.style.display = "none";
 

@@ -2,7 +2,7 @@
 error_reporting(0);
 session_start();
 include_once("utilities.php");
-//utilities::trueUser();
+utilities::trueUser();
 
 include_once("xpresentationlayer.php");
 include_once("xclient.php");
@@ -46,9 +46,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Abonar en',
     'id' => 'payForm',
     'name' => 'payForm',
-    'event' => '',
-    'classContainer' => '',
-    'idContainer' => '',
     'required' => true,
     'dataString' => 'trad_abonar_en'
 ], $data_json);
@@ -84,6 +81,7 @@ xpresentationLayer::buildInputNumberGrid([
 $data_json = $serviceCall->mgetcreditcardtypel();
 xpresentationLayer::buildSelectJson([
     'title' => 'Tipo Tarjeta',
+    'name' => 'cctype',
     'id' => 'cctype',
     'dataString' => 'trad_tipo_tarjeta'
 ], $data_json);
@@ -135,9 +133,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Prefijo',
     'id' => 'codeArea',
     'name' => 'codeArea',
-    'event' => '',
-    'classContainer' => '',
-    'idContainer' => '',
     'required' => false,
     'dataString' => 'trad_prefijo'
 ], $data_jsonCodePhone);

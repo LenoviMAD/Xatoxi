@@ -3,23 +3,24 @@ import {toCapitalize} from './helpers.js';
 export default function init() {
     $(document).ready(function () {
         // userLang = window.navigator.language.split('-')[0]
-
-        let defaultLang = 'en';
-        let tempLang = ''
-        changeLanguage(defaultLang)
-        
         let btnDropdown = document.getElementById('btnDropdown')
-        let dropdownLanguages = document.getElementById('dropdownLanguages')
-
-        dropdownLanguages.childNodes.forEach(item => {
-            item.addEventListener('click', () => {
-                if(tempLang !== item.dataset.lang) {
-                    tempLang = item.dataset.lang
-                    btnDropdown.innerHTML = `${toCapitalize(item.dataset.lang)} <div id="flechaAbajo"></div>`
-                    changeLanguage(item.dataset.lang)
-                }
+        if (btnDropdown) {
+            let dropdownLanguages = document.getElementById('dropdownLanguages')
+            let defaultLang = 'en';
+            let tempLang = ''
+            changeLanguage(defaultLang)
+            
+    
+            dropdownLanguages.childNodes.forEach(item => {
+                item.addEventListener('click', () => {
+                    if(tempLang !== item.dataset.lang) {
+                        tempLang = item.dataset.lang
+                        btnDropdown.innerHTML = `${toCapitalize(item.dataset.lang)} <div id="flechaAbajo"></div>`
+                        changeLanguage(item.dataset.lang)
+                    }
+                })
             })
-        })
+        }
         
     });
 }

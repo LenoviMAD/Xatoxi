@@ -2,7 +2,7 @@
 error_reporting(0);
 session_start();
 include_once("utilities.php");
-//utilities::trueUser();
+utilities::trueUser();
 include_once("xpresentationlayer.php");
 include_once("xclient.php");
 $serviceCall = new xclient("");
@@ -97,7 +97,6 @@ xpresentationLayer::buildSelectJson([
     'id' => 'typeCard',
     'name' => 'typeCard',
     'dataString' => 'trad_tipo_tarjeta'
-
 ], $data_json);
 xpresentationLayer::buildInputsDate("monthTransfer", "monthTransfer", "yearTransfer", "yearTransfer");
 xpresentationLayer::buildInputTextGrid([

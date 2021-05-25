@@ -2,7 +2,7 @@
 error_reporting(0);
 session_start();
 include_once("utilities.php");
-//utilities::trueUser();
+utilities::trueUser();
 
 include_once("xpresentationlayer.php");
 include_once("xclient.php");
@@ -28,15 +28,13 @@ xpresentationLayer::buildInputNumberGrid([
 ]);
 $data_json = $serviceCall->mgetinstrumentsrcl();
 xpresentationLayer::buildSelectJson([
-    'title' => '',
-    'id' => '',
-    'name' => '',
-    'event' => '',
-    'classContainer' => '',
-    'idContainer' => '',
-    'required' => false,
-    'dataString' => ''
-], "Entrego", "paidMethod", "paidMethod", $data_json, "", "selectValorforId('paidMethod/sendCurrency', 'ajax.php?cond=mgetcurrencysrcl')", "", true, "", "trad_entrega");
+    'title' => 'Entrego',
+    'id' => 'paidMethod',
+    'name' => 'paidMethod',
+    'event' => 'selectValorforId(\'paidMethod/sendCurrency\', \'ajax.php?cond=mgetcurrencysrcl\')',
+    'required' => true,
+    'dataString' => 'trad_entrega'
+],  $data_json);
 xpresentationLayer::buildSelectJson([
     'title' => 'Entrego Divisa',
     'id' => 'sendCurrency',
@@ -50,10 +48,8 @@ xpresentationLayer::buildSelectJson([
     'id' => 'recieveMethod',
     'name' => 'recieveMethod',
     'event' => 'selectValorforId(\'paidMethod/sendCurrency/recieveMethod/recieveCurrency\', \'ajax.php?cond=mgetcurrencydstl\')',
-    'classContainer' => '',
-    'idContainer' => '',
     'required' => true,
-    'dataString' => 'trad_ecibe'
+    'dataString' => 'trad_recibe'
 ], "");
 xpresentationLayer::buildSelectJson([
     'title' => 'Recibe Divisa',

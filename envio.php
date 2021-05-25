@@ -3,7 +3,7 @@
 error_reporting(0);
 session_start();
 include_once("utilities.php");
-//utilities::trueUser();
+utilities::trueUser();
 include_once("xpresentationlayer.php");
 include_once("xclient.php");
 
@@ -44,11 +44,8 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Moneda',
     'id' => 'currencyWallet',
     'name' => 'currencyWallet',
-    'event' => '',
-    'classContainer' => '',
-    'idContainer' => '',
     'required' => true,
-    'dataString' => ''
+    'dataString' => 'trad_moneda'
 ], $data_json);
 $data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(6, 2, 3, 5));
 xpresentationLayer::buildSelectJson([
@@ -57,6 +54,7 @@ xpresentationLayer::buildSelectJson([
     'name' => 'paidFormWallet',
     'classContainer' => 'grid-item-2',
     'required' => true,
+    'dataString' => 'trad_forma_de_pago'
 ], $data_json);
 
 //ACH
@@ -86,6 +84,7 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Cta. Receptora',
     'id' => 'receiveAccount',
     'name' => 'receiveAccount',
+    'dataString' => 'trad_cta_receptora'
 ], $data_json);
 xpresentationLayer::buildInputTextGrid([
     'title' => 'Referencia',
@@ -109,6 +108,7 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Tipo Tarjeta',
     'id' => 'typeCardWallet',
     'name' => 'typeCardWallet',
+    'dataString' => 'trad_tipo_tarjeta'
 ], $data_json);
 
 xpresentationLayer::buildInputsMonthYear("Fecha Venc", "monthVenCommend", "yearVenCommend");
@@ -171,20 +171,16 @@ xpresentationLayer::buildSelectJson([
     'id' => 'countryCommend',
     'name' => 'countryCommend',
     'event' => 'selectValorforId(\'countryCommend/providerCommend\', \'ajax.php?cond=mgetproviderl\')',
-    'classContainer' => '',
-    'idContainer' => '',
     'required' => true,
-    'dataString' => ''
+    'dataString' => 'trad_pais'
 ],  $data_json);
 xpresentationLayer::buildSelectJson([
     'title' => 'Proveedor',
     'id' => 'providerCommend',
     'name' => 'providerCommend',
     'event' => 'selectValorforId(\'providerCommend/sendFormCommend\', \'ajax.php?cond=mgetremitancetypel\')',
-    'classContainer' => '',
-    'idContainer' => '',
     'required' => true,
-    'dataString' => ''
+    'dataString' => 'trad_proveedor'
 ], "");
 $data_json = $serviceCall->mgetcurrencyremitancel();
 xpresentationLayer::buildSelectJson([
@@ -192,16 +188,14 @@ xpresentationLayer::buildSelectJson([
     'id' => 'currencyCommend',
     'name' => 'currencyCommend',
     'required' => true,
+    'dataString' => 'trad_moneda'
 ], $data_json);
 xpresentationLayer::buildSelectJson([
     'title' => 'Entrega',
     'id' => 'sendFormCommend',
     'name' => 'sendFormCommend',
-    'event' => '',
-    'classContainer' => '',
-    'idContainer' => '',
     'required' => true,
-    'dataString' => ''
+    'dataString' => 'trad_entrega'
 ], "");
 
 
@@ -210,11 +204,8 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Forma de pago',
     'id' => 'paidFormCommend',
     'name' => 'paidFormCommend',
-    'event' => '',
-    'classContainer' => '',
-    'idContainer' => '',
     'required' => true,
-    'dataString' => ''
+    'dataString' => 'trad_forma_de_pago'
 ], $data_json);
 
 $customClass = $_SESSION['refToChange'] ? "hidden" : "";
@@ -264,7 +255,8 @@ $data_json = $serviceCall->mgeticccbankl();
 xpresentationLayer::buildSelectJson([
     'title' => 'Cta. Receptora',
     'id' => 'receiveAccount',
-    'name' => 'receiveAccount'
+    'name' => 'receiveAccount',
+    'dataString' => 'trad_cta_receptora'
 ], $data_json);
 xpresentationLayer::buildInputTextGrid([
     'title' => 'Referencia',
@@ -297,6 +289,7 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Tipo Tarjeta',
     'id' => 'typeCardCommend',
     'name' => 'typeCardCommend',
+    'dataString' => 'trad_tipo_tarjeta'
 ], $data_json);
 // xpresentationLayer::startSectionTwoColumns("grid-2 grid-item-1");
 xpresentationLayer::buildInputsMonthYear("Fecha Venc", "monthVenCommend", "yearVenCommend");
@@ -451,6 +444,7 @@ xpresentationLayer::buildSelectJson([
     'id' => 'countryTransfer',
     'name' => 'countryTransfer',
     'required' => true,
+    'dataString' => 'trad_pais'
 ], $data_json);
 $data_json = $serviceCall->mgetcurrencytrl();
 xpresentationLayer::buildSelectJson([
@@ -458,6 +452,7 @@ xpresentationLayer::buildSelectJson([
     'id' => 'currencyTransfer',
     'name' => 'currencyTransfer',
     'required' => true,
+    'dataString' => 'trad_moneda'
 ], $data_json);
 $data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(6, 2, 3, 5, 1));
 xpresentationLayer::buildSelectJson([
@@ -465,6 +460,7 @@ xpresentationLayer::buildSelectJson([
     'id' => 'paidFormTransfer',
     'name' => 'paidFormTransfer',
     'required' => true,
+    'dataString' => 'trad_forma_de_pago'
 ], $data_json);
 
 $customClass = $_SESSION['refToChange'] ? "hidden" : "";
@@ -494,7 +490,8 @@ $data_json = $serviceCall->mgeticccbankl();
 xpresentationLayer::buildSelectJson([
     'title' => 'Cta. Receptora',
     'id' => 'receivingAccount',
-    'name' => 'receivingAccount'
+    'name' => 'receivingAccount',
+    'dataString' => 'trad_cta_receptora'
 ], $data_json);
 xpresentationLayer::buildInputTextGrid([
     'title' => 'Referencia',
@@ -549,6 +546,7 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Tipo de tarjeta',
     'id' => 'typeCardTransfer',
     'name' => 'typeCardTransfer',
+    'dataString' => 'trad_tipo_tarjeta'
 ],  $data_json);
 xpresentationLayer::buildInputsDate("monthTransfer", "monthTransfer", "yearTransfer", "yearTransfer");
 xpresentationLayer::buildInputNumberGrid([

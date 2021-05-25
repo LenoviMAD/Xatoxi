@@ -215,7 +215,9 @@
 }
 
 .modal.modal--danger .modal-content {
-    padding: 20px;
+    padding: 2px;
+    border-radius: 30px;
+    border: 2px solid #686262;
 }
 
 .modal.modal--danger .modal-body {
@@ -236,16 +238,27 @@
 }
 
 .modal.modal--danger .modal__title {
-    font-size: 1.8em;
+    font-size: 1.5em;
     margin: 0 0 10px 0;
+    color: #686262;
+    border-bottom: 1px solid #686262;
+    padding: 10px 0;
+    font-weight: normal;
 }
 
 .modal.modal--danger .modal__text {
     margin: 0;
+    color: #686262;
+    font-size: 1em;
 }
 
-.modal.modal--danger .modal-footer button {
+.modal.modal--danger .modal-footer .btn {
     margin: 0;
+    width: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 26px;
+    border-bottom-left-radius: 26px;
 }
 
 .modal.modal--danger .modal-footer {
@@ -253,8 +266,7 @@
     text-align: center;
 }
 
-.modal.modal--danger .modal__title,
-.modal.modal--danger .modal__text {
+.modal.modal--danger .modal__title {
     text-transform: uppercase;
 }
 /* Modal OTP */

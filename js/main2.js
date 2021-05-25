@@ -29,18 +29,64 @@ debitCardRequest()
 Translations()
 Dropdown()
 
-  
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
     $(document).ready(function () {
         $('#example').DataTable();
     });
-    
+
     const modal = new Modal()
     modal.initModal()
     const timer = new Timer()
 
+    // Nuevo modal login
+    // REDIRECCIONAR PARA DONDE QUIERA
+
+    if (document.getElementById('modalTest')) {
+        // cuando cierras el modal por fuera
+        document.addEventListener("click", e => {
+            const items = document.getElementById("mainMenu");
+            if (e.target == document.querySelector(".modal.is-visible")) {
+                // Quitamos el active de los 
+                items.childNodes.forEach(nodeItemCustom => {
+                    if (nodeItemCustom.nodeName == "ARTICLE") {
+                        if (nodeItemCustom.classList.contains("activeClass")) {
+                            nodeItemCustom.classList.remove("activeClass")
+                        }
+                    }
+                })
+            }
+
+            //presionando escape
+            document.addEventListener("keyup", e => {
+                if (e.key == "Escape" && document.querySelector(".modal.is-visible")) {
+                    // resetea los botones
+                    items.childNodes.forEach(nodeItemCustom => {
+                        if (nodeItemCustom.nodeName == "ARTICLE") {
+                            if (nodeItemCustom.classList.contains("activeClass")) {
+                                nodeItemCustom.classList.remove("activeClass")
+                            }
+                        }
+                    })
+                }
+            })
+        })
+
+        let items = document.getElementById("mainMenu");
+
+        // Quitamos el active de los 
+        items.childNodes.forEach(nodeItem => {
+            nodeItem.addEventListener('click', () => {
+
+                nodeItem.classList.add("activeClass")
+
+                // Abrimos el modal
+                modal.openModal('modalTest')
+            })
+        })
+    }
 
     window.onload = function () {
         const modalInactividad = document.getElementById('modalInactividad')
@@ -127,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         pinAnterior = ''
                         // console.log('que bolas');
                     }
-                    
+
                     //presionando escape
                     document.addEventListener("keyup", e => {
                         if (e.key == "Escape" && document.querySelector("#modalCambioPin")) {
@@ -196,10 +242,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         })
     }
-    
-    document.getElementById("btnDropdown").addEventListener('click', () => {
-        document.getElementById("dropdownLanguages").classList.toggle("show");
-    })
+
+    if (document.getElementById("btnDropdown")) {
+        document.getElementById("btnDropdown").addEventListener('click', () => {
+            document.getElementById("dropdownLanguages").classList.toggle("show");
+        })
+    }
 
     var inactivityTime = function () {
         var time;

@@ -37,7 +37,7 @@ xpresentationLayer::buildInputTextGrid([
 <?php
 
 
-// $data_jsonAreaPhone = $serviceCall->mgetallcountrydetaill();
+$data_jsonAreaPhone = $serviceCall->mgetallcountrydetaill();
 xpresentationLayer::buildSelectJson([
     'title' => 'Pais',
     'id' => 'country',
@@ -48,14 +48,11 @@ xpresentationLayer::buildSelectJson([
 
 xpresentationLayer::startFirtsSection("grid-3", "");
 
-// $data_jsonCodePhone = $serviceCall->mgetcellphoneareacodel("58");
+$data_jsonCodePhone = $serviceCall->mgetcellphoneareacodel("58");
 xpresentationLayer::buildSelectJson([
     'title' => 'Prefijo',
     'id' => 'codeArea',
     'name' => 'codeArea',
-    'event' => '',
-    'classContainer' => '',
-    'idContainer' => '',
     'required' => true,
     'dataString' => 'trad_prefijo'
 ], $data_jsonCodePhone);
