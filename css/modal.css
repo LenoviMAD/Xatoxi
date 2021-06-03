@@ -217,7 +217,7 @@
 .modal.modal--danger .modal-content {
     padding: 2px;
     border-radius: 30px;
-    border: 2px solid #686262;
+    border: 2px solid #d3d2d2;
 }
 
 .modal.modal--danger .modal-body {
@@ -252,7 +252,7 @@
     font-size: 1em;
 }
 
-.modal.modal--danger .modal-footer .btn {
+.modal.modal--danger .modal-footer > .btn {
     margin: 0;
     width: 100%;
     border-top-left-radius: 0;

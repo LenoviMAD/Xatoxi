@@ -10,8 +10,10 @@
                 <p class="modal__text js-translate" data-string="trad_desea_generar_nuevo_pin">¿Desea generar nuevo PIN?</p>
             </header>
             <footer class="modal-footer">
-                <a class="btn btn-danger js-translate" data-string="trad_cancelar" type="button" aria-label="close modal" data-close>Cancelar</a>
-                <a class="btn btn-primary js-translate" data-string="trad_aceptar" type="button" aria-label="close modal" id="btnOlvidoPinModal">Aceptar</a>
+                <div class="spc-ard pb10">
+                    <a class="btn btn-danger js-translate" data-string="trad_cancelar" type="button" aria-label="close modal" data-close>Cancelar</a>
+                    <a class="btn btn-primary js-translate" data-string="trad_aceptar" type="button" aria-label="close modal" id="btnOlvidoPinModal">Aceptar</a>
+                </div>
             </footer>
         </section>
     </div>

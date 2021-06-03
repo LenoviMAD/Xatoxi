@@ -3,9 +3,6 @@ import { numberFormater, closeEverythingExceptThese, closeEverything, URI, putRe
 import { changeLanguage } from '../Translations.js'
 import Timer from '../timer.js';
 
-// var valueBalance = number_format_js('254351480',2,',','.');    
-// console.log(valueBalance);
-
 // Cambio
 export default function init() {
     document.addEventListener('DOMContentLoaded', () => {

@@ -8,6 +8,7 @@ export default function init() {
         const inputPin = document.getElementById('inputPin'),
             inputTag = document.getElementById('inputTag'),
             btnPin = document.getElementById('btnPin')
+            const TITLE_SECTION = "Autenticacion"
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");

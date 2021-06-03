@@ -128,6 +128,7 @@ if (isset($_POST["cond"])) {
         $idclearencetype = isset($_POST['paidFormCommend']) ? $util->testInput($_POST['paidFormCommend']) : "";
 
         $reference = isset($_POST['referenceCommendCuenta']) ? $util->testInput($_POST['referenceCommendCuenta']) : "";
+        $otp = $_POST['otp'];
 
         // validar cuando sea deposito
         if ($_SESSION['paidMethodToChange']) {
@@ -166,7 +167,7 @@ if (isset($_POST["cond"])) {
         $cccvc = $_POST['codValCommend'];
         $cctype = isset($_POST['typeCardCommend']) ? $util->testInput($_POST['typeCardCommend']) : "";
 
-        $data_json = $client->mexecsend($_SESSION['idlead'], $idcountry, $idprovider, $amount, $idremitancetype, $idcurrency, $idclearencetype, $acc, $reference, $bdocumentid, $bfirstname, $bmiddlename, $blastname, $bsecondlastaname, $bbank, $bacc, $bank, $routing, $ccexpyear, $ccnumber, $ccexpmonth, $cccvc, $cctype);
+        $data_json = $client->mexecsend($_SESSION['idlead'], $idcountry, $idprovider, $amount, $idremitancetype, $idcurrency, $idclearencetype, $acc, $reference, $bdocumentid, $bfirstname, $bmiddlename, $blastname, $bsecondlastaname, $bbank, $bacc, $bank, $routing, $ccexpyear, $ccnumber, $ccexpmonth, $cccvc, $cctype, $otp);
 
         // Si el fetch es exitoso borramos las variables de session correspondientes
         if ($data_json->code === "0000") {

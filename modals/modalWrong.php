@@ -1,4 +1,4 @@
-<div class="modal modal--danger is-visible" id="modalDanger">
+<div class="modal modal--danger" id="modalDanger">
     <div class="modal-dialog">
         <section class="modal-content">
             <button class="close-modal hidden" type="button" aria-label="close modal" data-close>✕</button>

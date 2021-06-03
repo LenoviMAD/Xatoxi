@@ -13,7 +13,7 @@ import Modal from './modules/Modal.js';
 import Timer from './timer.js';
 import Translations from './Translations.js';
 import Dropdown from './Dropdown.js';
-// console.log(location);
+import FaceApi from './modules/FaceApi.js';
 
 // Modules init
 envio()
@@ -28,8 +28,7 @@ canvas()
 debitCardRequest()
 Translations()
 Dropdown()
-
-
+FaceApi()
 
 document.addEventListener('DOMContentLoaded', () => {
 

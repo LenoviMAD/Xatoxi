@@ -36,34 +36,33 @@ export default function init() {
                     btnRegister.classList.remove("disabled")
                 }
             }
-            // country.childNodes.forEach(element => {
-            //     console.log(element.value)
-            //     if (element.value === "238") {
-            //         element.setAttribute("selected", true)
-            //         changeCodeArea()
-            //     }
-            // });
+            country.childNodes.forEach(element => {
+                if (element.value === "238") {
+                    element.setAttribute("selected", true)
+                    changeCodeArea()
+                }
+            });
 
-            // country.addEventListener('change', () => {
-            //     changeCodeArea()
-            // })
-            // async function changeCodeArea() {
-            //     let output = "<option disabled selected>Seleccione</option>';";
+            country.addEventListener('change', () => {
+                changeCodeArea()
+            })
+            async function changeCodeArea() {
+                let output = "<option disabled selected>Seleccione</option>';";
 
-            //     const data = await fetch(`ajax.php?cond=getcountrystatel&valor0=${country.options[country.selectedIndex].value}`, { method: "GET" });
-            //     const res = await data.json();
-            //     console.log(res)
+                const data = await fetch(`ajax.php?cond=getcountrystatel&valor0=${country.options[country.selectedIndex].value}`, { method: "GET" });
+                const res = await data.json();
+                console.log(res)
 
-            //     res.list.forEach(element => {
-            //         output += `<option value="${element.id}">${element.name}</option>`;
-            //     });
-            //     codeArea.innerHTML = output;
-            // }
+                res.list.forEach(element => {
+                    output += `<option value="${element.id}">${element.name}</option>`;
+                });
+                codeArea.innerHTML = output;
+            }
 
             registerForm.addEventListener("submit", async (e) => {
                 e.preventDefault();
 
-                test()
+                // test()
 
                 // Cargando loader
                 modal.openModal('loader', undefined, undefined, false)
@@ -96,7 +95,6 @@ export default function init() {
 
                     let dataEmailPin = await fetch("ajax.php", { method: 'POST', body: formData });
                     let resEmailPin = await dataEmailPin.json();
-
                     // Quitando loader
                     modal.closeModal("loader");
 

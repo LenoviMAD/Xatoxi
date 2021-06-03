@@ -610,8 +610,9 @@ export default function init() {
                         modal.openModal('loader', undefined, undefined, false)
 
                         let formData = new FormData(encomiendaForm)
-                        formData.append("cond", "commendWallet");
-                        let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                        formData.append('otp', resOtp.otp);
+                        formData.append('cond', 'commendWallet');
+                        let data = await fetch('ajax.php', { method: 'POST', body: formData });
                         let res = await data.json();
 
                         // console.log(res);
