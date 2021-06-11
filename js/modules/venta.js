@@ -34,7 +34,7 @@ export default function init() {
                 formData.append("cond", "session");
                 const data = await fetch("ajax.php", { method: 'POST', body: formData });
                 const res = await data.json();
-                // console.log(res);
+
                 bancoPagoMovil.childNodes.forEach(element => {
                     if (element.value === res.mpbankcode) {
                         element.setAttribute("selected", true)
@@ -72,11 +72,11 @@ export default function init() {
 
             // mostrar modal cuando se modifique monto o divisa, teniendo seleccionado una forma de abono
             async function calComisionVenta() {
-                if (amount.value 
+                if (amount.value
                     && (currency.options[currency.selectedIndex].value !== "Seleccione")
                     && (payIn.options[payIn.selectedIndex].value !== "Seleccione")
                     && (payForm.options[payForm.selectedIndex].value !== "Seleccione")
-                    ) {
+                ) {
 
                     // Todo: validar campos
                     let formData = new FormData()
@@ -92,7 +92,6 @@ export default function init() {
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
 
-                    console.log(res)
 
                     // LLenamos los campos correspondientes
                     if (res.code === "0000") {
@@ -151,55 +150,73 @@ export default function init() {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
-                // GEN OTP FETCH
-                let formData = new FormData()
-                formData.append("cond", "genotp");
-                let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
-                let resOtp = await dataOtp.json();
+                let formData = new FormData(ventaForm)
+                formData.append("cond", "execsellok");
+                formData.append("payIn", payIn.options[payIn.selectedIndex].value);
+                formData.append("payForm", payForm.options[payForm.selectedIndex].value);
 
-                // Quitando spinner
-                modal.closeModal('loader')
+                let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                let res = await data.json();
+                console.log(res)
 
-                if (resOtp.code == "0000") {
-                    // abrir modal para ultimo fetch 
-                    modal.openModal('otpVerification')
-                    timer.updateClock()
+                if (res.code === "0000") {
+                    // GEN OTP FETCH
+                    let formData = new FormData()
+                    formData.append("cond", "genotp");
+                    let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
+                    let resOtp = await dataOtp.json();
 
-                    document.getElementById('otpCode').value = resOtp.otp
+                    // Quitando spinner
+                    modal.closeModal('loader')
 
-                    document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
-                        e.preventDefault()
+                    if (resOtp.code == "0000") {
+                        // abrir modal para ultimo fetch 
+                        modal.openModal('otpVerification')
+                        timer.updateClock()
 
-                        modal.closeModal('otpVerification')
+                        document.getElementById('otpCode').value = resOtp.otp
 
-                        // Cargando spinner
-                        modal.openModal('loader', undefined, undefined, false)
+                        document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
+                            e.preventDefault()
 
-                        let formData = new FormData(ventaForm)
-                        formData.append("cond", "execsell");
-                        formData.append("otp", resOtp.otp);
-                        formData.append("payIn", payIn.options[payIn.selectedIndex].value);
-                        formData.append("payForm", payForm.options[payForm.selectedIndex].value);
+                            modal.closeModal('otpVerification')
 
-                        let data = await fetch("ajax.php", { method: 'POST', body: formData });
-                        let res = await data.json();
-                        // console.log(res);
+                            // Cargando spinner
+                            modal.openModal('loader', undefined, undefined, false)
 
-                        // Quitando spinner
-                        modal.closeModal('loader')
+                            let formData = new FormData(ventaForm)
+                            formData.append("cond", "execsell");
+                            formData.append("otp", resOtp.otp);
+                            formData.append("payIn", payIn.options[payIn.selectedIndex].value);
+                            formData.append("payForm", payForm.options[payForm.selectedIndex].value);
 
-                        if (res.code === "0000") {
-                            modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, false)
-                        } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        } else {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        }
-                        // console.log(res);
-                    })
-                } else if (resOtp.code === "5000") {
+                            let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                            let res = await data.json();
+                            console.log(res)
+
+                            // Quitando spinner
+                            modal.closeModal('loader')
+                            
+                            if (res.code === "0000") {
+                                modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, false)
+                            } else if (res.code === "5000") {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            } else {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            }
+                        })
+                    } else if (resOtp.code === "5000") {
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                    } else {
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                    }
+                } else if (res.code === "5000") {
+                    // Quitando spinner
+                    modal.closeModal('loader')
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
+                    // Quitando spinner
+                    modal.closeModal('loader')
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })

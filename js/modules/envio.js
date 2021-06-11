@@ -46,8 +46,8 @@ export default function init() {
             // Resumen de operacion
             async function step1Wallet() {
                 // Cuando ambos campos esten llenos seguiente etapa
-                if (amountWallet.value 
-                    && (currencyWallet.options[currencyWallet.selectedIndex].value !== "Seleccione") 
+                if (amountWallet.value
+                    && (currencyWallet.options[currencyWallet.selectedIndex].value !== "Seleccione")
                     && (paidFormWallet.options[paidFormWallet.selectedIndex].value !== "Seleccione")) {
                     // Todo: validar campos
                     let formData = new FormData()
@@ -93,7 +93,7 @@ export default function init() {
                     } else if (res.code === "5000") {
                         modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
-                       modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     }
                 }
             }
@@ -112,29 +112,49 @@ export default function init() {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
-                // GEN OTP FETCH
-                let formData = new FormData()
-                formData.append("cond", "genotp");
-                let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
-                let resOtp = await dataOtp.json();
+                // Todo: validar campos
+                let formData = new FormData(billeteraForm)
+                formData.append("cond", "addEnviook");
+                formData.append("amountWallet", amountWallet.value);
+                formData.append("currencyWallet", currencyWallet.options[currencyWallet.selectedIndex].value);
+                formData.append("users", users.options[users.selectedIndex].value);
 
-                // Quitando spinner
-                modal.closeModal('loader')
+                let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                let res = await data.json();
 
-                if (resOtp.code == "0000") {
-                    // abrir modal para ultimo fetch 
-                    modal.openModal('otpVerification')
-                    timer.updateClock()
-                    document.getElementById('otpCode').value = resOtp.otp
+                if (res.code === "0000") {
+                    // GEN OTP FETCH
+                    let formData = new FormData()
+                    formData.append("cond", "genotp");
+                    let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
+                    let resOtp = await dataOtp.json();
 
-                    document.querySelector("[data-id='btnOtp']").addEventListener('click', e => {
-                        e.preventDefault()
-                        finalFetch()
-                    })
-                } else if (resOtp.code === "5000") {
-                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    // Quitando spinner
+                    modal.closeModal('loader')
+
+                    if (resOtp.code == "0000") {
+                        // abrir modal para ultimo fetch 
+                        modal.openModal('otpVerification')
+                        timer.updateClock()
+                        document.getElementById('otpCode').value = resOtp.otp
+
+                        document.querySelector("[data-id='btnOtp']").addEventListener('click', e => {
+                            e.preventDefault()
+                            finalFetch()
+                        })
+                    } else if (resOtp.code === "5000") {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    } else {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    }
+                } else if (res.code === "5000") {
+                    // Quitando spinner
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                   modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    // Quitando spinner
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
 
@@ -166,15 +186,6 @@ export default function init() {
                 } else {
                     closeEverything('billeteraFormTest')
                 }
-                // if (valueSelected === "6") {
-                //     closeEverythingExceptThis('billeteraFormTest', 'sectionWalletAHC')
-                // } else if (valueSelected === "3") {
-                //     closeEverythingExceptThis('billeteraFormTest', 'sectionAccountDeposit')
-                // } else if (valueSelected === "5") {
-                //     closeEverythingExceptThis('billeteraFormTest', 'sectionCreditCard')
-                // } else {
-                //     closeEverything('billeteraFormTest')
-                // }
             }
 
             // docuemntos menos firma
@@ -204,7 +215,7 @@ export default function init() {
                 } else if (resUpload.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, resUpload.message)
                 } else {
-                   modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
 
@@ -243,7 +254,7 @@ export default function init() {
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                           modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
                 } else {
@@ -282,7 +293,7 @@ export default function init() {
                 } else if (res.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                   modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             }
         }
@@ -407,7 +418,7 @@ export default function init() {
                     } else if (res.code === "5000") {
                         modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
-                       modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     }
                 }
             }
@@ -503,7 +514,7 @@ export default function init() {
                 } else if (resUpload.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, resUpload.message)
                 } else {
-                   modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
 
@@ -543,7 +554,7 @@ export default function init() {
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                           modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
                 } else {
@@ -580,65 +591,78 @@ export default function init() {
 
             btnSubmitCommend.addEventListener('click', async (e) => {
                 e.preventDefault()
-
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
-                // GEN OTP FETCH
-                let formData = new FormData()
-                formData.append("cond", "genotp");
-                let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
-                let resOtp = await dataOtp.json();
+                let formData = new FormData(encomiendaForm)
+                formData.append('cond', 'commendWalletok');
+                let data = await fetch('ajax.php', { method: 'POST', body: formData });
+                let res = await data.json();
+                console.log(res)
+                if (res.code === "0000") {
+                    // GEN OTP FETCH
+                    let formData = new FormData()
+                    formData.append("cond", "genotp");
+                    let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
+                    let resOtp = await dataOtp.json();
 
-                // Quitando spinner
-                modal.closeModal('loader')
+                    // Quitando spinner
+                    modal.closeModal('loader')
 
-                if (resOtp.code == "0000") {
-                    // abrir modal para ultimo fetch 
-                    modal.openModal('otpVerification')
-                    timer.updateClock()
-                    document.getElementById('otpCode').value = resOtp.otp
+                    if (resOtp.code == "0000") {
+                        // abrir modal para ultimo fetch 
+                        modal.openModal('otpVerification')
+                        timer.updateClock()
+                        document.getElementById('otpCode').value = resOtp.otp
 
-                    document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
-                        e.preventDefault()
-                        // let valueSelected = paidFormCommend.options[paidFormCommend.selectedIndex].value;
+                        document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
+                            e.preventDefault()
+                            // let valueSelected = paidFormCommend.options[paidFormCommend.selectedIndex].value;
 
-                        // Quitando Otp
-                        modal.closeModal('otpVerification')
+                            // Quitando Otp
+                            modal.closeModal('otpVerification')
 
-                        // Cargando spinner
-                        modal.openModal('loader', undefined, undefined, false)
+                            // Cargando spinner
+                            modal.openModal('loader', undefined, undefined, false)
 
-                        let formData = new FormData(encomiendaForm)
-                        formData.append('otp', resOtp.otp);
-                        formData.append('cond', 'commendWallet');
-                        let data = await fetch('ajax.php', { method: 'POST', body: formData });
-                        let res = await data.json();
+                            let formData = new FormData(encomiendaForm)
+                            formData.append('otp', resOtp.otp);
+                            formData.append('cond', 'commendWallet');
+                            let data = await fetch('ajax.php', { method: 'POST', body: formData });
+                            let res = await data.json();
 
-                        // console.log(res);
+                            console.log(res)
 
-                        // Quitando spinner
-                        modal.closeModal('loader')
+                            // Quitando spinner
+                            modal.closeModal('loader')
 
-                        if (res.code === "0000") {
-                            modal.openModal('modalSuccess', 'Transaccion satisfactoria', res.message, undefined)
-                        } else if (res.code.charAt(0) === "7") {
-                            // Tienes documentos faltantes
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            if (res.code === "0000") {
+                                modal.openModal('modalSuccess', 'Transaccion satisfactoria', res.message, undefined)
+                            } else if (res.code.charAt(0) === "7") {
+                                // Tienes documentos faltantes
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
 
-                            // MOSTRAMOS LOS CAMPOS PA' QUE SUBAN DOCUMENTOS
-                            docsCommend.classList.remove('hidden')
-                        } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        } else {
-                           modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        }
-                    })
-                } else if (resOtp.code === "5000") {
-                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                                // MOSTRAMOS LOS CAMPOS PA' QUE SUBAN DOCUMENTOS
+                                docsCommend.classList.remove('hidden')
+                            } else if (res.code === "5000") {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            } else {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            }
+                        })
+                    } else if (resOtp.code === "5000") {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    } else {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    }
+                } else if (res.code === "5000") {
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
+
             })
         }
 
@@ -843,52 +867,67 @@ export default function init() {
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
-                // GEN OTP FETCH
-                let formData = new FormData()
-                formData.append("cond", "genotp");
-                let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
-                let resOtp = await dataOtp.json();
+                let formData = new FormData(transferenciaForm)
+                formData.append("cond", "saveTransferok");
+                let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                let res = await data.json();
+                console.log(res)
+                if (res.code === "0000") {
+                    // GEN OTP FETCH
+                    let formData = new FormData()
+                    formData.append("cond", "genotp");
+                    let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
+                    let resOtp = await dataOtp.json();
 
-                // Quitando spinner
-                modal.closeModal('loader')
+                    // Quitando spinner
+                    modal.closeModal('loader')
 
-                if (resOtp.code == "0000") {
-                    // abrir modal para ultimo fetch 
-                    modal.openModal('otpVerification')
-                    timer.updateClock()
-                    document.getElementById('otpCode').value = resOtp.otp
+                    if (resOtp.code == "0000") {
+                        // abrir modal para ultimo fetch 
+                        modal.openModal('otpVerification')
+                        timer.updateClock()
+                        document.getElementById('otpCode').value = resOtp.otp
 
-                    document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
-                        e.preventDefault()
-                        modal.closeModal('otpVerification')
+                        document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
+                            e.preventDefault()
+                            modal.closeModal('otpVerification')
 
-                        // Cargando spinner
-                        modal.openModal('loader', undefined, undefined, false)
-                        let formData = new FormData(transferenciaForm)
+                            // Cargando spinner
+                            modal.openModal('loader', undefined, undefined, false)
+                            let formData = new FormData(transferenciaForm)
 
-                        formData.append("cond", "saveTransfer");
-                        let data = await fetch("ajax.php", { method: 'POST', body: formData });
-                        // console.log(data);
+                            formData.append("cond", "saveTransfer");
+                            let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                            let res = await data.json();
 
-                        let res = await data.json();
-                        // console.log(res);
+                            console.log(res)
+                            // Quitando spinner
+                            modal.closeModal('loader')
 
-                        // Quitando spinner
-                        modal.closeModal('loader')
-
-                        if (res.code === "0000") {
-                            modal.openModal('modalSuccess')
-                        } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        } else {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        }
-                    })
-                } else if (resOtp.code === "5000") {
-                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                            if (res.code === "0000") {
+                                modal.openModal('modalSuccess')
+                            } else if (res.code === "5000") {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            } else {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            }
+                        })
+                    } else if (resOtp.code === "5000") {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    } else {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    }
+                } else if (res.code === "5000") {
+                    // Quitando spinner
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    // Quitando spinner
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
+
+
             })
         }
     })

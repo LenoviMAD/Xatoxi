@@ -110,12 +110,21 @@ export default function init() {
                         }
                     });
 
-                    didemissiondate.value = resIsParty.didemissiondate.split(" ")[0].split("/").reverse().join("-");
-                    didemissionplace.value = resIsParty.didemissionplace
-                    didexpirationdate.value = resIsParty.didexpirationdate.split(" ")[0].split("/").reverse().join("-")
-
-                    prepaidcardnumber.value = resIsParty.prepaidcardnumber
-                    debitcardnumber.value = resIsParty.debitcardnumber
+                    if (resIsParty.didemissiondate) {
+                        didemissiondate.value = resIsParty.didemissiondate.split(" ")[0].split("/").reverse().join("-");
+                    }
+                    if (resIsParty.didemissionplace) {
+                        didemissionplace.value = resIsParty.didemissionplace
+                    }
+                    if (resIsParty.didexpirationdate) {
+                        didexpirationdate.value = resIsParty.didexpirationdate.split(" ")[0].split("/").reverse().join("-")
+                    }
+                    if (resIsParty.prepaidcardnumber) {
+                        prepaidcardnumber.value = resIsParty.prepaidcardnumber
+                    }
+                    if (resIsParty.debitcardnumber) {
+                        debitcardnumber.value = resIsParty.debitcardnumber
+                    }
                 }
                 // prepaidcardnumber.value = res.prepaidcardnumber
                 // debitcardnumber.value = res.debitcardnumber
@@ -138,7 +147,6 @@ export default function init() {
                 const dataIsParty = await fetch("ajax.php", { method: 'POST', body: formDataIsParty });
                 const resIsParty = await dataIsParty.json();
 
-                console.log(resIsParty)
                 if (resIsParty.code === "0000") {
                     test(resIsParty)
 
@@ -160,7 +168,7 @@ export default function init() {
                 formData.append("cond", "session");
                 const data = await fetch("ajax.php", { method: 'POST', body: formData });
                 const res = await data.json();
-                
+
                 if (!res.idparty) {
                     if (documentC.value &&
                         (typeDocument.options[typeDocument.selectedIndex].value !== "Seleccione")) {
@@ -174,7 +182,6 @@ export default function init() {
 
                         const data = await fetch("ajax.php", { method: 'POST', body: formData });
                         const res = await data.json();
-                        console.log('aloooo', res)
 
                         // Llenar los campos correspondientes
                         if (res.code == "0000") {

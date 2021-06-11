@@ -5,7 +5,7 @@ class xclient
 
     private $client;
     private $version = "1.2";
-    private $url = "https://www.italcontroller.com/italsisdev/includes/rest/SERVER/XATOXI/services.php";
+    private $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php";
     private $user = "WSITALCAMBIO";
     private $password = "1cc61eb7ae2187eb91f97d1ae5300919";
 
@@ -549,14 +549,7 @@ class xclient
         $this->updateField($recv, "debitcardnumber", $debitcard);
 
         $this->updateField($recv, "mpbankcode", $mpbankcode);
-        $this->updateField($recv, "mpbankaccount", "01022222222222222222");
-
-        // $this->updateField($recv, "prepaidcardnumber", $countrycode);
-        // $this->updateField($recv, "debitcardnumber", $codeArea);
-        // $this->updateField($recv, "debitcardnumber", $phone);
-
-        // $this->updateField($addlead, "countrycode", "58");
-        // $this->updateField($addlead, "areacode", "0212");
+        $this->updateField($recv, "mpbankaccount", $mpbankaccount);
 
         return $recv;
     } // brecv
@@ -572,6 +565,41 @@ class xclient
         $result = json_decode($response);
         return ($result);
     } // mrecv
+
+    private function brecvok($idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount)
+    {
+        $this->updateField($recvok, "wsuser", $this->user);
+        $this->updateField($recvok, "version", $this->version);
+        $this->updateField($recvok, "wspwd", $this->password);
+        $this->updateField($recvok, "idclearencetype", $idclearencetype);
+
+        $this->updateField($recvok, "idparty", $idparty);
+        $this->updateField($recvok, "idlocation", $idlocation);
+        $this->updateField($recvok, "idlead", $idlead);
+        $this->updateField($recvok, "acc", $acc);
+        $this->updateField($recvok, "key", $key);
+        $this->updateField($recvok, "addr", $addr);
+        $this->updateField($recvok, "bdate", $bdate);
+        $this->updateField($recvok, "prepaidcardnumber", $prepaidcard);
+        $this->updateField($recvok, "debitcardnumber", $debitcard);
+
+        $this->updateField($recvok, "mpbankcode", $mpbankcode);
+        $this->updateField($recvok, "mpbankaccount", $mpbankaccount);
+
+        return $recvok;
+    } // brecvok
+
+    function mrecvok($idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount)
+    {
+        $this->init($this->url);
+        $recvok =  $this->brecvok($idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount);
+        $data["recvok"] = $recvok;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mrecvok
 
     private function bgetclearencetypel()
     {
@@ -1014,6 +1042,39 @@ class xclient
         $result = json_decode($response);
         return ($result);
     } // mexecsell
+    private function bexecsellok($idlead, $idcurrency, $amount, $idinstrumentdebit, $idclearencetype, $acc, $reference, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $debitcardnumter, $creditcardnumber)
+    {
+        $this->updateField($execsellok, "wsuser", $this->user);
+        $this->updateField($execsellok, "version", $this->version);
+        $this->updateField($execsellok, "wspwd", $this->password);
+        $this->updateField($execsellok, "idcurrency", $idcurrency);
+        $this->updateField($execsellok, "idlead", $idlead);
+        $this->updateField($execsellok, "amount", $amount);
+        $this->updateField($execsellok, "idinstrumentdebit", $idinstrumentdebit);
+        $this->updateField($execsellok, "idclearencetype", $idclearencetype);
+        $this->updateField($execsellok, "acc", $acc);
+        $this->updateField($execsellok, "reference", $reference);
+        $this->updateField($execsellok, "ccnumber", $ccnumber);
+        $this->updateField($execsellok, "ccexpyear", $ccexpyear);
+        $this->updateField($execsellok, "ccexpmonth", $ccexpmonth);
+        $this->updateField($execsellok, "cccvc", $cccvc);
+        $this->updateField($execsellok, "cctype", $cctype);
+        $this->updateField($execsellok, "debitcardnumter", $debitcardnumter);
+        $this->updateField($execsellok, "creditcardnumber", $creditcardnumber);
+        return $execsellok;
+    } // bexecsellok
+
+    function mexecsellok($idlead, $idcurrency, $amount, $idinstrumentdebit, $idclearencetype, $acc, $reference, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $debitcardnumter, $creditcardnumber)
+    {
+        $this->init($this->url);
+        $execsellok =  $this->bexecsellok($idlead, $idcurrency, $amount, $idinstrumentdebit, $idclearencetype, $acc, $reference, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $debitcardnumter, $creditcardnumber);
+        $data["execsellok"] = $execsellok;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mexecsellok
 
     private function bexexcbuy($idlead, $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber)
     {
@@ -1050,6 +1111,41 @@ class xclient
         $result = json_decode($response);
         return ($result);
     } // mexexcbuy
+
+    private function bexexcbuyok($idlead, $idcurrency, $amount, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber)
+    {
+        $this->updateField($exexcbuyok, "wsuser", $this->user);
+        $this->updateField($exexcbuyok, "version", $this->version);
+        $this->updateField($exexcbuyok, "wspwd", $this->password);
+        $this->updateField($exexcbuyok, "idcurrency", $idcurrency);
+        $this->updateField($exexcbuyok, "idlead", $idlead);
+        $this->updateField($exexcbuyok, "amount", $amount);
+        $this->updateField($exexcbuyok, "acc", $acc);
+        $this->updateField($exexcbuyok, "idinstrumentcredit", $idinstrumentcredit);
+        $this->updateField($exexcbuyok, "idinstrumentdebit", $idinstrumentdebit);
+        $this->updateField($exexcbuyok, "debitcardnumber", $debitcardnumber);
+        $this->updateField($exexcbuyok, "ccnumber", $ccnumber);
+        $this->updateField($exexcbuyok, "ccexpyear", $ccexpyear);
+        $this->updateField($exexcbuyok, "ccexpmonth", $ccexpmonth);
+        $this->updateField($exexcbuyok, "cccvc", $cccvc);
+        $this->updateField($exexcbuyok, "cctype", $cctype);
+        $this->updateField($exexcbuyok, "mpbankcode", $mpbankcode);
+        $this->updateField($exexcbuyok, "mpbankaccount", $mpbankaccount);
+
+        return $exexcbuyok;
+    } // bexexcbuyok
+
+    function mexexcbuyok($idlead, $idcurrency, $amount, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber)
+    {
+        $this->init($this->url);
+        $exexcbuyok =  $this->bexexcbuyok($idlead, $idcurrency, $amount, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber);
+        $data["execbuyok"] = $exexcbuyok;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mexexcbuyok
 
     private function bexecsend($idlead, $idcountry, $idprovider, $amount, $idremitancetype, $idcurrency, $idclearencetype, $acc, $reference, $bdocumentid, $bfirstname, $bmiddlename, $blastname, $bsecondlastaname, $bbank, $bacc, $bank, $routing, $ccexpyear, $ccnumber, $ccexpmonth, $cccvc, $cctype, $otp)
     {
@@ -1100,6 +1196,54 @@ class xclient
         $result = json_decode($response);
         return ($result);
     } // mexecsend
+
+    private function bexecsendok($idlead, $idcountry, $idprovider, $amount, $idremitancetype, $idcurrency, $idclearencetype, $acc, $reference, $bdocumentid, $bfirstname, $bmiddlename, $blastname, $bsecondlastaname, $bbank, $bacc, $bank, $routing, $ccexpyear, $ccnumber, $ccexpmonth, $cccvc, $cctype)
+    {
+        $this->updateField($execsendok, "wsuser", $this->user);
+        $this->updateField($execsendok, "version", $this->version);
+        $this->updateField($execsendok, "wspwd", $this->password);
+        $this->updateField($execsendok, "idlead", $idlead);
+        $this->updateField($execsendok, "idcountry", $idcountry);
+        $this->updateField($execsendok, "idprovider", $idprovider);
+        $this->updateField($execsendok, "amount", $amount);
+        $this->updateField($execsendok, "idremitancetype", $idremitancetype);
+        $this->updateField($execsendok, "idcurrency", $idcurrency);
+        $this->updateField($execsendok, "idclearencetype", $idclearencetype);
+        $this->updateField($execsendok, "bdocumentid", $bdocumentid);
+        $this->updateField($execsendok, "bfirstname", $bfirstname);
+        $this->updateField($execsendok, "bmiddlename", $bmiddlename);
+        $this->updateField($execsendok, "blastname", $blastname);
+        $this->updateField($execsendok, "bsecondlastaname", $bsecondlastaname);
+        $this->updateField($execsendok, "bbank", $bbank);
+        $this->updateField($execsendok, "bacc", $bacc);
+
+        // Deposito en cuenta y ach
+        $this->updateField($execsendok, "bank", $bank);
+        $this->updateField($execsendok, "routing", $routing);
+        $this->updateField($execsendok, "acc", $acc);
+        $this->updateField($execsendok, "reference", $reference);
+
+        // Tarjeta de credito
+        $this->updateField($execsendok, "ccexpyear", $ccexpyear);
+        $this->updateField($execsendok, "ccnumber", $ccnumber);
+        $this->updateField($execsendok, "ccexpmonth", $ccexpmonth);
+        $this->updateField($execsendok, "cccvc", $cccvc);
+        $this->updateField($execsendok, "cctype", $cctype);
+
+        return $execsendok;
+    } // bexecsendok
+
+    function mexecsendok($idlead, $idcountry, $idprovider, $amount, $idremitancetype, $idcurrency, $idclearencetype, $acc, $reference, $bdocumentid, $bfirstname, $bmiddlename, $blastname, $bsecondlastaname, $bbank, $bacc, $bank, $routing, $ccexpyear, $ccnumber, $ccexpmonth, $cccvc, $cctype)
+    {
+        $this->init($this->url);
+        $execsendok =  $this->bexecsendok($idlead, $idcountry, $idprovider, $amount, $idremitancetype, $idcurrency, $idclearencetype, $acc, $reference, $bdocumentid, $bfirstname, $bmiddlename, $blastname, $bsecondlastaname, $bbank, $bacc, $bank, $routing, $ccexpyear, $ccnumber, $ccexpmonth, $cccvc, $cctype);
+        $data["execsendok"] = $execsendok;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mexecsendok
 
     private function bgetpartyxl()
     {
@@ -1211,7 +1355,6 @@ class xclient
         $this->updateField($execsendw, "cccvc", $cccvc);
         $this->updateField($execsendw, "cctype", $cctype);
         $this->updateField($execsendw, "otp", $otp);
-        $this->updateField($execsendw, "version", '1.1');
         return $execsendw;
     } // bexecsendw
 
@@ -1226,6 +1369,44 @@ class xclient
         $result = json_decode($response);
         return ($result);
     } // mexecsendw
+
+    private function bexecsendwok($idlead, $idleaddst, $amount, $idcurrency, $idclearencetype, $bank, $routing, $account, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $reference)
+    {
+        $this->updateField($execsendwok, "wsuser", $this->user);
+        $this->updateField($execsendwok, "version", $this->version);
+        $this->updateField($execsendwok, "wspwd", $this->password);
+        $this->updateField($execsendwok, "idlead", $idlead);
+        $this->updateField($execsendwok, "idleaddst", $idleaddst);
+        $this->updateField($execsendwok, "amount", $amount);
+        $this->updateField($execsendwok, "idcurrency", $idcurrency);
+        $this->updateField($execsendwok, "idclearencetype", $idclearencetype);
+
+        // Deposito en cuenta y ach
+        $this->updateField($execsendwok, "bank", $bank);
+        $this->updateField($execsendwok, "routing", $routing);
+        $this->updateField($execsendwok, "acc", $account);
+        $this->updateField($execsendwok, "reference", $reference);
+
+        // Tarjeta de credito
+        $this->updateField($execsendwok, "ccexpyear", $ccexpyear);
+        $this->updateField($execsendwok, "ccnumber", $ccnumber);
+        $this->updateField($execsendwok, "ccexpmonth", $ccexpmonth);
+        $this->updateField($execsendwok, "cccvc", $cccvc);
+        $this->updateField($execsendwok, "cctype", $cctype);
+        return $execsendwok;
+    } // bexecsendwok
+
+    function mexecsendwok($idlead, $idleaddst, $amount, $idcurrency, $idclearencetype, $bank, $routing, $account, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $reference)
+    {
+        $this->init($this->url);
+        $execsendwok =  $this->bexecsendwok($idlead, $idleaddst, $amount, $idcurrency, $idclearencetype, $bank, $routing, $account, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $reference);
+        $data["execsendwok"] = $execsendwok;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mexecsendwok
 
     private function bexecsendtr($idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $otp)
     {
@@ -1280,6 +1461,59 @@ class xclient
         $result = json_decode($response);
         return ($result);
     } // mexecsendtr
+
+    private function bexecsendtrok($idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype)
+    {
+        $this->updateField($execsendtrok, "wsuser", $this->user);
+        $this->updateField($execsendtrok, "version", $this->version);
+        $this->updateField($execsendtrok, "wspwd", $this->password);
+        $this->updateField($execsendtrok, "idlead", $idlead);
+        $this->updateField($execsendtrok, "idcountry", $idcountry);
+        $this->updateField($execsendtrok, "idcurrency", $idcurrency);
+        $this->updateField($execsendtrok, "amount", $amount);
+        $this->updateField($execsendtrok, "idclearencetype", $idclearencetype);
+        $this->updateField($execsendtrok, "acc", $acc);
+        $this->updateField($execsendtrok, "bank", $bank);
+        $this->updateField($execsendtrok, "routing", $routing);
+        $this->updateField($execsendtrok, "reference", $reference);
+        $this->updateField($execsendtrok, "bfirstname", $bfirstname);
+        $this->updateField($execsendtrok, "bmiddlename", $bmiddlename);
+        $this->updateField($execsendtrok, "blastname", $blastname);
+        $this->updateField($execsendtrok, "bsecondlastname", $bsecondlastname);
+        $this->updateField($execsendtrok, "bdocumentid", $bdocumentid);
+        $this->updateField($execsendtrok, "baddress", $baddress);
+        $this->updateField($execsendtrok, "bacc", $bacc);
+        $this->updateField($execsendtrok, "bbank", $bbank);
+        $this->updateField($execsendtrok, "bbankcountry", $bbankcountry);
+        $this->updateField($execsendtrok, "bbankcity", $bbankcity);
+        $this->updateField($execsendtrok, "bbankaddress", $bbankaddress);
+        $this->updateField($execsendtrok, "bbankabaswiftiban", $bbankabaswiftiban);
+        $this->updateField($execsendtrok, "ibacc", $ibacc);
+        $this->updateField($execsendtrok, "ibbank", $ibbank);
+        $this->updateField($execsendtrok, "ibbankcountry", $ibbankcountry);
+        $this->updateField($execsendtrok, "ibbankcity", $ibbankcity);
+        $this->updateField($execsendtrok, "ibbankaddress", $ibbankaddress);
+        $this->updateField($execsendtrok, "ibbankabaswiftiban", $ibbankabaswiftiban);
+        $this->updateField($execsendtrok, "ccnumber", $ccnumber);
+        $this->updateField($execsendtrok, "ccexpyear", $ccexpyear);
+        $this->updateField($execsendtrok, "ccexpmonth", $ccexpmonth);
+        $this->updateField($execsendtrok, "cccvc", $cccvc);
+        $this->updateField($execsendtrok, "cctype", $cctype);
+
+        return $execsendtrok;
+    } // bexecsendtrok
+
+    function mexecsendtrok($idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype)
+    {
+        $this->init($this->url);
+        $execsendtrok =  $this->bexecsendtrok($idlead, $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bank, $routing, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype);
+        $data["execsendtrok"] = $execsendtrok;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mexecsendtrok
 
     private function bgetcreditinstrumentl()
     {

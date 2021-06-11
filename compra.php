@@ -82,7 +82,7 @@ xpresentationLayer::buildInputNumberGrid([
 xpresentationLayer::endDiv();
 
 //Transferencia y tarjeta de credito 
-xpresentationLayer::startDivHidden("sectionPrepaid", "grid-item-2 grid-2 mt20 mb20");
+xpresentationLayer::startDivHidden("sectionPrepaid", "grid-item-2 grid-2 mb20");
 xpresentationLayer::buildTitleBar("DATOS FORMA DE PAGO", "grid-item-2 m0", "trad_datos_forma_de_pago");
 xpresentationLayer::buildInputTextGrid([
     'title' => 'Número de tarjeta',

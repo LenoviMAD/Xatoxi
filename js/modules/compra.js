@@ -61,10 +61,8 @@ export default function init() {
 
                     modal.closeModal('loader')
 
-                    console.log(res)
                     // LLenamos los campos correspondientes
                     if (res.code === "0000") {
-
                         amountBs.value = numberFormater(res.totalves)
                         exchangeRate.value = numberFormater(res.currrate)
 
@@ -145,55 +143,72 @@ export default function init() {
             // fetch final de venta
             btnSubmitCompra.addEventListener('click', async (e) => {
                 e.preventDefault()
-                // GEN OTP FETCH
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
-                let formData = new FormData()
-                formData.append("cond", "genotp");
-                let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
-                let resOtp = await dataOtp.json();
-                // Quitando spinner
-                modal.closeModal('loader')
+                let formData = new FormData(compraForm)
+                formData.append("cond", "execbuyok");
+                formData.append("payIn", payIn.options[payIn.selectedIndex].value);
+                formData.append("payForm", payForm.options[payForm.selectedIndex].value);
 
-                if (resOtp.code == "0000") {
-                    // abrir modal para ultimo fetch 
-                    modal.openModal('otpVerification')
-                    timer.updateClock()
-                    document.getElementById('otpCode').value = resOtp.otp
+                let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                let res = await data.json();
+                console.log(res)
 
-                    document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
-                        e.preventDefault()
-                        modal.closeModal('otpVerification')
+                if (res.code === "0000") {
+                    // GEN OTP FETCH
+                    let formData = new FormData()
+                    formData.append("cond", "genotp");
+                    let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
+                    let resOtp = await dataOtp.json();
 
-                        // Cargando spinner
-                        modal.openModal('loader', undefined, undefined, false)
-                        let formData = new FormData(compraForm)
+                    // Quitando spinner
+                    modal.closeModal('loader')
 
-                        formData.append("cond", "execbuy");
-                        formData.append("otp", resOtp.otp);
-                        // console.log(resOtp.otp);
-                        formData.append("payIn", payIn.options[payIn.selectedIndex].value);
-                        formData.append("payForm", payForm.options[payForm.selectedIndex].value);
+                    if (resOtp.code == "0000") {
+                        // abrir modal para ultimo fetch 
+                        modal.openModal('otpVerification')
+                        timer.updateClock()
+                        document.getElementById('otpCode').value = resOtp.otp
 
-                        let data = await fetch("ajax.php", { method: 'POST', body: formData });
-                        let res = await data.json();
-                        // console.log(res);
-                        // Quitando spinner
-                        modal.closeModal('loader')
+                        document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
+                            e.preventDefault()
+                            modal.closeModal('otpVerification')
 
-                        if (res.code === "0000") {
-                            modal.openModal('modalSuccess')
-                        } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        } else {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        }
-                    })
-                } else if (resOtp.code === "5000") {
-                    modal.openModal('modalDanger', TITLE_SECTION,  resOtp.message)
+                            // Cargando spinner
+                            modal.openModal('loader', undefined, undefined, false)
+                            let formData = new FormData(compraForm)
+
+                            formData.append("cond", "execbuy");
+                            formData.append("otp", resOtp.otp);
+                            formData.append("payIn", payIn.options[payIn.selectedIndex].value);
+                            formData.append("payForm", payForm.options[payForm.selectedIndex].value);
+
+                            let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                            let res = await data.json();
+                            // Quitando spinner
+                            modal.closeModal('loader')
+
+                            console.log(res)
+                            if (res.code === "0000") {
+                                modal.openModal('modalSuccess', TITLE_SECTION, res.message)
+                            } else if (res.code === "5000") {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            } else {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            }
+                        })
+                    } else if (resOtp.code === "5000") {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    } else {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    }
+                } else if (res.code === "5000") {
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
         }

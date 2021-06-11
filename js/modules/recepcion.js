@@ -20,7 +20,7 @@ export default function init() {
             const bankAccount = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="bankAccount"]`)
             const TITLE_SECTION = "Recepción"
 
-            const init = async() => {
+            const init = async () => {
                 // Fetch session currectly
                 const formData = new FormData();
                 formData.append("cond", "session");
@@ -46,7 +46,7 @@ export default function init() {
             init()
 
             // Toggle para mostrar modal (mas info)
-            formRecepcion.addEventListener('change', async() => {
+            formRecepcion.addEventListener('change', async () => {
                 // Mostramos boton de enviar
                 if (btnSubmitReception.classList.contains('hidden')) {
                     btnSubmitReception.classList.remove('hidden')
@@ -54,60 +54,78 @@ export default function init() {
             })
 
             // fetch final de venta
-            recepcionForm.addEventListener('submit', async(e) => {
+            recepcionForm.addEventListener('submit', async (e) => {
                 e.preventDefault()
 
                 // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
-                // GEN OTP FETCH
-                let formData = new FormData()
-                formData.append("cond", "genotp");
-                let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
-                let resOtp = await dataOtp.json();
+                let formData = new FormData(recepcionForm)
 
-                // Quitando spinner
-                modal.closeModal('loader')
+                formData.append("cond", "receptionok");
+                let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                let res = await data.json();
+                console.log(res)
 
-                if (resOtp.code == "0000") {
-                    // abrir modal para ultimo fetch 
-                    modal.openModal('otpVerification')
-                    timer.updateClock()
-                    document.getElementById('otpCode').value = resOtp.otp
+                if (res.code === "0000") {
+                    // GEN OTP FETCH
+                    let formData = new FormData()
+                    formData.append("cond", "genotp");
+                    let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
+                    let resOtp = await dataOtp.json();
 
-                    document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
-                        e.preventDefault()
-                        modal.closeModal('otpVerification')
+                    // Quitando spinner
+                    modal.closeModal('loader')
 
-                        // Cargando spinner
-                        modal.openModal('loader', undefined, undefined, false)
+                    if (resOtp.code == "0000") {
+                        // abrir modal para ultimo fetch 
+                        modal.openModal('otpVerification')
+                        timer.updateClock()
+                        document.getElementById('otpCode').value = resOtp.otp
 
-                        let formData = new FormData(recepcionForm)
+                        document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
+                            e.preventDefault()
+                            modal.closeModal('otpVerification')
 
-                        formData.append("cond", "reception");
-                        formData.append("otp", resOtp.otp);
-                        let data = await fetch("ajax.php", { method: 'POST', body: formData });
-                        let res = await data.json();
+                            // Cargando spinner
+                            modal.openModal('loader', undefined, undefined, false)
 
-                        // Quitando spinner
-                        modal.closeModal('loader')
+                            let formData = new FormData(recepcionForm)
 
-                        if (res.code === "0000") {
-                            modal.openModal('modalSuccess', 'Transaccion satisfactoria', res.message, undefined)
-                        } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        } else {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        }
-                    })
-                } else if (resOtp.code === "5000") {
-                    modal.openModal('modalDanger', TITLE_SECTION,  resOtp.message)
+                            formData.append("cond", "reception");
+                            formData.append("otp", resOtp.otp);
+                            let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                            let resFinal = await data.json();
+
+                            // Quitando spinner
+                            modal.closeModal('loader')
+                            console.log(resFinal)
+
+                            if (resFinal.code === "0000") {
+                                modal.openModal('modalSuccess', 'Transaccion satisfactoria', resFinal.message, undefined)
+                            } else if (resFinal.code === "5000") {
+                                modal.openModal('modalDanger', TITLE_SECTION, resFinal.message)
+                            } else {
+                                modal.openModal('modalDanger', TITLE_SECTION, resFinal.message)
+                            }
+                        })
+                    } else if (resOtp.code === "5000") {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    } else {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    }
+                } else if (res.code === "5000") {
+                    // Quitando spinner
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {
-                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    // Quitando spinner
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
 
-            formRecepcion.addEventListener('change', async() => {
+            formRecepcion.addEventListener('change', async () => {
                 // Mostramos boton de enviar
                 let valueSelected = formRecepcion.options[formRecepcion.selectedIndex].value;
                 /*

@@ -14,16 +14,16 @@ xpresentationLayer::buildHeaderXatoxi();
 xpresentationLayer::startMain();
 
 xpresentationLayer::startSectionOpt("grid-1 full-height", "item-container");
-xpresentationLayer::buildOptionsPrincipal("Encomienda", "Billetera", "card card-a","trad_encomienda");
-xpresentationLayer::buildOptionsPrincipal("Remesa", "Encomienda", "card card-a","trad_remesa");
-xpresentationLayer::buildOptionsPrincipal("Transferencia", "Transferencia","card card-a","trad_transferencia");
+xpresentationLayer::buildOptionsPrincipal("Encomienda", "Billetera", "card card-a", "trad_encomienda");
+xpresentationLayer::buildOptionsPrincipal("Remesa", "Encomienda", "card card-a", "trad_remesa");
+xpresentationLayer::buildOptionsPrincipal("Transferencia", "Transferencia", "card card-a", "trad_transferencia");
 xpresentationLayer::endSection();
 
 xpresentationLayer::startAnimationMenu();
 xpresentationLayer::startSectionButtos();
 xpresentationLayer::buildOptionGrid("Encomienda", "Billetera", "trad_encomienda");
 xpresentationLayer::buildOptionGrid("Remesa", "Encomienda", "trad_remesa");
-xpresentationLayer::buildOptionGrid("Transferencia", "Transferencia","trad_transferencia");
+xpresentationLayer::buildOptionGrid("Transferencia", "Transferencia", "trad_transferencia");
 xpresentationLayer::endSection();
 xpresentationLayer::startContentSection();
 
@@ -126,17 +126,17 @@ xpresentationLayer::endDiv();
 xpresentationLayer::endSection();
 
 // BENEFICIARIO
-xpresentationLayer::startDivHidden("beneficiarioWallet");
-xpresentationLayer::buildTitleBar("BENEFICIARIO", "","trad_beneficiario");
+xpresentationLayer::startDivHidden("beneficiarioWallet", "mt15");
+xpresentationLayer::buildTitleBar("BENEFICIARIO", "", "trad_beneficiario");
 $data_json = $serviceCall->mgetpartyxl();
 xpresentationLayer::buildSearchUsersWallet([
-            'id' => 'users',
-            'name' => 'users',
+    'id' => 'users',
+    'name' => 'users',
 ], $data_json);
 xpresentationLayer::endDiv();
 
 // DOCUMENTOS DE WALLET
-xpresentationLayer::startDivHidden("docsWallet");
+xpresentationLayer::startDivHidden("docsWallet", "mt15");
 xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "", "trad_documentos_requeridos");
 xpresentationLayer::startSectionTwoColumns();
 $data_json = $serviceCall->mgetcompliancedoctypel();
@@ -304,8 +304,8 @@ xpresentationLayer::endDiv();
 
 // Documento Identificación
 // DOCUMENTOS DE WALLET
-xpresentationLayer::startDivHidden("uploadCommend");
-xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "","trad_documentos_requeridos");
+xpresentationLayer::startDivHidden("uploadCommend", "mt15");
+xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "", "trad_documentos_requeridos");
 xpresentationLayer::startSectionTwoColumns();
 $data_json = $serviceCall->mgetcompliancedoctypel();
 xpresentationLayer::buildSelectJson([
@@ -323,13 +323,13 @@ xpresentationLayer::endDiv();
 
 xpresentationLayer::endSection();
 
-xpresentationLayer::startDivHidden("beneficiarioCommend");
+xpresentationLayer::startDivHidden("beneficiarioCommend", "mt15");
 xpresentationLayer::buildTitleBar("BENEFICIARIO");
 xpresentationLayer::buildSearchUsersCommend([
-            'id' => 'usersCommend',
-            'idButtom' => 'btnAddCommend',
-            'name' => 'usersCommend',
-            'class' => 'mb20 input-field1'
+    'id' => 'usersCommend',
+    'idButtom' => 'btnAddCommend',
+    'name' => 'usersCommend',
+    'class' => 'mb20 input-field1'
 ], "");
 xpresentationLayer::startDivHidden("userCommend");
 xpresentationLayer::startSectionTwoColumns();
@@ -568,13 +568,13 @@ xpresentationLayer::endDiv();
 
 xpresentationLayer::endSection();
 
-xpresentationLayer::startDivHidden("beneficiarioTransfer");
+xpresentationLayer::startDivHidden("beneficiarioTransfer", "mt15");
 xpresentationLayer::buildTitleBar("BENEFICIARIO");
 xpresentationLayer::buildSearchUsersCommend([
-            'id' => 'usersTransfer',
-            'idButtom' => 'btnIconAdd',
-            'name' => 'usersTransfer',
-            'class' => '"mb20 input-field1'
+    'id' => 'usersTransfer',
+    'idButtom' => 'btnIconAdd',
+    'name' => 'usersTransfer',
+    'class' => 'mb20 input-field1'
 ], "");
 xpresentationLayer::startDivHidden("userTransfer");
 xpresentationLayer::startSectionTwoColumns();
@@ -617,6 +617,7 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'Dirección',
     'name' => 'addressTransfer',
     'id' => 'addressTransfer',
+    'maxlength' => 50,
     'classContainer' => 'grid-item-1 grid-item-2',
     'dataString' => 'trad_direccion'
 ]);
@@ -634,12 +635,12 @@ xpresentationLayer::buildInputNumberGrid([
     'title' => 'Telefono',
     'name' => 'phoneTransfer',
     'class' => 'grid-item-1 grid-item-2',
-    'maxlength' => 3,
+    'maxlength' => 20,
     'dataString' => 'trad_telefono'
-]);
-xpresentationLayer::buildInputTextGrid([
-    'title' => 'Banco',
-    'name' => 'bankTransfer',
+    ]);
+    xpresentationLayer::buildInputTextGrid([
+        'title' => 'Banco',
+        'name' => 'bankTransfer',
     'id' => 'bankTransfer',
     'classContainer' => 'grid-item-1 grid-item-2',
     'dataString' => 'trad_banco'
@@ -648,6 +649,7 @@ xpresentationLayer::buildInputNumberGrid([
     'title' => 'Cuenta',
     'name' => 'accountTransfer',
     'id' => 'accountTransfer',
+    'maxlength' => 20,
     'class' => 'grid-item-1 grid-item-2',
     'dataString' => 'trad_cuenta'
 ]);

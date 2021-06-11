@@ -126,6 +126,34 @@ if (isset($_POST["cond"])) {
         $data_json = $client->mexecsendw($_SESSION['idlead'], $_POST['users'], $_POST['amountWallet'], $_POST['currencyWallet'], $idclearencetype, $bank, $routing, $account, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $reference, $otp);
         print_r(json_encode($data_json));
     }
+    // Billetera
+    if ($_POST["cond"] == "addEnviook") {
+        $idclearencetype = $_POST['paidFormWallet'];
+        $bank = $_POST['bankAccountACHWallet'];
+        $routing = $_POST['routingACHWallet'];
+
+        // validar cuando sea deposito
+        if ($idclearencetype == "3") {
+            $account = $_POST['receiveAccount'];
+        } else if ($idclearencetype == "6") {
+            // validar cuando sea ach
+            $account = $_POST['accACHWallet'];
+        } else {
+            $account = '';
+        }
+
+        $reference = $_POST['referenceWalletCuenta'];
+
+        // Tarjeta de credito
+        $ccnumber = $_POST['cardNumberWallet'];
+        $ccexpyear = $_POST['yearVenWallet'];
+        $ccexpmonth = $_POST['monthVenWallet'];
+        $cccvc = $_POST['codValWallet'];
+        $cctype = isset($_POST['typeCardWallet']) ? $util->testInput($_POST['typeCardWallet']) : "";
+
+        $data_json = $client->mexecsendwok($_SESSION['idlead'], $_POST['users'], $_POST['amountWallet'], $_POST['currencyWallet'], $idclearencetype, $bank, $routing, $account, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $reference);
+        print_r(json_encode($data_json));
+    }
 
     // Encomienda
     if ($_POST["cond"] == "commendWallet") {
@@ -187,6 +215,57 @@ if (isset($_POST["cond"])) {
 
         print_r(json_encode($data_json));
     }
+    if ($_POST["cond"] == "commendWalletok") {
+        $idcountry = isset($_POST['countryCommend']) ? $util->testInput($_POST['countryCommend']) : "";
+        $idprovider = isset($_POST['providerCommend']) ? $util->testInput($_POST['providerCommend']) : "";
+        $amount = isset($_POST['amountCommend']) ? $util->testInput($_POST['amountCommend']) : "";
+        $idremitancetype = isset($_POST['sendFormCommend']) ? $util->testInput($_POST['sendFormCommend']) : "";
+        $idcurrency = isset($_POST['currencyCommend']) ? $util->testInput($_POST['currencyCommend']) : "";
+        $idclearencetype = isset($_POST['paidFormCommend']) ? $util->testInput($_POST['paidFormCommend']) : "";
+
+        $reference = isset($_POST['referenceCommendCuenta']) ? $util->testInput($_POST['referenceCommendCuenta']) : "";
+
+        // validar cuando sea deposito
+        if ($_SESSION['paidMethodToChange']) {
+            $idclearencetype = $_SESSION['paidMethodToChange'];
+            $amount = $_SESSION['amountToChange'];
+        } else {
+            if ($idclearencetype == "3") {
+                $acc = $_POST['receiveAccount'];
+            } else if ($idclearencetype == "6") {
+                // validar cuando sea ach
+                $acc = $_POST['accACHCommend'];
+            } else if ($idclearencetype == "1") {
+                // validar cuando sea ach
+                $reference = $_POST['referenceCommend'];
+            } else {
+                $acc = '';
+            }
+        }
+
+        $bank = isset($_POST['bankAccountACHCommend']) ? $util->testInput($_POST['bankAccountACHCommend']) : "";
+        $routing = isset($_POST['routingACHCommend']) ? $util->testInput($_POST['routingACHCommend']) : "";
+
+        // Beneficiario
+        $bdocumentid = isset($_POST['bdocumentid']) ? $util->testInput($_POST['bdocumentid']) : "";
+        $bfirstname = isset($_POST['firstNameCommend']) ? $util->testInput($_POST['firstNameCommend']) : "";
+        $bmiddlename = isset($_POST['secondNameCommend']) ? $util->testInput($_POST['secondNameCommend']) : "";
+        $blastname = isset($_POST['firstSurnameCommend']) ? $util->testInput($_POST['firstSurnameCommend']) : "";
+        $bsecondlastaname = isset($_POST['secondSurnameCommend']) ? $util->testInput($_POST['secondSurnameCommend']) : "";
+        $bbank = isset($_POST['bankCommend']) ? $util->testInput($_POST['bankCommend']) : "";
+        $bacc = isset($_POST['accountCommend']) ? $util->testInput($_POST['accountCommend']) : "";
+
+        // Tarjeta de credito
+        $ccexpyear = $_POST['yearVenCommend'];
+        $ccnumber = $_POST['cardNumberCommend'];
+        $ccexpmonth = $_POST['monthVenCommend'];
+        $cccvc = $_POST['codValCommend'];
+        $cctype = isset($_POST['typeCardCommend']) ? $util->testInput($_POST['typeCardCommend']) : "";
+
+        $data_json = $client->mexecsendok($_SESSION['idlead'], $idcountry, $idprovider, $amount, $idremitancetype, $idcurrency, $idclearencetype, $acc, $reference, $bdocumentid, $bfirstname, $bmiddlename, $blastname, $bsecondlastaname, $bbank, $bacc, $bank, $routing, $ccexpyear, $ccnumber, $ccexpmonth, $cccvc, $cctype);
+
+        print_r(json_encode($data_json));
+    }
 
     // Transferencia
     if ($_POST["cond"] == "saveTransfer") {
@@ -244,6 +323,60 @@ if (isset($_POST["cond"])) {
         $data_json = $client->mexecsendtr($_SESSION['idlead'], $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bankACH, $routingACH, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $otp);
         echo json_encode($data_json);
     }
+    if ($_POST["cond"] == "saveTransferok") {
+        // $acc = "";
+        $idcurrency = $util->testInput($_POST['currencyTransfer']);
+        $amount = $util->testInput($_POST['amountTransfer']);
+        $idclearencetype = $util->testInput($_POST['paidFormTransfer']);
+        // $reference = "";
+
+        $bankACH = isset($_POST['bankAccountMovilTransfer']) ? $util->testInput($_POST['bankAccountMovilTransfer']) : "";
+        $routingACH = isset($_POST['routingMovilTransfer']) ? $util->testInput($_POST['routingMovilTransfer']) : "";
+        $acc = isset($_POST['receivingAccount']) ? $util->testInput($_POST['receivingAccount']) : $util->testInput($_POST['accMovilTransfer']);
+        $reference = isset($_POST['routingMovilTransfer']) ? $util->testInput($_POST['routingMovilTransfer']) : "";
+        // validar cuando sea deposito
+
+
+        // if ($idclearencetype === 3) {
+        //     $acc = $util->testInput($_POST['receivingAccount']);
+        //     //$receivingAccount = $util->testInput($_POST['receivingAccount']);    
+        // } else if ($idclearencetype === 6) {
+        //     $acc = $util->testInput($_POST['accMovilTransfer']);
+        // }
+
+        //Beneficiario
+        $bfirstname = $util->testInput($_POST['firstNameTransfer']);
+        $bmiddlename = $util->testInput($_POST['secondNameTransfer']);
+        $blastname = $util->testInput($_POST['firstSurnameTransfer']);
+        $bsecondlastname = $util->testInput($_POST['secondSurnameTransfer']);
+        $bdocumentid = $util->testInput($_POST['bdocumentidTransfer']);
+        $bacc = $util->testInput($_POST['accountTransfer']);
+        $bbank = $util->testInput($_POST['bankTransfer']);
+        $bbankcountry = $util->testInput($_POST['countryBankTransfer']);
+        $bbankcity = $util->testInput($_POST['cityBankTransfer']);
+        $idcountry = $util->testInput($_POST['countryTransfer']);
+        $baddress = $util->testInput($_POST['addressTransfer']);
+        // $bemail = $util->testInput($_POST['emailTransfer']);
+        // $bphone = $util->testInput($_POST['phoneTransfer']);
+        $bbankaddress = $util->testInput($_POST['bankAddressTransfer']);
+        $bbankabaswiftiban = $util->testInput($_POST['abaSwiftIban']);
+        $ibacc = $util->testInput($_POST['accountTransferIntermediary']);
+        $ibbank = $util->testInput($_POST['bankTransferIntermediary']);
+        $ibbankcountry = $util->testInput($_POST['countryBankTransferIntermediary']);
+        $ibbankcity = $util->testInput($_POST['cityBankTransferIntermediary']);
+        $ibbankaddress = $util->testInput($_POST['bankAddressTransferIntermediary']);
+        $ibbankabaswiftiban = $util->testInput($_POST['abaSwiftIbanIntermediary']);
+
+        // Tarjeta de credito
+        $ccexpyear = $_POST['yearTransfer'];
+        $ccnumber = $_POST['numberCardTransfer'];
+        $ccexpmonth = $_POST['monthTransfer'];
+        $cccvc = $_POST['ValidationCodeCardTransfer'];
+        $cctype = isset($_POST['typeCardTransfer']) ? $util->testInput($_POST['typeCardTransfer']) : "";
+
+        $data_json = $client->mexecsendtrok($_SESSION['idlead'], $idcountry, $idcurrency, $amount, $idclearencetype, $acc, $bankACH, $routingACH, $reference, $bfirstname, $bmiddlename, $blastname, $bsecondlastname, $bdocumentid, $baddress, $bacc, $bbank, $bbankcountry, $bbankcity, $bbankaddress, $bbankabaswiftiban, $ibacc, $ibbank, $ibbankcountry, $ibbankcity, $ibbankaddress, $ibbankabaswiftiban, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype);
+        echo json_encode($data_json);
+    }
 
     // Recepcion
     if ($_POST["cond"] == "reception") {
@@ -263,11 +396,34 @@ if (isset($_POST["cond"])) {
 
         $idlocation = $util->testInput($_POST['branchOffices']) || $_SESSION['idlocation'];
 
-        $addr = "asdsad sajd lksajd jsakdjasl djsajdksaldls djsajdklsadjaskld";
+        $addr = $_SESSION['addr'];
         $bdate = $_SESSION['bdate'];
 
-
         $data_json = $client->mrecv($_SESSION['idparty'], $acc, $key, $addr, $bdate, $idlocation, $_SESSION['idlead'], $otp, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount);
+        print_r(json_encode($data_json));
+    }
+
+    if ($_POST["cond"] == "receptionok") {
+        $idclearencetype = $util->testInput($_POST['formRecepcion']);
+        // $acc = $_POST['bankAccount'] != "" ? $util->testInput($_POST['bankAccount']) : $_SESSION['bacc'];
+        $acc = $util->testInput($_POST['bankAccount']);
+        $key = $util->testInput($_POST['remittances']);
+
+        $prepaidcard = $util->testInput($_POST['prepaidcard']);
+        $debitcard = $util->testInput($_POST['debitcardnumber']);
+
+        // Pago movil
+        $mpbankcode = $util->testInput($_POST['bancoPagoMovil']);
+        $mpbankaccount = $util->testInput($_POST['countrycode']) . "" . $util->testInput($_POST['phone']);
+
+        // $idlocation = $util->testInput($_POST['branchOffices']) || $_SESSION['idlocation'];
+        $idlocation = 2;
+        $addr = $_SESSION['addr'];
+
+        $bdate = $_SESSION['bdate'];
+
+        $data_json = $client->mrecvok($_SESSION['idparty'], $acc, $key, $addr, $bdate, $idlocation, $_SESSION['idlead'], $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount);
+
         print_r(json_encode($data_json));
     }
 
@@ -303,33 +459,41 @@ if (isset($_POST["cond"])) {
 
     if ($_POST["cond"] == "execsell") {
         $idcurrency = $_POST["currency"];
+        $acc = $_POST["acc"];
         $amount = $_POST["amount"];
-        $otp = $_POST["otp"];
         $idinstrumentcredit = $_POST["payForm"];
         $idinstrumentdebit = $_POST["payIn"];
-        //ARREGLAR ESTO
-        $ccnumber  = $_POST["cardNumber"];
-        $ccexpyear = $_POST["yearVen"];
-        $ccexpmonth = $_POST["monthVen"];
-        $cccvc = $_POST["codVal"];
-        $cctype = $_POST["typeCard"];
-        $mpbankcode = $_POST["bancoPagoMovil"];
-        $mpbankaccount = $util->testInput($_POST['countrycodes']) . "" . $_POST['codeArea'] . "" . $util->testInput($_POST['phone']);
-
-        $mpbankaccount = "";
-
-        $mpbankcode = $_POST["bancoPagoMovil"];
+        $otp = $_POST["otp"];
         $debitcardnumber =  $_POST["debitcardnumber"];
-        $mpbankaccount = $util->testInput($_POST['countrycode']) . "" . $_POST['codeArea'] . "" . $util->testInput($_POST['phone']);
-
-        // TARJETA DE CREDITO
         $ccnumber  = $_POST["ccnumber"];
         $ccexpyear = $_POST["ccexpyear"];
         $ccexpmonth = $_POST["ccexpmonth"];
         $cccvc = $_POST["cccvc"];
         $cctype = $_POST["cctype"];
+        $mpbankcode = $_POST["bancoPagoMovil"];
+        $mpbankaccount = $util->testInput($_POST['countrycode']) . "" . $_POST['codeArea'] . "" . $util->testInput($_POST['phone']);
 
         $data_json = $client->mexexcbuy($_SESSION['idlead'], $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber);
+
+        print_r(json_encode($data_json));
+    }
+    if ($_POST["cond"] == "execsellok") {
+        $acc = $_POST["acc"];
+        $idcurrency = $_POST["currency"];
+        $amount = $_POST["amount"];
+        $idinstrumentcredit = $_POST["payForm"];
+        $idinstrumentdebit = $_POST["payIn"];
+
+        $debitcardnumber =  $_POST["debitcardnumber"];
+        $ccnumber  = $_POST["ccnumber"];
+        $ccexpyear = $_POST["ccexpyear"];
+        $ccexpmonth = $_POST["ccexpmonth"];
+        $cccvc = $_POST["cccvc"];
+        $cctype = $_POST["cctype"];
+        $mpbankcode = $_POST["bancoPagoMovil"];
+        $mpbankaccount = $util->testInput($_POST['countrycode']) . "" . $_POST['codeArea'] . "" . $util->testInput($_POST['phone']);
+
+        $data_json = $client->mexexcbuyok($_SESSION['idlead'], $idcurrency, $amount, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber);
 
         print_r(json_encode($data_json));
     }
@@ -349,7 +513,7 @@ if (isset($_POST["cond"])) {
         $otp = $_POST["otp"];
         $idinstrumentcredit = $_POST["payForm"];
         $idclearencetype = $_POST["payIn"];
-        $acc = $_POST["receiveAccount"] || "010220202020202";
+        $acc = $_POST["receiveAccount"];
         $reference = $_POST["referenceCuenta"];
         $ccnumber = $_POST["numberCardCredit"];
         $ccexpyear = $_POST["yearTransfer"];
@@ -360,6 +524,24 @@ if (isset($_POST["cond"])) {
         $creditcardnumber = $_POST["numberCardDebit"];
 
         $data_json = $client->mexecsell($_SESSION['idlead'], $currency, $amount, $otp, $idinstrumentcredit, $idclearencetype, $acc, $reference, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $debitcardnumber, $creditcardnumber);
+        print_r(json_encode($data_json));
+    }
+    if ($_POST["cond"] == "execbuyok") {
+        $currency = $_POST["currency"];
+        $amount = $_POST["amount"];
+        $idinstrumentcredit = $_POST["payForm"];
+        $idclearencetype = $_POST["payIn"];
+        $acc = $_POST["receiveAccount"];
+        $reference = $_POST["referenceCuenta"];
+        $ccnumber = $_POST["numberCardCredit"];
+        $ccexpyear = $_POST["yearTransfer"];
+        $ccexpmonth = $_POST["monthTransfer"];
+        $cccvc = $_POST["ValidationCodeCardTransfer"];
+        $cctype = $_POST["typeCard"];
+        $debitcardnumber = $_POST["numberCardDebit"];
+        $creditcardnumber = $_POST["numberCardDebit"];
+
+        $data_json = $client->mexecsellok($_SESSION['idlead'], $currency, $amount, $idinstrumentcredit, $idclearencetype, $acc, $reference, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $debitcardnumber, $creditcardnumber);
         print_r(json_encode($data_json));
     }
 
