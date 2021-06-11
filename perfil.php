@@ -49,7 +49,7 @@ xpresentationLayer::buildInputTextGrid([
     <input type="date" name="didemissiondate">
 </div>
 <div class="input-field1">
-    <label class="font-Bold margin-label js-translate" data-string="trad_fec_exp_doc">Fec. Exp. Doc</label>
+    <label class="font-Bold js-translate" data-string="trad_fec_exp_doc">Fec. Exp. Doc</label>
     <input type="date" name="didexpirationdate">
 </div>
 <?php
@@ -109,7 +109,7 @@ xpresentationLayer::buildSelectJson([
 xpresentationLayer::buildTextArea([
     'title' => 'Direccion',
     'name' => 'direction',
-    'placeholder' => '',
+    'maxlength' => '100',
     'customClass' => 'grid-item-2',
     'required' => true,
     'dataString' => 'trad_direccion'
@@ -186,21 +186,25 @@ xpresentationLayer::buildSelectJson([
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Tarjeta de crédito Prepagada',
     'name' => 'prepaidcardnumber',
-    'dataString' => 'trad_tarjeta_de_credito_prepagada'
+    'dataString' => 'trad_tarjeta_de_credito_prepagada',
+    'maxlength' => 20,
 ]);
 xpresentationLayer::buildInputNumberGrid([
     'title' => 'Tarjeta de débito Prepagada',
-    'name' => 'debitcardnumber'
+    'name' => 'debitcardnumber',
+    'maxlength' => 20,
 ]);
 
-xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "grid-item-2", "trad_documentos_requeridos");
-$data_json = $serviceCall->mgetcompliancedoctypel();
-xpresentationLayer::buildSelectJson([
-    'id' => 'typeDocWallet',
-    'name' => 'typeDocWallet',
-], $data_json);
-xpresentationLayer::buildInputFileDoc("fileInputWallet", "hidden", "file");
-
+// Cuando nuestro usuario sea party podra registrar documentos
+if ($_SESSION['idparty']) {
+    xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "grid-item-2", "trad_documentos_requeridos");
+    $data_json = $serviceCall->mgetcompliancedoctypel();
+    xpresentationLayer::buildSelectJson([
+        'id' => 'typeDocWallet',
+        'name' => 'typeDocWallet',
+    ], $data_json);
+    xpresentationLayer::buildInputFileDoc("fileInputWallet", "hidden", "file");
+}
 ?>
 <p class="grid-item-2 text-center mb0 mt0"><b class="js-translate" data-string="trad_alias">Alias</b>: <?php echo $_SESSION['alias']; ?></p>
 <p class="grid-item-2 text-center mb0 mt0"><b class="js-translate" data-string="trad_movil">Movil</b>: <?php echo '+' . $_SESSION['countrycode'] . ' ' . $_SESSION['areacode'] . ' ' . $_SESSION['phonenumber']; ?></p>

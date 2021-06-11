@@ -1,0 +1,33 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    line-height: 1.6 !important;
+    color: #888;
+}
+
+.div-pepin {
+    position: fixed;
+    width: 86px;
+    height: 86px;
+    max-height: 100vh;
+    bottom: 0px;
+    right: 0px;
+    z-index: 12345;
+    left: auto;
+}
+
+.pepin {
+    text-align: center;
+    color: #68a0d5;
+}
+
+.img-pepin {
+    width: 400px;
+    margin-left: -20px;
+}
+
+.fondo-pepin {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(104, 160, 213, 1) 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+}

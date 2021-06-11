@@ -32,14 +32,15 @@
                 </TR>
             </TBODY>
         </TABLE>
+        <A class="wordsFM js-translate" data-string="trad_registro" href="register.php">Registro</A>
+        
+        <DIV class="centrarObjets" style="margin-top: 10px;">
+            <SPAN id="btnPin" class="btn js-translate" data-string="trad_aceptar" ' . $btnId . ' ' . $eventButton . '> Aceptar </SPAN>
+        </DIV>
         <DIV style="display: flex;">
         <BUTTON class="wordsFM js-translate" data-string="trad_cambio_de_pin" id="openPinChange">Cambio de PIN</BUTTON>
         <A class="wordsFM js-translate" data-string="trad_olvido_de_pin" id="btnForgetPin" href="">Olvido de pin</A>
         </DIV>
-        <DIV class="centrarObjets">
-            <SPAN id="btnPin" class="btn js-translate" data-string="trad_aceptar" ' . $btnId . ' ' . $eventButton . '> Aceptar </SPAN>
-        </DIV>
-        <A class="wordsFM js-translate" data-string="trad_registro" href="register.php">Registro</A>
         </section>
     </div>
 </div>

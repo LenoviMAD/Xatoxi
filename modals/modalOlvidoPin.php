@@ -1,3 +1,7 @@
+<?php
+include_once("./xpresentationlayer.php");
+?>
+
 <div class="modal modal--danger" id="modalOlvioPin">
     <div class="modal-dialog">
         <section class="modal-content">
@@ -7,6 +11,21 @@
             </aside>
             <header class="modal-header">
                 <h3 class="modal__title js-translate" data-string="trad_olvido_de_pin">Olvido de PIN</h3>
+                <?php
+                // xpresentationLayer::startForm("formForgotPin");
+                xpresentationLayer::buildInputTextGrid([
+                    'title' => 'Email',
+                    'name' => 'email',
+                    'id' => 'olvidoPinemail',
+                    'type' => 'email',
+                    'placeholder' => 'email@email.com',
+                    'maxlength' => 50,
+                    'required' => true,
+                    'dataString' => 'trad_email'
+                ]);
+                // xpresentationLayer::endForm();
+
+                ?>
                 <p class="modal__text js-translate" data-string="trad_desea_generar_nuevo_pin">¿Desea generar nuevo PIN?</p>
             </header>
             <footer class="modal-footer">

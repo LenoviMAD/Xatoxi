@@ -14,6 +14,7 @@ import Timer from './timer.js';
 import Translations from './Translations.js';
 import Dropdown from './Dropdown.js';
 import FaceApi from './modules/FaceApi.js';
+import operationsReport from './modules/operationsReport.js';
 
 // Modules init
 envio()
@@ -29,8 +30,18 @@ debitCardRequest()
 Translations()
 Dropdown()
 FaceApi()
+operationsReport()
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    const pepin = document.getElementById("pepin");
+
+    if (pepin) {
+        pepin.addEventListener("click", function () {
+            window.open("pepinChat.html", "Emergente", "resizable=no, menubar=no, width=400, height=650, scrollbars=no, toolbar=no, tittlebar=no, status=yes")
+        });
+    }
+
 
     $(document).ready(function () {
         $('#example').DataTable();
@@ -78,11 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Quitamos el active de los 
         items.childNodes.forEach(nodeItem => {
             nodeItem.addEventListener('click', () => {
-
-                nodeItem.classList.add("activeClass")
-
-                // Abrimos el modal
-                modal.openModal('modalTest')
+                if (nodeItem.nodeName !== '#text') {
+                    if (nodeItem.classList.contains('openModal')) {
+                        nodeItem.classList.add("activeClass")
+                        modal.openModal('modalTest')
+                    }
+                }
             })
         })
     }
@@ -101,6 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnForgetPin) {
         const btnOlvidoPinModal = document.getElementById('btnOlvidoPinModal')
+        const olvidoPinemail = document.getElementById('olvidoPinemail')
+
         btnForgetPin.addEventListener('click', e => {
             e.preventDefault()
 
@@ -117,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const body = new FormData()
                 body.append("cond", "resetpin")
                 body.append("tag", inputTag.value)
+                body.append("email", olvidoPinemail.value)
 
                 // Abrimos el loader
                 modal.openModal('loader', undefined, undefined, false)

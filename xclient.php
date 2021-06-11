@@ -726,19 +726,20 @@ class xclient
         return ($result);
     } // mendpoint
 
-    private function bresetpin($tag)
+    private function bresetpin($tag, $email)
     {
         $this->updateField($resetpin, "wsuser", $this->user);
         $this->updateField($resetpin, "version", $this->version);
         $this->updateField($resetpin, "wspwd", $this->password);
         $this->updateField($resetpin, "tag", $tag);
+        $this->updateField($resetpin, "email", $email);
         return $resetpin;
     } // bresetpin
 
-    function mresetpin($tag)
+    function mresetpin($tag, $email)
     {
         $this->init($this->url);
-        $resetpin =  $this->bresetpin($tag);
+        $resetpin =  $this->bresetpin($tag, $email);
         $data["resetpin"] = $resetpin;
         $data_string = json_encode($data);
         curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -1466,5 +1467,26 @@ class xclient
         $result = json_decode($response);
         return ($result);
     } // mrequestdebitcard
+
+    private function breportl($idlead)
+    {
+        $this->updateField($reportl, "wsuser", $this->user);
+        $this->updateField($reportl, "version", $this->version);
+        $this->updateField($reportl, "wspwd", $this->password);
+        $this->updateField($reportl, "idlead", $idlead);
+        return $reportl;
+    } // breportl
+
+    function mreportl($idlead)
+    {
+        $this->init($this->url);
+        $reportl =  $this->breportl($idlead);
+        $data["reportl"] = $reportl;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mreportl
 
 } // class xclient

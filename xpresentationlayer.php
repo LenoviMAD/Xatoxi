@@ -875,7 +875,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-    static function buildMenuOptionGrid($nameImg, $titleOption, $modal, $url, $customClass = "", $dataString = "")
+    static function buildMenuOptionGrid($nameImg, $titleOption, $modal, $url, $customClass = "", $dataString = "", $id="")
     {
         $opnModal = "";
 
@@ -884,7 +884,7 @@ class xpresentationLayer
         }
 
 
-        echo '<ARTICLE class="' . $customClass . ' card card-a grid-item ' . $opnModal . '" data-url="' . $url . '">';
+        echo '<ARTICLE id="'.$id.'" class="' . $customClass . ' card card-a grid-item ' . $opnModal . '" data-url="' . $url . '">';
         echo '    <ASIDE class="card__aside">';
         echo '        <FIGURE>';
         echo '            <IMG class="card-img" src="img/' . $nameImg . '">';
@@ -973,7 +973,7 @@ class xpresentationLayer
             $options['disabled'] = 'disabled="' . $options['disabled'] . '"';
         }
         echo '<DIV class="input-field1 ' . $options['classContainer'] . '">';
-        echo '  <LABEL class="font-Bold margin-label js-translate" data-string="trad_telefono_pago_movil">' . $options['titleLabel'] . '</LABEL>';
+        echo '  <LABEL class="font-Bold js-translate" data-string="trad_telefono_pago_movil">' . $options['titleLabel'] . '</LABEL>';
         echo '  <DIV class="flex-content ' . $options['classChildren'] . '">';
         echo '    <INPUT type="text" name="' . $options['nameCountry'] . '" id="' . $options['idCountry'] . '" class="input-radius" ' . $options['disabled'] . ' pattern="[0-9]+([\.,][0-9]+)?">';
         // echo '<SELECT name="' . $nameCountry . '" id="' . $idCountry . '" ' . $event . ' class="select-width">';
@@ -1320,7 +1320,7 @@ class xpresentationLayer
 
         echo '<DIV class="grid-3 ' . $options['customClass'] . '">';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL  class="font-Bold margin-label js-translate" data-string="trad_t_doc">' . $options['labelSelect'] . '</LABEL>';
+        echo '        <LABEL  class="font-Bold js-translate" data-string="trad_t_doc">' . $options['labelSelect'] . '</LABEL>';
         echo '<SELECT name="' . $options['nameSelect'] . '" id="' . $options['idSelect'] . '" required>';
         echo '<OPTION disabled selected>Seleccione</OPTION>';
         foreach ($data as $value) {
@@ -1329,11 +1329,11 @@ class xpresentationLayer
         echo '</SELECT>';
         echo '    </DIV>';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL class="font-Bold margin-label js-translate" data-string="trad_documento" >' . $options['labelInputText'] . '</LABEL>';
+        echo '        <LABEL class="font-Bold js-translate" data-string="trad_documento" >' . $options['labelInputText'] . '</LABEL>';
         echo '        <INPUT type="text" name="' . $options['nameInputText'] . '" id="' . $options['idInputText'] . '" required>';
         echo '    </DIV>';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL class="font-Bold margin-label js-translate" data-string="trad_fec_nacimiento">' . $options['labelInputDate'] . '</LABEL>';
+        echo '        <LABEL class="font-Bold js-translate" data-string="trad_fec_nacimiento">' . $options['labelInputDate'] . '</LABEL>';
         echo '        <INPUT type="date" name="' . $options['nameInputDate'] . '"  id="' . $options['idInputDate'] . '" required>';
         echo '    </DIV>';
         echo '</DIV>';

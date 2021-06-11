@@ -144,22 +144,48 @@ table.dataTable thead td {
     background-color: #dedef1;
     cursor: pointer;
 }
-.table-reports tbody tr td {
-    border-bottom: 1px solid #b5b5c3 !important;
+.table-reports tbody tr {
+    border: 1px solid #b5b5c3 !important;
+    border-radius: 5px;
 }
-
+table.dataTable tbody th, table.dataTable tbody td {
+    padding: 0 !important;
+}
 table.dataTable.table-reports tbody th,
 table.dataTable tbody td {
     color: #3f4254;
-    font-weight: 600;
 }
-
-.table-reports__fecha {
-    color: #3699ff;
-    font-weight: 600;
+.custom-row {
+    display: grid;
+    grid-template-columns: .5fr 2fr 1.5fr;
+    width: 100%;
+    column-gap: 15px;
+    row-gap: 5px;
+    padding: 10px;
 }
-.table-reports__hora {
-    color: #b5b5c3;
+.custom-row:not(:last-child) {
+    margin-bottom: 15px;
+}
+.custom-td1 {
+    grid-row: 1/ span 2;
+    display: flex;
+    align-items: center;
+}
+.custom-td2 {
+    margin-bottom: 0;
+    padding: 0;
+    font-weight: bold;
+    padding-left: 0;
+}
+.custom-td3 {
+    grid-row: 2/3;
+    color: #a4a4a4;
+}
+.custom-td4 {
+    grid-column: 3/4;
+}
+.custom-td5 {
+    color: red !important;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {

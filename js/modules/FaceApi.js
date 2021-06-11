@@ -2,17 +2,26 @@
 export default function init() {
     document.addEventListener("DOMContentLoaded", async () => {
         const video = document.getElementById("video");
-        const btnVideoUpload = document.getElementById("btnVideoUpload");
-        const btnTakePhoto = document.getElementById("btnTakePhoto");
-        const canvas = document.getElementById("canvas");
-        const canvasContext = canvas.getContext('2d');
 
-        if (btnVideoUpload) {
-            btnVideoUpload.addEventListener("click", () => {
-                startVideo()
+        if (video) {
+            const btnVideoUpload = document.getElementById("btnVideoUpload");
+            const btnTakePhoto = document.getElementById("btnTakePhoto");
+            const canvas = document.getElementById("canvas");
+            let canvasContext
+            if (canvas) {
+                canvasContext = canvas.getContext('2d');
+            }
+
+            if (btnVideoUpload) {
+                btnVideoUpload.addEventListener("click", () => {
+                    startVideo()
+                });
+            }
+
+            btnTakePhoto.addEventListener('click', function (ev) {
+                takepicture();
             });
         }
-
         async function startVideo() {
             const test = document.getElementById("test");
             const model = await blazeface.load();
@@ -49,11 +58,6 @@ export default function init() {
                 }, 500);
             });
         }
-
-        btnTakePhoto.addEventListener('click', function (ev) {
-            takepicture();
-        });
-
         function takepicture() {
             canvasContext.drawImage(video, 0, 0, 400, 300);
             var link = document.createElement('a');

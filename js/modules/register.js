@@ -19,44 +19,26 @@ export default function init() {
             const email = document.querySelector(`#${registerForm.getAttribute('id')} [name="email"]`)
             const textDanger = document.querySelector(`.helper-text`)
 
-            confirmEmail.addEventListener('blur', () => {
-                isEmailsEquals()
-            })
-            function isEmailsEquals() {
-                if (email.value !== confirmEmail.value) {
-                    confirmEmail.style.borderColor = "red"
-                    textDanger.classList.remove('hidden')
-                    btnRegister.setAttribute("disabled", true)
-                    btnRegister.classList.add("disabled")
-                    return
-                } else {
-                    textDanger.classList.add('hidden')
-                    confirmEmail.style.borderColor = "initial"
-                    btnRegister.removeAttribute("disabled")
-                    btnRegister.classList.remove("disabled")
-                }
-            }
             country.childNodes.forEach(element => {
                 if (element.value === "238") {
                     element.setAttribute("selected", true)
-                    changeCodeArea()
+                    // changeCodeArea()
                 }
             });
 
             country.addEventListener('change', () => {
-                changeCodeArea()
+                // changeCodeArea()
             })
             async function changeCodeArea() {
-                let output = "<option disabled selected>Seleccione</option>';";
+                // let output = "<option disabled selected>Seleccione</option>';";
 
-                const data = await fetch(`ajax.php?cond=getcountrystatel&valor0=${country.options[country.selectedIndex].value}`, { method: "GET" });
-                const res = await data.json();
-                console.log(res)
+                // const data = await fetch(`ajax.php?cond=mgetcellphoneareacodel&valor0=${country.options[country.selectedIndex].value}`, { method: "GET" });
+                // const res = await data.json();
 
-                res.list.forEach(element => {
-                    output += `<option value="${element.id}">${element.name}</option>`;
-                });
-                codeArea.innerHTML = output;
+                // res.list.forEach(element => {
+                //     output += `<option value="${element.id}">${element.name}</option>`;
+                // }); 
+                // codeArea.innerHTML = output;
             }
 
             registerForm.addEventListener("submit", async (e) => {
@@ -86,7 +68,6 @@ export default function init() {
                         body: formData1,
                     });
                     await dataSavePin.text();
-                    // console.log(resPin.pin);
 
                     // Enviar pin al correo
                     let formData = new FormData(registerForm)
@@ -109,8 +90,9 @@ export default function init() {
 
                         // Agregando mensaje para mostrar email
                         let messageModal = document.createElement('p')
+                        console.log(messageModal)
                         messageModal.setAttribute('id', 'messageModalCustom')
-                        messageModal.innerHTML = `<span class="js-translate" data-string="trad_te_hemos_enviado_el_codigo">Te hemos enviado el código al email</span> <br><b>${document.getElementById('email').value}</b>`
+                        messageModal.innerHTML = `<span class="js-translate" data-string="trad_te_hemos_enviado_el_codigo">Te hemos enviado el código al email</span> <br><b>${email.value}</b>`
 
                         changeLanguage('en')
 
@@ -162,7 +144,6 @@ export default function init() {
                                     body: formData,
                                 });
                                 let resSignup = await dataSignup.json();
-                                // console.log(resSignup);
 
 
                                 // Quitando loader

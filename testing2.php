@@ -16,6 +16,9 @@ xpresentationLayer::startMain();
 <button id="btnTakePhoto" class="btn btn-primary">Take a photo</button>
 <video id="video" width="400" height="300" autoplay muted></video>
 <canvas id="canvas" style="display: none;" width="400" height="300"></canvas>
+<div class="div-pepin">
+        <button id="pepin" class="btn-pepin"><img src="./img/pepinvs1.jpg" alt="" class="w-100"></button>
+    </div>
 <?php
 xpresentationLayer::endMain();
 

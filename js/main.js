@@ -359,9 +359,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (mainMenu) {
         mainMenu.childNodes.forEach(value => {
-            value.addEventListener('click', async () => {
-                value.classList.add("activeClass")
-            })
+            if (value.nodeName !== '#text') {
+                if (value.classList.contains('openModal')) {
+                    value.addEventListener('click', async () => {
+                        value.classList.add("activeClass")
+                    })
+                }
+            }
         })
     }
 
@@ -375,9 +379,9 @@ document.addEventListener('DOMContentLoaded', function () {
             body.style.height = "auto";
             body.style.overflow = "visible";
             mainMenu.childNodes.forEach(value => {
-                //Si en el presentationLayer se cambia el componente buildMenuOptionGrid, el article por otro componente, hay que modificarlo aqui igualmente
-                if (value.nodeName == "ARTICLE")
+                if (value.nodeName !== '#text') {
                     value.classList.remove('activeClass')
+                }
             })
         }
     }

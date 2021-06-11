@@ -21,15 +21,6 @@ xpresentationLayer::buildInputTextGrid([
     'required' => true,
     'dataString' => 'trad_email'
 ]);
-xpresentationLayer::buildInputTextGrid([
-    'title' => 'Confirmar su Email',
-    'name' => 'confirmEmail',
-    'type' => 'email',
-    'placeholder' => 'ejemplo@gmail.com',
-    'maxlength' => 50,
-    'required' => true,
-    'dataString' => 'trad_reescriba_su_email'
-]);
 ?>
 <p class="helper-text color-danger hidden" style="font-size:1em;">
     Los emails deben coincidir
@@ -37,14 +28,14 @@ xpresentationLayer::buildInputTextGrid([
 <?php
 
 
-$data_jsonAreaPhone = $serviceCall->mgetallcountrydetaill();
+$data_jsonCountry = $serviceCall->mgetallcountrydetaill();
 xpresentationLayer::buildSelectJson([
     'title' => 'Pais',
     'id' => 'country',
     'name' => 'country',
     'required' => true,
     'dataString' => 'trad_pais'
-], $data_jsonAreaPhone);
+], $data_jsonCountry);
 
 xpresentationLayer::startFirtsSection("grid-3", "");
 

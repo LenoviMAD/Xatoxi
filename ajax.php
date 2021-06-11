@@ -55,6 +55,14 @@ if (isset($_GET["cond"])) {
 }
 
 if (isset($_POST["cond"])) {
+    if ($_POST["cond"] == "mreportl") {
+        $data_json = $client->mreportl($_SESSION['idlead']);
+        print_r(json_encode($data_json));
+    }
+    if ($_POST["cond"] == "mgetcellphoneareacodel") {
+        $data_json = $client->mgetcellphoneareacodel("238");
+        print_r(json_encode($data_json));
+    }
     if ($_POST["cond"] == "calcsendw") {
         $data_json = $client->mcalcsendw($_SESSION['idlead'], $_POST['amountWallet'], $_POST['currencyWallet'],$_POST['idclearencetype']);
         print_r(json_encode($data_json));
@@ -62,8 +70,9 @@ if (isset($_POST["cond"])) {
 
     if ($_POST["cond"] == "resetpin") {
         $tag = $_POST['tag'];
+        $email = $_POST['email'];
         // print_r($tag);
-        $data_json = $client->mresetpin($tag);
+        $data_json = $client->mresetpin($tag, $email);
         print_r(json_encode($data_json));
     }
     if ($_POST["cond"] == "updpin") {
