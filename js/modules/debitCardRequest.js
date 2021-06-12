@@ -30,69 +30,107 @@ export default function init() {
 
             // Inicio genotp
             async function init2() {
+
                 // Cargando loader
                 modal.openModal('loader', undefined, undefined, false)
 
-                // GEN OTP FETCH
                 let formData = new FormData()
-                formData.append("cond", "genotp");
-                let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
-                let resOtp = await dataOtp.json();
+                formData.append("cond", "mrequestdebitcardok");
 
-                // Quitando loader
-                modal.closeModal('loader')
+                let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                let res = await data.json();
+                console.log(res)
 
-                if (resOtp.code == "0000") {
-                    // abrir modal para ultimo fetch 
-                    modal.openModal('otpVerification')
-                    timer.updateClock()
-                    document.getElementById('otpCode').value = resOtp.otp
+                if (res.code === "0000") {
+                    // GEN OTP FETCH
+                    let formData = new FormData()
+                    formData.append("cond", "genotp");
+                    let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
+                    let resOtp = await dataOtp.json();
 
-                    document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
-                        e.preventDefault()
+                    // Quitando loader
+                    modal.closeModal('loader')
 
-                        modal.closeModal('otpVerification')
+                    if (resOtp.code == "0000") {
+                        // abrir modal para ultimo fetch 
+                        modal.openModal('otpVerification')
+                        timer.updateClock()
+                        document.getElementById('otpCode').value = resOtp.otp
 
-                        // Cargando loader
-                        modal.openModal('loader', undefined, undefined, false)
+                        document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
+                            e.preventDefault()
 
-                        let formData = new FormData()
+                            modal.closeModal('otpVerification')
 
-                        formData.append("cond", "mrequestdebitcard");
+                            // Cargando loader
+                            modal.openModal('loader', undefined, undefined, false)
 
-                        let data = await fetch("ajax.php", { method: 'POST', body: formData });
-                        let res = await data.json();
+                            let formData = new FormData()
 
-                        // Quitando loader
-                        modal.closeModal('loader')
+                            formData.append("cond", "mrequestdebitcard");
+                            formData.append("otp", resOtp.otp);
 
-                        if (res.code === "0000") {
-                            modal.openModal('modalSuccess', TITLE_SECTION, res.message)
-                        } else if (res.code.charAt(0) === "7") {
-                            // MENSAJE DE ERROR
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                            let res = await data.json();
+                            console.log(res)
 
-                        } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            // Quitando loader
+                            modal.closeModal('loader')
 
-                            // setear para donde redireccionara
-                            let test = document.querySelector('#modalDanger a')
-                            test.setAttribute("href", "./perfil.php")
-                            test.removeAttribute("data-close")
-                            test.removeAttribute("type")
+                            if (res.code === "0000") {
+                                modal.openModal('modalSuccess', TITLE_SECTION, res.message)
+                            } else if (res.code.charAt(0) === "7") {
+                                // MENSAJE DE ERROR
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
 
-                            test.addEventListener('click', e => {
-                                location.href = "./perfil.php";
-                            })
-                        } else {
-                           modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        }
-                    })
-                } else if (res.code === "5000") {
+                            } else if (res.code === "5000") {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+
+                                // setear para donde redireccionara
+                                let test = document.querySelector('#modalDanger a')
+                                test.setAttribute("href", "./perfil.php")
+                                test.removeAttribute("data-close")
+                                test.removeAttribute("type")
+
+                                test.addEventListener('click', e => {
+                                    location.href = "./perfil.php";
+                                })
+                            } else {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            }
+                        })
+                    } else if (res.code === "5000") {
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                    } else {
+                        modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                    }
+                } else if (res.code.charAt(0) === "7") {
+                    // Quitando loader
+                    modal.closeModal('loader')
+
+                    // MENSAJE DE ERROR
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
+
+                } else if (res.code === "5000") {
+                    // Quitando loader
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
+
+                    // setear para donde redireccionara
+                    let test = document.querySelector('#modalDanger a')
+                    test.setAttribute("href", "./perfil.php")
+                    test.removeAttribute("data-close")
+                    test.removeAttribute("type")
+
+                    test.addEventListener('click', e => {
+                        location.href = "./perfil.php";
+                    })
                 } else {
+                    // Quitando loader
+                    modal.closeModal('loader')
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
+
             }
 
             init2()
@@ -137,7 +175,7 @@ export default function init() {
                         } else if (res.code === "5000") {
                             modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         } else {
-                           modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
                         }
                     })
                 } else {
@@ -175,7 +213,7 @@ export default function init() {
                 } else if (resUpload.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, resUpload.message)
                 } else {
-                   modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 }
             })
 

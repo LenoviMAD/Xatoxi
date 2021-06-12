@@ -176,16 +176,20 @@ table.dataTable tbody td {
     padding: 0;
     font-weight: bold;
     padding-left: 0;
+    grid-row: 1/span 2;
+    display: flex;
+    align-items: center;
 }
 .custom-td3 {
     grid-row: 2/3;
     color: #a4a4a4;
 }
 .custom-td4 {
+    text-align: right;
     grid-column: 3/4;
 }
 .custom-td5 {
-    color: red !important;
+    text-align: right;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {

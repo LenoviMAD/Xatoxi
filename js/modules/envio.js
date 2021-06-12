@@ -872,12 +872,14 @@ export default function init() {
                 let data = await fetch("ajax.php", { method: 'POST', body: formData });
                 let res = await data.json();
                 console.log(res)
+
                 if (res.code === "0000") {
                     // GEN OTP FETCH
                     let formData = new FormData()
                     formData.append("cond", "genotp");
                     let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
                     let resOtp = await dataOtp.json();
+                    console.log(resOtp)
 
                     // Quitando spinner
                     modal.closeModal('loader')
@@ -897,6 +899,7 @@ export default function init() {
                             let formData = new FormData(transferenciaForm)
 
                             formData.append("cond", "saveTransfer");
+                            formData.append("otp", resOtp.otp);
                             let data = await fetch("ajax.php", { method: 'POST', body: formData });
                             let res = await data.json();
 

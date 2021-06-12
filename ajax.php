@@ -278,8 +278,9 @@ if (isset($_POST["cond"])) {
         $bankACH = isset($_POST['bankAccountMovilTransfer']) ? $util->testInput($_POST['bankAccountMovilTransfer']) : "";
         $routingACH = isset($_POST['routingMovilTransfer']) ? $util->testInput($_POST['routingMovilTransfer']) : "";
         $acc = isset($_POST['receivingAccount']) ? $util->testInput($_POST['receivingAccount']) : $util->testInput($_POST['accMovilTransfer']);
-        $reference = isset($_POST['routingMovilTransfer']) ? $util->testInput($_POST['routingMovilTransfer']) : "";
+        // $reference = isset($_POST['routingMovilTransfer']) ? $util->testInput($_POST['routingMovilTransfer']) : $util->testInput($_POST['referenceTransferDeposit']);
         // validar cuando sea deposito
+        $reference = "";
 
 
         // if ($idclearencetype === 3) {
@@ -288,6 +289,12 @@ if (isset($_POST["cond"])) {
         // } else if ($idclearencetype === 6) {
         //     $acc = $util->testInput($_POST['accMovilTransfer']);
         // }
+
+        if ($idclearencetype == 3) {
+            $reference = $_POST['referenceTransferDeposit'];
+        } else if ($idclearencetype == 6) {
+            $reference = $_POST['referenceTransferCash'];
+        }
 
         $otp = $_POST['otp'];
         //Beneficiario
@@ -333,7 +340,8 @@ if (isset($_POST["cond"])) {
         $bankACH = isset($_POST['bankAccountMovilTransfer']) ? $util->testInput($_POST['bankAccountMovilTransfer']) : "";
         $routingACH = isset($_POST['routingMovilTransfer']) ? $util->testInput($_POST['routingMovilTransfer']) : "";
         $acc = isset($_POST['receivingAccount']) ? $util->testInput($_POST['receivingAccount']) : $util->testInput($_POST['accMovilTransfer']);
-        $reference = isset($_POST['routingMovilTransfer']) ? $util->testInput($_POST['routingMovilTransfer']) : "";
+        // $reference = isset($_POST['routingMovilTransfer']) ? $util->testInput($_POST['routingMovilTransfer']) : $util->testInput($_POST['referenceTransferDeposit']);
+        $reference = "";
         // validar cuando sea deposito
 
 
@@ -343,6 +351,11 @@ if (isset($_POST["cond"])) {
         // } else if ($idclearencetype === 6) {
         //     $acc = $util->testInput($_POST['accMovilTransfer']);
         // }
+        if ($idclearencetype == 3) {
+            $reference = $_POST['referenceTransferDeposit'];
+        } else if ($idclearencetype == 6) {
+            $reference = $_POST['referenceTransferCash'];
+        }
 
         //Beneficiario
         $bfirstname = $util->testInput($_POST['firstNameTransfer']);
@@ -474,7 +487,7 @@ if (isset($_POST["cond"])) {
         $mpbankaccount = $util->testInput($_POST['countrycode']) . "" . $_POST['codeArea'] . "" . $util->testInput($_POST['phone']);
 
         $data_json = $client->mexexcbuy($_SESSION['idlead'], $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber);
-
+        
         print_r(json_encode($data_json));
     }
     if ($_POST["cond"] == "execsellok") {
@@ -784,6 +797,13 @@ if (isset($_POST["cond"])) {
         $otp = $_POST['otp'];
 
         $data_json = $client->mrequestdebitcard($idlead, $otp);
+
+        print_r(json_encode($data_json));
+    }
+    if ($_POST["cond"] == "mrequestdebitcardok") {
+        $idlead = $_SESSION['idlead'];
+
+        $data_json = $client->mrequestdebitcardok($idlead);
 
         print_r(json_encode($data_json));
     }

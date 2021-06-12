@@ -22,7 +22,6 @@ xpresentationLayer::startMain();
         ">
             <th>Fecha</th>
             <th>Operación</th>
-            <th>Desc</th>
             <th>Monto</th>
             <th>Estatus</th>
         </tr>

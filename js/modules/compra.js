@@ -59,6 +59,7 @@ export default function init() {
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
 
+                    console.log(res)
                     modal.closeModal('loader')
 
                     // LLenamos los campos correspondientes

@@ -2,7 +2,7 @@ import Modal from './Modal.js';
 
 // Solicitud de tarjeta para recibir remesas
 export default function init() {
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
         const modal = new Modal()
         modal.initModal()
 
@@ -28,19 +28,19 @@ export default function init() {
                 if (res.code === "0000") {
                     let tr = ""
                     res.list.map(item => {
-                        tr = `
+                        tr += `
                         <tr class="custom-row" data-id="${item.id}">
                             <td class="custom-td1">
                                 <span class="table-reports__fecha">${item.date}</span>
                             </td>
                             <td class="custom-td2">${item.oper}</td>
-                            <td class="custom-td3">Test</td>
                             <td class="custom-td4">${item.amount}</td>
                             <td class="custom-td5">${item.status}</td>
                         </tr>
                         `
                     })
                     tbody.innerHTML = tr
+                    
                     console.log(res)
                 } else if (res.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
@@ -49,7 +49,8 @@ export default function init() {
                 }
             }
 
-            fetchOperations()
+            await fetchOperations()
+            $('#example').DataTable();
         }
     })
 }

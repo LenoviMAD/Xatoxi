@@ -178,31 +178,33 @@ export default function init() {
 
                         document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
                             e.preventDefault()
+                            try {
+                                modal.closeModal('otpVerification')
 
-                            modal.closeModal('otpVerification')
+                                // Cargando spinner
+                                modal.openModal('loader', undefined, undefined, false)
+                                let formData = new FormData(ventaForm)
+                                formData.append("cond", "execsell");
+                                formData.append("otp", resOtp.otp);
+                                formData.append("payIn", payIn.options[payIn.selectedIndex].value);
+                                formData.append("payForm", payForm.options[payForm.selectedIndex].value);
 
-                            // Cargando spinner
-                            modal.openModal('loader', undefined, undefined, false)
+                                let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                                let res = await data.json();
+                                console.log(res)
 
-                            let formData = new FormData(ventaForm)
-                            formData.append("cond", "execsell");
-                            formData.append("otp", resOtp.otp);
-                            formData.append("payIn", payIn.options[payIn.selectedIndex].value);
-                            formData.append("payForm", payForm.options[payForm.selectedIndex].value);
+                                // Quitando spinner
+                                modal.closeModal('loader')
 
-                            let data = await fetch("ajax.php", { method: 'POST', body: formData });
-                            let res = await data.json();
-                            console.log(res)
-
-                            // Quitando spinner
-                            modal.closeModal('loader')
-                            
-                            if (res.code === "0000") {
-                                modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, false)
-                            } else if (res.code === "5000") {
-                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                            } else {
-                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                                if (res.code === "0000") {
+                                    modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, false)
+                                } else if (res.code === "5000") {
+                                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                                } else {
+                                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                                }
+                            } catch (error) {
+                                console.log(error)
                             }
                         })
                     } else if (resOtp.code === "5000") {

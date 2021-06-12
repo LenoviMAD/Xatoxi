@@ -85,6 +85,7 @@ export default function init() {
 
                         document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
                             e.preventDefault()
+                           try {
                             modal.closeModal('otpVerification')
 
                             // Cargando spinner
@@ -108,6 +109,9 @@ export default function init() {
                             } else {
                                 modal.openModal('modalDanger', TITLE_SECTION, resFinal.message)
                             }
+                           } catch (error) {
+                               console.log(error)
+                           }
                         })
                     } else if (resOtp.code === "5000") {
                         modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)

@@ -338,6 +338,7 @@ xpresentationLayer::buildInputTextGrid([
     'name' => 'bdocumentid',
     'id' => 'bdocumentid',
     'required' => true,
+    'classLabel' => 'required',
     'classContainer' => 'grid-item-2',
     'dataString' => 'trad_documento_de_identidad'
 ]);
@@ -345,6 +346,7 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'Primer nombre',
     'name' => 'firstNameCommend',
     'id' => 'firstNameCommend',
+    'classLabel' => 'required',
     'required' => true,
     'dataString' => 'trad_primer_nombre'
 ]);
@@ -358,6 +360,7 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'Primer apellido',
     'name' => 'firstSurnameCommend',
     'id' => 'firstSurnameCommend',
+    'classLabel' => 'required',
     'required' => true,
     'dataString' => 'trad_primer_apellido'
 ]);
@@ -582,6 +585,7 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'Documento de Identidad',
     'name' => 'bdocumentidTransfer',
     'id' => 'bdocumentidTransfer',
+    'classLabel' => 'required',
     'classContainer' => 'grid-item-2',
     'required' => true,
     'maxlength' => 20,
@@ -592,6 +596,7 @@ xpresentationLayer::buildInputTextGrid([
     'name' => 'firstNameTransfer',
     'id' => 'firstNameTransfer',
     'required' => true,
+    'classLabel' => 'required',
     'dataString' => 'trad_primer_nombre'
 ]);
 xpresentationLayer::buildInputTextGrid([
@@ -604,6 +609,7 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'Primer apellido',
     'name' => 'firstSurnameTransfer',
     'id' => 'firstSurnameTransfer',
+    'classLabel' => 'required',
     'required' => true,
     'dataString' => 'trad_primer_apellido'
 ]);
@@ -637,11 +643,12 @@ xpresentationLayer::buildInputNumberGrid([
     'class' => 'grid-item-1 grid-item-2',
     'maxlength' => 20,
     'dataString' => 'trad_telefono'
-    ]);
-    xpresentationLayer::buildInputTextGrid([
-        'title' => 'Banco',
-        'name' => 'bankTransfer',
+]);
+xpresentationLayer::buildInputTextGrid([
+    'title' => 'Banco',
+    'name' => 'bankTransfer',
     'id' => 'bankTransfer',
+    'classLabel' => 'required',
     'classContainer' => 'grid-item-1 grid-item-2',
     'dataString' => 'trad_banco'
 ]);
@@ -649,6 +656,7 @@ xpresentationLayer::buildInputNumberGrid([
     'title' => 'Cuenta',
     'name' => 'accountTransfer',
     'id' => 'accountTransfer',
+    'classLabel' => 'required',
     'maxlength' => 20,
     'class' => 'grid-item-1 grid-item-2',
     'dataString' => 'trad_cuenta'
@@ -657,6 +665,7 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'Pais Banco',
     'name' => 'countryBankTransfer',
     'id' => 'countryBankTransfer',
+    'classLabel' => 'required',
     'required' => true,
     'dataString' => 'trad_pais_banco'
 ]);
@@ -664,6 +673,7 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'Ciudad Banco',
     'name' => 'cityBankTransfer',
     'id' => 'cityBankTransfer',
+    'classLabel' => 'required',
     'required' => true,
     'dataString' => 'trad_ciudad_banco'
 ]);
@@ -671,6 +681,7 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'Dirección Banco',
     'name' => 'bankAddressTransfer',
     'id' => 'bankAddressTransfer',
+    'classLabel' => 'required',
     'classContainer' => 'grid-item-1 grid-item-2',
     'required' => true,
     'dataString' => 'trad_direccion_banco'
@@ -680,6 +691,7 @@ xpresentationLayer::buildInputTextGrid([
     'name' => 'abaSwiftIban',
     'id' => 'abaSwiftIban',
     'classContainer' => 'grid-item-1 grid-item-2',
+    'classLabel' => 'required',
     'required' => true,
     'dataString' => 'trad_aba_swift_iban'
 ]);

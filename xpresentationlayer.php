@@ -403,7 +403,7 @@ class xpresentationLayer
         $options['maxlength'] = 'maxlength="' . $options['maxlength'] . '" ';
 
         echo '<DIV ' . $options['class'] . $options['idContainer'] . '>';
-        echo '<LABEL class="font-Bold js-translate" ' . $options['dataString'] . '>' . $options['title'] . '</LABEL>';
+        echo '<LABEL class="font-Bold js-translate ' . $options['classLabel'] . '" ' . $options['dataString'] . '>' . $options['title'] . '</LABEL>';
         echo '<INPUT type="text" onkeypress="return validaNumericos(event)" ' .
             $options['maxlength'] .
             $options['name'] .
@@ -427,7 +427,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/18 14:00
     ===================================================================== */
-    static function buildInputsMonthYear($titleLabel = "", $nameMonth = "", $nameYear = "", $dataString="")
+    static function buildInputsMonthYear($titleLabel = "", $nameMonth = "", $nameYear = "", $dataString = "")
     {
         if ($nameMonth != "") {
             $nameMonth = ' name="' . $nameMonth . '" ';
@@ -437,7 +437,7 @@ class xpresentationLayer
         }
 
         echo '<div class="input-field1">';
-        echo '<label class="font-Bold js-translate" data-string="'.$dataString.'">' . $titleLabel . '</label>';
+        echo '<label class="font-Bold js-translate" data-string="' . $dataString . '">' . $titleLabel . '</label>';
         echo '<div class="container-input">';
         echo '<div class="input-container mr15">';
         echo '<input class="input" ' . $nameMonth . ' onkeypress="return validaNumericos(event)" type="text" maxlength="2" />';
@@ -510,22 +510,22 @@ class xpresentationLayer
         if ($options['dataString']) {
             $options['dataString'] = 'data-string="' . $options['dataString'] . '" ';
         }
-        $options['maxlength']= 'maxlength="' . $options['maxlength'] . '" ';
-        $options['type']= 'type="' . $options['type'] . '" ';
+        $options['maxlength'] = 'maxlength="' . $options['maxlength'] . '" ';
+        $options['type'] = 'type="' . $options['type'] . '" ';
 
         echo '<DIV class="input-field1 ' . $options['classContainer'] . ' " ' . $options['idContainer'] . '>';
         echo '<LABEL ' . $options['dataString'] . ' class="font-Bold js-translate ' . $options['classLabel'] . '">' . $options['title'] . '</LABEL>';
-        echo '<INPUT ' 
-        . $options['type'] 
-        . $options['value'] 
-        . $options['disabled'] 
-        . $options['name'] 
-        . $options['id'] 
-        . $options['required'] 
-        . $options['placeholder'] 
-        . $options['classInput'] 
-        . $options['maxlength']
-        . '>';
+        echo '<INPUT '
+            . $options['type']
+            . $options['value']
+            . $options['disabled']
+            . $options['name']
+            . $options['id']
+            . $options['required']
+            . $options['placeholder']
+            . $options['classInput']
+            . $options['maxlength']
+            . '>';
         echo '</DIV>';
     } //buildInputTextGrid
 
@@ -681,7 +681,6 @@ class xpresentationLayer
         ];
 
         $options = array_merge($defaults, $params);
-
         $data = $json->list;
 
         if ($options['event'] != "") {
@@ -703,18 +702,16 @@ class xpresentationLayer
         echo '<SELECT name="' . $options['name'] . '" ' . $options['id'] . $options['event'] . $options['required'] . '>';
         echo '<OPTION disabled selected>Seleccione</OPTION>';
         foreach ($data as $value) {
-            if ($value->code && $value->name) {
+            if ($options['name'] === "currency" || $options['name'] === "currencyTransfer" || $options['name'] === "currencyWallet" || $options['name'] === "currencyCommend") {
+                echo '<OPTION value="' . $value->id . '">' . $value->iso . ' </OPTION>';
+            } else if ($value->code && $value->name) {
                 echo '<OPTION value="' . $value->code . '">' . $value->name . ' </OPTION>';
             } else if ($value->code) {
                 echo '<OPTION value="' . $value->code . '">' . $value->code . ' </OPTION>';
             } else if ($value->id && $value->name) {
                 echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
             } else {
-                if ($options['name'] != "currency" && $options['name'] != "currencyTransfer" && $options['name'] != "currencyWallet" && $options['name'] != "currencyCommend") {
-                    echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
-                } else {
-                    echo '<OPTION value="' . $value->id . '">' . $value->iso . ' </OPTION>';
-                }
+                echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
             }
         }
         echo '</SELECT>';
@@ -805,7 +802,7 @@ class xpresentationLayer
             $options['id'] = ' id="' . $options['id'] . '" ';
 
         $data = $json->list;
-        echo '<DIV class="input-field1">';
+        echo '<DIV class="input-field1 mb15">';
         echo '       <SELECT required name="' . $options['name'] . '" ' . $options['id'] . ' ' . $options['event'] . ' class="">';
         echo '       <OPTION disabled selected>Seleccione</OPTION>';
         foreach ($data as $value) {
@@ -846,7 +843,7 @@ class xpresentationLayer
             $options['eventAddContact'] = 'onclick="' . $options['eventAddContact'] . '"';
         }
         $data = $json->list;
-        echo '<DIV class="aside input-field1' . $options['class'] . '">';
+        echo '<DIV class="aside input-field1 ' . $options['class'] . '">';
         echo '       <SELECT name="' . $options['name'] . '" id="' . $options['id'] . '" ' . $options['event'] . ' class="select-width-user">';
         echo '       <OPTION disabled selected>Seleccione</OPTION>';
         foreach ($data as $value) {
@@ -875,7 +872,7 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/19 12:00
     ===================================================================== */
-    static function buildMenuOptionGrid($nameImg, $titleOption, $modal, $url, $customClass = "", $dataString = "", $id="")
+    static function buildMenuOptionGrid($nameImg, $titleOption, $modal, $url, $customClass = "", $dataString = "", $id = "")
     {
         $opnModal = "";
 
@@ -884,7 +881,7 @@ class xpresentationLayer
         }
 
 
-        echo '<ARTICLE id="'.$id.'" class="' . $customClass . ' card card-a grid-item ' . $opnModal . '" data-url="' . $url . '">';
+        echo '<ARTICLE id="' . $id . '" class="' . $customClass . ' card card-a grid-item ' . $opnModal . '" data-url="' . $url . '">';
         echo '    <ASIDE class="card__aside">';
         echo '        <FIGURE>';
         echo '            <IMG class="card-img" src="img/' . $nameImg . '">';
@@ -1053,10 +1050,10 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/20 10:00
     ===================================================================== */
-    static function buildOptionsPrincipal($titleLabel, $data_id = "", $class = "card card-a", $dataString="")
+    static function buildOptionsPrincipal($titleLabel, $data_id = "", $class = "card card-a", $dataString = "")
     {
         echo '	<ARTICLE class="' . $class . '" data-id="' . $data_id . '">';
-        echo '		<H1 class="js-translate" data-string="'.$dataString.'">' . $titleLabel . '</H1>';
+        echo '		<H1 class="js-translate" data-string="' . $dataString . '">' . $titleLabel . '</H1>';
         echo '	</ARTICLE>';
     } //buildOptionsPrincipal
 
@@ -1356,7 +1353,7 @@ class xpresentationLayer
             'placeholder' => '',
             'customClass' => '',
             'required' => false,
-            'maxlength'=> 30,
+            'maxlength' => 30,
             'dataString' => ''
         ];
 
@@ -1381,7 +1378,7 @@ class xpresentationLayer
 
         echo '<DIV class="input-field1 ' . $options['customClass'] . '">';
         echo '    <LABEL class="font-Bold js-translate" ' . $options['dataString'] . '>' . $options['title'] . '</LABEL>';
-        echo '    <TEXTAREA type="text" ' . $options['name']. $options['maxlength'] . $options['id'] . $options['required'] . $options['placeholder'] . ' cols="40" rows="3"  style="resize: none;"></TEXTAREA>';
+        echo '    <TEXTAREA type="text" ' . $options['name'] . $options['maxlength'] . $options['id'] . $options['required'] . $options['placeholder'] . ' cols="40" rows="3"  style="resize: none;"></TEXTAREA>';
         echo '</DIV>';
     } //buildTextArea
 

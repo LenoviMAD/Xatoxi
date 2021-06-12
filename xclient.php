@@ -5,7 +5,7 @@ class xclient
 
     private $client;
     private $version = "1.2";
-    private $url = "https://www.italcontroller.com/italsis/includes/rest/SERVER/XATOXI/services.php";
+    private $url = "https://www.italcontroller.com/italsisdev/includes/rest/SERVER/XATOXI/services.php";
     private $user = "WSITALCAMBIO";
     private $password = "1cc61eb7ae2187eb91f97d1ae5300919";
 
@@ -310,7 +310,7 @@ class xclient
         $this->updateField($calcsell, "idcurrency", $idCurrency);
         $this->updateField($calcsell, "amount", $amount);
         $this->updateField($calcsell, "idinstrumentdebit", $idinstrumentdebit);
-        $this->updateField($calcsell, "idclearancetype", $idclearancetype);
+        $this->updateField($calcsell, "idclearencetype", $idclearancetype);
         return $calcsell;
     } // bcalcsell
 
@@ -1419,9 +1419,9 @@ class xclient
         $this->updateField($execsendtr, "amount", $amount);
         $this->updateField($execsendtr, "idclearencetype", $idclearencetype);
         $this->updateField($execsendtr, "acc", $acc);
+        $this->updateField($execsendtr, "reference", $reference);
         $this->updateField($execsendtr, "bank", $bank);
         $this->updateField($execsendtr, "routing", $routing);
-        $this->updateField($execsendtr, "reference", $reference);
         $this->updateField($execsendtr, "bfirstname", $bfirstname);
         $this->updateField($execsendtr, "bmiddlename", $bmiddlename);
         $this->updateField($execsendtr, "blastname", $blastname);
@@ -1701,6 +1701,26 @@ class xclient
         $result = json_decode($response);
         return ($result);
     } // mrequestdebitcard
+    private function brequestdebitcardok($idlead)
+    {
+        $this->updateField($requestdebitcardok, "wsuser", $this->user);
+        $this->updateField($requestdebitcardok, "version", $this->version);
+        $this->updateField($requestdebitcardok, "wspwd", $this->password);
+        $this->updateField($requestdebitcardok, "idlead", $idlead);
+        return $requestdebitcardok;
+    } // brequestdebitcardok
+
+    function mrequestdebitcardok($idlead)
+    {
+        $this->init($this->url);
+        $requestdebitcardok =  $this->brequestdebitcardok($idlead);
+        $data["requestdebitcardok"] = $requestdebitcardok;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mrequestdebitcardok
 
     private function breportl($idlead)
     {
@@ -1722,5 +1742,25 @@ class xclient
         $result = json_decode($response);
         return ($result);
     } // mreportl
+    private function bgetnotificationl($deviceid)
+    {
+        $this->updateField($getnotificationl, "wsuser", $this->user);
+        $this->updateField($getnotificationl, "version", $this->version);
+        $this->updateField($getnotificationl, "wspwd", $this->password);
+        $this->updateField($getnotificationl, "deviceid", $deviceid);
+        return $getnotificationl;
+    } // bgetnotificationl
+
+    function mgetnotificationl($deviceid)
+    {
+        $this->init($this->url);
+        $getnotificationl =  $this->bgetnotificationl($deviceid);
+        $data["getnotificationl"] = $getnotificationl;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mgetnotificationl
 
 } // class xclient

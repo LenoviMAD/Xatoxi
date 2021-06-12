@@ -71,6 +71,7 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
+    padding-left: 15px;
 }
 
 .btn-contacts figure,

@@ -41,12 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.open("pepinChat.html", "Emergente", "resizable=no, menubar=no, width=400, height=650, scrollbars=no, toolbar=no, tittlebar=no, status=yes")
         });
     }
-
-
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-
+    
     const modal = new Modal()
     modal.initModal()
     const timer = new Timer()
