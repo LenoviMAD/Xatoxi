@@ -60,7 +60,9 @@ if (isset($_POST["cond"])) {
         print_r(json_encode($data_json));
     }
     if ($_POST["cond"] == "mgetcellphoneareacodel") {
-        $data_json = $client->mgetcellphoneareacodel("238");
+        $countrycode = $_POST['countrycode'];
+
+        $data_json = $client->mgetcellphoneareacodel($countrycode);
         print_r(json_encode($data_json));
     }
     if ($_POST["cond"] == "calcsendw") {
