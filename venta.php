@@ -22,7 +22,6 @@ xpresentationLayer::buildInputNumberGrid([
     'title' => 'Monto',
     'name' => 'amount',
     'placeholder' => '0.00',
-    'required' => true,
     'dataString' => 'trad_monto'
 ]);
 $data_json = $serviceCall->mgetcurrencyl();
@@ -30,7 +29,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Divisa',
     'id' => 'currency',
     'name' => 'currency',
-    'required' => true,
     'dataString' => 'trad_divisa'
 ], $data_json);
 $data_json = $serviceCall->mgetdebitinstrumentl();
@@ -38,7 +36,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Debitar de',
     'id' => 'payIn',
     'name' => 'payIn',
-    'required' => true,
     'dataString' => 'trad_debitar_de'
 ], $data_json);
 $data_json = $serviceCall->mgetcreditinstrumentl();
@@ -46,7 +43,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Abonar en',
     'id' => 'payForm',
     'name' => 'payForm',
-    'required' => true,
     'dataString' => 'trad_abonar_en'
 ], $data_json);
 xpresentationLayer::buildInputNumberGrid([

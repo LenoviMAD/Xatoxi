@@ -100,7 +100,7 @@ class xpresentationLayer
             echo '    <IMG class="logo" src="img/logo.png">';
             echo '<div class="dropdown">';
             echo '<button id="btnDropdown" class="dropbtn">';
-            echo 'En';
+            echo 'Es';
             echo '<div id="flechaAbajo"></div>';
             echo '</button>';
             echo '<div id="dropdownLanguages" class="dropdown-content">';
@@ -118,7 +118,7 @@ class xpresentationLayer
             echo '    </A>';
             echo '<div class="dropdown">';
             echo '<button id="btnDropdown" class="dropbtn">';
-            echo 'En';
+            echo 'Es';
             echo '<div id="flechaAbajo"></div>';
             echo '</button>';
             echo '<div id="dropdownLanguages" class="dropdown-content">';
@@ -149,7 +149,7 @@ class xpresentationLayer
         echo '</DIV>';
         echo '<div class="dropdown">';
         echo '<button id="btnDropdown" class="dropbtn">';
-        echo 'En';
+        echo 'Es';
         echo '<div id="flechaAbajo"></div>';
         echo '</button>';
         echo '<div id="dropdownLanguages" class="dropdown-content">';
@@ -206,7 +206,7 @@ class xpresentationLayer
         echo '    </A>';
         echo '<div class="dropdown">';
         echo '<button id="btnDropdown" class="dropbtn">';
-        echo 'En';
+        echo 'Es';
         echo '<div id="flechaAbajo"></div>';
         echo '</button>';
         echo '<div id="dropdownLanguages" class="dropdown-content">';
@@ -354,6 +354,7 @@ class xpresentationLayer
             'title' => '',
             'id' => '',
             'name' => '',
+            'classLabel' => '',
             'placeholder' => '',
             'onblur' => '',
             'class' => '',
@@ -675,6 +676,7 @@ class xpresentationLayer
             'name' => '',
             'event' => '',
             'classContainer' => '',
+            'classLabel' => '',
             'idContainer' => '',
             'required' => false,
             'dataString' => ''
@@ -697,7 +699,7 @@ class xpresentationLayer
         }
 
         echo '<DIV class="input-field1 ' . $options['classContainer'] . '" ' . $options['idContainer'] . '>';
-        echo '    <LABEL class="font-Bold js-translate" data-string="' . $options['dataString'] . '">' . $options['title'] . '</LABEL>';
+        echo '    <LABEL class="font-Bold js-translate ' . $options['classLabel'] . '" data-string="' . $options['dataString'] . '">' . $options['title'] . '</LABEL>';
 
         echo '<SELECT name="' . $options['name'] . '" ' . $options['id'] . $options['event'] . $options['required'] . '>';
         echo '<OPTION disabled selected>Seleccione</OPTION>';
@@ -1317,8 +1319,8 @@ class xpresentationLayer
 
         echo '<DIV class="grid-3 ' . $options['customClass'] . '">';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL  class="font-Bold js-translate" data-string="trad_t_doc">' . $options['labelSelect'] . '</LABEL>';
-        echo '<SELECT name="' . $options['nameSelect'] . '" id="' . $options['idSelect'] . '" required>';
+        echo '        <LABEL  class="font-Bold js-translate required" data-string="trad_t_doc">' . $options['labelSelect'] . '</LABEL>';
+        echo '<SELECT name="' . $options['nameSelect'] . '" id="' . $options['idSelect'] . '">';
         echo '<OPTION disabled selected>Seleccione</OPTION>';
         foreach ($data as $value) {
             echo '<OPTION value="' . $value->id . '" >' . $value->name . ' </OPTION>';
@@ -1326,12 +1328,12 @@ class xpresentationLayer
         echo '</SELECT>';
         echo '    </DIV>';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL class="font-Bold js-translate" data-string="trad_documento" >' . $options['labelInputText'] . '</LABEL>';
-        echo '        <INPUT type="text" name="' . $options['nameInputText'] . '" id="' . $options['idInputText'] . '" required>';
+        echo '        <LABEL class="font-Bold js-translate required" data-string="trad_documento" >' . $options['labelInputText'] . '</LABEL>';
+        echo '        <INPUT type="text" name="' . $options['nameInputText'] . '" id="' . $options['idInputText'] . '">';
         echo '    </DIV>';
         echo '    <DIV class="input-field1">';
-        echo '        <LABEL class="font-Bold js-translate" data-string="trad_fec_nacimiento">' . $options['labelInputDate'] . '</LABEL>';
-        echo '        <INPUT type="date" name="' . $options['nameInputDate'] . '"  id="' . $options['idInputDate'] . '" required>';
+        echo '        <LABEL class="font-Bold js-translate required" data-string="trad_fec_nacimiento">' . $options['labelInputDate'] . '</LABEL>';
+        echo '        <INPUT type="date" name="' . $options['nameInputDate'] . '"  id="' . $options['idInputDate'] . '">';
         echo '    </DIV>';
         echo '</DIV>';
     } //buildSectionDocument
@@ -1353,6 +1355,7 @@ class xpresentationLayer
             'placeholder' => '',
             'customClass' => '',
             'required' => false,
+            'classLabel' => '',
             'maxlength' => 30,
             'dataString' => ''
         ];
@@ -1377,7 +1380,7 @@ class xpresentationLayer
         $options['maxlength'] = 'maxlength="' . $options['maxlength'] . '"';
 
         echo '<DIV class="input-field1 ' . $options['customClass'] . '">';
-        echo '    <LABEL class="font-Bold js-translate" ' . $options['dataString'] . '>' . $options['title'] . '</LABEL>';
+        echo '    <LABEL class="font-Bold js-translate ' . $options['classLabel'] . '" ' . $options['dataString'] . '>' . $options['title'] . '</LABEL>';
         echo '    <TEXTAREA type="text" ' . $options['name'] . $options['maxlength'] . $options['id'] . $options['required'] . $options['placeholder'] . ' cols="40" rows="3"  style="resize: none;"></TEXTAREA>';
         echo '</DIV>';
     } //buildTextArea

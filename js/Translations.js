@@ -6,7 +6,7 @@ export default function init() {
         let btnDropdown = document.getElementById('btnDropdown')
         if (btnDropdown) {
             let dropdownLanguages = document.getElementById('dropdownLanguages')
-            let defaultLang = 'en';
+            let defaultLang = 'es';
             let tempLang = ''
             changeLanguage(defaultLang)
             

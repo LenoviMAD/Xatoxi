@@ -23,7 +23,6 @@ xpresentationLayer::buildInputNumberGrid([
     'title' => 'Monto',
     'name' => 'amount',
     'placeholder' => '0.00',
-    'required' => true,
     'dataString' => 'trad_monto'
 ]);
 
@@ -32,7 +31,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Divisa',
     'id' => 'currency',
     'name' => 'currency',
-    'required' => true,
     'dataString' => 'trad_divisa'
 ], $data_json);
 
@@ -41,7 +39,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Abonar en',
     'id' => 'payIn',
     'name' => 'payIn',
-    'required' => true,
     'dataString' => 'trad_abonar_en'
 ], $data_json);
 
@@ -50,7 +47,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Forma de Pago',
     'id' => 'payForm',
     'name' => 'payForm',
-    'required' => true,
     'dataString' => 'trad_forma_de_pago'
 ], $data_json);
 xpresentationLayer::buildInputNumberGrid([

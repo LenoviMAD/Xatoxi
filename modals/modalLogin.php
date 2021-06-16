@@ -38,8 +38,8 @@
             <SPAN id="btnPin" class="btn js-translate" data-string="trad_aceptar" ' . $btnId . ' ' . $eventButton . '> Aceptar </SPAN>
         </DIV>
         <DIV style="display: flex;">
-        <BUTTON class="wordsFM js-translate" data-string="trad_cambio_de_pin" id="openPinChange">Cambio de PIN</BUTTON>
-        <A class="wordsFM js-translate" data-string="trad_olvido_de_pin" id="btnForgetPin" href="">Olvido de pin</A>
+        <A class="wordsFM js-translate" data-string="trad_cambio_de_pin" id="openPinChange" href="#">Cambio de PIN</A>
+        <A class="wordsFM js-translate" data-string="trad_olvido_de_pin" id="btnForgetPin" href="#">Olvido de pin</A>
         </DIV>
         </section>
     </div>

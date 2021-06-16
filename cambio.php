@@ -23,7 +23,6 @@ xpresentationLayer::buildInputNumberGrid([
     'name' => 'amount',
     'placeholder' => '0.00',
     'class' => 'grid-item-2',
-    'required' => true,
     'dataString' => 'trad_monto'
 ]);
 $data_json = $serviceCall->mgetinstrumentsrcl();
@@ -32,7 +31,6 @@ xpresentationLayer::buildSelectJson([
     'id' => 'paidMethod',
     'name' => 'paidMethod',
     'event' => 'selectValorforId(\'paidMethod/sendCurrency\', \'ajax.php?cond=mgetcurrencysrcl\')',
-    'required' => true,
     'dataString' => 'trad_entrega'
 ],  $data_json);
 xpresentationLayer::buildSelectJson([
@@ -40,7 +38,6 @@ xpresentationLayer::buildSelectJson([
     'id' => 'sendCurrency',
     'name' => 'sendCurrency',
     'event' => 'selectValorforId(\'paidMethod/sendCurrency/recieveMethod\', \'ajax.php?cond=mgetinstrumentdstl\')',
-    'required' => true,
     'dataString' => 'trad_entrega_divisa'
 ], "");
 xpresentationLayer::buildSelectJson([
@@ -48,14 +45,12 @@ xpresentationLayer::buildSelectJson([
     'id' => 'recieveMethod',
     'name' => 'recieveMethod',
     'event' => 'selectValorforId(\'paidMethod/sendCurrency/recieveMethod/recieveCurrency\', \'ajax.php?cond=mgetcurrencydstl\')',
-    'required' => true,
     'dataString' => 'trad_recibe'
 ], "");
 xpresentationLayer::buildSelectJson([
     'title' => 'Recibe Divisa',
     'id' => 'recieveCurrency',
     'name' => 'recieveCurrency',
-    'required' => true,
     'dataString' => 'trad_recibe_divisa'
 ], "");
 
@@ -66,7 +61,6 @@ xpresentationLayer::buildInputTextGrid([
     'classContainer' => 'hidden',
     'value' => 'Italbank',
     'idContainer' => 'bankProviderInput',
-    'required' => true,
     'maxlength' => 20,
     'dataString' => 'trad_banco_proveedor'
 ]);

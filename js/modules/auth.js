@@ -14,8 +14,8 @@ export default function init() {
             const mainMenu = document.getElementById("mainMenu");
             // inputPin.value = "7067"
             // inputTag.value = "6f8f57715090da2632453988d9a1501b"
-            // inputPin.value = "5147"
-            // inputTag.value = "83878c91171338902e0fe0fb97a8c47a"
+            inputPin.value = "5147"
+            inputTag.value = "83878c91171338902e0fe0fb97a8c47a"
 
             btnPin.addEventListener('click', async e => {
                 e.preventDefault()

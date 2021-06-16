@@ -59,8 +59,8 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'P. Nombre',
     'name' => 'firstName',
     'id' => 'firstName',
-    'required' => true,
-    'dataString' => 'trad_p_nombre'
+    'dataString' => 'trad_p_nombre',
+    'classLabel' => 'required'
 ]);
 xpresentationLayer::buildInputTextGrid([
     'title' => 'S. Nombre',
@@ -72,7 +72,7 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'P. Apellido',
     'name' => 'firstSurname',
     'id' => 'firstSurname',
-    'required' => true,
+    'classLabel' => 'required',
     'dataString' => 'trad_p_apellido'
 ]);
 
@@ -90,12 +90,14 @@ xpresentationLayer::buildSelectJson([
     'name' => 'country',
     'event' => 'selectValorforId(\'country/state\', \'ajax.php?cond=getcountrystatel\')',
     'classContainer' => 'grid-item-2',
+    'classLabel' => 'required',
     'dataString' => 'trad_pais'
 ], $data_json);
 xpresentationLayer::buildSelectJson([
     'title' => 'Estado',
     'id' => 'state',
     'name' => 'state',
+    'classLabel' => 'required',
     'event' => 'selectValorforId(\'state/city\', \'ajax.php?cond=getstatecityl\')',
     'dataString' => 'trad_estado'
 ], "");
@@ -103,6 +105,7 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Ciudad',
     'id' => 'city',
     'name' => 'city',
+    'classLabel' => 'required',
     'dataString' => 'trad_ciudad'
 ], "");
 
@@ -111,7 +114,7 @@ xpresentationLayer::buildTextArea([
     'name' => 'direction',
     'maxlength' => '100',
     'customClass' => 'grid-item-2',
-    'required' => true,
+    'classLabel' => 'required',
     'dataString' => 'trad_direccion'
 ]);
 
@@ -121,7 +124,7 @@ xpresentationLayer::buildSelectJson([
     'id' => 'preferenceAgency',
     'name' => 'preferenceAgency',
     'classContainer' => 'grid-item-2',
-    'required' => true,
+    'classLabel' => 'required',
     'dataString' => 'trad_agencia_de_preferencia'
 ], $data_json);
 
@@ -131,7 +134,7 @@ xpresentationLayer::buildInputNumberGrid([
     'id' => 'bankAccount',
     'maxlength' => 20,
     'class' => 'grid-item-2',
-    'required' => true,
+    'classLabel' => 'required',
     'dataString' => 'trad_cuenta_bancaria'
 ]);
 

@@ -35,7 +35,6 @@ xpresentationLayer::buildInputNumberGrid([
     'title' => 'Monto',
     'name' => 'amountWallet',
     'placeholder' => '0.00',
-    'required' => true,
     'dataString' => 'trad_monto'
 ]);
 
@@ -44,7 +43,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Moneda',
     'id' => 'currencyWallet',
     'name' => 'currencyWallet',
-    'required' => true,
     'dataString' => 'trad_moneda'
 ], $data_json);
 $data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(6, 2, 3, 5));
@@ -53,7 +51,6 @@ xpresentationLayer::buildSelectJson([
     'id' => 'paidFormWallet',
     'name' => 'paidFormWallet',
     'classContainer' => 'grid-item-2',
-    'required' => true,
     'dataString' => 'trad_forma_de_pago'
 ], $data_json);
 
@@ -162,7 +159,6 @@ xpresentationLayer::buildInputNumberGrid([
     'title' => 'Monto',
     'name' => 'amountCommend',
     'placeholder' => '0.00',
-    'required' => true,
     'dataString' => 'trad_monto'
 ]);
 $data_json = $serviceCall->mgetcountryl();
@@ -171,7 +167,6 @@ xpresentationLayer::buildSelectJson([
     'id' => 'countryCommend',
     'name' => 'countryCommend',
     'event' => 'selectValorforId(\'countryCommend/providerCommend\', \'ajax.php?cond=mgetproviderl\')',
-    'required' => true,
     'dataString' => 'trad_pais'
 ],  $data_json);
 xpresentationLayer::buildSelectJson([
@@ -179,7 +174,6 @@ xpresentationLayer::buildSelectJson([
     'id' => 'providerCommend',
     'name' => 'providerCommend',
     'event' => 'selectValorforId(\'providerCommend/sendFormCommend\', \'ajax.php?cond=mgetremitancetypel\')',
-    'required' => true,
     'dataString' => 'trad_proveedor'
 ], "");
 $data_json = $serviceCall->mgetcurrencyremitancel();
@@ -187,14 +181,12 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Moneda',
     'id' => 'currencyCommend',
     'name' => 'currencyCommend',
-    'required' => true,
     'dataString' => 'trad_moneda'
 ], $data_json);
 xpresentationLayer::buildSelectJson([
     'title' => 'Entrega',
     'id' => 'sendFormCommend',
     'name' => 'sendFormCommend',
-    'required' => true,
     'dataString' => 'trad_entrega'
 ], "");
 
@@ -204,7 +196,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Forma de pago',
     'id' => 'paidFormCommend',
     'name' => 'paidFormCommend',
-    'required' => true,
     'dataString' => 'trad_forma_de_pago'
 ], $data_json);
 
@@ -337,7 +328,6 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'Documento identidad',
     'name' => 'bdocumentid',
     'id' => 'bdocumentid',
-    'required' => true,
     'classLabel' => 'required',
     'classContainer' => 'grid-item-2',
     'dataString' => 'trad_documento_de_identidad'
@@ -347,7 +337,6 @@ xpresentationLayer::buildInputTextGrid([
     'name' => 'firstNameCommend',
     'id' => 'firstNameCommend',
     'classLabel' => 'required',
-    'required' => true,
     'dataString' => 'trad_primer_nombre'
 ]);
 xpresentationLayer::buildInputTextGrid([
@@ -361,7 +350,6 @@ xpresentationLayer::buildInputTextGrid([
     'name' => 'firstSurnameCommend',
     'id' => 'firstSurnameCommend',
     'classLabel' => 'required',
-    'required' => true,
     'dataString' => 'trad_primer_apellido'
 ]);
 xpresentationLayer::buildInputTextGrid([
@@ -438,7 +426,6 @@ xpresentationLayer::buildInputNumberGrid([
     'name' => 'amountTransfer',
     'placeholder' => '0.00',
     'maxlength' => 20,
-    'required' => true,
     'dataString' => 'trad_monto'
 ]);
 $data_json = $serviceCall->mgetcountryl();
@@ -446,7 +433,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'País',
     'id' => 'countryTransfer',
     'name' => 'countryTransfer',
-    'required' => true,
     'dataString' => 'trad_pais'
 ], $data_json);
 $data_json = $serviceCall->mgetcurrencytrl();
@@ -454,7 +440,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Moneda',
     'id' => 'currencyTransfer',
     'name' => 'currencyTransfer',
-    'required' => true,
     'dataString' => 'trad_moneda'
 ], $data_json);
 $data_json = $serviceCall->mgetclearencetypel($arrayExcluyente = array(6, 2, 3, 5, 1));
@@ -462,7 +447,6 @@ xpresentationLayer::buildSelectJson([
     'title' => 'Forma de pago',
     'id' => 'paidFormTransfer',
     'name' => 'paidFormTransfer',
-    'required' => true,
     'dataString' => 'trad_forma_de_pago'
 ], $data_json);
 
@@ -587,7 +571,6 @@ xpresentationLayer::buildInputTextGrid([
     'id' => 'bdocumentidTransfer',
     'classLabel' => 'required',
     'classContainer' => 'grid-item-2',
-    'required' => true,
     'maxlength' => 20,
     'dataString' => 'trad_documento_de_identidad'
 ]);
@@ -595,7 +578,6 @@ xpresentationLayer::buildInputTextGrid([
     'title' => 'Primer nombre',
     'name' => 'firstNameTransfer',
     'id' => 'firstNameTransfer',
-    'required' => true,
     'classLabel' => 'required',
     'dataString' => 'trad_primer_nombre'
 ]);
@@ -610,7 +592,6 @@ xpresentationLayer::buildInputTextGrid([
     'name' => 'firstSurnameTransfer',
     'id' => 'firstSurnameTransfer',
     'classLabel' => 'required',
-    'required' => true,
     'dataString' => 'trad_primer_apellido'
 ]);
 xpresentationLayer::buildInputTextGrid([
@@ -666,7 +647,6 @@ xpresentationLayer::buildInputTextGrid([
     'name' => 'countryBankTransfer',
     'id' => 'countryBankTransfer',
     'classLabel' => 'required',
-    'required' => true,
     'dataString' => 'trad_pais_banco'
 ]);
 xpresentationLayer::buildInputTextGrid([
@@ -674,7 +654,6 @@ xpresentationLayer::buildInputTextGrid([
     'name' => 'cityBankTransfer',
     'id' => 'cityBankTransfer',
     'classLabel' => 'required',
-    'required' => true,
     'dataString' => 'trad_ciudad_banco'
 ]);
 xpresentationLayer::buildInputTextGrid([
@@ -683,7 +662,6 @@ xpresentationLayer::buildInputTextGrid([
     'id' => 'bankAddressTransfer',
     'classLabel' => 'required',
     'classContainer' => 'grid-item-1 grid-item-2',
-    'required' => true,
     'dataString' => 'trad_direccion_banco'
 ]);
 xpresentationLayer::buildInputTextGrid([
@@ -692,7 +670,6 @@ xpresentationLayer::buildInputTextGrid([
     'id' => 'abaSwiftIban',
     'classContainer' => 'grid-item-1 grid-item-2',
     'classLabel' => 'required',
-    'required' => true,
     'dataString' => 'trad_aba_swift_iban'
 ]);
 xpresentationLayer::buildInputTextGrid([
