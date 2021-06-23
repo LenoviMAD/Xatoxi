@@ -371,7 +371,7 @@ xpresentationLayer::buildInputTextGrid([
     'id' => 'emailCommend',
     'placeholder' => 'Ejemplo@mail.com',
     'type' => 'email',
-    'maxlength' => 50,
+    'maxlength' => 70,
     'classContainer' => 'grid-item-1 grid-item-2',
     'dataString' => 'trad_email'
 ]);
@@ -613,7 +613,7 @@ xpresentationLayer::buildInputTextGrid([
     'name' => 'emailTransfer',
     'id' => 'emailTransfer',
     'type' => 'email',
-    'maxlength' => 50,
+    'maxlength' => 70,
     'placeholder' => 'ejemplo@mail.com',
     'classContainer' => 'grid-item-1 grid-item-2',
     'dataString' => 'trad_email'

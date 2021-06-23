@@ -40,7 +40,7 @@ export default function init() {
                         `
                     })
                     tbody.innerHTML = tr
-                    
+
                     console.log(res)
                 } else if (res.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)

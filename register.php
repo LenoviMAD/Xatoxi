@@ -17,7 +17,7 @@ xpresentationLayer::buildInputTextGrid([
     'name' => 'email',
     'type' => 'email',
     'placeholder' => 'ejemplo@gmail.com',
-    'maxlength' => 50,
+    'maxlength' => 70,
     'required' => true,
     'dataString' => 'trad_email'
 ]);

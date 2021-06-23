@@ -1,10 +1,12 @@
 <?php
+session_start();
+error_reporting(0);
 
 class xclient
 {
 
     private $client;
-    private $version = "1.3.0";
+    private $version = "1.2.1";
     private $url = "https://www.italcontroller.com/italsisdev/includes/rest/SERVER/XATOXI/services.php";
     private $user = "WSITALCAMBIO";
     private $password = "1cc61eb7ae2187eb91f97d1ae5300919";
@@ -34,7 +36,13 @@ class xclient
         $this->updateField($getproviderl, "version", $this->version);
         $this->updateField($getproviderl, "wspwd", $this->password);
         $this->updateField($getproviderl, "idcountry", $idcountry);
+        $this->updateField($getproviderl, "idlead", $_SESSION['idlead']);
         return $getproviderl;
+    } // bgetproviderl
+
+    function test()
+    {
+        return $_SESSION['idlead'];
     } // bgetproviderl
 
 
@@ -56,6 +64,7 @@ class xclient
         $this->updateField($getcountryl, "wsuser", $this->user);
         $this->updateField($getcountryl, "wspwd", $this->password);
         $this->updateField($getcountryl, "version", $this->version);
+        $this->updateField($getcountryl, "idlead", $_SESSION['idlead']);
         return $getcountryl;
     } // bgetcountryl
 
@@ -241,6 +250,7 @@ class xclient
         $this->updateField($geticccbankl, "wsuser", $this->user);
         $this->updateField($geticccbankl, "version", $this->version);
         $this->updateField($geticccbankl, "wspwd", $this->password);
+        $this->updateField($geticccbankl, "idlead", $_SESSION['idlead']);
         return $geticccbankl;
     } // bgeticccbankl
 
@@ -286,6 +296,7 @@ class xclient
         $this->updateField($getcurrencyl, "wsuser", $this->user);
         $this->updateField($getcurrencyl, "version", $this->version);
         $this->updateField($getcurrencyl, "wspwd", $this->password);
+        $this->updateField($getcurrencyl, "idlead", $_SESSION['idlead']);
         return $getcurrencyl;
     } // bgetcurrencyl
 
@@ -606,6 +617,7 @@ class xclient
         $this->updateField($getclearencetypel, "wsuser", $this->user);
         $this->updateField($getclearencetypel, "version", $this->version);
         $this->updateField($getclearencetypel, "wspwd", $this->password);
+        $this->updateField($getclearencetypel, "idlead", $_SESSION['idlead']);
         return $getclearencetypel;
     } // bgetclearencetypel
 
@@ -639,6 +651,7 @@ class xclient
         $this->updateField($getremitancetypel, "version", $this->version);
         $this->updateField($getremitancetypel, "wspwd", $this->password);
         $this->updateField($getremitancetypel, "idprovider", $idprovider);
+        $this->updateField($getremitancetypel, "idlead", $_SESSION['idlead']);
         return $getremitancetypel;
     } // bgetremitancetypel
 
@@ -659,6 +672,7 @@ class xclient
         $this->updateField($getcurrencyremitancel, "wsuser", $this->user);
         $this->updateField($getcurrencyremitancel, "version", $this->version);
         $this->updateField($getcurrencyremitancel, "wspwd", $this->password);
+        $this->updateField($getcurrencyremitancel, "idlead", $_SESSION['idlead']);
         return $getcurrencyremitancel;
     } // bgetcurrencyremitancel
 
@@ -679,6 +693,7 @@ class xclient
         $this->updateField($getdebitinstrumentl, "wsuser", $this->user);
         $this->updateField($getdebitinstrumentl, "version", $this->version);
         $this->updateField($getdebitinstrumentl, "wspwd", $this->password);
+        $this->updateField($getdebitinstrumentl, "idlead", $_SESSION['idlead']);
         return $getdebitinstrumentl;
     } // bgetdebitinstrumentl
 
@@ -699,6 +714,7 @@ class xclient
         $this->updateField($getlocationl, "wsuser", $this->user);
         $this->updateField($getlocationl, "version", $this->version);
         $this->updateField($getlocationl, "wspwd", $this->password);
+        $this->updateField($getlocationl, "idlead", $_SESSION['idlead']);
         return $getlocationl;
     } // bgetlocationl
 
@@ -719,6 +735,7 @@ class xclient
         $this->updateField($getiddocumenttypel, "wsuser", $this->user);
         $this->updateField($getiddocumenttypel, "version", $this->version);
         $this->updateField($getiddocumenttypel, "wspwd", $this->password);
+        $this->updateField($getiddocumenttypel, "idlead", $_SESSION['idlead']);
         return $getiddocumenttypel;
     } // bgetiddocumenttypel
 
@@ -781,6 +798,7 @@ class xclient
         $this->updateField($getinstrumentsrcl, "wsuser", $this->user);
         $this->updateField($getinstrumentsrcl, "version", $this->version);
         $this->updateField($getinstrumentsrcl, "wspwd", $this->password);
+        $this->updateField($getinstrumentsrcl, "idlead", $_SESSION['idlead']);
         return $getinstrumentsrcl;
     } // bgetinstrumentsrcl
 
@@ -802,6 +820,7 @@ class xclient
         $this->updateField($getcurrencysrcl, "version", $this->version);
         $this->updateField($getcurrencysrcl, "wspwd", $this->password);
         $this->updateField($getcurrencysrcl, "idinstrumentsrc", $idinstrumentsrc);
+        $this->updateField($getcurrencysrcl, "idlead", $_SESSION['idlead']);
         return $getcurrencysrcl;
     } // bgetcurrencysrcl
 
@@ -824,6 +843,7 @@ class xclient
         $this->updateField($getinstrumentdstl, "wspwd", $this->password);
         $this->updateField($getinstrumentdstl, "idinstrumentsrc", $idinstrumentsrc);
         $this->updateField($getinstrumentdstl, "idcurrencysrc", $idcurrencysrc);
+        $this->updateField($getinstrumentdstl, "idlead", $_SESSION['idlead']);
         return $getinstrumentdstl;
     } // bgetinstrumentdstl
 
@@ -847,6 +867,7 @@ class xclient
         $this->updateField($getcurrencydstl, "idinstrumentsrc", $idinstrumentsrc);
         $this->updateField($getcurrencydstl, "idcurrencysrc", $idcurrencysrc);
         $this->updateField($getcurrencydstl, "idinstrumentdst", $idinstrumentdst);
+        $this->updateField($getcurrencydstl, "idlead", $_SESSION['idlead']);
         return $getcurrencydstl;
     } // bgetcurrencydstl
 
@@ -927,6 +948,7 @@ class xclient
         $this->updateField($getcountrystatel, "version", $this->version);
         $this->updateField($getcountrystatel, "wspwd", $this->password);
         $this->updateField($getcountrystatel, "idcountry", $idcountry);
+        $this->updateField($getcountrystatel, "idlead", $_SESSION['idlead']);
         return $getcountrystatel;
     } // bgetcountrystatel
 
@@ -948,6 +970,7 @@ class xclient
         $this->updateField($getstatecityl, "version", $this->version);
         $this->updateField($getstatecityl, "wspwd", $this->password);
         $this->updateField($getstatecityl, "idstate", $idcountry);
+        $this->updateField($getstatecityl, "idlead", $_SESSION['idlead']);
         return $getstatecityl;
     } // bgetstatecityl
 
@@ -993,6 +1016,7 @@ class xclient
         $this->updateField($getcurrencytrl, "wsuser", $this->user);
         $this->updateField($getcurrencytrl, "version", $this->version);
         $this->updateField($getcurrencytrl, "wspwd", $this->password);
+        $this->updateField($getcurrencytrl, "idlead", $_SESSION['idlead']);
         return $getcurrencytrl;
     } // bgetcurrencytrl
 
@@ -1250,6 +1274,7 @@ class xclient
         $this->updateField($getpartyxl, "wsuser", $this->user);
         $this->updateField($getpartyxl, "version", $this->version);
         $this->updateField($getpartyxl, "wspwd", $this->password);
+        $this->updateField($getpartyxl, "idlead", $_SESSION['idlead']);
         return $getpartyxl;
     } // bgetpartyxl
 
@@ -1292,6 +1317,7 @@ class xclient
         $this->updateField($getbankl, "version", $this->version);
         $this->updateField($getbankl, "wspwd", $this->password);
         $this->updateField($getbankl, "idcountry", $idcountry);
+        $this->updateField($getbankl, "idlead", $_SESSION['idlead']);
         return $getbankl;
     } // bgetbankl
 
@@ -1520,6 +1546,7 @@ class xclient
         $this->updateField($getcreditinstrumentl, "wsuser", $this->user);
         $this->updateField($getcreditinstrumentl, "version", $this->version);
         $this->updateField($getcreditinstrumentl, "wspwd", $this->password);
+        $this->updateField($getcreditinstrumentl, "idlead", $_SESSION['idlead']);
         return $getcreditinstrumentl;
     } // bgetcreditinstrumentl
 
@@ -1562,6 +1589,7 @@ class xclient
         $this->updateField($getcompliancedoctypel, "wsuser", $this->user);
         $this->updateField($getcompliancedoctypel, "version", $this->version);
         $this->updateField($getcompliancedoctypel, "wspwd", $this->password);
+        $this->updateField($getcompliancedoctypel, "idlead", $_SESSION['idlead']);
         return $getcompliancedoctypel;
     } // bgetcompliancedoctypel
 
@@ -1582,6 +1610,7 @@ class xclient
         $this->updateField($getlocationvenl, "wsuser", $this->user);
         $this->updateField($getlocationvenl, "version", $this->version);
         $this->updateField($getlocationvenl, "wspwd", $this->password);
+        $this->updateField($getlocationvenl, "idlead", $_SESSION['idlead']);
         return $getlocationvenl;
     } // bgetlocationvenl
 
@@ -1602,6 +1631,7 @@ class xclient
         $this->updateField($getcreditcardtypel, "wsuser", $this->user);
         $this->updateField($getcreditcardtypel, "version", $this->version);
         $this->updateField($getcreditcardtypel, "wspwd", $this->password);
+        $this->updateField($getcreditcardtypel, "idlead", $_SESSION['idlead']);
         return $getcreditcardtypel;
     } // bgetcreditcardtypel
 
@@ -1646,6 +1676,7 @@ class xclient
         $this->updateField($getgenderl, "wsuser", $this->user);
         $this->updateField($getgenderl, "version", $this->version);
         $this->updateField($getgenderl, "wspwd", $this->password);
+        $this->updateField($getgenderl, "idlead", $_SESSION['idlead']);
         return $getgenderl;
     } // bgetgenderl
 
@@ -1665,6 +1696,7 @@ class xclient
         $this->updateField($getcivilstatel, "wsuser", $this->user);
         $this->updateField($getcivilstatel, "version", $this->version);
         $this->updateField($getcivilstatel, "wspwd", $this->password);
+        $this->updateField($getcivilstatel, "idlead", $_SESSION['idlead']);
         return $getcivilstatel;
     } // bgetcivilstatel
 
