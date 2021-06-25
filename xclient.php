@@ -582,7 +582,7 @@ class xclient
         return ($result);
     } // mrecv
 
-    private function brecvok($idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount)
+    private function brecvok($idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount, $prepaidcardaccount)
     {
         $this->updateField($recvok, "wsuser", $this->user);
         $this->updateField($recvok, "version", $this->version);
@@ -601,14 +601,15 @@ class xclient
 
         $this->updateField($recvok, "mpbankcode", $mpbankcode);
         $this->updateField($recvok, "mpbankaccount", $mpbankaccount);
+        $this->updateField($recvok, "prepaidcardaccount", $prepaidcardaccount);
 
         return $recvok;
     } // brecvok
 
-    function mrecvok($idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount)
+    function mrecvok($idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount, $prepaidcardaccount)
     {
         $this->init($this->url);
-        $recvok =  $this->brecvok($idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount);
+        $recvok =  $this->brecvok($idparty, $acc, $key, $addr, $bdate, $idlocation, $idlead, $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount, $prepaidcardaccount);
         $data["recvok"] = $recvok;
         $data_string = json_encode($data);
         curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);

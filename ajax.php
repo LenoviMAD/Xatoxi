@@ -2,6 +2,8 @@
 error_reporting(0);
 include_once("xclient.php");
 include_once("util.php");
+include_once('libs/phpqrcode-master/qrlib.php');
+
 $client = new xclient("");
 $util = new Util;
 session_start();
@@ -66,7 +68,7 @@ if (isset($_POST["cond"])) {
         print_r(json_encode($data_json));
     }
     if ($_POST["cond"] == "calcsendw") {
-        $data_json = $client->mcalcsendw($_SESSION['idlead'], $_POST['amountWallet'], $_POST['currencyWallet'],$_POST['idclearencetype']);
+        $data_json = $client->mcalcsendw($_SESSION['idlead'], $_POST['amountWallet'], $_POST['currencyWallet'], $_POST['idclearencetype']);
         print_r(json_encode($data_json));
     }
 
@@ -94,7 +96,7 @@ if (isset($_POST["cond"])) {
     }
 
     if ($_POST["cond"] == "calcsendenvio") {
-        $data_json = $client->mcalcsend($_SESSION['idlead'], $_POST["providerCommend"], $_POST["countryCommend"], $_POST["amountCommend"],$_POST["idclearencetype"]);
+        $data_json = $client->mcalcsend($_SESSION['idlead'], $_POST["providerCommend"], $_POST["countryCommend"], $_POST["amountCommend"], $_POST["idclearencetype"]);
 
         print_r(json_encode($data_json));
     }
@@ -421,6 +423,10 @@ if (isset($_POST["cond"])) {
     if ($_POST["cond"] == "receptionok") {
         $idclearencetype = $util->testInput($_POST['formRecepcion']);
         // $acc = $_POST['bankAccount'] != "" ? $util->testInput($_POST['bankAccount']) : $_SESSION['bacc'];
+
+        if ($idclearencetype == "3") {
+            $prepaidcardaccount = $_SESSION['prepaidcardaccount'];
+        }
         $acc = $util->testInput($_POST['bankAccount']);
         $key = $util->testInput($_POST['remittances']);
 
@@ -431,13 +437,12 @@ if (isset($_POST["cond"])) {
         $mpbankcode = $util->testInput($_POST['bancoPagoMovil']);
         $mpbankaccount = $util->testInput($_POST['countrycode']) . "" . $util->testInput($_POST['phone']);
 
-        // $idlocation = $util->testInput($_POST['branchOffices']) || $_SESSION['idlocation'];
-        $idlocation = 2;
-        $addr = $_SESSION['addr'];
+        $idlocation = $util->testInput($_POST['branchOffices']) || $_SESSION['idlocation'];
 
+        $addr = $_SESSION['addr'];
         $bdate = $_SESSION['bdate'];
 
-        $data_json = $client->mrecvok($_SESSION['idparty'], $acc, $key, $addr, $bdate, $idlocation, $_SESSION['idlead'], $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount);
+        $data_json = $client->mrecvok($_SESSION['idparty'], $acc, $key, $addr, $bdate, $idlocation, $_SESSION['idlead'], $idclearencetype, $prepaidcard, $debitcard, $mpbankcode, $mpbankaccount, $prepaidcardaccount);
 
         print_r(json_encode($data_json));
     }
@@ -489,7 +494,7 @@ if (isset($_POST["cond"])) {
         $mpbankaccount = $util->testInput($_POST['countrycode']) . "" . $_POST['codeArea'] . "" . $util->testInput($_POST['phone']);
 
         $data_json = $client->mexexcbuy($_SESSION['idlead'], $idcurrency, $amount, $otp, $idinstrumentcredit, $idinstrumentdebit, $ccnumber, $ccexpyear, $ccexpmonth, $cccvc, $cctype, $mpbankcode, $mpbankaccount, $acc, $debitcardnumber);
-        
+
         print_r(json_encode($data_json));
     }
     if ($_POST["cond"] == "execsellok") {
@@ -600,59 +605,8 @@ if (isset($_POST["cond"])) {
         print_r(json_encode($data_json));
     }
 
-    if ($_POST["cond"] == "sendEmailPin") {
-        $email = $_POST["email"];
-        $pin = $_POST["pin"];
-        $body = "SU PIN ES " . $pin;
-
-        $data_json = $client->msendemail("email XATOXI", $email, "header", $body, "POWERED BY XATOXI");
-        print_r(json_encode($data_json));
-    }
-
     if ($_POST["cond"] == "genpin") {
         $data_json = $client->mgenpin();
-        print_r(json_encode($data_json));
-    }
-
-    if ($_POST["cond"] == "pinVerification") {
-        $pin = $_POST["pin"];
-        $res = new stdClass();
-
-        if ($_SESSION['pinveri'] === $pin) {
-            $res->message = "Todo ok";
-            $res->code = "0000";
-            print_r(json_encode($res));
-        } else {
-            $res->message = "No coinciden los pin";
-            $res->code = "6666";
-            print_r(json_encode($res));
-        }
-    }
-
-    if ($_POST["cond"] == "savePin") {
-        $pin = $_POST["pin"];
-        $_SESSION['pinveri'] = $pin;
-    }
-
-    if ($_POST["cond"] == "addlead") {
-        $code = "";
-        $idparty = "";
-        $email = $_POST["email"];
-        $deviceid = "22moises22";
-        $deviceidalt = "22moises22";
-        $phoneNumber = $_POST["phone"];
-        $observation = "";
-        $pin = "";
-        $date  = gmdate('Y/m/d h:i:s');
-        $pinfirsttime = "";
-        $countrycode = $_POST["country"];
-        $areacode = $_POST["codeArea"];
-        $tag = "miatagbuenisimo99";
-        $otp = "";
-        $active = "";
-        $deleted = "";
-
-        $data_json = $client->maddlead($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areacode, $tag,  $otp, $active, $deleted);
         print_r(json_encode($data_json));
     }
 
@@ -716,6 +670,17 @@ if (isset($_POST["cond"])) {
             $_SESSION['ccexpmonth'] = $data_json->ccexpmonth;
             $_SESSION['cccvc'] = $data_json->cccvc;
 
+            // $_SESSION['ccnumber'] = "1234567812344567";
+            // $_SESSION['ccexpyear'] = "24";
+            // $_SESSION['ccexpmonth'] = "10";
+            // $_SESSION['cccvc'] = "780";
+
+            $_SESSION['prepaidcardaccount'] = $data_json->prepaidcardaccount;
+            $_SESSION['debitcardnumber'] = $data_json->debitcardnumber;
+            $_SESSION['prepaidcardnumber'] = $data_json->prepaidcardnumber;
+            // $_SESSION['prepaidcardaccount'] = "11111111111";
+            // $_SESSION['debitcardnumber'] = "2222222222";
+            // $_SESSION['prepaidcardnumber'] = "333333333333";
         }
 
         print_r(json_encode($data_json));
@@ -727,11 +692,6 @@ if (isset($_POST["cond"])) {
         // Guardar variables de sesion primera parte
         if ($data_json->code === "0000") {
             $_SESSION['idlocation'] = $data_json->idlocation;
-
-            // $_SESSION['debitcardnumber'] = $data_json->debitcardnumber;
-            // $_SESSION['prepaidcardnumber'] = $data_json->prepaidcardnumber;
-            $_SESSION['debitcardnumber'] = "01021111111111111111";
-            $_SESSION['prepaidcardnumber'] = "010222222222222222";
         }
 
         print_r(json_encode($data_json));
@@ -822,5 +782,17 @@ if (isset($_POST["cond"])) {
 
     if ($_POST["cond"] == "session") {
         print_r(json_encode($_SESSION));
+    }
+
+    if ($_POST["cond"] == "genQR") {
+        $data = $_SESSION['ccnumber'] . " " . $_SESSION['ccexpyear'] . " " . $_SESSION['ccexpmonth'] . " " . $_SESSION['cccvc'];
+        $svgTagId   = 'asd';
+        $saveToFile = false;
+        $imageWidth = 250; // px
+
+        // SVG file format support
+        $svgCode = QRcode::svg($data);
+
+        echo $svgCode;
     }
 }

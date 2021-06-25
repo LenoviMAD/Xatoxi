@@ -15,8 +15,52 @@ xpresentationLayer::buildHead("Xatoxi");
 xpresentationLayer::buildHeaderXatoxi();
 
 xpresentationLayer::startMain();
+if ($_SESSION['ccnumber']) {
+?>
+    <div class="contenedor">
+        <!-- Tarjeta -->
+        <section class="tarjeta" id="tarjeta">
+            <div class="delantera">
+                <div class="logo-marca" id="logo-marca">
+                    <!-- <img src="img/logos/visa.png" alt=""> -->
+                </div>
+                <!-- <img src="img/chip-tarjeta.png" class="chip" alt=""> -->
+                <div class="datos">
+                    <div class="grupo" id="numero">
+                        <p class="numero" id="htmlccnumber"><?= $_SESSION['ccnumber']; ?></p>
+                        <p class="numero"><?= $_SESSION['ccexpmonth']; ?>/<?= $_SESSION['ccexpyear']; ?></p>
+                    </div>
+                    <div class="flexbox">
+                        <div class="grupo" id="nombre">
+                            <p class="nombre">CARD HOLDER</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="trasera">
+                <div class="barra-magnetica"></div>
+                <div class="datos">
+                    <div class="grupo" id="firma">
+                        <div class="firma">
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="grupo" id="ccv">
+                        <p class="ccv mb0"><?= $_SESSION['cccvc']; ?></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<?php
+}
 xpresentationLayer::startFirtsSection("grid-3 mb-20");
 xpresentationLayer::buildOptionGrid("Perfil");
+if ($_SESSION['ccnumber']) {
+    xpresentationLayer::buildOptionGrid("MostrarQR", "", "", "genQR", "btn-primary");
+}
 xpresentationLayer::endSection();
 xpresentationLayer::startForm("profileForm");
 
@@ -258,6 +302,7 @@ include './modals/modalSuccess.php';
 include './modals/modalWrong.php';
 include './modals/modalInactividad.php';
 include './modals/modalFirma.php';
+include './modals/modalQR.php';
 
 xpresentationLayer::buildFooterXatoxi();
 

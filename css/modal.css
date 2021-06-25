@@ -375,3 +375,19 @@
 #loader .modal-content {
     padding: 15px;
 }
+
+/* modal qr */
+.modal.modal--danger.modal--qr .modal-content{
+    padding: 15px !important;
+    background-color: rgb(219 218 218 / 70%);
+}
+.modal.modal--danger.modal--qr .modal-footer {
+    margin-bottom: 10px;
+}
+
+.modal.modal--danger.modal--qr .modal-footer > .btn {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}

@@ -39,7 +39,6 @@ export default function init() {
 
                 let data = await fetch("ajax.php", { method: 'POST', body: formData });
                 let res = await data.json();
-                console.log(res)
 
                 if (res.code === "0000") {
                     // GEN OTP FETCH
@@ -72,7 +71,6 @@ export default function init() {
 
                             let data = await fetch("ajax.php", { method: 'POST', body: formData });
                             let res = await data.json();
-                            console.log(res)
 
                             // Quitando loader
                             modal.closeModal('loader')

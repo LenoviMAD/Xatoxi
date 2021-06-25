@@ -37,8 +37,13 @@ export default function init() {
             const didexpirationdate = document.querySelector(`#${profileForm.getAttribute('id')} [name="didexpirationdate"]`)
             const didemissionplace = document.querySelector(`#${profileForm.getAttribute('id')} [name="didemissionplace"]`)
             const didemissiondate = document.querySelector(`#${profileForm.getAttribute('id')} [name="didemissiondate"]`)
+
             const prepaidcardnumber = document.querySelector(`#${profileForm.getAttribute('id')} [name="prepaidcardnumber"]`)
+            const prepaidcardaccount = document.querySelector(`#${profileForm.getAttribute('id')} [name="prepaidcardaccount"]`)
             const debitcardnumber = document.querySelector(`#${profileForm.getAttribute('id')} [name="debitcardnumber"]`)
+
+            const idoccupation = document.querySelector(`#${profileForm.getAttribute('id')} [name="idoccupation"]`)
+            const idzipcode = document.querySelector(`#${profileForm.getAttribute('id')} [name="idzipcode"]`)
 
             // Funcion solamente para llenar campos del perfil 
             async function test(resIsParty) {
@@ -110,6 +115,21 @@ export default function init() {
                         }
                     });
 
+                    if(idoccupation) {
+                        idoccupation.childNodes.forEach(element => {
+                            if (element.value === resIsParty.idoccupation) {
+                                element.setAttribute("selected", true)
+                            }
+                        });
+                    }
+                    if(idzipcode) {
+                        idzipcode.childNodes.forEach(element => {
+                            if (element.value === resIsParty.idzipcode) {
+                                element.setAttribute("selected", true)
+                            }
+                        });
+                    }
+
                     if (resIsParty.didemissiondate) {
                         didemissiondate.value = resIsParty.didemissiondate.split(" ")[0].split("/").reverse().join("-");
                     }
@@ -118,12 +138,6 @@ export default function init() {
                     }
                     if (resIsParty.didexpirationdate) {
                         didexpirationdate.value = resIsParty.didexpirationdate.split(" ")[0].split("/").reverse().join("-")
-                    }
-                    if (resIsParty.prepaidcardnumber) {
-                        prepaidcardnumber.value = resIsParty.prepaidcardnumber
-                    }
-                    if (resIsParty.debitcardnumber) {
-                        debitcardnumber.value = resIsParty.debitcardnumber
                     }
                 }
                 // prepaidcardnumber.value = res.prepaidcardnumber
@@ -157,6 +171,15 @@ export default function init() {
                     });
 
                     telMovil.value = res.mpbankaccount
+                    if (res.prepaidcardnumber) {
+                        prepaidcardnumber.value = res.prepaidcardnumber
+                    }
+                    if (res.prepaidcardaccount) {
+                        prepaidcardaccount.value = res.prepaidcardaccount
+                    }
+                    if (res.debitcardnumber) {
+                        debitcardnumber.value = res.debitcardnumber
+                    }
                 }
             }
             getParty()

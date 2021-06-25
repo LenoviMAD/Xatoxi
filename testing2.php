@@ -1,5 +1,6 @@
 <?php
 error_reporting(0);
+session_start();
 include_once("xpresentationlayer.php");
 include_once("xclient.php");
 
@@ -21,30 +22,24 @@ xpresentationLayer::startMain();
 </div>
 <hr> -->
 <div class="contenedor">
-
     <!-- Tarjeta -->
     <section class="tarjeta" id="tarjeta">
         <div class="delantera">
             <div class="logo-marca" id="logo-marca">
                 <!-- <img src="img/logos/visa.png" alt=""> -->
             </div>
-            <img src="img/chip-tarjeta.png" class="chip" alt="">
+            <!-- <img src="img/chip-tarjeta.png" class="chip" alt=""> -->
             <div class="datos">
                 <div class="grupo" id="numero">
-                    <p class="label">Número Tarjeta</p>
-                    <p class="numero">#### #### #### ####</p>
+                    <p class="numero" id="htmlccnumber"><?= $_SESSION['ccnumber']; ?></p>
+                    <p class="numero"><?= $_SESSION['ccexpmonth']; ?>/<?= $_SESSION['ccexpyear']; ?></p>
                 </div>
                 <div class="flexbox">
                     <div class="grupo" id="nombre">
-                        <p class="label">Nombre Tarjeta</p>
-                        <p class="nombre">Jhon Doe</p>
-                    </div>
-
-                    <div class="grupo" id="expiracion">
-                        <p class="label">Expiracion</p>
-                        <p class="expiracion"><span class="mes">MM</span> / <span class="year">AA</span></p>
+                        <p class="nombre">CARD HOLDER</p>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -52,25 +47,25 @@ xpresentationLayer::startMain();
             <div class="barra-magnetica"></div>
             <div class="datos">
                 <div class="grupo" id="firma">
-                    <p class="label">Firma</p>
                     <div class="firma">
                         <p></p>
                     </div>
                 </div>
                 <div class="grupo" id="ccv">
-                    <p class="label">CCV</p>
-                    <p class="ccv"></p>
+                    <p class="ccv mb0"><?= $_SESSION['cccvc']; ?></p>
                 </div>
             </div>
-            <p class="leyenda">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus exercitationem, voluptates illo.</p>
-            <a href="#" class="link-banco">www.tubanco.com</a>
         </div>
     </section>
 </div>
 <?php
+xpresentationLayer::startFirtsSection("grid-3 mb-20");
+xpresentationLayer::buildOptionGrid("Perfil");
+xpresentationLayer::buildOptionGrid("MostrarQR", "", "", "genQR", "btn-primary");
+xpresentationLayer::endSection();
 xpresentationLayer::endMain();
 
-
+include './modals/modalQR.php';
 
 xpresentationLayer::buildFooterXatoxi();
 

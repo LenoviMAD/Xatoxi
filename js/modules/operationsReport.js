@@ -24,7 +24,6 @@ export default function init() {
 
                 // Quitando loader
                 modal.closeModal('loader')
-                console.log(res)
                 if (res.code === "0000") {
                     let tr = ""
                     res.list.map(item => {
@@ -41,7 +40,6 @@ export default function init() {
                     })
                     tbody.innerHTML = tr
 
-                    console.log(res)
                 } else if (res.code === "5000") {
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
                 } else {

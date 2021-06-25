@@ -65,7 +65,6 @@ export default function init() {
                     // Quitando spinner
                     modal.closeModal('loader')
 
-                    // console.log(res);
                     // Fetch exitoso
                     if (res.code == "0000") {
                         // Setear forma de pago
@@ -320,7 +319,6 @@ export default function init() {
             formData.append("cond", "session");
             const data = await fetch("ajax.php", { method: 'POST', body: formData });
             const resUserSession = await data.json();
-            // console.log(resUserSession);
 
             // SETEAMOS LOS DATOS SI VIENEN DE CAMBIO
             if (resUserSession.paidMethodToChange) {
@@ -385,7 +383,6 @@ export default function init() {
 
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
-                    console.log(res)
 
                     // Quitando spinner
                     modal.closeModal('loader')
@@ -598,7 +595,6 @@ export default function init() {
                 formData.append('cond', 'commendWalletok');
                 let data = await fetch('ajax.php', { method: 'POST', body: formData });
                 let res = await data.json();
-                console.log(res)
                 if (res.code === "0000") {
                     // GEN OTP FETCH
                     let formData = new FormData()
@@ -631,7 +627,6 @@ export default function init() {
                             let data = await fetch('ajax.php', { method: 'POST', body: formData });
                             let res = await data.json();
 
-                            console.log(res)
 
                             // Quitando spinner
                             modal.closeModal('loader')
@@ -694,7 +689,6 @@ export default function init() {
             formData.append("cond", "session");
             const data = await fetch("ajax.php", { method: 'POST', body: formData });
             const resUserSession = await data.json();
-            // console.log(resUserSession);
 
             // SETEAMOS LOS DATOS SI VIENEN DE CAMBIO
             if (resUserSession.paidMethodToChange) {
@@ -871,7 +865,6 @@ export default function init() {
                 formData.append("cond", "saveTransferok");
                 let data = await fetch("ajax.php", { method: 'POST', body: formData });
                 let res = await data.json();
-                console.log(res)
 
                 if (res.code === "0000") {
                     // GEN OTP FETCH
@@ -879,7 +872,6 @@ export default function init() {
                     formData.append("cond", "genotp");
                     let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
                     let resOtp = await dataOtp.json();
-                    console.log(resOtp)
 
                     // Quitando spinner
                     modal.closeModal('loader')
@@ -903,7 +895,6 @@ export default function init() {
                             let data = await fetch("ajax.php", { method: 'POST', body: formData });
                             let res = await data.json();
 
-                            console.log(res)
                             // Quitando spinner
                             modal.closeModal('loader')
 

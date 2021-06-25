@@ -58,8 +58,6 @@ export default function init() {
 
                     let data = await fetch("ajax.php", { method: 'POST', body: formData });
                     let res = await data.json();
-
-                    console.log(res)
                     modal.closeModal('loader')
 
                     // LLenamos los campos correspondientes
@@ -154,7 +152,6 @@ export default function init() {
 
                 let data = await fetch("ajax.php", { method: 'POST', body: formData });
                 let res = await data.json();
-                console.log(res)
 
                 if (res.code === "0000") {
                     // GEN OTP FETCH
@@ -190,7 +187,6 @@ export default function init() {
                             // Quitando spinner
                             modal.closeModal('loader')
 
-                            console.log(res)
                             if (res.code === "0000") {
                                 modal.openModal('modalSuccess', TITLE_SECTION, res.message)
                             } else if (res.code === "5000") {

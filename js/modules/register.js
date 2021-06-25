@@ -44,7 +44,6 @@ export default function init() {
                 });
                 const res = await data.json();
 
-                console.log(res)
 
                 res.list.forEach(element => {
                     output += `<option value="${element.code}">${element.code}</option>`;
@@ -69,7 +68,6 @@ export default function init() {
                     body: formData,
                 });
                 let resSignup = await dataSignup.json();
-                console.log(resSignup)
 
                 // Quitando loader
                 modal.closeModal("loader");

@@ -41,7 +41,6 @@ export default function init() {
                         formDataIsParty.append("idLead", res.id);
                         const dataIsParty = await fetch("ajax.php", { method: 'POST', body: formDataIsParty });
                         const resIsParty = await dataIsParty.json();
-                        console.log(resIsParty)
     
                         modal.closeModal('loader')
                         
