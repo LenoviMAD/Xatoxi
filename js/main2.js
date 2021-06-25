@@ -10,6 +10,7 @@ import perfil from './modules/perfil.js'
 import canvas from './modules/canvas.js'
 import debitCardRequest from './modules/debitCardRequest.js'
 import Modal from './modules/Modal.js';
+import Tarjeta from './modules/tarjeta.js';
 import Timer from './timer.js';
 import Translations from './Translations.js';
 import Dropdown from './Dropdown.js';
@@ -31,6 +32,7 @@ Translations()
 Dropdown()
 FaceApi()
 operationsReport()
+Tarjeta()
 
 document.addEventListener('DOMContentLoaded', () => {
 

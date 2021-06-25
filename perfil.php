@@ -9,7 +9,6 @@ include_once("xpresentationlayer.php");
 include_once("xclient.php");
 $serviceCall = new xclient("");
 
-
 include_once("xpresentationlayer.php");
 xpresentationLayer::startHtml("es");
 xpresentationLayer::buildHead("Xatoxi");
@@ -118,6 +117,20 @@ xpresentationLayer::buildTextArea([
     'dataString' => 'trad_direccion'
 ]);
 
+$data_json = $serviceCall->mgetzipcodel($_SESSION['idcity']);
+xpresentationLayer::buildSelectJson([
+    'title' => 'Codigo ZIP',
+    'name' => 'idzipcode',
+    'dataString' => 'trad_zipcode'
+], $data_json);
+
+$data_json = $serviceCall->mgetoccupationl();
+xpresentationLayer::buildSelectJson([
+    'title' => 'Ocupación',
+    'name' => 'idoccupation',
+    'dataString' => 'trad_occupation'
+], $data_json);
+
 $data_json = $serviceCall->mgetlocationvenl();
 xpresentationLayer::buildSelectJson([
     'title' => 'Agencia de preferencia',
@@ -136,6 +149,25 @@ xpresentationLayer::buildInputNumberGrid([
     'class' => 'grid-item-2',
     'classLabel' => 'required',
     'dataString' => 'trad_cuenta_bancaria'
+]);
+
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Tarjeta de crédito prepagada',
+    'name' => 'debitcardnumber',
+    'maxlength' => 20,
+    'class' => 'grid-item-2'
+]);
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Número de cuenta remesa',
+    'name' => 'prepaidcardaccount',
+    'maxlength' => 20,
+    'class' => 'grid-item-2'
+]);
+xpresentationLayer::buildInputNumberGrid([
+    'title' => 'Tarjeta de débito de remesa',
+    'name' => 'prepaidcardnumber',
+    'maxlength' => 20,
+    'class' => 'grid-item-2'
 ]);
 
 $data_json = $serviceCall->mgetbankl("238");
@@ -186,17 +218,17 @@ xpresentationLayer::buildSelectJson([
     'dataString' => 'trad_estado_civil'
 ], $data_json);
 
-xpresentationLayer::buildInputNumberGrid([
-    'title' => 'Tarjeta de crédito Prepagada',
-    'name' => 'prepaidcardnumber',
-    'dataString' => 'trad_tarjeta_de_credito_prepagada',
-    'maxlength' => 20,
-]);
-xpresentationLayer::buildInputNumberGrid([
-    'title' => 'Tarjeta de débito Prepagada',
-    'name' => 'debitcardnumber',
-    'maxlength' => 20,
-]);
+// xpresentationLayer::buildInputNumberGrid([
+//     'title' => 'Tarjeta de crédito Prepagada',
+//     'name' => 'prepaidcardnumber',
+//     'dataString' => 'trad_tarjeta_de_credito_prepagada',
+//     'maxlength' => 20,
+// ]);
+// xpresentationLayer::buildInputNumberGrid([
+//     'title' => 'Tarjeta de débito Prepagada',
+//     'name' => 'debitcardnumber',
+//     'maxlength' => 20,
+// ]);
 
 // Cuando nuestro usuario sea party podra registrar documentos
 if ($_SESSION['idparty']) {

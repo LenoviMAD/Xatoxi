@@ -19,7 +19,7 @@ include_once("./xpresentationlayer.php");
                     'id' => 'olvidoPinemail',
                     'type' => 'email',
                     'placeholder' => 'email@email.com',
-                    'maxlength' => 50,
+                    'maxlength' => 70,
                     'required' => true,
                     'dataString' => 'trad_email'
                 ]);

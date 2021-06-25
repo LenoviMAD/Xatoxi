@@ -709,6 +709,13 @@ if (isset($_POST["cond"])) {
             // Por alguna razon mistica aqui se guarda el numero de pagomovil
             $_SESSION['mpbankaccount'] = $data_json->mpbankaccount;
             $_SESSION['mpbankcode'] = $data_json->mpbankcode;
+
+            // Inicializamos los datos de la tarjeta de remesa
+            $_SESSION['ccnumber'] = $data_json->ccnumber;
+            $_SESSION['ccexpyear'] = $data_json->ccexpyear;
+            $_SESSION['ccexpmonth'] = $data_json->ccexpmonth;
+            $_SESSION['cccvc'] = $data_json->cccvc;
+
         }
 
         print_r(json_encode($data_json));
@@ -755,8 +762,6 @@ if (isset($_POST["cond"])) {
         $birthdate = $_POST["birthdate"];
         $fulladdress = $_POST["direction"];
         $idlocation = $_POST["preferenceAgency"];
-        $prepaidcardnumber = $_POST["prepaidcardnumber"];
-        $debitcardnumber = $_POST["debitcardnumber"];
 
         $idgender = $_POST["idgender"];
         $idcivilstate = $_POST["idcivilstate"];
@@ -766,9 +771,14 @@ if (isset($_POST["cond"])) {
         $didemissiondate = $_POST["didemissiondate"];
         $didexpirationdate = $_POST["didexpirationdate"];
 
-        // print_r(json_encode($_POST));
+        $prepaidcardaccount = $_POST["prepaidcardaccount"];
+        $prepaidcardnumber = $_POST["prepaidcardnumber"];
+        $debitcardnumber = $_POST["debitcardnumber"];
 
-        $data_json = $client->mleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber, $idgender, $idcivilstate, $idcountrybirth, $idcountrynationality, $didemissionplace, $didemissiondate, $didexpirationdate);
+        $idzipcode = $_POST["idzipcode"];
+        $idoccupation = $_POST["idoccupation"];
+
+        $data_json = $client->mleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber, $idgender, $idcivilstate, $idcountrybirth, $idcountrynationality, $didemissionplace, $didemissiondate, $didexpirationdate, $prepaidcardaccount, $idzipcode, $idoccupation);
 
         if ($data_json->code === "0000") {
             $_SESSION['idparty'] = $data_json->idparty;

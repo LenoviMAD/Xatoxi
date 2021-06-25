@@ -75,6 +75,7 @@ class xpresentationLayer
         echo  ' <LINK rel="stylesheet" type="text/css" href="css/helpers.css"> ';
 
         echo  ' <LINK rel="stylesheet" type="text/css" href="css/tables.css"> ';
+        echo  ' <LINK rel="stylesheet" type="text/css" href="css/tarjeta.css"> ';
         echo  ' <LINK rel="stylesheet" type="text/css" href="js/libs/DataTables/datatables.min.css"> ';
 
         echo  ' </HEAD> ';

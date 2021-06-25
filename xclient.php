@@ -449,7 +449,7 @@ class xclient
         return ($result);
     } // msendemail
 
-    private function bleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber, $idgender, $idcivilstate, $idcountrybirth, $idcountrynationality, $didemissionplace, $didemissiondate, $didexpirationdate)
+    private function bleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber, $idgender, $idcivilstate, $idcountrybirth, $idcountrynationality, $didemissionplace, $didemissiondate, $didexpirationdate, $prepaidcardaccount,$idzipcode, $idoccupation)
     {
         $this->updateField($leadtoparty, "wsuser", $this->user);
         $this->updateField($leadtoparty, "version", $this->version);
@@ -473,8 +473,6 @@ class xclient
         $this->updateField($leadtoparty, "idlocation", $idlocation);
         $this->updateField($leadtoparty, "mpbankcode", $mpbankcode);
         $this->updateField($leadtoparty, "mpbankaccount", $mpbankaccount);
-        // $this->updateField($leadtoparty, "prepaidcardnumber", $prepaidcardnumber);
-        // $this->updateField($leadtoparty, "debitcardnumber", $debitcardnumber);
         $this->updateField($leadtoparty, "idgender", $idgender);
         $this->updateField($leadtoparty, "idcivilstate", $idcivilstate);
         $this->updateField($leadtoparty, "idcountrybirth", $idcountrybirth);
@@ -482,13 +480,20 @@ class xclient
         $this->updateField($leadtoparty, "didemissionplace", $didemissionplace);
         $this->updateField($leadtoparty, "didemissiondate", $didemissiondate);
         $this->updateField($leadtoparty, "didexpirationdate", $didexpirationdate);
+        
+        $this->updateField($leadtoparty, "prepaidcardaccount", $prepaidcardaccount);
+        $this->updateField($leadtoparty, "prepaidcardnumber", $prepaidcardnumber);
+        $this->updateField($leadtoparty, "debitcardnumber", $debitcardnumber);
+
+        $this->updateField($leadtoparty, "idzipcode", $idzipcode);
+        $this->updateField($leadtoparty, "idoccupation", $idoccupation);
         return $leadtoparty;
     } // bleadtoparty
 
-    function mleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber, $idgender, $idcivilstate, $idcountrybirth, $idcountrynationality, $didemissionplace, $didemissiondate, $didexpirationdate)
+    function mleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber, $idgender, $idcivilstate, $idcountrybirth, $idcountrynationality, $didemissionplace, $didemissiondate, $didexpirationdate,$prepaidcardaccount,$idzipcode, $idoccupation)
     {
         $this->init($this->url);
-        $leadtoparty =  $this->bleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber, $idgender, $idcivilstate, $idcountrybirth, $idcountrynationality, $didemissionplace, $didemissiondate, $didexpirationdate);
+        $leadtoparty =  $this->bleadtoparty($idlead, $firstname, $middlename, $lastname, $secondlastname, $documentid, $phonecountrycode, $phoneareacode, $phonenumber, $email, $bankaccount, $birthdate, $fulladdress, $idlocation, $idcountry, $idstate, $idcity, $mpbankcode, $mpbankaccount, $prepaidcardnumber, $debitcardnumber, $idgender, $idcivilstate, $idcountrybirth, $idcountrynationality, $didemissionplace, $didemissiondate, $didexpirationdate,$prepaidcardaccount,$idzipcode, $idoccupation);
         $data["leadtoparty"] = $leadtoparty;
         $data_string = json_encode($data);
         curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
@@ -1794,5 +1799,48 @@ class xclient
         $result = json_decode($response);
         return ($result);
     } // mgetnotificationl
+
+    private function bgetzipcodel($idcity)
+    {
+        $this->updateField($getzipcodel, "wsuser", $this->user);
+        $this->updateField($getzipcodel, "version", $this->version);
+        $this->updateField($getzipcodel, "wspwd", $this->password);
+        $this->updateField($getzipcodel, "idcity", $idcity);
+        $this->updateField($getzipcodel, "idlead", $_SESSION['idlead']);
+        return $getzipcodel;
+    } // bgetzipcodel
+
+    function mgetzipcodel($idcity)
+    {
+        $this->init($this->url);
+        $getzipcodel =  $this->bgetzipcodel($idcity);
+        $data["getzipcodel"] = $getzipcodel;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mgetzipcodel
+
+    private function bgetoccupationl()
+    {
+        $this->updateField($getoccupationl, "wsuser", $this->user);
+        $this->updateField($getoccupationl, "version", $this->version);
+        $this->updateField($getoccupationl, "wspwd", $this->password);
+        $this->updateField($getoccupationl, "idlead", $_SESSION['idlead']);
+        return $getoccupationl;
+    } // bgetoccupationl
+
+    function mgetoccupationl()
+    {
+        $this->init($this->url);
+        $getoccupationl =  $this->bgetoccupationl();
+        $data["getoccupationl"] = $getoccupationl;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mgetoccupationl
 
 } // class xclient

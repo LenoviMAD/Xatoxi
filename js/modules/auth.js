@@ -44,13 +44,7 @@ export default function init() {
                         console.log(resIsParty)
     
                         modal.closeModal('loader')
-    
-                        // const formDataIsParty = new FormData();
-                        // formDataIsParty.append("cond", "isParty");
-                        // formDataIsParty.append("idParty", res.idParty);
-                        // const dataIsParty = await fetch("ajax.php", { method: 'POST', body: formDataIsParty });
-                        // const resIsParty = await dataIsParty.json();
-    
+                        
                         // No es cliente lead to party (redireccionamos a perfil)
                         if (resIsParty.code === "0000") {
                             let url = ""
