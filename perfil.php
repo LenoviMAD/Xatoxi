@@ -215,6 +215,7 @@ xpresentationLayer::buildInputNumberGrid([
 ]);
 
 // $data_json = $serviceCall->mgetbankl("238");
+
 xpresentationLayer::buildSelectJson([
     'title' => 'Banco pago móvil',
     'id' => 'bancoPagoMovil',

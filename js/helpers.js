@@ -84,16 +84,21 @@ export async function selectValorforId(srcdst, url) {
         }
         values += `&valor${index}=${value}`
     }
-
+    console.log(values)
     const data = await fetch(`${url}${values}`, { method: "GET" });
     const rest = await data.json();
+    console.log(rest)
 
     let output = "<option disabled selected>Seleccione</option>';";
-    if(dst === "bancoPagoMovil") {
+    if (dst === "bancoPagoMovil") {
         rest.list.forEach(element => {
             output += `<option value="${element.code}">${element.name}</option>`;
         });
-    }else {
+    } else if (dst === "areaCode") {
+        rest.list.forEach(element => {
+            output += `<option value="${element.code}">${element.code}</option>`;
+        });
+    } else {
         rest.list.forEach(element => {
             if (element.iso != null) {
                 output += `<option value="${element.id}">${element.iso}</option>`;

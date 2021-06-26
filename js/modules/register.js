@@ -1,6 +1,7 @@
 import Modal from "./Modal.js";
 import Timer from '../timer.js';
 import { changeLanguage } from '../Translations.js'
+import { selectValorforId } from '../helpers.js';
 
 // Cambio
 export default function init() {
@@ -20,7 +21,7 @@ export default function init() {
             const textDanger = document.querySelector(`.helper-text`)
 
             country.childNodes.forEach(element => {
-                if (element.value === "238") {
+                if (element.value === "58") {
                     element.setAttribute("selected", true)
                     changeCodeArea()
                 }
@@ -31,24 +32,26 @@ export default function init() {
             })
 
             async function changeCodeArea() {
-                let output = "";
-                let countryEnd = country.options[country.selectedIndex].value == "238" ? "58" : country.options[country.selectedIndex].value
+                await selectValorforId('countryinternationalphonecode/areaCode', 'ajax.php?cond=mgetcellphoneareacodel')
 
-                let formData = new FormData();
-                formData.append("cond", "mgetcellphoneareacodel");
-                formData.append("countrycode", countryEnd);
+                // let output = "";
+                // let countryEnd = country.options[country.selectedIndex].value == "238" ? "58" : country.options[country.selectedIndex].value
 
-                let data = await fetch("ajax.php", {
-                    method: "POST",
-                    body: formData,
-                });
-                const res = await data.json();
+                // let formData = new FormData();
+                // formData.append("cond", "mgetcellphoneareacodel");
+                // formData.append("countrycode", countryEnd);
+
+                // let data = await fetch("ajax.php", {
+                //     method: "POST",
+                //     body: formData,
+                // });
+                // const res = await data.json();
 
 
-                res.list.forEach(element => {
-                    output += `<option value="${element.code}">${element.code}</option>`;
-                }); 
-                codeArea.innerHTML = output;
+                // res.list.forEach(element => {
+                //     output += `<option value="${element.code}">${element.code}</option>`;
+                // }); 
+                // codeArea.innerHTML = output;
             }
 
             registerForm.addEventListener("submit", async (e) => {
@@ -57,11 +60,10 @@ export default function init() {
                 modal.openModal('loader', undefined, undefined, false)
 
                 // Enviamos info para primer paso de registro
-                let countryEnd = country.options[country.selectedIndex].value == "238" ? "58" : country.options[country.selectedIndex].value
+                // let countryEnd = country.options[country.selectedIndex].value == "238" ? "58" : country.options[country.selectedIndex].value
 
                 let formData = new FormData(registerForm);
                 formData.append("cond", "addleadweb");
-                formData.append("country", countryEnd);
                 
                 let dataSignup = await fetch("ajax.php", {
                     method: "POST",

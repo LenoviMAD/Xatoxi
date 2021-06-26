@@ -284,9 +284,9 @@ class xpresentationLayer
     Remarks:
     Standarized: 2021/01/18 14:00
     ===================================================================== */
-    static function buildOptionGrid($title, $data_id = "", $dataString = "", $id="", $customClass="")
+    static function buildOptionGrid($title, $data_id = "", $dataString = "", $id = "", $customClass = "")
     {
-        echo '    <BUTTON id="'.$id.'" class="card card-b js-translate '.$customClass.'" data-id="' . $data_id . '" data-string="' . $dataString . '">';
+        echo '    <BUTTON id="' . $id . '" class="card card-b js-translate ' . $customClass . '" data-id="' . $data_id . '" data-string="' . $dataString . '">';
         echo $title;
         echo '    </BUTTON>';
     } //buildOptionGrid
@@ -689,9 +689,6 @@ class xpresentationLayer
         if ($options['event'] != "") {
             $options['event'] = 'onchange="' . $options['event'] . '"';
         }
-        if ($options['id'] != "") {
-            $options['id'] = 'id="' . $options['id'] . '"';
-        }
         if ($options['idContainer'] != "") {
             $options['idContainer'] = 'id="' . $options['idContainer'] . '"';
         }
@@ -702,11 +699,14 @@ class xpresentationLayer
         echo '<DIV class="input-field1 ' . $options['classContainer'] . '" ' . $options['idContainer'] . '>';
         echo '    <LABEL class="js-translate ' . $options['classLabel'] . '" data-string="' . $options['dataString'] . '">' . $options['title'] . '</LABEL>';
 
-        echo '<SELECT name="' . $options['name'] . '" ' . $options['id'] . $options['event'] . $options['required'] . '>';
+        echo '<SELECT name="' . $options['name'] . '" id="' . $options['id'] . '" ' . $options['event'] . $options['required'] . '>';
         echo '<OPTION disabled selected>Seleccione</OPTION>';
+
         foreach ($data as $value) {
             if ($options['name'] === "currency" || $options['name'] === "currencyTransfer" || $options['name'] === "currencyWallet" || $options['name'] === "currencyCommend") {
                 echo '<OPTION value="' . $value->id . '">' . $value->iso . ' </OPTION>';
+            } else if ($options['id'] === "countryinternationalphonecode") {
+                echo '<OPTION value="' . $value->internationalphonecode . '">' . $value->name . ' </OPTION>';
             } else if ($value->code && $value->name) {
                 echo '<OPTION value="' . $value->code . '">' . $value->name . ' </OPTION>';
             } else if ($value->code) {
@@ -717,6 +717,7 @@ class xpresentationLayer
                 echo '<OPTION value="' . $value->id . '">' . $value->name . ' </OPTION>';
             }
         }
+
         echo '</SELECT>';
         echo '</DIV>';
     } //buildSelectJson

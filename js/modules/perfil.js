@@ -85,6 +85,9 @@ export default function init() {
                         }
                     });
 
+                    // Que se ejecute una vez el bancopagomovil con el country actual
+                    // await selectValorforId('country/bancoPagoMovil', 'ajax.php?cond=mgetbankl')
+
                     preferenceAgency.childNodes.forEach(element => {
                         if (element.value === resIsParty.idlocation) {
                             element.setAttribute("selected", true)
@@ -115,14 +118,14 @@ export default function init() {
                         }
                     });
 
-                    if(idoccupation) {
+                    if (idoccupation) {
                         idoccupation.childNodes.forEach(element => {
                             if (element.value === resIsParty.idoccupation) {
                                 element.setAttribute("selected", true)
                             }
                         });
                     }
-                    if(idzipcode) {
+                    if (idzipcode) {
                         idzipcode.childNodes.forEach(element => {
                             if (element.value === resIsParty.idzipcode) {
                                 element.setAttribute("selected", true)
@@ -160,9 +163,6 @@ export default function init() {
 
                 const dataIsParty = await fetch("ajax.php", { method: 'POST', body: formDataIsParty });
                 const resIsParty = await dataIsParty.json();
-
-                // Que se ejecute una vez el bancopagomovil con el country actual
-                await selectValorforId('country/bancoPagoMovil', 'ajax.php?cond=mgetbankl')
 
                 if (resIsParty.code === "0000") {
                     test(resIsParty)
@@ -307,6 +307,7 @@ export default function init() {
                     }
                 })
             }
+
             profileForm.addEventListener('submit', async e => {
                 e.preventDefault()
 

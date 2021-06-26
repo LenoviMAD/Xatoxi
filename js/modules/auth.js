@@ -12,8 +12,8 @@ export default function init() {
 
         if (btnPin) {
             const mainMenu = document.getElementById("mainMenu");
-            // inputPin.value = "7067"
-            // inputTag.value = "6f8f57715090da2632453988d9a1501b"
+            inputPin.value = "7067"
+            inputTag.value = "6f8f57715090da2632453988d9a1501b"
 
             btnPin.addEventListener('click', async e => {
                 e.preventDefault()

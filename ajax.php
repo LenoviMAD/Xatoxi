@@ -626,7 +626,7 @@ if (isset($_POST["cond"])) {
         $date  = gmdate('Y/m/d h:i:s');
         $pinfirsttime = "";
         $countrycode = $_POST["country"];
-        $codeArea = $_POST["codeArea"];
+        $areaCode = $_POST["areaCode"];
         $tag = "";
         $otp = "";
         $active = "";
@@ -634,7 +634,7 @@ if (isset($_POST["cond"])) {
 
         // print_r($_POST);
 
-        $data_json = $client->maddleadweb($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $codeArea, $tag, $otp, $active, $deleted);
+        $data_json = $client->maddleadweb($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areaCode, $tag, $otp, $active, $deleted);
         print_r(json_encode($data_json));
     }
 

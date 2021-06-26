@@ -140,7 +140,6 @@ class xclient
         $this->updateField($addleadweb, "active", $active);
         $this->updateField($addleadweb, "deleted", $deleted);
         $this->updateField($addleadweb, "version", $this->version);
-        // $this->updateField($addleadweb, "idlocation", $idlocation);
         return $addleadweb;
     } // baddleadweb
 
