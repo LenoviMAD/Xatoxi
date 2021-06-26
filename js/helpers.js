@@ -89,16 +89,22 @@ export async function selectValorforId(srcdst, url) {
     const rest = await data.json();
 
     let output = "<option disabled selected>Seleccione</option>';";
+    if(dst === "bancoPagoMovil") {
+        rest.list.forEach(element => {
+            output += `<option value="${element.code}">${element.name}</option>`;
+        });
+    }else {
+        rest.list.forEach(element => {
+            if (element.iso != null) {
+                output += `<option value="${element.id}">${element.iso}</option>`;
+            } else if (element.code != null) {
+                output += `<option value="${element.id}">${element.code}</option>`;
+            } else if (element.name != null) {
+                output += `<option value="${element.id}">${element.name}</option>`;
+            }
+        });
+    }
 
-    rest.list.forEach(element => {
-        if (element.iso != null) {
-            output += `<option value="${element.id}">${element.iso}</option>`;
-        } else if (element.code != null) {
-            output += `<option value="${element.id}">${element.code}</option>`;
-        } else if (element.name != null) {
-            output += `<option value="${element.id}">${element.name}</option>`;
-        }
-    });
     //Fin ajax
 
     iddst.innerHTML = output;

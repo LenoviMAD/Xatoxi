@@ -116,7 +116,7 @@ p {
     width: 100%;
     background: no-repeat;
     border: none;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .button {

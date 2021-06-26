@@ -266,9 +266,6 @@
     text-align: center;
 }
 
-.modal.modal--danger .modal__title {
-    text-transform: uppercase;
-}
 /* Modal OTP */
 
 .modal.modal--Otp .modal-content {

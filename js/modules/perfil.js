@@ -161,6 +161,9 @@ export default function init() {
                 const dataIsParty = await fetch("ajax.php", { method: 'POST', body: formDataIsParty });
                 const resIsParty = await dataIsParty.json();
 
+                // Que se ejecute una vez el bancopagomovil con el country actual
+                await selectValorforId('country/bancoPagoMovil', 'ajax.php?cond=mgetbankl')
+
                 if (resIsParty.code === "0000") {
                     test(resIsParty)
 
@@ -214,6 +217,10 @@ export default function init() {
                 }
             }
 
+            country.addEventListener('change', async () => {
+                // Despues de setear country ejecutar funcion para llenar el siguiente select
+                await selectValorforId('country/bancoPagoMovil', 'ajax.php?cond=mgetbankl')
+            })
             typeDocument.addEventListener('change', () => {
                 getpartyexists()
             })

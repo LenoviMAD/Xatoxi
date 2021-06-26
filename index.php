@@ -18,7 +18,7 @@ xpresentationLayer::buildMenuOptionGrid("venta.png", "VENTA", true, "venta.php",
 xpresentationLayer::buildMenuOptionGrid("compra.png", "COMPRA", true, "compra.php", "", "trad_compra");
 xpresentationLayer::buildMenuOptionGrid("cambio.png", "CAMBIO", true, "cambio.php", "", "trad_cambio");
 xpresentationLayer::buildMenuOptionGrid("box.png", "REPORTES DE OPERACIÓN", true, "operationReports.php", "", "trad_reportes_de_operaciones");
-xpresentationLayer::buildMenuOptionGrid("debito_icon.png", "SOLICITUD TARJETA DÉBITO <br> (PARA RECIBIR REMESAS)", true, "debitCardRequest.php", "", "trad_solicitud_tarjeta_debito");
+xpresentationLayer::buildMenuOptionGrid("debito_icon.png", "SOLICITUD TARJETA DÉBITO", true, "debitCardRequest.php", "", "trad_solicitud_tarjeta_debito");
 xpresentationLayer::buildMenuOptionGrid("pepinvs1_black.png", "CHAT MR PEPIN", false, "#", "", "", "pepin");
 ?>
 

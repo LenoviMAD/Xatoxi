@@ -14,6 +14,10 @@ if (isset($_GET["cond"])) {
         $data_json = $client->mgetproviderl($_GET["valor0"]);
         print_r(json_encode($data_json));
     }
+    if ($_GET["cond"] == "mgetbankl") {
+        $data_json = $client->mgetbankl($_GET["valor0"]);
+        print_r(json_encode($data_json));
+    }
 
     if ($_GET["cond"] == "mgetcellphoneareacodel") {
         $data_json = $client->mgetcellphoneareacodel($_GET["valor0"]);
@@ -75,7 +79,7 @@ if (isset($_POST["cond"])) {
     if ($_POST["cond"] == "resetpin") {
         $tag = $_POST['tag'];
         $email = $_POST['email'];
-        // print_r($tag);
+        
         $data_json = $client->mresetpin($tag, $email);
         print_r(json_encode($data_json));
     }
@@ -622,7 +626,7 @@ if (isset($_POST["cond"])) {
         $date  = gmdate('Y/m/d h:i:s');
         $pinfirsttime = "";
         $countrycode = $_POST["country"];
-        $areacode = $_POST["codeArea"];
+        $codeArea = $_POST["codeArea"];
         $tag = "";
         $otp = "";
         $active = "";
@@ -630,7 +634,7 @@ if (isset($_POST["cond"])) {
 
         // print_r($_POST);
 
-        $data_json = $client->maddleadweb($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areacode, $tag,  $otp, $active, $deleted);
+        $data_json = $client->maddleadweb($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $codeArea, $tag, $otp, $active, $deleted);
         print_r(json_encode($data_json));
     }
 
