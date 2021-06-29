@@ -14,6 +14,7 @@ export default function init() {
             const file = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="file"]`)
             const fileInputReception = document.getElementById('fileInputReception')
             const docsReception = document.getElementById('docsReception')
+            const typeDocReception = document.getElementById('typeDocReception')
             const btnModalFirma = document.getElementById('draw-submitBtn')
 
             const btnSubmitReception = document.querySelector('[data-targetping="recepcion"]')

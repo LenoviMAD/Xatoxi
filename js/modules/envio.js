@@ -688,9 +688,9 @@ export default function init() {
             const addContactTransfer = document.getElementById(`addContactTransfer`)
             const TITLE_SECTION = "Transferencia"
 
-            const docsTransfer = document.getElementById('docsTransfer')
-
             const file = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="file2"]`)
+            const docsTransfer = document.getElementById('docsTransfer')
+            const fileInputTransfer = document.getElementById('fileInputTransfer')
             const typeDocTransfer = document.querySelector(`#${transferenciaForm.getAttribute('id')} [name="typeDocTransfer"]`)
 
             const MovilPay = document.getElementById('MovilPayTransfer')

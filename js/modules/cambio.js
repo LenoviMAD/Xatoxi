@@ -26,13 +26,14 @@ export default function init() {
             const fileInputChange = document.getElementById('fileInputChange')
             const docsChange = document.getElementById('docsChange')
             const btnModalFirma = document.getElementById('draw-submitBtn')
+            const typeDocChange = document.getElementById('typeDocChange')
+            const file = document.querySelector(`#${cambioForm.getAttribute('id')} [name="file"]`)
 
             const amount = document.querySelector(`#${cambioForm.getAttribute('id')} [name="amount"]`)
             const paidMethod = document.querySelector(`#${cambioForm.getAttribute('id')} [name="paidMethod"]`)
             const recieveCurrency = document.querySelector(`#${cambioForm.getAttribute('id')} [name="recieveCurrency"]`)
             const sendCurrency = document.querySelector(`#${cambioForm.getAttribute('id')} [name="sendCurrency"]`)
             const recieveMethod = document.querySelector(`#${cambioForm.getAttribute('id')} [name="recieveMethod"]`)
-            const file = document.querySelector(`#${cambioForm.getAttribute('id')} [name="file"]`)
             const ping = document.querySelector(`#${cambioForm.getAttribute('id')} .ping`)
             const btnRedirect = document.querySelector(`#${cambioForm.getAttribute('id')} .btn-redirect`)
             const TITLE_SECTION = "Cambio"
