@@ -24,6 +24,7 @@ export default function init() {
             const amountBs = document.querySelector(`#${compraForm.getAttribute('id')} [name="amountBs"]`)
             const exchangeRate = document.querySelector(`#${compraForm.getAttribute('id')} [name="exchangeRate"]`)
             const TITLE_SECTION = "Compra"
+            const docsTransfer = document.getElementById('docsTransfer')
 
             amount.addEventListener('blur', () => {
                 calComisionCompra()
@@ -40,9 +41,9 @@ export default function init() {
 
             // mostrar modal cuando se modifique monto o divisa, teniendo seleccionado una forma de abono
             async function calComisionCompra() {
-                if (amount.value && (currency.options[currency.selectedIndex].value !== "Seleccione")
-                    && (payIn.options[payIn.selectedIndex].value !== "Seleccione")
-                    && (payForm.options[payForm.selectedIndex].value !== "Seleccione")) {
+                if (amount.value && (currency.options[currency.selectedIndex].value !== "Seleccione") &&
+                    (payIn.options[payIn.selectedIndex].value !== "Seleccione") &&
+                    (payForm.options[payForm.selectedIndex].value !== "Seleccione")) {
 
                     // Todo: validar campos
                     let formData = new FormData()
@@ -85,7 +86,7 @@ export default function init() {
 
                         const inner = document.querySelector('#modalCompra .modal-body')
                         inner.innerHTML = html
-                        
+
                         // Abrir modal con datos
                         modal.openModal('modalCompra')
 
@@ -102,7 +103,7 @@ export default function init() {
             }
 
             // Toggle para mostrar modal (mas info)
-            payIn.addEventListener('change', async () => {
+            payIn.addEventListener('change', async() => {
                 //<option value="19">ENCOMIENDA(.) </option>
                 //<option value="20">TARJETA DE CREDITO </option>
                 //<option value="21">TARJETA DE DEBITO </option>
@@ -119,7 +120,7 @@ export default function init() {
             })
 
             // Toggle para mostrar modal (mas info)
-            payForm.addEventListener('change', async () => {
+            payForm.addEventListener('change', async() => {
                 //<option value="3">Depósito en Cuenta </option>
                 //<option value="5">Tarjeta de Credito </option>
                 let valueSelected = payForm.options[payForm.selectedIndex].value;
@@ -138,9 +139,9 @@ export default function init() {
             })
 
             // fetch final de venta
-            btnSubmitCompra.addEventListener('click', async (e) => {
+            btnSubmitCompra.addEventListener('click', async(e) => {
                 e.preventDefault()
-                // Cargando spinner
+                    // Cargando spinner
                 modal.openModal('loader', undefined, undefined, false)
 
                 let formData = new FormData(compraForm)
@@ -201,6 +202,14 @@ export default function init() {
                 } else if (res.code === "5000") {
                     modal.closeModal('loader')
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                } else if (res.code.charAt(0) === "7") {
+                    modal.closeModal('loader')
+
+                    // MENSAJE DE ERROR
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
+
+                    // MOSTRAMOS LOS CAMPOS PA' QUE SUBAN DOCUMENTOS
+                    docsTransfer.classList.remove('hidden')
                 } else {
                     modal.closeModal('loader')
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
