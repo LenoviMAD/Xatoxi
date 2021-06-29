@@ -81,6 +81,19 @@ xpresentationLayer::buildInputNumberGrid([
     'dataString' => 'trad_routing'
 ]);
 
+// DOCUMENTOS DE Change
+xpresentationLayer::startDivHidden("docsChange", "mt15 grid-1 grid-item-2");
+xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "", "trad_documentos_requeridos");
+xpresentationLayer::startSectionTwoColumns();
+$data_json = $serviceCall->mgetcompliancedoctypel();
+xpresentationLayer::buildSelectJson([
+    'id' => 'typeDocChange',
+    'name' => 'typeDocChange',
+], $data_json);
+xpresentationLayer::buildInputFileDoc("fileInputChange", "hidden", "file");
+xpresentationLayer::endSection();
+xpresentationLayer::endDiv();
+
 xpresentationLayer::buildSectionPin("", "grid-item-2", true);
 xpresentationLayer::endMain();
 
@@ -97,5 +110,6 @@ include './modals/modalOtpVerification.php';
 include './modals/modalSuccess.php';
 include './modals/modalWrong.php';
 include './modals/modalInactividad.php';
+include './modals/modalFirma.php';
 
 xpresentationLayer::endHtml();

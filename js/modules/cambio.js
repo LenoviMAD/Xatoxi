@@ -1,5 +1,5 @@
 import Modal from './Modal.js';
-import { numberFormater, closeEverythingExceptThese, closeEverything, URI, putRequiered, number_format_js } from '../helpers.js';
+import { numberFormater, closeEverythingExceptThese,servicioFirma, closeEverything, URI, putRequiered, number_format_js } from '../helpers.js';
 import { changeLanguageSection } from '../Translations.js'
 import Timer from '../timer.js';
 
@@ -16,17 +16,23 @@ export default function init() {
         //     return test
         // }
         // const resUserSession = await userSession()
+        
         const modal = new Modal()
         const timer = new Timer
         modal.initModal()
 
         const cambioForm = document.getElementById('cambioForm')
         if (cambioForm) {
+            const fileInputChange = document.getElementById('fileInputChange')
+            const docsChange = document.getElementById('docsChange')
+            const btnModalFirma = document.getElementById('draw-submitBtn')
+
             const amount = document.querySelector(`#${cambioForm.getAttribute('id')} [name="amount"]`)
             const paidMethod = document.querySelector(`#${cambioForm.getAttribute('id')} [name="paidMethod"]`)
             const recieveCurrency = document.querySelector(`#${cambioForm.getAttribute('id')} [name="recieveCurrency"]`)
             const sendCurrency = document.querySelector(`#${cambioForm.getAttribute('id')} [name="sendCurrency"]`)
             const recieveMethod = document.querySelector(`#${cambioForm.getAttribute('id')} [name="recieveMethod"]`)
+            const file = document.querySelector(`#${cambioForm.getAttribute('id')} [name="file"]`)
             const ping = document.querySelector(`#${cambioForm.getAttribute('id')} .ping`)
             const btnRedirect = document.querySelector(`#${cambioForm.getAttribute('id')} .btn-redirect`)
             const TITLE_SECTION = "Cambio"
@@ -131,7 +137,15 @@ export default function init() {
                     // Quitando loader
                     modal.closeModal('loader')
                     modal.openModal('modalDanger', TITLE_SECTION, resval.message)
-                } else {
+                } else if (resval.code.charAt(0) === "7") {
+                    modal.closeModal('loader')
+
+                    // MENSAJE DE ERROR
+                    modal.openModal('modalDanger', TITLE_SECTION, resval.message)
+
+                    // MOSTRAMOS LOS CAMPOS PA' QUE SUBAN DOCUMENTOS
+                    docsChange.classList.remove('hidden')
+                }else {
                     // Quitando loader
                     modal.closeModal('loader')
                     modal.openModal('modalDanger', TITLE_SECTION, resval.message)
@@ -220,6 +234,81 @@ export default function init() {
                 } else {
                     closeEverything('cambioForm')
                     // putRequiered([], ['bankProviderInput', 'numRefInput', 'routingInput'])
+                }
+            })
+
+            // docuemntos menos firma
+            file.addEventListener('change', async(e) => {
+                // Cargando spinner
+                modal.openModal('loader', undefined, undefined, false)
+
+                // TODO: VALIDAR QUE SOLO SUBA IMAGENES
+                // CONVERT TO BASE64
+                let encoded = await toBase64(file.files[0])
+
+                // UPLOAD DOCUMENT
+                let formData = new FormData()
+                formData.append("cond", "docUpload");
+                formData.append("filename", file.files[0].name);
+                formData.append("encoded", encoded);
+                formData.append("type", typeDocChange.options[typeDocChange.selectedIndex].value);
+
+                let dataUpload = await fetch("ajax.php", { method: 'POST', body: formData });
+                let resUpload = await dataUpload.json();
+
+                // Quitando spinner
+                modal.closeModal('loader')
+
+                if (resUpload.code === "0000") {
+                    modal.openModal('modalSuccess', TITLE_SECTION, resUpload.message, undefined, true)
+                } else if (resUpload.code === "5000") {
+                    modal.openModal('modalDanger', TITLE_SECTION, resUpload.message)
+                } else {
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                }
+            })
+
+            // toggle de tipos de documentos
+            typeDocChange.addEventListener('change', async() => {
+                /* 
+                    ci: 1
+                    firma: 2
+                    huellas: 3
+                */
+                if (typeDocChange.options[typeDocChange.selectedIndex].value === '3') {
+                    // abrir modal para hacer firma
+                    modal.openModal('modalFirma')
+
+                    btnModalFirma.addEventListener('click', async() => {
+                        const encoded = document.getElementById('draw-image').getAttribute('src')
+
+                        const payload = {
+                            filename: `firma${Math.round(Math.random() * (100 - 1) + 1)}`,
+                            encoded,
+                            type: typeDocChange.options[typeDocChange.selectedIndex].value
+                        }
+
+                        // Quitando spinner
+                        modal.closeModal('modalFirma')
+                            // Cargando spinner
+                        modal.openModal('loader', undefined, undefined, false)
+
+                        const res = await servicioFirma(payload)
+
+                        // Quitando spinner
+                        modal.closeModal('loader')
+
+                        if (res.code === "0000") {
+                            modal.openModal('modalSuccess', TITLE_SECTION, res.message, undefined, true)
+                        } else if (res.code === "5000") {
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                        } else {
+                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                        }
+                    })
+                } else {
+                    // Activamos input para subir archivo
+                    fileInputChange.classList.remove('hidden')
                 }
             })
 

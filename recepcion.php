@@ -107,6 +107,20 @@ xpresentationLayer::buildInputNumberGrid([
 ]);
 xpresentationLayer::endDiv();
 xpresentationLayer::endSection();
+
+// DOCUMENTOS DE Reception
+xpresentationLayer::startDivHidden("docsReception", "mt15 grid-1 grid-item-2");
+xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "", "trad_documentos_requeridos");
+xpresentationLayer::startSectionTwoColumns();
+$data_json = $serviceCall->mgetcompliancedoctypel();
+xpresentationLayer::buildSelectJson([
+    'id' => 'typeDocReception',
+    'name' => 'typeDocReception',
+], $data_json);
+xpresentationLayer::buildInputFileDoc("fileInputReception", "hidden", "file");
+xpresentationLayer::endSection();
+xpresentationLayer::endDiv();
+
 xpresentationLayer::buildSectionPin("recepcion", "mt20");
 xpresentationLayer::endMain();
 
@@ -115,6 +129,7 @@ include './modals/operationSummary.php';
 include './modals/modalOtpVerification.php';
 include './modals/modalSuccess.php';
 include './modals/modalWrong.php';
+include './modals/modalFirma.php';
 
 xpresentationLayer::buildFooterXatoxi();
 

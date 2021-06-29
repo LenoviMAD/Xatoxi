@@ -728,7 +728,7 @@ xpresentationLayer::buildSelectJson([
     'id' => 'typeDocTransfer',
     'name' => 'typeDocTransfer',
 ], $data_json);
-xpresentationLayer::buildInputFileDoc("fileInputTransfer", "hidden", "file1");
+xpresentationLayer::buildInputFileDoc("fileInputTransfer", "hidden", "file2");
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
 
