@@ -1,5 +1,5 @@
 import Modal from './Modal.js';
-import { numberFormater, closeEverything, closeEverythingExceptThese } from '../helpers.js';
+import { numberFormater, closeEverything, closeEverythingExceptThese, servicioFirma, toBase64 } from '../helpers.js';
 import Timer from '../timer.js';
 import { changeLanguageSection } from '../Translations.js'
 
@@ -13,12 +13,11 @@ export default function init() {
         const ventaForm = document.getElementById('ventaForm')
 
         if (ventaForm) {
-            const file = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="file"]`)
+            const file = document.querySelector(`#${ventaForm.getAttribute('id')} [name="file"]`)
             const fileInputSell = document.getElementById('fileInputSell')
             const docsSell = document.getElementById('docsSell')
             const typeDocSell = document.getElementById('typeDocSell')
             const btnModalFirma = document.getElementById('draw-submitBtn')
-
 
             const TITLE_SECTION = "VENTA"
             const amount = document.querySelector(`#${ventaForm.getAttribute('id')} [name="amount"]`)
@@ -108,19 +107,19 @@ export default function init() {
                         // Creando elementos para mostrar
                         let html = `
                             <p>
-                                <span class="js-translate" data-string="trad_monto_divisa_a_cobrar">Monto Divisa a Cobrar</span> <span> ${numberFormater(res.exchangeamount)}</span>
+                                <span class="js-translate" data-string="trad_monto_divisa_a_cobrar">Monto Divisa a Cobrar</span> <span class="result"> ${numberFormater(res.exchangeamount)}</span>
                             </p>
                             <p>
                                 ${res.txtcurrcommission}<span> ${numberFormater(res.currcommission)}</span>
                             </p>
                             <p>
-                                <span class="js-translate" data-string="trad_tasa_de_cambio">Tasa de Cambio</span> <span>  ${numberFormater(res.currrate)}</span>
+                                <span class="js-translate" data-string="trad_tasa_de_cambio">Tasa de Cambio</span> <span class="result">  ${numberFormater(res.currrate)}</span>
                             </p>
                             <p>
                                 ${res.txtvescommission}<span> ${numberFormater(res.vescommission)}</span>
                             </p>
                             <p>
-                                <span class="js-translate" data-string="trad_total_pagar_bs">Total Recibir Bs.</span> <span> <span> ${numberFormater(res.totalves)}</span>
+                                <span class="js-translate" data-string="trad_total_pagar_bs">Total Recibir Bs.</span> <span> <span class="result"> ${numberFormater(res.totalves)}</span>
                             </p>
                             `
                         const inner = document.querySelector('#operationSummary .modal-body')
@@ -228,7 +227,7 @@ export default function init() {
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
 
                     // MOSTRAMOS LOS CAMPOS PA' QUE SUBAN DOCUMENTOS
-                    docsTransfer.classList.remove('hidden')
+                    docsSell.classList.remove('hidden')
                 } else {
                     // Quitando spinner
                     modal.closeModal('loader')

@@ -1,5 +1,5 @@
 import Modal from './Modal.js';
-import { numberFormater, closeEverythingExceptThese,servicioFirma, closeEverything, URI, putRequiered, number_format_js } from '../helpers.js';
+import { numberFormater, closeEverythingExceptThese,servicioFirma, closeEverything, URI,toBase64, putRequiered, number_format_js } from '../helpers.js';
 import { changeLanguageSection } from '../Translations.js'
 import Timer from '../timer.js';
 

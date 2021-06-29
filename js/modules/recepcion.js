@@ -1,5 +1,5 @@
 import Modal from './Modal.js';
-import { closeEverythingExceptThese, servicioFirma, closeEverything } from '../helpers.js';
+import { closeEverythingExceptThese, servicioFirma, closeEverything, toBase64 } from '../helpers.js';
 import Timer from '../timer.js';
 // Venta
 export default function init() {

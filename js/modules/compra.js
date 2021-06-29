@@ -1,5 +1,5 @@
 import Modal from './Modal.js';
-import { numberFormater } from '../helpers.js';
+import { numberFormater,servicioFirma, toBase64 } from '../helpers.js';
 import { changeLanguageSection } from '../Translations.js'
 import Timer from '../timer.js';
 
@@ -13,10 +13,10 @@ export default function init() {
         const compraForm = document.getElementById('compraForm')
 
         if (compraForm) {
-            const file = document.querySelector(`#${recepcionForm.getAttribute('id')} [name="file"]`)
-            const fileInputReception = document.getElementById('fileInputReception')
+            const file = document.querySelector(`#${compraForm.getAttribute('id')} [name="file"]`)
+            const fileInputBuy = document.getElementById('fileInputBuy')
             const docsBuy = document.getElementById('docsBuy')
-            const typeDocReception = document.getElementById('typeDocReception')
+            const typeDocBuy = document.getElementById('typeDocBuy')
             const btnModalFirma = document.getElementById('draw-submitBtn')
 
             const btnSubmitCompra = document.querySelector('[data-targetping="compra"]')
@@ -31,7 +31,6 @@ export default function init() {
             const amountBs = document.querySelector(`#${compraForm.getAttribute('id')} [name="amountBs"]`)
             const exchangeRate = document.querySelector(`#${compraForm.getAttribute('id')} [name="exchangeRate"]`)
             const TITLE_SECTION = "Compra"
-            const docsBuy = document.getElementById('docsBuy')
 
             amount.addEventListener('blur', () => {
                 calComisionCompra()
@@ -238,7 +237,7 @@ export default function init() {
                 formData.append("cond", "docUpload");
                 formData.append("filename", file.files[0].name);
                 formData.append("encoded", encoded);
-                formData.append("type", typeDocReception.options[typeDocReception.selectedIndex].value);
+                formData.append("type", typeDocBuy.options[typeDocBuy.selectedIndex].value);
 
                 let dataUpload = await fetch("ajax.php", { method: 'POST', body: formData });
                 let resUpload = await dataUpload.json();
@@ -256,13 +255,13 @@ export default function init() {
             })
 
             // toggle de tipos de documentos
-            typeDocReception.addEventListener('change', async() => {
+            typeDocBuy.addEventListener('change', async() => {
                 /* 
                     ci: 1
                     firma: 2
                     huellas: 3
                 */
-                if (typeDocReception.options[typeDocReception.selectedIndex].value === '3') {
+                if (typeDocBuy.options[typeDocBuy.selectedIndex].value === '3') {
                     // abrir modal para hacer firma
                     modal.openModal('modalFirma')
 
@@ -272,7 +271,7 @@ export default function init() {
                         const payload = {
                             filename: `firma${Math.round(Math.random() * (100 - 1) + 1)}`,
                             encoded,
-                            type: typeDocReception.options[typeDocReception.selectedIndex].value
+                            type: typeDocBuy.options[typeDocBuy.selectedIndex].value
                         }
 
                         // Quitando spinner
@@ -295,7 +294,7 @@ export default function init() {
                     })
                 } else {
                     // Activamos input para subir archivo
-                    fileInputReception.classList.remove('hidden')
+                    fileInputBuy.classList.remove('hidden')
                 }
             })
         }

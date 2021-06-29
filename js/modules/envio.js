@@ -79,10 +79,10 @@ export default function init() {
                         // Creando elementos para mostrar
                         let html = `
                             <p>
-                                <span class="js-translate" data-string="trad_monto_envio_en_divisa">Monto Envío en Divisa</span> <span> ${resAmount}</span>
+                                <span class="js-translate" data-string="trad_monto_envio_en_divisa">Monto Envío en Divisa</span> <span class="result"> ${resAmount}</span>
                             </p>
                             <p>
-                                ${res.txtusdcommission} <span> ${resComission}</span> 
+                                ${res.txtusdcommission} <span class="result"> ${resComission}</span> 
                             </p>
                         `
                         const inner = document.querySelector('#operationSummary .modal-body')
@@ -408,16 +408,16 @@ export default function init() {
                                 <span class="js-translate" data-string="trad_monto_divisa_a_enviar">Monto Divisa a Enviar</span> <span> ${numberFormater(amountCommend.value)}</span>
                              </p>
                              <p>
-                                 ${res.txtusdcommission} <span> ${numberFormater(res.usdcommission)}</span>
+                                 ${res.txtusdcommission} <span class="result"> ${numberFormater(res.usdcommission)}</span>
                              </p>
                              <p>
-                                <span class="js-translate" data-string="trad_tasa_de_cambio">Tasa de Cambio</span> <span> ${numberFormater(res.usdrate)}</span>
+                                <span class="js-translate" data-string="trad_tasa_de_cambio">Tasa de Cambio</span> <span class="result"> ${numberFormater(res.usdrate)}</span>
                              </p>
                              <p>
                                  ${res.txtvescommission} <span> ${numberFormater(res.vescommission)}</span>
                              </p>
                              <p>
-                                <span class="js-translate" data-string="trad_total_enviar_bs">Total Enviar Bs.</span> <span> ${numberFormater(res.totalves)}</span>
+                                <span class="js-translate" data-string="trad_total_enviar_bs">Total Enviar Bs.</span> <span class="result"> ${numberFormater(res.totalves)}</span>
                              </p>
                          `
                         const inner = document.querySelector('#modalEncomienda .modal-body')
@@ -773,19 +773,19 @@ export default function init() {
                         let html = `
                             <div class="text-center">
                                 <p>
-                                    <span class="js-translate" data-string="trad_monto_transferencia_en_divisa">Monto Transferencia en Divisa</span> <span> ${numberFormater(amountTransfer.value)}</span>
+                                    <span class="js-translate" data-string="trad_monto_transferencia_en_divisa">Monto Transferencia en Divisa</span> <span class="result"> ${numberFormater(amountTransfer.value)}</span>
                                 </p>
                                 <p>
                                     ${res.txtusdcommission} <br> ${numberFormater(res.usdcommission)}
                                 </p>
                                 <p>
-                                    <span class="js-translate" data-string="trad_tasa_de_cambio">Tasa de Cambio</span> <span> ${numberFormater(res.usdrate)}</span>
+                                    <span class="js-translate" data-string="trad_tasa_de_cambio">Tasa de Cambio</span> <span class="result"> ${numberFormater(res.usdrate)}</span>
                                 </p>
                                 <p>
                                     ${res.txtvescommission} <br> ${numberFormater(res.vescommission)}
                                 </p>
                                 <p>
-                                    <span class="js-translate" data-string="trad_total_transferencia_bs">Total Transferencia Bs.</span> <span> ${numberFormater(res.totalves)}</span>
+                                    <span class="js-translate" data-string="trad_total_transferencia_bs">Total Transferencia Bs.</span> <span class="result"> ${numberFormater(res.totalves)}</span>
                                 </p>
                             </div>
                             `

@@ -151,7 +151,7 @@ xpresentationLayer::buildInputNumberGrid([
 xpresentationLayer::endDiv();
 
 // DOCUMENTOS DE VENTAS
-xpresentationLayer::startDivHidden("docsSell");
+xpresentationLayer::startDivHidden("docsSell", "grid-item-2 grid-1");
 xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "", "trad_documentos_requeridos");
 xpresentationLayer::startSectionTwoColumns();
 $data_json = $serviceCall->mgetcompliancedoctypel();
@@ -174,6 +174,7 @@ include './modals/modalOtpVerification.php';
 include './modals/modalSuccess.php';
 include './modals/modalWrong.php';
 include './modals/modalInactividad.php';
+include './modals/modalFirma.php';
 
 xpresentationLayer::buildFooterXatoxi();
 
