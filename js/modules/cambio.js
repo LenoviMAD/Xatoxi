@@ -1,6 +1,5 @@
 import Modal from './Modal.js';
 import { numberFormater, closeEverythingExceptThese, closeEverything, URI, putRequiered, number_format_js } from '../helpers.js';
-import { changeLanguage } from '../Translations.js'
 import Timer from '../timer.js';
 
 // Cambio
@@ -150,7 +149,6 @@ export default function init() {
 
                         const inner = document.querySelector('#operationSummary .modal-body')
                         inner.innerHTML = html
-                        changeLanguage('en')
                         // Modificar el boton para que redireccione correctamente
                         // 2 enco
                         // 4 trans

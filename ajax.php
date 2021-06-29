@@ -632,9 +632,28 @@ if (isset($_POST["cond"])) {
         $active = "";
         $deleted = "";
 
-        // print_r($_POST);
-
         $data_json = $client->maddleadweb($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areaCode, $tag, $otp, $active, $deleted);
+        print_r(json_encode($data_json));
+    }
+    if ($_POST["cond"] == "addleadwebok") {
+        $code = "";
+        $idparty = "";
+        $email = $_POST["email"];
+        $deviceid = "";
+        $deviceidalt = "";
+        $phoneNumber = $_POST["phone"];
+        $observation = "";
+        $pin = "";
+        $date  = gmdate('Y/m/d h:i:s');
+        $pinfirsttime = "";
+        $countrycode = $_POST["country"];
+        $areaCode = $_POST["areaCode"];
+        $tag = "";
+        $otp = "";
+        $active = "";
+        $deleted = "";
+
+        $data_json = $client->maddleadwebok($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areaCode, $tag, $otp, $active, $deleted);
         print_r(json_encode($data_json));
     }
 
@@ -695,7 +714,8 @@ if (isset($_POST["cond"])) {
 
         // Guardar variables de sesion primera parte
         if ($data_json->code === "0000") {
-            $_SESSION['idlocation'] = $data_json->idlocation;
+            // $_SESSION['idlocation'] = $data_json->idlocation;
+            $_SESSION['idlocation'] = "4";
         }
 
         print_r(json_encode($data_json));

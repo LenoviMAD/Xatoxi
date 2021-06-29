@@ -84,10 +84,8 @@ export async function selectValorforId(srcdst, url) {
         }
         values += `&valor${index}=${value}`
     }
-    console.log(values)
     const data = await fetch(`${url}${values}`, { method: "GET" });
     const rest = await data.json();
-    console.log(rest)
 
     let output = "<option disabled selected>Seleccione</option>';";
     if (dst === "bancoPagoMovil") {

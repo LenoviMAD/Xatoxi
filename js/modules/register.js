@@ -1,6 +1,5 @@
 import Modal from "./Modal.js";
 import Timer from '../timer.js';
-import { changeLanguage } from '../Translations.js'
 import { selectValorforId } from '../helpers.js';
 
 // Cambio

@@ -38,3 +38,16 @@ export function changeLanguage(userLang) {
             });
         });
 }
+export function changeLanguageSection(userLang, selector) {
+    let translations = `./translations/intl_${userLang}.json`;
+    
+    $.getJSON(translations)
+        .done(function (data) {
+            $(`${selector} .js-translate`).each(function () {
+                const string = $(this).attr('data-string');
+                if (string) {
+                    $(this).html(data[string]);
+                }
+            });
+        });
+}

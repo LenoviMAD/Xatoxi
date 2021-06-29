@@ -122,6 +122,7 @@ class xclient
     {
         $this->updateField($addleadweb, "wsuser", $this->user);
         $this->updateField($addleadweb, "wspwd", $this->password);
+        $this->updateField($addleadweb, "version", $this->version);
         $this->updateField($addleadweb, "code", $code);
         // $this->updateField($addleadweb, "name", $name);
         $this->updateField($addleadweb, "idparty", $idparty);
@@ -139,7 +140,6 @@ class xclient
         $this->updateField($addleadweb, "otp", $otp);
         $this->updateField($addleadweb, "active", $active);
         $this->updateField($addleadweb, "deleted", $deleted);
-        $this->updateField($addleadweb, "version", $this->version);
         return $addleadweb;
     } // baddleadweb
 
@@ -154,6 +154,42 @@ class xclient
         $result = json_decode($response);
         return ($result);
     } // maddleadweb
+    private function baddleadwebok($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areacode, $tag,  $otp, $active, $deleted)
+    {
+        $this->updateField($addleadwebok, "wsuser", $this->user);
+        $this->updateField($addleadwebok, "wspwd", $this->password);
+        $this->updateField($addleadwebok, "version", $this->version);
+        $this->updateField($addleadwebok, "code", $code);
+        // $this->updateField($addleadwebok, "name", $name);
+        $this->updateField($addleadwebok, "idparty", $idparty);
+        $this->updateField($addleadwebok, "email", $email);
+        $this->updateField($addleadwebok, "deviceid", $deviceid);
+        $this->updateField($addleadwebok, "deviceidalt", $deviceidalt);
+        $this->updateField($addleadwebok, "phonenumber", $phoneNumber);
+        $this->updateField($addleadwebok, "observation", $observation);
+        $this->updateField($addleadwebok, "pin", $pin);
+        $this->updateField($addleadwebok, "date", $date);
+        $this->updateField($addleadwebok, "pinfirsttime", $pinfirsttime);
+        $this->updateField($addleadwebok, "countrycode", $countrycode);
+        $this->updateField($addleadwebok, "areacode", $areacode);
+        $this->updateField($addleadwebok, "tag", $tag);
+        $this->updateField($addleadwebok, "otp", $otp);
+        $this->updateField($addleadwebok, "active", $active);
+        $this->updateField($addleadwebok, "deleted", $deleted);
+        return $addleadwebok;
+    } // baddleadwebok
+
+    function maddleadwebok($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areacode, $tag,  $otp, $active, $deleted)
+    {
+        $this->init($this->url);
+        $addleadwebok =  $this->baddleadwebok($code, $idparty, $email, $deviceid, $deviceidalt, $phoneNumber, $observation, $pin, $date, $pinfirsttime, $countrycode, $areacode, $tag,  $otp, $active, $deleted);
+        $data["addleadwebok"] = $addleadwebok;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // maddleadwebok
 
     private function bgenpin()
     {

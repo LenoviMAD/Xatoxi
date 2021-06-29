@@ -1,6 +1,5 @@
 import Modal from './Modal.js';
 import { numberFormater } from '../helpers.js';
-import { changeLanguage } from '../Translations.js'
 import Timer from '../timer.js';
 
 // Compra
@@ -86,7 +85,7 @@ export default function init() {
 
                         const inner = document.querySelector('#modalCompra .modal-body')
                         inner.innerHTML = html
-                        changeLanguage('en')
+                        
                         // Abrir modal con datos
                         modal.openModal('modalCompra')
 
@@ -137,7 +136,6 @@ export default function init() {
                     btnSubmitCompra.classList.remove('hidden')
                 }
             })
-
 
             // fetch final de venta
             btnSubmitCompra.addEventListener('click', async (e) => {

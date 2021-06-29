@@ -212,6 +212,7 @@ export default function init() {
                         // Llenar los campos correspondientes
                         if (res.code == "0000") {
                             test(res)
+                            await selectValorforId('country/bancoPagoMovil', 'ajax.php?cond=mgetbankl')
                         }
                     }
                 }

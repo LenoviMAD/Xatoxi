@@ -14,7 +14,7 @@ xpresentationLayer::buildHeaderXatoxi();
 xpresentationLayer::startMain();
 
 ?>
-
+<h2 class="js-translate hidden title-reports text-center" data-string="trad_no_reports">No tiene reportes</h2>
 <table id="example" class="table-reports">
     <thead>
         <tr style="

@@ -189,5 +189,6 @@
     "trad_cargar_documento": "LOAD DOCUMENT",
     "trad_tarjeta_de_credito_prepagada": "Prepaid Credit Card",
     "trad_tarjeta_de_debito_remesa": "Remittance debit card",
-    "trad_reescriba_su_email": "Confirm email"
+    "trad_reescriba_su_email": "Confirm email",
+    "trad_no_reports": "You has no reports"
 }
