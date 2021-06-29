@@ -123,17 +123,19 @@ xpresentationLayer::buildInputTextGrid([
 xpresentationLayer::endDiv();
 
 // DOCUMENTOS DE COMPRA
-xpresentationLayer::startDivHidden("docsTransfer");
+xpresentationLayer::startDivHidden("docsBuy");
 xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "", "trad_documentos_requeridos");
 xpresentationLayer::startSectionTwoColumns();
 $data_json = $serviceCall->mgetcompliancedoctypel();
 xpresentationLayer::buildSelectJson([
-    'id' => 'typeDocTransfer',
-    'name' => 'typeDocTransfer',
+    'id' => 'typeDocReception',
+    'name' => 'typeDocReception',
 ], $data_json);
-xpresentationLayer::buildInputFileDoc("fileInputTransfer", "hidden", "file1");
+xpresentationLayer::buildInputFileDoc("fileInputBuy", "hidden", "file");
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
+
+
 
 xpresentationLayer::endSection();
 xpresentationLayer::buildSectionPin("compra");

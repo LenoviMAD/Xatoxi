@@ -151,15 +151,15 @@ xpresentationLayer::buildInputNumberGrid([
 xpresentationLayer::endDiv();
 
 // DOCUMENTOS DE VENTAS
-xpresentationLayer::startDivHidden("docsTransfer");
+xpresentationLayer::startDivHidden("docsSell");
 xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "", "trad_documentos_requeridos");
 xpresentationLayer::startSectionTwoColumns();
 $data_json = $serviceCall->mgetcompliancedoctypel();
 xpresentationLayer::buildSelectJson([
-    'id' => 'typeDocTransfer',
-    'name' => 'typeDocTransfer',
+    'id' => 'typeDocSell',
+    'name' => 'typeDocSell',
 ], $data_json);
-xpresentationLayer::buildInputFileDoc("fileInputTransfer", "hidden", "file1");
+xpresentationLayer::buildInputFileDoc("fileInputSell", "hidden", "file");
 xpresentationLayer::endSection();
 xpresentationLayer::endDiv();
 
