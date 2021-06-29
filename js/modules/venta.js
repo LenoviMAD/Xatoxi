@@ -1,6 +1,7 @@
 import Modal from './Modal.js';
 import { numberFormater, closeEverything, closeEverythingExceptThese } from '../helpers.js';
 import Timer from '../timer.js';
+import { changeLanguageSection } from '../Translations.js'
 
 // Venta
 export default function init() {
@@ -117,6 +118,7 @@ export default function init() {
                             `
                         const inner = document.querySelector('#operationSummary .modal-body')
                         inner.innerHTML = html
+                        changeLanguageSection('#operationSummary')
 
                         modal.openModal('operationSummary')
                     } else if (res.code === "5000") {

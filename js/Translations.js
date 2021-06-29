@@ -1,33 +1,44 @@
-import {toCapitalize} from './helpers.js';
+import { toCapitalize } from './helpers.js';
 
 export default function init() {
-    $(document).ready(function () {
+    $(document).ready(async function () {
         // userLang = window.navigator.language.split('-')[0]
         let btnDropdown = document.getElementById('btnDropdown')
         if (btnDropdown) {
             let dropdownLanguages = document.getElementById('dropdownLanguages')
-            let defaultLang = 'es';
-            let tempLang = ''
-            changeLanguage(defaultLang)
-            
-    
+            let dropbtn = document.querySelector('.dropbtn')
+
+            let formData = new FormData()
+            formData.append("cond", "gettranslate");
+            let data = await fetch("ajax.php", { method: 'POST', body: formData });
+            let res = await data.text();
+
+            // Setear el dropdown con los valores por defecto
+            dropbtn.innerHTML = `${toCapitalize(res)} <div id="flechaAbajo"></div>`
+
+            changeLanguage(res)
+
             dropdownLanguages.childNodes.forEach(item => {
-                item.addEventListener('click', () => {
-                    if(tempLang !== item.dataset.lang) {
-                        tempLang = item.dataset.lang
-                        btnDropdown.innerHTML = `${toCapitalize(item.dataset.lang)} <div id="flechaAbajo"></div>`
-                        changeLanguage(item.dataset.lang)
-                    }
+                item.addEventListener('click', async () => {
+                    let formData = new FormData()
+                    formData.append("cond", "addtranslate");
+                    formData.append("req", item.dataset.lang);
+
+                    let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                    let res = await data.text();
+
+                    btnDropdown.innerHTML = `${toCapitalize(res)} <div id="flechaAbajo"></div>`
+                    changeLanguage(res)
                 })
             })
         }
-        
+
     });
 }
 
 export function changeLanguage(userLang) {
     let translations = `./translations/intl_${userLang}.json`;
-    
+
     $.getJSON(translations)
         .done(function (data) {
             $('.js-translate').each(function () {
@@ -38,9 +49,14 @@ export function changeLanguage(userLang) {
             });
         });
 }
-export function changeLanguageSection(userLang, selector) {
-    let translations = `./translations/intl_${userLang}.json`;
-    
+export async function changeLanguageSection(selector) {
+    let formData = new FormData()
+    formData.append("cond", "gettranslate");
+    let data = await fetch("ajax.php", { method: 'POST', body: formData });
+    let res = await data.text();
+
+    let translations = `./translations/intl_${res}.json`;
+
     $.getJSON(translations)
         .done(function (data) {
             $(`${selector} .js-translate`).each(function () {

@@ -79,7 +79,7 @@ if (isset($_POST["cond"])) {
     if ($_POST["cond"] == "resetpin") {
         $tag = $_POST['tag'];
         $email = $_POST['email'];
-        
+
         $data_json = $client->mresetpin($tag, $email);
         print_r(json_encode($data_json));
     }
@@ -609,6 +609,20 @@ if (isset($_POST["cond"])) {
         print_r(json_encode($data_json));
     }
 
+    if ($_POST["cond"] == "execexchangeok") {
+        $idinstrumentsrc = $_POST["paidMethod"];
+        $idinstrumentdst = $_POST["recieveMethod"];
+        $idcurrencysrc = $_POST["sendCurrency"];
+        $idcurrencydst = $_POST["recieveCurrency"];
+        $amount = $_POST["amount"];
+        $bank = $_POST['bank'];
+        $numref = $_POST['reference'];
+        $routing = $_POST['routing'];
+
+        $data_json = $client->mexecexchangeok($_SESSION['idlead'], $idinstrumentsrc, $idinstrumentdst, $idcurrencysrc, $idcurrencydst, $amount, $bank, $numref, $routing);
+        print_r(json_encode($data_json));
+    }
+
     if ($_POST["cond"] == "genpin") {
         $data_json = $client->mgenpin();
         print_r(json_encode($data_json));
@@ -818,5 +832,18 @@ if (isset($_POST["cond"])) {
         $svgCode = QRcode::svg($data);
 
         echo $svgCode;
+    }
+    if ($_POST["cond"] == "addtranslate") {
+        $_SESSION['translate'] = $_POST['req'];
+
+        echo $_SESSION['translate'];
+    }
+
+    if ($_POST["cond"] == "gettranslate") {
+        if(!$_SESSION['translate']) {
+            $_SESSION['translate'] = "es";
+        }
+
+        echo $_SESSION['translate'];
     }
 }

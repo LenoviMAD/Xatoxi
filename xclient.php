@@ -983,6 +983,35 @@ class xclient
         return ($result);
     } // mexecexchange
 
+    private function bexecexchangeok($idlead, $idinstrumentsrc, $idinstrumentdst, $idcurrencysrc, $idcurrencydst, $amount, $bank, $numref, $routing)
+    {
+        $this->updateField($execexchangeok, "wsuser", $this->user);
+        $this->updateField($execexchangeok, "version", $this->version);
+        $this->updateField($execexchangeok, "wspwd", $this->password);
+        $this->updateField($execexchangeok, "idlead", $idlead);
+        $this->updateField($execexchangeok, "idinstrumentsrc", $idinstrumentsrc);
+        $this->updateField($execexchangeok, "idinstrumentdst", $idinstrumentdst);
+        $this->updateField($execexchangeok, "idcurrencysrc", $idcurrencysrc);
+        $this->updateField($execexchangeok, "idcurrencydst", $idcurrencydst);
+        $this->updateField($execexchangeok, "amount", $amount);
+        $this->updateField($execexchangeok, "bank", $bank);
+        $this->updateField($execexchangeok, "numref", $numref);
+        $this->updateField($execexchangeok, "routing", $routing);
+        return $execexchangeok;
+    } // bexecexchangeok
+
+    function mexecexchangeok($idlead, $idinstrumentsrc, $idinstrumentdst, $idcurrencysrc, $idcurrencydst, $amount, $bank, $numref, $routing)
+    {
+        $this->init($this->url);
+        $execexchangeok =  $this->bexecexchangeok($idlead, $idinstrumentsrc, $idinstrumentdst, $idcurrencysrc, $idcurrencydst, $amount, $bank, $numref, $routing);
+        $data["execexchangeok"] = $execexchangeok;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mexecexchangeok
+
     private function bgetcountrystatel($idcountry)
     {
         $this->updateField($getcountrystatel, "wsuser", $this->user);

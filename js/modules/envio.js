@@ -2,6 +2,8 @@ import Modal from './Modal.js';
 import { test } from './validations.js';
 import { numberFormater, toBase64, servicioFirma, closeEverythingExceptThis, closeEverything, putRequiered } from '../helpers.js';
 import Timer from '../timer.js';
+import { changeLanguageSection } from '../Translations.js'
+
 // Envio
 export default function init() {
     // In your Javascript (external .js resource or <script> tag)
@@ -85,6 +87,7 @@ export default function init() {
                         `
                         const inner = document.querySelector('#operationSummary .modal-body')
                         inner.innerHTML = html
+                        changeLanguageSection('#operationSummary')
 
                         // Cargando Modal
                         modal.openModal('operationSummary')
@@ -182,13 +185,13 @@ export default function init() {
 
                 if (valueSelected === "6") {
                     closeEverythingExceptThis('billeteraFormTest', 'sectionWalletAHC')
-                    putRequiered(['sectionWalletAHC'], ['sectionAccountDeposit', 'sectionCreditCard'])
+                    // putRequiered(['sectionWalletAHC'], ['sectionAccountDeposit', 'sectionCreditCard'])
                 } else if (valueSelected === "3") {
                     closeEverythingExceptThis('billeteraFormTest', 'sectionAccountDeposit')
-                    putRequiered(['sectionAccountDeposit'], ['sectionWalletAHC', 'sectionCreditCard'])
+                    // putRequiered(['sectionAccountDeposit'], ['sectionWalletAHC', 'sectionCreditCard'])
                 } else if (valueSelected === "5") {
                     closeEverythingExceptThis('billeteraFormTest', 'sectionCreditCard')
-                    putRequiered(['sectionCreditCard'], ['sectionWalletAHC', 'sectionAccountDeposit'])
+                    // putRequiered(['sectionCreditCard'], ['sectionWalletAHC', 'sectionAccountDeposit'])
                 } else {
                     closeEverything('billeteraFormTest')
                 }
@@ -419,6 +422,8 @@ export default function init() {
                          `
                         const inner = document.querySelector('#modalEncomienda .modal-body')
                         inner.innerHTML = html
+                        changeLanguageSection('#modalEncomienda')
+
                     } else if (res.code === "5000") {
                         modal.openModal('modalDanger', TITLE_SECTION, res.message)
                     } else {
@@ -476,16 +481,16 @@ export default function init() {
 
                 if (valueSelected === "6") {
                     closeEverythingExceptThis('encomiendaFormTest', 'sectionCommendAHC')
-                    putRequiered(['sectionCommendAHC'], ['sectionCommendDeposit', 'efectivoCommend', 'sectionCommendCreditCard'])
+                    // putRequiered(['sectionCommendAHC'], ['sectionCommendDeposit', 'efectivoCommend', 'sectionCommendCreditCard'])
                 } else if (valueSelected === "3") {
                     closeEverythingExceptThis('encomiendaFormTest', 'sectionCommendDeposit')
-                    putRequiered(['sectionCommendDeposit'], ['sectionCommendAHC', 'efectivoCommend', 'sectionCommendCreditCard'])
+                    // putRequiered(['sectionCommendDeposit'], ['sectionCommendAHC', 'efectivoCommend', 'sectionCommendCreditCard'])
                 } else if (valueSelected === "5") {
                     closeEverythingExceptThis('encomiendaFormTest', 'sectionCommendCreditCard')
-                    putRequiered(['sectionCommendCreditCard'], ['sectionCommendAHC', 'efectivoCommend', 'sectionCommendDeposit'])
+                    // putRequiered(['sectionCommendCreditCard'], ['sectionCommendAHC', 'efectivoCommend', 'sectionCommendDeposit'])
                 } else if (valueSelected === "1") {
                     closeEverythingExceptThis('encomiendaFormTest', 'efectivoCommend')
-                    putRequiered(['efectivoCommend'], ['sectionCommendAHC', 'sectionCommendCreditCard', 'sectionCommendDeposit'])
+                    // putRequiered(['efectivoCommend'], ['sectionCommendAHC', 'sectionCommendCreditCard', 'sectionCommendDeposit'])
                 } else {
                     closeEverything('encomiendaFormTest')
                 }
@@ -783,6 +788,7 @@ export default function init() {
                             `
                         const inner = document.querySelector('#modalTransferencia .modal-body')
                         inner.innerHTML = html
+                        changeLanguageSection('#modalTransferencia')
 
                         // Abrir modal con datos
                         modal.openModal('modalTransferencia')
@@ -831,16 +837,16 @@ export default function init() {
 
                 if (valueSelected === "6") {
                     closeEverythingExceptThis('transferenciaFormTest', 'MovilPayTransfer')
-                    putRequiered(['MovilPayTransfer'], ['accountDeposit', 'cash', 'SectionPrepaidTransfer'])
+                    // putRequiered(['MovilPayTransfer'], ['accountDeposit', 'cash', 'SectionPrepaidTransfer'])
                 } else if (valueSelected === "3") {
                     closeEverythingExceptThis('transferenciaFormTest', 'accountDeposit')
-                    putRequiered(['accountDeposit'], ['MovilPayTransfer', 'cash', 'SectionPrepaidTransfer'])
+                    // putRequiered(['accountDeposit'], ['MovilPayTransfer', 'cash', 'SectionPrepaidTransfer'])
                 } else if (valueSelected === "5") {
                     closeEverythingExceptThis('transferenciaFormTest', 'SectionPrepaidTransfer')
-                    putRequiered(['SectionPrepaidTransfer'], ['accountDeposit', 'cash', 'MovilPayTransfer'])
+                    // putRequiered(['SectionPrepaidTransfer'], ['accountDeposit', 'cash', 'MovilPayTransfer'])
                 } else if (valueSelected === "1") {
                     closeEverythingExceptThis('transferenciaFormTest', 'cash')
-                    putRequiered(['cash'], ['accountDeposit', 'MovilPayTransfer', 'SectionPrepaidTransfer'])
+                    // putRequiered(['cash'], ['accountDeposit', 'MovilPayTransfer', 'SectionPrepaidTransfer'])
                 } else {
                     closeEverything('transferenciaFormTest')
                 }

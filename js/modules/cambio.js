@@ -1,5 +1,6 @@
 import Modal from './Modal.js';
 import { numberFormater, closeEverythingExceptThese, closeEverything, URI, putRequiered, number_format_js } from '../helpers.js';
+import { changeLanguageSection } from '../Translations.js'
 import Timer from '../timer.js';
 
 // Cambio
@@ -50,7 +51,7 @@ export default function init() {
             })
 
             // Toggle para mostrar modal (mas info)
-            recieveCurrency.addEventListener('change', async() => {
+            recieveCurrency.addEventListener('change', async () => {
                 togglePing()
                 calComisionCompra()
             })
@@ -61,56 +62,79 @@ export default function init() {
 
                 // Cargando loader
                 modal.openModal('loader', undefined, undefined, false)
+                let formData = new FormData(cambioForm)
 
-                // GEN OTP FETCH
-                let formData = new FormData()
-                formData.append("cond", "genotp");
-                let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
-                let resOtp = await dataOtp.json();
+                formData.append("cond", "execexchangeok");
+                formData.append("sendCurrency", sendCurrency.options[sendCurrency.selectedIndex].value);
+                formData.append("recieveCurrency", recieveCurrency.options[recieveCurrency.selectedIndex].value);
+                formData.append("recieveMethod", recieveMethod.options[recieveMethod.selectedIndex].value);
+                formData.append("paidMethod", paidMethod.options[paidMethod.selectedIndex].value);
+
+                let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                let resval = await data.json();
 
                 // Quitando loader
                 modal.closeModal('loader')
 
-                if (resOtp.code == "0000") {
-                    // abrir modal para ultimo fetch 
-                    modal.openModal('otpVerification')
-                    timer.updateClock()
-                    document.getElementById('otpCode').value = resOtp.otp
+                if (resval.code === "0000") {
+                    // GEN OTP FETCH
+                    let formData = new FormData()
+                    formData.append("cond", "genotp");
+                    let dataOtp = await fetch("ajax.php", { method: 'POST', body: formData });
+                    let resOtp = await dataOtp.json();
 
-                    document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
-                        e.preventDefault()
+                    // Quitando loader
+                    modal.closeModal('loader')
 
-                        modal.closeModal('otpVerification')
+                    if (resOtp.code == "0000") {
+                        // abrir modal para ultimo fetch 
+                        modal.openModal('otpVerification')
+                        timer.updateClock()
+                        document.getElementById('otpCode').value = resOtp.otp
 
-                        // Cargando loader
-                        modal.openModal('loader', undefined, undefined, false)
-                        let formData = new FormData(cambioForm)
+                        document.querySelector("[data-id='btnOtp']").addEventListener('click', async e => {
+                            e.preventDefault()
 
-                        formData.append("cond", "execexchange");
-                        formData.append("otp", resOtp.otp);
-                        formData.append("sendCurrency", sendCurrency.options[sendCurrency.selectedIndex].value);
-                        formData.append("recieveCurrency", recieveCurrency.options[recieveCurrency.selectedIndex].value);
-                        formData.append("recieveMethod", recieveMethod.options[recieveMethod.selectedIndex].value);
-                        formData.append("paidMethod", paidMethod.options[paidMethod.selectedIndex].value);
+                            modal.closeModal('otpVerification')
 
-                        let data = await fetch("ajax.php", { method: 'POST', body: formData });
-                        let res = await data.json();
+                            // Cargando loader
+                            modal.openModal('loader', undefined, undefined, false)
+                            let formData = new FormData(cambioForm)
 
-                        // Quitando loader
-                        modal.closeModal('loader')
+                            formData.append("cond", "execexchange");
+                            formData.append("otp", resOtp.otp);
+                            formData.append("sendCurrency", sendCurrency.options[sendCurrency.selectedIndex].value);
+                            formData.append("recieveCurrency", recieveCurrency.options[recieveCurrency.selectedIndex].value);
+                            formData.append("recieveMethod", recieveMethod.options[recieveMethod.selectedIndex].value);
+                            formData.append("paidMethod", paidMethod.options[paidMethod.selectedIndex].value);
 
-                        if (res.code === "0000") {
-                            modal.openModal('modalSuccess', TITLE_SECTION, res.message)
-                        } else if (res.code === "5000") {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        } else {
-                            modal.openModal('modalDanger', TITLE_SECTION, res.message)
-                        }
-                    })
-                } else if (resOtp.code === "5000") {
-                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                            let data = await fetch("ajax.php", { method: 'POST', body: formData });
+                            let res = await data.json();
+
+                            // Quitando loader
+                            modal.closeModal('loader')
+
+                            if (res.code === "0000") {
+                                modal.openModal('modalSuccess', TITLE_SECTION, res.message)
+                            } else if (res.code === "5000") {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            } else {
+                                modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                            }
+                        })
+                    } else if (resOtp.code === "5000") {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    } else {
+                        modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    }
+                } else if (resval.code === "5000") {
+                    // Quitando loader
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, resval.message)
                 } else {
-                    modal.openModal('modalDanger', TITLE_SECTION, resOtp.message)
+                    // Quitando loader
+                    modal.closeModal('loader')
+                    modal.openModal('modalDanger', TITLE_SECTION, resval.message)
                 }
             })
 
@@ -118,7 +142,6 @@ export default function init() {
             async function calComisionCompra() {
                 if (amount.value && (paidMethod.options[paidMethod.selectedIndex].value !== "Seleccione") && (recieveMethod.options[recieveMethod.selectedIndex].value !== "Seleccione") && (recieveCurrency.options[recieveCurrency.selectedIndex].value !== "Seleccione") && (sendCurrency.options[sendCurrency.selectedIndex].value !== "Seleccione")) {
 
-                    // Todo: validar campos
                     let formData = new FormData(cambioForm)
                     formData.append("cond", "calcexchange");
                     formData.append("sendCurrency", sendCurrency.options[sendCurrency.selectedIndex].value);
@@ -149,6 +172,7 @@ export default function init() {
 
                         const inner = document.querySelector('#operationSummary .modal-body')
                         inner.innerHTML = html
+                        changeLanguageSection('#operationSummary')
                         // Modificar el boton para que redireccione correctamente
                         // 2 enco
                         // 4 trans
@@ -189,13 +213,13 @@ export default function init() {
 
                 if (valueSelected === "5") {
                     closeEverythingExceptThese('cambioForm', ['bankProviderInput', 'numRefInput', 'routingInput'])
-                    putRequiered(['bankProviderInput', 'numRefInput', 'routingInput'])
+                    // putRequiered(['bankProviderInput', 'numRefInput', 'routingInput'])
                 } else if (valueSelected === "2" || valueSelected === "20" || valueSelected === "21" || valueSelected === "4") {
                     closeEverythingExceptThese('cambioForm', ['bankProviderInput', 'numRefInput'])
-                    putRequiered(['bankProviderInput', 'numRefInput'], ['routingInput'])
+                    // putRequiered(['bankProviderInput', 'numRefInput'], ['routingInput'])
                 } else {
                     closeEverything('cambioForm')
-                    putRequiered([], ['bankProviderInput', 'numRefInput', 'routingInput'])
+                    // putRequiered([], ['bankProviderInput', 'numRefInput', 'routingInput'])
                 }
             })
 
