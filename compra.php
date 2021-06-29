@@ -122,7 +122,7 @@ xpresentationLayer::buildInputTextGrid([
 ]);
 xpresentationLayer::endDiv();
 
-// DOCUMENTOS DE TRANSFER
+// DOCUMENTOS DE COMPRA
 xpresentationLayer::startDivHidden("docsTransfer");
 xpresentationLayer::buildTitleBar("DOCUMENTOS REQUERIDOS", "", "trad_documentos_requeridos");
 xpresentationLayer::startSectionTwoColumns();

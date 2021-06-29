@@ -20,14 +20,14 @@ export default function init() {
             const amountRecieve = document.querySelector(`#${ventaForm.getAttribute('id')} [name="amountRecieve"]`)
             const amountChange = document.querySelector(`#${ventaForm.getAttribute('id')} [name="amountChange"]`)
             const ping = document.querySelector(`#${ventaForm.getAttribute('id')} .ping`)
-
-            // Pago movil
+            const docsTransfer = document.getElementById('docsTransfer')
+                // Pago movil
             const bancoPagoMovil = document.querySelector(`#${ventaForm.getAttribute('id')} [name="bancoPagoMovil"]`)
             const countrycode = document.querySelector(`#${ventaForm.getAttribute('id')} [name="countrycode"]`)
             const codeArea = document.querySelector(`#${ventaForm.getAttribute('id')} [name="codeArea"]`)
             const phone = document.querySelector(`#${ventaForm.getAttribute('id')} [name="phone"]`)
 
-            const init = async () => {
+            const init = async() => {
                 // Fetch session currectly
                 const formData = new FormData();
                 formData.append("cond", "session");
@@ -71,10 +71,10 @@ export default function init() {
 
             // mostrar modal cuando se modifique monto o divisa, teniendo seleccionado una forma de abono
             async function calComisionVenta() {
-                if (amount.value
-                    && (currency.options[currency.selectedIndex].value !== "Seleccione")
-                    && (payIn.options[payIn.selectedIndex].value !== "Seleccione")
-                    && (payForm.options[payForm.selectedIndex].value !== "Seleccione")
+                if (amount.value &&
+                    (currency.options[currency.selectedIndex].value !== "Seleccione") &&
+                    (payIn.options[payIn.selectedIndex].value !== "Seleccione") &&
+                    (payForm.options[payForm.selectedIndex].value !== "Seleccione")
                 ) {
 
                     // Todo: validar campos
@@ -212,6 +212,14 @@ export default function init() {
                     // Quitando spinner
                     modal.closeModal('loader')
                     modal.openModal('modalDanger', TITLE_SECTION, res.message)
+                } else if (res.code.charAt(0) === "7") {
+                    modal.closeModal('loader')
+
+                    // MENSAJE DE ERROR
+                    modal.openModal('modalDanger', TITLE_SECTION, res.message)
+
+                    // MOSTRAMOS LOS CAMPOS PA' QUE SUBAN DOCUMENTOS
+                    docsTransfer.classList.remove('hidden')
                 } else {
                     // Quitando spinner
                     modal.closeModal('loader')
@@ -219,7 +227,7 @@ export default function init() {
                 }
             })
 
-            payIn.addEventListener('change', async () => {
+            payIn.addEventListener('change', async() => {
                 // Mostramos boton de enviar
                 let valueSelected = payIn.options[payIn.selectedIndex].value;
                 /*
@@ -235,7 +243,7 @@ export default function init() {
                     closeEverything('test1')
                 }
             })
-            payForm.addEventListener('change', async () => {
+            payForm.addEventListener('change', async() => {
                 // Mostramos boton de enviar
                 let valueSelected = payForm.options[payForm.selectedIndex].value;
                 /*
