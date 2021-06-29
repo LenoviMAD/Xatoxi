@@ -77,7 +77,7 @@ export default function init() {
                         // Creando elementos para mostrar
                         let html = `
                             <p>
-                                Monto Envío en Divisa <span> ${resAmount}</span> 
+                                <span class="js-translate" data-string="trad_monto_envio_en_divisa">Monto Envío en Divisa</span> <span> ${resAmount}</span>
                             </p>
                             <p>
                                 ${res.txtusdcommission} <span> ${resComission}</span> 
@@ -395,19 +395,19 @@ export default function init() {
                         // Creando elementos para mostrar
                         let html = `
                              <p>
-                                 Monto Divisa a Enviar <span> ${numberFormater(amountCommend.value)}</span>
+                                <span class="js-translate" data-string="trad_monto_divisa_a_enviar">Monto Divisa a Enviar</span> <span> ${numberFormater(amountCommend.value)}</span>
                              </p>
                              <p>
                                  ${res.txtusdcommission} <span> ${numberFormater(res.usdcommission)}</span>
                              </p>
                              <p>
-                                 Tasa de Cambio <span> ${numberFormater(res.usdrate)}</span>
+                                <span class="js-translate" data-string="trad_tasa_de_cambio">Tasa de Cambio</span> <span> ${numberFormater(res.usdrate)}</span>
                              </p>
                              <p>
                                  ${res.txtvescommission} <span> ${numberFormater(res.vescommission)}</span>
                              </p>
                              <p>
-                                 Total Enviar Bs.  <span> ${numberFormater(res.totalves)}</span>
+                                <span class="js-translate" data-string="trad_total_enviar_bs">Total Enviar Bs.</span> <span> ${numberFormater(res.totalves)}</span>
                              </p>
                          `
                         const inner = document.querySelector('#modalEncomienda .modal-body')
@@ -748,19 +748,19 @@ export default function init() {
                         let html = `
                             <div class="text-center">
                                 <p>
-                                    Monto Transferencia en Divisa <br> ${numberFormater(amountTransfer.value)}
+                                    <span class="js-translate" data-string="trad_monto_transferencia_en_divisa">Monto Transferencia en Divisa</span> <span> ${numberFormater(amountTransfer.value)}</span>
                                 </p>
                                 <p>
                                     ${res.txtusdcommission} <br> ${numberFormater(res.usdcommission)}
                                 </p>
                                 <p>
-                                    Tasa de Cambio <br> ${numberFormater(res.usdrate)}
+                                    <span class="js-translate" data-string="trad_tasa_de_cambio">Tasa de Cambio</span> <span> ${numberFormater(res.usdrate)}</span>
                                 </p>
                                 <p>
                                     ${res.txtvescommission} <br> ${numberFormater(res.vescommission)}
                                 </p>
                                 <p>
-                                    Total Transferencia Bs. <br> ${numberFormater(res.totalves)}
+                                    <span class="js-translate" data-string="trad_total_transferencia_bs">Total Transferencia Bs.</span> <span> ${numberFormater(res.totalves)}</span>
                                 </p>
                             </div>
                             `
