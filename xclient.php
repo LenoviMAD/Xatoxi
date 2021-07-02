@@ -1908,4 +1908,26 @@ class xclient
         return ($result);
     } // mgetoccupationl
 
+    private function bgetpartylead($email)
+    {
+        $this->updateField($getpartylead, "wsuser", $this->user);
+        $this->updateField($getpartylead, "version", $this->version);
+        $this->updateField($getpartylead, "wspwd", $this->password);
+        $this->updateField($getpartylead, "idlead", $_SESSION['idlead']);
+        $this->updateField($getpartylead, "email", $email);
+        return $getpartylead;
+    } // bgetpartylead
+
+    function mgetpartylead($email)
+    {
+        $this->init($this->url);
+        $getpartylead =  $this->bgetpartylead($email);
+        $data["getpartylead"] = $getpartylead;
+        $data_string = json_encode($data);
+        curl_setopt($this->client, CURLOPT_POSTFIELDS, $data_string);
+        $response = curl_exec($this->client);
+        $result = json_decode($response);
+        return ($result);
+    } // mgetpartylead
+
 } // class xclient

@@ -728,8 +728,8 @@ if (isset($_POST["cond"])) {
 
         // Guardar variables de sesion primera parte
         if ($data_json->code === "0000") {
-            // $_SESSION['idlocation'] = $data_json->idlocation;
-            $_SESSION['idlocation'] = "4";
+            $_SESSION['idlocation'] = $data_json->idlocation;
+            // $_SESSION['idlocation'] = "4";
         }
 
         print_r(json_encode($data_json));
@@ -845,5 +845,12 @@ if (isset($_POST["cond"])) {
         }
 
         echo $_SESSION['translate'];
+    }
+    if ($_POST["cond"] == "mgetpartylead") {
+        $email = $_POST['email'];
+
+        $data_json = $client->mgetpartylead($email);
+
+        print_r(json_encode($data_json));
     }
 }

@@ -1,5 +1,4 @@
 import Modal from "./Modal.js";
-import Timer from '../timer.js';
 import { selectValorforId } from '../helpers.js';
 
 // Cambio
@@ -7,17 +6,15 @@ export default function init() {
     document.addEventListener("DOMContentLoaded", () => {
         const modal = new Modal();
         modal.initModal();
-        const timer = new Timer
         const TITLE_SECTION = "Registro"
         const registerForm = document.getElementById("registerForm");
 
         if (registerForm) {
-            const btnRegister = document.getElementById('btnRegister')
             const country = document.querySelector(`#${registerForm.getAttribute('id')} [name="country"]`)
-            const codeArea = document.querySelector(`#${registerForm.getAttribute('id')} [name="codeArea"]`)
-            const confirmEmail = document.querySelector(`#${registerForm.getAttribute('id')} [name="confirmEmail"]`)
+            const areaCode = document.querySelector(`#${registerForm.getAttribute('id')} [name="areaCode"]`)
+            const phone = document.querySelector(`#${registerForm.getAttribute('id')} [name="phone"]`)
             const email = document.querySelector(`#${registerForm.getAttribute('id')} [name="email"]`)
-            const textDanger = document.querySelector(`.helper-text`)
+            const btnsubmit = document.querySelector(`#${registerForm.getAttribute('id')} button[type="submit"]`)
 
             country.childNodes.forEach(element => {
                 if (element.value === "58") {
@@ -25,45 +22,58 @@ export default function init() {
                     changeCodeArea()
                 }
             });
-            
+
             country.addEventListener('change', () => {
                 changeCodeArea()
+            })
+            email.addEventListener('blur', async () => {
+                let formData = new FormData();
+                formData.append("cond", "mgetpartylead");
+                formData.append("email", email);
+
+                let data = await fetch("ajax.php", {
+                    method: "POST",
+                    body: formData,
+                });
+                const res = await data.json();
+                console.log(res, 'getpartylead')
+                // Fetch exitoso
+                if (res.code === "0000") {
+                    // Si trajo algo de info
+                    if (res.areacode) {
+                        country.childNodes.forEach(element => {
+                            if (element.value === res.countrycode) {
+                                element.setAttribute("selected", true)
+                            }
+                        });
+
+                        await selectValorforId('countryinternationalphonecode/areaCode', 'ajax.php?cond=mgetcellphoneareacodel')
+
+                        areaCode.childNodes.forEach(element => {
+                            if (element.value === res.areacode) {
+                                element.setAttribute("selected", true)
+                            }
+                        });
+
+                        phone.value = res.phonenumber
+                    }
+                }
             })
 
             async function changeCodeArea() {
                 await selectValorforId('countryinternationalphonecode/areaCode', 'ajax.php?cond=mgetcellphoneareacodel')
-
-                // let output = "";
-                // let countryEnd = country.options[country.selectedIndex].value == "238" ? "58" : country.options[country.selectedIndex].value
-
-                // let formData = new FormData();
-                // formData.append("cond", "mgetcellphoneareacodel");
-                // formData.append("countrycode", countryEnd);
-
-                // let data = await fetch("ajax.php", {
-                //     method: "POST",
-                //     body: formData,
-                // });
-                // const res = await data.json();
-
-
-                // res.list.forEach(element => {
-                //     output += `<option value="${element.code}">${element.code}</option>`;
-                // }); 
-                // codeArea.innerHTML = output;
             }
 
             registerForm.addEventListener("submit", async (e) => {
                 e.preventDefault();
+                btnsubmit.setAttribute('disabled', true)
+
                 // Cargando loader
                 modal.openModal('loader', undefined, undefined, false)
 
-                // Enviamos info para primer paso de registro
-                // let countryEnd = country.options[country.selectedIndex].value == "238" ? "58" : country.options[country.selectedIndex].value
-
                 let formData = new FormData(registerForm);
                 formData.append("cond", "addleadweb");
-                
+
                 let dataSignup = await fetch("ajax.php", {
                     method: "POST",
                     body: formData,
@@ -80,13 +90,15 @@ export default function init() {
 
                     btnReturn.classList.remove('hidden')
                     btnCloseModal.classList.add('hidden')
-                    
+
                     modal.openModal('modalSuccess2', TITLE_SECTION, resSignup.message)
                 } else if (resSignup.code === "5000") {
                     modal.openModal("modalDanger", TITLE_SECTION, resSignup.message);
                 } else {
                     modal.openModal("modalDanger", TITLE_SECTION, resSignup.message);
                 }
+                
+                btnsubmit.removeAttribute('disabled')
             });
         }
     });
