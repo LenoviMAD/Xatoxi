@@ -29,14 +29,14 @@ export default function init() {
             email.addEventListener('blur', async () => {
                 let formData = new FormData();
                 formData.append("cond", "mgetpartylead");
-                formData.append("email", email);
+                formData.append("email", email.value);
 
                 let data = await fetch("ajax.php", {
                     method: "POST",
                     body: formData,
                 });
                 const res = await data.json();
-                console.log(res, 'getpartylead')
+                
                 // Fetch exitoso
                 if (res.code === "0000") {
                     // Si trajo algo de info

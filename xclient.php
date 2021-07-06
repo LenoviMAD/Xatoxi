@@ -6,7 +6,7 @@ class xclient
 {
 
     private $client;
-    private $version = "1.2.1";
+    private $version = "1.3.0";
     private $url = "https://www.italcontroller.com/italsisdev/includes/rest/SERVER/XATOXI/services.php";
     private $user = "WSITALCAMBIO";
     private $password = "1cc61eb7ae2187eb91f97d1ae5300919";
@@ -1913,7 +1913,6 @@ class xclient
         $this->updateField($getpartylead, "wsuser", $this->user);
         $this->updateField($getpartylead, "version", $this->version);
         $this->updateField($getpartylead, "wspwd", $this->password);
-        $this->updateField($getpartylead, "idlead", $_SESSION['idlead']);
         $this->updateField($getpartylead, "email", $email);
         return $getpartylead;
     } // bgetpartylead

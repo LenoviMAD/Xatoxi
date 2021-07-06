@@ -4,10 +4,12 @@ export default function init() {
         const video = document.getElementById("video");
 
         if (video) {
+            console.log('aloooo')
             const btnVideoUpload = document.getElementById("btnVideoUpload");
             const btnTakePhoto = document.getElementById("btnTakePhoto");
             const canvas = document.getElementById("canvas");
-            let canvasContext
+            var canvasContext
+
             if (canvas) {
                 canvasContext = canvas.getContext('2d');
             }

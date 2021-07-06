@@ -52,6 +52,7 @@ xpresentationLayer::buildInputNumberGrid([
     'name' => 'phone',
     'required' => true,
     'class' => 'grid-item-2',
+    'maxlength' => 7,
     'dataString' => 'trad_movil'
 ]);
 

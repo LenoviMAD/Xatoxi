@@ -40,8 +40,8 @@ class xpresentationLayer
         echo  ' <SCRIPT src="js/jquery.min.js"></SCRIPT>';
         echo  ' <script type="text/javascript" src="js/libs/DataTables/datatables.min.js"></script>';
         echo  ' <SCRIPT src="js/select2.full.min.js"></SCRIPT>';
-        // echo  ' <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-        // <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>';
+        echo  ' <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>';
         echo  ' <SCRIPT src="js/main.js" language="javascript" type="text/javascript"></SCRIPT>';
         echo  ' <SCRIPT src="js/main2.js" type="module"></SCRIPT>';
     } // endHtml
